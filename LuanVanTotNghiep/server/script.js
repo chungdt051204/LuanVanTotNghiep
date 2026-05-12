@@ -1,6 +1,26 @@
+import dotenv from "dotenv";
+dotenv.config();
+import connectDB from "./configs/database.js";
+connectDB();
+import "./configs/passport.js";
 import express from "express";
+import cors from "cors";
 const app = express();
 const port = 3000;
+import { authRouter } from "./routers/authRouter.js";
+import { userRouter } from "./routers/userRouter.js";
+app.use(
+  cors({
+    origin: process.env.URL_FRONTEND,
+    credentials: true,
+  })
+);
+app.use(express.json());
+app.use("/", authRouter);
+app.use("/", userRouter);
+app.get("/", (req, res) => {
+  return res.json("Server is running...");
+});
 app.listen(port, () => {
   console.log("Server đang chạy với port:" + port);
 });
