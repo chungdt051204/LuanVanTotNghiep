@@ -3,6 +3,7 @@ dotenv.config();
 import jsonwebtoken from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import userEntity from "../models/userModel.js";
+import { RoleService } from "./roleService.js";
 const saltRounds = 10;
 
 export class AuthService {
@@ -30,20 +31,23 @@ export class AuthService {
       throw error;
     }
     const hashedPassword = await bcrypt.hash(data.password, saltRounds);
+    const role = await new RoleService().getRoleByName({ name: data.role });
     const newUser = await userEntity.create({
       full_name: data.fullName,
       email: data.email,
       password: hashedPassword,
-      role: data.role,
+      role_id: role._id,
     });
     return newUser;
   };
 
   Login = async ({ data }) => {
-    const existingUser = await userEntity.findOne({
-      email: data.email,
-      login_method: "email thường",
-    });
+    const existingUser = await userEntity
+      .findOne({
+        email: data.email,
+        login_method: "email thường",
+      })
+      .populate("role_id");
     if (!existingUser) {
       const error = new Error("Tài khoản không tồn tại hoặc đã bị xóa!");
       error.statusCode = 404;

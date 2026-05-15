@@ -10,6 +10,9 @@ const userSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
+    phone: {
+      type: String,
+    },
     password: {
       type: String,
     },
@@ -18,10 +21,9 @@ const userSchema = new mongoose.Schema(
       default:
         "https://static.vecteezy.com/system/resources/previews/019/879/186/non_2x/user-icon-on-transparent-background-free-png.png",
     },
-    role: {
-      type: String,
-      enum: ["user", "instructor", "admin"],
-      default: "user",
+    role_id: {
+      type: mongoose.Schema.ObjectId,
+      ref: "roleEntity",
     },
     login_method: {
       type: String,

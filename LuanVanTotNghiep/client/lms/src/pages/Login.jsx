@@ -30,9 +30,12 @@ const Login = () => {
       localStorage.setItem("token", result.token);
       dispatch(setIsLogin(true));
       dispatch(setMe(result.data));
+      console.log(result.data.role_id.role);
       toast.success(result?.message || "Đăng nhập thành công");
       setTimeout(() => {
-        navigate("/");
+        if (result.data.role_id.role === "instructor")
+          navigate("/instructor/dashboard");
+        else navigate("/");
       }, 1000);
     } catch (error) {
       const status = error.status;

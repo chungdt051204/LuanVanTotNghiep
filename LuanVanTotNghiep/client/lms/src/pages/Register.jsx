@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { IoBookOutline } from "react-icons/io5";
 import { authService } from "../services/authService";
 import { validateForm } from "../../helper/validateForm";
@@ -7,6 +8,8 @@ import { toast } from "react-toastify";
 
 const Register = () => {
   const navigate = useNavigate();
+  const roles = useSelector((state) => state.roles.items);
+  const rolesDisplay = roles?.filter((item) => item.role !== "admin") || [];
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -25,6 +28,7 @@ const Register = () => {
         fullName: formData.fullName,
         email: formData.email,
         password: formData.password,
+        role: formData.role,
         setError,
       })
     ) {
@@ -134,38 +138,32 @@ const Register = () => {
               Bạn muốn đăng ký với vai trò
             </label>
             <div className="flex flex-col justify-between h-[100px]">
-              <div className="flex items-center p-2 border-1 border-icon-muted rounded-[8px]">
-                <input
-                  checked={formData.role == "user"}
-                  value="user"
-                  onChange={(e) =>
-                    setFormData((prev) => ({ ...prev, role: e.target.value }))
-                  }
-                  type="radio"
-                />
-                <p className="text-body-lg font-medium text-surface-nav ms-2">
-                  Học viên
-                </p>
-                <p className="text-body-md font-medium text-nav-muted ms-2">
-                  Tham gia học các khóa học
-                </p>
-              </div>
-              <div className="flex items-center p-2 border-1 border-icon-muted rounded-[8px]">
-                <input
-                  checked={formData.role == "instructor"}
-                  value="instructor"
-                  onChange={(e) =>
-                    setFormData((prev) => ({ ...prev, role: e.target.value }))
-                  }
-                  type="radio"
-                />
-                <p className="text-body-lg font-medium text-surface-nav ms-2">
-                  Giảng viên
-                </p>
-                <p className="text-body-md font-medium text-nav-muted ms-2">
-                  Tạo và bán khóa học
-                </p>
-              </div>
+              {rolesDisplay?.map((value) => {
+                return (
+                  <div
+                    key={value._id}
+                    className="flex items-center p-2 border-1 border-icon-muted rounded-[8px]"
+                  >
+                    <input
+                      checked={formData.role === value.role}
+                      value={value.role}
+                      onChange={(e) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          role: e.target.value,
+                        }))
+                      }
+                      type="radio"
+                    />
+                    <p className="text-body-lg font-medium text-surface-nav ms-2">
+                      {value.displayName}
+                    </p>
+                    <p className="text-body-md font-medium text-nav-muted ms-2">
+                      {value.description}
+                    </p>
+                  </div>
+                );
+              })}
             </div>
             <input
               className="p-2 border-1 rounded-[8px] mt-[15px] text-title-lg font-medium text-surface-white bg-surface-nav hover:cursor-pointer hover:text-surface-bg"

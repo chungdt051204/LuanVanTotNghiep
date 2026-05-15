@@ -8,7 +8,9 @@ export class UserService {
     const token = data.slice(7);
     try {
       const decoded = jsonwebtoken.verify(token, process.env.JWT_SECRET);
-      const me = await userEntity.findOne({ _id: decoded.sub });
+      const me = await userEntity
+        .findOne({ _id: decoded.sub })
+        .populate("role_id");
       if (!me) {
         const error = new Error("Tài khoản không tồn tại hoặc đã bị xóa");
         error.statusCode = 401;

@@ -57,4 +57,65 @@ export const validateForm = {
     }
     return isValid;
   },
+  validateFormCourse: ({ courseInfo, categoryIds }) => {
+    const alphaNumericRegex =
+      /^[a-zA-Z0-9ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s]+$/;
+    const onlyNumberRegex = /^[0-9]+$/;
+    const levels = ["Cơ bản", "Trung bình", "Nâng cao"];
+    let isValid = true;
+    //Kiểm tra tên khóa học
+    if (!courseInfo.courseName.trim()) {
+      const error = new Error("Tên khóa học không được bỏ trống!");
+      error.statusCode = 422;
+      isValid = false;
+      throw error;
+    } else if (
+      courseInfo.courseName.trim().length < 3 ||
+      courseInfo.courseName.trim().length > 50
+    ) {
+      const error = new Error("Tên khóa học phải từ 3 đến 50 ký tự!");
+      error.statusCode = 422;
+      isValid = false;
+      throw error;
+    } else if (!alphaNumericRegex.test(courseInfo.courseName)) {
+      const error = new Error("Tên khóa học không được chứa ký tự đặt biệt!");
+      error.statusCode = 422;
+      isValid = false;
+      throw error;
+    }
+    //Kiểm tra danh mục
+    if (!courseInfo.category_id) {
+      const error = new Error("Vui lòng chọn danh mục!");
+      error.statusCode = 422;
+      isValid = false;
+      throw error;
+    } else if (
+      !categoryIds.some((value) => value._id == courseInfo.category_id)
+    ) {
+      const error = new Error("Danh mục không hợp lệ!");
+      error.statusCode = 422;
+      isValid = false;
+      throw error;
+    }
+    //Kiểm tra cấp độ
+    if (!courseInfo.level) {
+      const error = new Error("Vui lòng chọn cấp độ!");
+      error.statusCode = 422;
+      isValid = false;
+      throw error;
+    } else if (!levels.includes(courseInfo.level)) {
+      const error = new Error("Không có cấp độ này!");
+      error.statusCode = 422;
+      isValid = false;
+      throw error;
+    }
+    //Kiểm tra giá
+    if (!onlyNumberRegex.test(courseInfo.price)) {
+      const error = new Error("Vui lòng nhập đúng định dạng giá!");
+      error.statusCode = 422;
+      isValid = false;
+      throw error;
+    }
+    return isValid;
+  },
 };

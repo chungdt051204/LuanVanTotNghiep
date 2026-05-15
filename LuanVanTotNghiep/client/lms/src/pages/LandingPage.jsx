@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setIsLogin } from "../stores/features/authSlice";
 import { setMe } from "../stores/features/meSlice";
-import { toast } from "react-toastify";
+import { authService } from "../services/authService";
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -10,13 +10,7 @@ const LandingPage = () => {
   const isLogin = useSelector((state) => state.auth.isLogin);
   const me = useSelector((state) => state.me.item);
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    dispatch(setIsLogin(false));
-    dispatch(setMe(null));
-    toast.success("Đăng xuất thành công");
-    setTimeout(() => {
-      navigate("/");
-    }, 1000);
+    authService.Logout({ dispatch, setIsLogin, setMe, navigate });
   };
   return (
     <>
