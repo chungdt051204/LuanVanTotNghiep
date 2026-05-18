@@ -46,7 +46,7 @@ export const validateForm = {
     }
     return isValid;
   },
-  validateFormCourse: ({ courseInfo, setError }) => {
+  validateFormCourse: ({ courseInfo, isEdit, setError }) => {
     setError({
       errorCourseName: "",
       errorDescription: "",
@@ -85,23 +85,26 @@ export const validateForm = {
       errors.errorLevel = "Vui lòng chọn cấp độ!";
       isValid = false;
     }
-    //Kiểm tra ảnh khóa học và ảnh bìa
-    if (!courseInfo.image || !courseInfo.thumbnail) {
-      errors.errorFile = "Vui lòng chọn ảnh!";
-      isValid = false;
-    } else if (
-      courseInfo.image?.size > 300000 ||
-      courseInfo.thumbnail?.size > 300000
-    ) {
-      errors.errorFile = "Kích thước ảnh tối đa 300KB!";
-      isValid = false;
-    } else if (
-      !allowedFormats.includes(courseInfo.image?.type) ||
-      !allowedFormats.includes(courseInfo.thumbnail?.type)
-    ) {
-      errors.errorFile = "Định dạng ảnh không hợp lệ!";
-      isValid = false;
+    if (!isEdit) {
+      //Kiểm tra ảnh khóa học và ảnh bìa
+      if (!courseInfo.image || !courseInfo.thumbnail) {
+        errors.errorFile = "Vui lòng chọn ảnh!";
+        isValid = false;
+      } else if (
+        courseInfo.image?.size > 300000 ||
+        courseInfo.thumbnail?.size > 300000
+      ) {
+        errors.errorFile = "Kích thước ảnh tối đa 300KB!";
+        isValid = false;
+      } else if (
+        !allowedFormats.includes(courseInfo.image?.type) ||
+        !allowedFormats.includes(courseInfo.thumbnail?.type)
+      ) {
+        errors.errorFile = "Định dạng ảnh không hợp lệ!";
+        isValid = false;
+      }
     }
+
     //Kiểm tra giá
     if (!onlyNumberRegex.test(courseInfo.price)) {
       errors.errorPrice = "Vui lòng nhập đúng định dạng giá!";

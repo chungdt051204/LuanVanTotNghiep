@@ -3,8 +3,9 @@ import { UserService } from "../services/userService.js";
 export class UserController {
   getUserProfile = async (req, res) => {
     try {
+      const payload = req.payload;
       const result = await new UserService().getUserProfile({
-        data: req.headers.authorization,
+        payload,
       });
       return res.status(200).json({ data: result });
     } catch (error) {

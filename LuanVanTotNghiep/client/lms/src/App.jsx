@@ -9,13 +9,19 @@ import { useEffect } from "react";
 import { userService } from "./services/userService";
 import { setIsLogin } from "./stores/features/authSlice";
 import { setMe } from "./stores/features/meSlice";
-import AddCourse from "./pages/instructor/AddCourse";
+
 import InstructorCourses from "./pages/instructor/Courses";
 import ProtectedRouteInstructor from "./pages/instructor/ProtectedRoute";
 import { roleService } from "./services/roleService";
 import { setRoles } from "./stores/features/roleSlice";
 import { setCategories } from "./stores/features/categorySlice";
 import { categoryService } from "./services/categoryService";
+import CourseEditor from "./pages/instructor/CourseEditor";
+import InstructorPage from "./pages/instructor/InstructorPage";
+import Quizzes from "./pages/instructor/Quizzes";
+import Students from "./pages/instructor/Students";
+import Comments from "./pages/instructor/Comments";
+
 export const api = "http://localhost:3000";
 function App() {
   const dispatch = useDispatch();
@@ -58,16 +64,19 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="" element={<LandingPage />} />
         <Route element={<ProtectedRouteInstructor />}>
-          <Route
-            path="instructor/dashboard"
-            element={<InstructorDashboard />}
-          />
-          <Route path="instructor/courses" element={<InstructorCourses />} />
-          <Route path="instructor/courses/add" element={<AddCourse />} />
+          <Route path="/instructor" element={<InstructorPage />}>
+            <Route path="dashboard" element={<InstructorDashboard />} />
+            <Route path="courses" element={<InstructorCourses />} />
+            <Route path="course/add" element={<CourseEditor />} />
+            <Route path="course/:courseId/edit" element={<CourseEditor />} />
+            <Route path="quizzes" element={<Quizzes />} />
+            <Route path="students" element={<Students />} />
+            <Route path="comments" element={<Comments />} />
+          </Route>
         </Route>
       </Routes>
       <ToastContainer autoClose={1500} position="top-center" />

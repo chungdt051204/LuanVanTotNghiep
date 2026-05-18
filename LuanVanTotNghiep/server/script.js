@@ -12,6 +12,7 @@ import { roleRouter } from "./routers/roleRouter.js";
 import { userRouter } from "./routers/userRouter.js";
 import { categoryRouter } from "./routers/categoryRouter.js";
 import { courseRouter } from "./routers/courseRouter.js";
+import { lessonRouter } from "./routers/lessonRouter.js";
 app.use(
   cors({
     origin: process.env.URL_FRONTEND,
@@ -24,6 +25,7 @@ app.use("/", roleRouter);
 app.use("/", userRouter);
 app.use("/", categoryRouter);
 app.use("/", courseRouter);
+app.use("/", lessonRouter);
 app.get("/", (req, res) => {
   return res.json("Server is running...");
 });
