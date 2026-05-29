@@ -73,4 +73,6 @@
   --color-brand-blue: #407bff;
   --color-brand-primary: #c8102e; /* Arena Red */
   --background-image-auth: linear-gradient(to right, #407bff, #c100fc);
+  --color-primary-purple: #4a278c;
+  --color-primary-purple-light: #6b46c1;
 }

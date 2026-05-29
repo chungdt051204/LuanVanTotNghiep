@@ -15,10 +15,20 @@ import { CourseController } from "../controllers/courseController.js";
 import { middleware } from "../middlewares/middleware.js";
 const prefix = "";
 courseRouter.get(
+  `${prefix}/courses`,
+  new CourseController().getApprovedCourses
+);
+courseRouter.get(
   `${prefix}/instructor/courses`,
   middleware.verifyToken,
   middleware.isInstructor,
   new CourseController().getCoursesByInstructor
+);
+courseRouter.get(
+  `${prefix}/admin/courses`,
+  middleware.verifyToken,
+  middleware.isAdmin,
+  new CourseController().getCoursesByAdmin
 );
 courseRouter.get(`${prefix}/course/:id`, new CourseController().getCourseById);
 courseRouter.post(
@@ -46,4 +56,22 @@ courseRouter.delete(
   middleware.verifyToken,
   middleware.isInstructor,
   new CourseController().deleteCourse
+);
+courseRouter.put(
+  `${prefix}/instructor/course/:id/status`,
+  middleware.verifyToken,
+  middleware.isInstructor,
+  new CourseController().submitOrUnSubmitCourse
+);
+courseRouter.put(
+  `${prefix}/instructor/course/:id/action`,
+  middleware.verifyToken,
+  middleware.isInstructor,
+  new CourseController().deleteOrRestoreCourse
+);
+courseRouter.put(
+  `${prefix}/admin/course/:id/status`,
+  middleware.verifyToken,
+  middleware.isAdmin,
+  new CourseController().approveOrRejectCourse
 );

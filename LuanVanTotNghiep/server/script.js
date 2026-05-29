@@ -13,6 +13,10 @@ import { userRouter } from "./routers/userRouter.js";
 import { categoryRouter } from "./routers/categoryRouter.js";
 import { courseRouter } from "./routers/courseRouter.js";
 import { lessonRouter } from "./routers/lessonRouter.js";
+import { enrollmentRouter } from "./routers/enrollmentRouter.js";
+import { lessonProgressRouter } from "./routers/lessonProgressRouter.js";
+import { testRouter } from "./routers/testRouter.js";
+import { questionRouter } from "./routers/questionRouter.js";
 app.use(
   cors({
     origin: process.env.URL_FRONTEND,
@@ -26,6 +30,10 @@ app.use("/", userRouter);
 app.use("/", categoryRouter);
 app.use("/", courseRouter);
 app.use("/", lessonRouter);
+app.use("/", enrollmentRouter);
+app.use("/", lessonProgressRouter);
+app.use("/", testRouter);
+app.use("/", questionRouter);
 app.get("/", (req, res) => {
   return res.json("Server is running...");
 });

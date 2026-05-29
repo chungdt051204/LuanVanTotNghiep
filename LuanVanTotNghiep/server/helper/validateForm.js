@@ -58,8 +58,7 @@ export const validateForm = {
     return isValid;
   },
   validateFormCourse: ({ courseInfo, categoryIds }) => {
-    const alphaNumericRegex =
-      /^[a-zA-Z0-9ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s]+$/;
+    const courseNameRegex = /^[\p{L}\p{N}\s&.+\-_()#/,"';:!?%*]+$/u;
     const onlyNumberRegex = /^[0-9]+$/;
     const levels = ["Cơ bản", "Trung bình", "Nâng cao"];
     let isValid = true;
@@ -77,8 +76,10 @@ export const validateForm = {
       error.statusCode = 422;
       isValid = false;
       throw error;
-    } else if (!alphaNumericRegex.test(courseInfo.courseName)) {
-      const error = new Error("Tên khóa học không được chứa ký tự đặt biệt!");
+    } else if (!courseNameRegex.test(courseInfo.courseName)) {
+      const error = new Error(
+        "Tên khóa học không được chứa ký tự không hợp lệ!"
+      );
       error.statusCode = 422;
       isValid = false;
       throw error;

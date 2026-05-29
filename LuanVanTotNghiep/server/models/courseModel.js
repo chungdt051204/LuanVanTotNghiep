@@ -49,8 +49,12 @@ const courseSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ["Bản nháp", "Chờ duyệt", "Đã đăng tải", "Bị từ chối"],
-      default: "Bản nháp",
+      enum: ["draft", "pending", "approved", "rejected"],
+      default: "draft",
+    },
+    is_visible: {
+      type: Boolean,
+      default: 1,
     },
   },
   {

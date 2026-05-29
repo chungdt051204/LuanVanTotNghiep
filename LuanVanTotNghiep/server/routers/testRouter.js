@@ -1,0 +1,18 @@
+import express from "express";
+export const testRouter = express.Router();
+import { TestController } from "../controllers/testController.js";
+const prefix = "";
+import { middleware } from "../middlewares/middleware.js";
+testRouter.get(
+  `${prefix}/instructor/tests`,
+  middleware.verifyToken,
+  middleware.isInstructor,
+  new TestController().getTestsByInstructor
+);
+testRouter.get(`${prefix}/test/:id`, new TestController().getTestById);
+testRouter.post(
+  `${prefix}/instructor/test/create`,
+  middleware.verifyToken,
+  middleware.isInstructor,
+  new TestController().createTest
+);

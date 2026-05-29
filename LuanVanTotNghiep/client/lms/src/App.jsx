@@ -19,8 +19,16 @@ import { categoryService } from "./services/categoryService";
 import CourseEditor from "./pages/instructor/CourseEditor";
 import InstructorPage from "./pages/instructor/InstructorPage";
 import Quizzes from "./pages/instructor/Quizzes";
+import QuizEditor from "./pages/instructor/QuizEditor";
 import Students from "./pages/instructor/Students";
 import Comments from "./pages/instructor/Comments";
+
+import ProtectedRouteAdmin from "./pages/admin/ProtectedRoute";
+import AdminPage from "./pages/admin/AdminPage";
+import AdminDashboard from "./pages/admin/Dashboard";
+import AdminCourses from "./pages/admin/Courses";
+import CourseDetail from "./pages/user/CourseDetail";
+import LessonDetail from "./pages/LessonDetail";
 
 export const api = "http://localhost:3000";
 function App() {
@@ -30,6 +38,7 @@ function App() {
   useEffect(() => {
     const getAllRoles = async () => {
       const result = await roleService.getAllRoles();
+      console.log(result);
       dispatch(setRoles(result.data));
     };
     getAllRoles();
@@ -66,7 +75,9 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="" element={<LandingPage />} />
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/course/:id" element={<CourseDetail />} />
+        <Route path="/course/:courseId/lesson/:id" element={<LessonDetail />} />
         <Route element={<ProtectedRouteInstructor />}>
           <Route path="/instructor" element={<InstructorPage />}>
             <Route path="dashboard" element={<InstructorDashboard />} />
@@ -74,8 +85,16 @@ function App() {
             <Route path="course/add" element={<CourseEditor />} />
             <Route path="course/:courseId/edit" element={<CourseEditor />} />
             <Route path="quizzes" element={<Quizzes />} />
+            <Route path="quiz/create" element={<QuizEditor />} />
+            <Route path="quiz/:quizId/edit" element={<QuizEditor />} />
             <Route path="students" element={<Students />} />
             <Route path="comments" element={<Comments />} />
+          </Route>
+        </Route>
+        <Route element={<ProtectedRouteAdmin />}>
+          <Route path="/admin" element={<AdminPage />}>
+            <Route path="dashboard" element={<AdminDashboard />} />
+            <Route path="courses" element={<AdminCourses />} />
           </Route>
         </Route>
       </Routes>

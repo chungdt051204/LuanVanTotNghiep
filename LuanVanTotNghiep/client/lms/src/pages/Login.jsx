@@ -35,6 +35,8 @@ const Login = () => {
       setTimeout(() => {
         if (result.data.role_id.role === "instructor")
           navigate("/instructor/dashboard");
+        else if (result.data.role_id.role === "admin")
+          navigate("/admin/dashboard");
         else navigate("/");
       }, 1000);
     } catch (error) {

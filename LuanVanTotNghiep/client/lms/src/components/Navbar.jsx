@@ -8,6 +8,9 @@ import { IoBarChartOutline } from "react-icons/io5";
 import { IoDocumentTextOutline } from "react-icons/io5";
 import { RxPeople } from "react-icons/rx";
 import { BiComment } from "react-icons/bi";
+import { LuUserRound } from "react-icons/lu";
+import { AiOutlineHome } from "react-icons/ai";
+
 export const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -15,7 +18,18 @@ export const Navbar = () => {
   const me = useSelector((state) => state.me.item);
   const currentRole = me?.role_id?.role || "user";
   const navbarItem = {
-    user: ["Trang chủ", "Khóa học"],
+    user: [
+      {
+        item: <AiOutlineHome />,
+        title: "Trang chủ",
+        route: "/",
+      },
+      {
+        item: <IoBookOutline />,
+        title: "Khóa học",
+        route: "/courses",
+      },
+    ],
     instructor: [
       {
         item: <IoBarChartOutline />,
@@ -40,11 +54,27 @@ export const Navbar = () => {
       },
     ],
     admin: [
-      "Dashboard",
-      "Khóa học",
-      "Giảng viên",
-      "Học viên",
-      "Bình luận & Đánh giá",
+      {
+        item: <IoBarChartOutline />,
+        title: "Dashboard",
+        route: "/admin/dashboard",
+      },
+      {
+        item: <IoBookOutline />,
+        title: "Khóa học",
+        route: "/admin/courses",
+      },
+      {
+        item: <LuUserRound />,
+        title: "Giảng viên",
+        route: "/admin/instructors",
+      },
+      { item: <RxPeople />, title: "Người dùng", route: "/admin/users" },
+      {
+        item: <BiComment />,
+        title: "Bình luận",
+        route: "/admin/comments",
+      },
     ],
   };
   const handleLogout = () => {
@@ -83,7 +113,13 @@ export const Navbar = () => {
         <div>
           {isLogin && me ? (
             <div className="flex items-center">
-              <img src={me.avatar} alt="" width={50} height={50} />
+              <img
+                src={me.avatar}
+                alt=""
+                width={50}
+                height={50}
+                referrerPolicy="no-referrer"
+              />
               <button onClick={handleLogout}>Đăng xuất</button>
             </div>
           ) : (

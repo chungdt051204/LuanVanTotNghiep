@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
-import Navbar from "../components/NavBar";
+import ListCourses from "../components/ListCourses";
+import Navbar from "../components/Navbar";
 
 const LandingPage = () => {
   const isLogin = useSelector((state) => state.auth.isLogin);
@@ -9,6 +10,8 @@ const LandingPage = () => {
     <>
       <Navbar />
       {isLogin && me && <h2>Xin chào {me.full_name}</h2>}
+      <p>Danh sách khóa học</p>
+      <ListCourses />
     </>
   );
 };

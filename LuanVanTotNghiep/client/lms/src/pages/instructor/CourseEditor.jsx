@@ -6,6 +6,8 @@ import { toast } from "react-toastify";
 import { validateForm } from "../../../helper/validateForm";
 import { useNavigate, useParams } from "react-router-dom";
 import { FaPlus } from "react-icons/fa6";
+import ReactPlayer from "react-player";
+import axios from "axios";
 
 const CourseEditor = () => {
   const navigate = useNavigate();
@@ -22,19 +24,21 @@ const CourseEditor = () => {
     thumbnail: null,
     price: "",
   });
+  const [imagePreview, setImagePreview] = useState(null);
+  const [thumbnailPreview, setThumbnailPreview] = useState(null);
   const [requirements, setRequirements] = useState([]);
   const [objectives, setObjectives] = useState([]);
   const [requirementContent, setRequirementContent] = useState("");
   const [objectiveContent, setObjectiveContent] = useState("");
   const [lessons, setLessons] = useState([
-    { lessonName: "", videoUrl: "", duration: "" },
+    { lessonName: "", videoUrl: "", duration: "", order: "" },
   ]);
   const validateLessons =
     lessons.filter(
       (value) =>
         value.lessonName.trim() !== "" &&
         value.videoUrl.trim() !== "" &&
-        value.duration.trim() !== ""
+        value.duration !== ""
     ) || [];
   const [error, setError] = useState({
     errorCourseName: "",
@@ -44,19 +48,69 @@ const CourseEditor = () => {
     errorFile: "",
     errorPrice: "",
   });
-  useEffect(() => {
-    console.log(requirements);
-    console.log(objectives);
-  }, [requirements, objectives]);
+  const [errorLessons, setErrorLessons] = useState([
+    {
+      errorLessonName: "",
+      errorVideoUrl: "",
+      errorDuration: "",
+    },
+  ]);
+
+  const handlePreview = ({ e, setPreview }) => {
+    const allowedTypes = ["jpg", "png", "jpeg"];
+    const image = e.target.files[0];
+    const type = image?.name?.split(".")[1];
+    if (!allowedTypes.includes(type)) {
+      setError((prev) => ({
+        ...prev,
+        errorFile: "Định dạng ảnh không hợp lệ!",
+      }));
+      return;
+    } else {
+      const previewUrl = URL.createObjectURL(image);
+      setPreview(previewUrl);
+    }
+  };
+
+  // Hàm lấy ID video Youtube
+  const getYouTubeId = (url) => {
+    const parsedUrl = new URL(url);
+    // youtu.be/VIDEO_ID
+    if (parsedUrl.hostname.includes("youtu.be")) {
+      return parsedUrl.pathname.slice(1);
+    }
+    // youtube.com/watch?v=VIDEO_ID
+    if (parsedUrl.searchParams.get("v")) {
+      return parsedUrl.searchParams.get("v");
+    }
+    // youtube.com/shorts/VIDEO_ID
+    if (parsedUrl.pathname.includes("/shorts/")) {
+      return parsedUrl.pathname.split("/shorts/")[1];
+    }
+    // youtube.com/embed/VIDEO_ID
+    if (parsedUrl.pathname.includes("/embed/")) {
+      return parsedUrl.pathname.split("/embed/")[1];
+    }
+    return null;
+  };
+
+  // Hàm đổi thời lượng thành đơn vị giây
+  const durationToSecond = (duration) => {
+    const hours = duration.match(/(\d+)H/)?.[1] || 0;
+    const minutes = duration.match(/(\d+)M/)?.[1] || 0;
+    const seconds = duration.match(/(\d+)S/)?.[1] || 0;
+    return Number(hours) * 3600 + Number(minutes) * 60 + Number(seconds);
+  };
+
   useEffect(() => {
     if (courseId) {
       const getCourseById = async () => {
         const result = await courseService.getCourseById({ courseId });
-        console.log(result);
+        console.log(result.data);
         setCourseInfo({
           courseName: result.data.course_name || "",
           description: result.data.description || "",
-          category_id: result.data.category_id || "",
+          category_id: result.data.category_id._id || "",
           level: result.data.level || "",
           image: result.data.image_url || null,
           thumbnail: result.data.thumbnail_url || null,
@@ -72,24 +126,30 @@ const CourseEditor = () => {
       getCourseById();
       const getLessonsByCourse = async () => {
         const result = await lessonService.getLessonsByCourse({ courseId });
-        const formattedLessons = result.data?.map((value) => {
-          return {
-            lessonId: value._id,
-            lessonName: value.lesson_name,
-            videoUrl: value.video_url,
-            duration: value.duration,
-          };
-        });
-        setLessons(formattedLessons);
+        if (result.data?.length > 0) {
+          const formattedLessons = result.data?.map((value) => {
+            return {
+              lessonId: value._id,
+              lessonName: value.lesson_name,
+              videoUrl: value.video_url,
+              duration: value.duration,
+              order: value.order,
+            };
+          });
+          setLessons(formattedLessons);
+        }
       };
       getLessonsByCourse();
     }
   }, [courseId]);
 
+  // Hàm set thông tin khóa học
   const handleSetCourseInfo = ({ e, setCourseInfo, field }) => {
     const { value } = e.target;
     setCourseInfo((prev) => ({ ...prev, [field]: value }));
   };
+
+  // Hàm thêm item (requirement, objective)
   const handleAddItem = ({ content, setContent, setArray }) => {
     if (!content) {
       alert("Vui lòng nhập đầy đủ thông tin!");
@@ -98,18 +158,25 @@ const CourseEditor = () => {
     setArray((prev) => [...prev, content]);
     setContent("");
   };
+
+  // Hàm xóa item(requirement, objective)
   const handleDeleteItem = ({ index, array, setArray }) => {
     setArray(
       //Filter cũng giống map có value và index
       array.filter((_, i) => i !== index)
     );
   };
+
+  // Hàm set dữ liệu bài học
   const handleSetLesson = ({ fieldName, index, e, array, setArray }) => {
     const { value } = e.target;
     const newArray = [...array];
     newArray[index][fieldName] = value;
+    newArray[index]["order"] = index + 1;
     setArray(newArray);
   };
+
+  // Hàm xóa bài học(khi chưa thêm, khi đã tồn tại trong khóa học)
   const handleDeleteLesson = async ({ index }) => {
     if (!lessons[index].lessonId)
       setLessons(lessons?.filter((_, i) => i !== index));
@@ -118,6 +185,14 @@ const CourseEditor = () => {
         await lessonService.deleteLesson({
           lessonId: lessons[index].lessonId,
         });
+        if (lessons.length == 1)
+          setLessons([{ lessonName: "", videoUrl: "", duration: "" }]);
+        else
+          setLessons(
+            lessons?.filter(
+              (value) => value.lessonId !== lessons[index].lessonId
+            )
+          );
       } catch (error) {
         const status = error.status;
         const message = error.message;
@@ -125,52 +200,68 @@ const CourseEditor = () => {
       }
     }
   };
+
+  // Hàm set lỗi khóa học
   const handleSetError = ({ setError, field }) => {
     setError((prev) => ({ ...prev, [field]: "" }));
   };
+
+  // Hàm lưu (thêm, chỉnh sửa)
   const handleSave = async (e) => {
     e.preventDefault();
-    console.log(courseInfo.image, courseInfo.thumbnail);
     if (validateForm.validateFormCourse({ courseInfo, isEdit, setError })) {
-      const formData = new FormData();
-      formData.append("courseName", courseInfo.courseName);
-      formData.append("description", courseInfo.description);
-      formData.append("category_id", courseInfo.category_id);
-      formData.append("level", courseInfo.level);
-      formData.append("image", courseInfo.image);
-      formData.append("thumbnail", courseInfo.thumbnail);
-      requirements?.forEach((value) => {
-        formData.append("requirements", value);
+      let isAllLessonsValid = true;
+      let newErrorLessons = [...errorLessons];
+      lessons?.forEach((value, index) => {
+        const { isValid, errorLesson } = validateForm.validateFormLesson({
+          lessonInfo: value,
+        });
+        newErrorLessons[index] = errorLesson;
+        if (!isValid) isAllLessonsValid = false;
       });
-      objectives?.forEach((value) => {
-        formData.append("objectives", value);
-      });
-      formData.append("price", courseInfo.price);
-      formData.append("lessons", JSON.stringify(validateLessons)); //Vì FormData không có object lồng nhau nên dùng JSON.stringify để biến mảng thành chuỗi
-      if (isEdit) {
-        try {
-          const result = await courseService.updateCourse({
-            courseId,
-            data: formData,
-          });
-          toast.success(result.message || "Cập nhật thành công");
-          navigate("/instructor/courses");
-        } catch (error) {
-          const status = error.status;
-          const message = error.data.message;
-          console.log(status, message);
-        }
-      } else {
-        try {
-          const result = await courseService.addCourse({ data: formData });
-          toast.success(result.message || "Tạo khóa học thành công");
-          navigate("/instructor/courses");
-        } catch (error) {
-          const status = error.status;
-          const message = error.data.message;
-          if (status === 409)
-            setError((prev) => ({ ...prev, errorCourseName: message }));
-          console.log(message);
+      setErrorLessons(newErrorLessons);
+      console.log(isAllLessonsValid);
+      if (isAllLessonsValid) {
+        const formData = new FormData();
+        formData.append("courseName", courseInfo.courseName);
+        formData.append("description", courseInfo.description);
+        formData.append("category_id", courseInfo.category_id);
+        formData.append("level", courseInfo.level);
+        formData.append("image", courseInfo.image);
+        formData.append("thumbnail", courseInfo.thumbnail);
+        requirements?.forEach((value) => {
+          formData.append("requirements", value);
+        });
+        objectives?.forEach((value) => {
+          formData.append("objectives", value);
+        });
+        formData.append("price", courseInfo.price);
+        formData.append("lessons", JSON.stringify(validateLessons)); //Vì FormData không có object lồng nhau nên dùng JSON.stringify để biến mảng thành chuỗi
+        if (isEdit) {
+          try {
+            const result = await courseService.updateCourse({
+              courseId,
+              data: formData,
+            });
+            toast.success(result.message || "Cập nhật thành công");
+            navigate("/instructor/courses");
+          } catch (error) {
+            const status = error.status;
+            const message = error.data.message;
+            console.log(status, message);
+          }
+        } else {
+          try {
+            const result = await courseService.addCourse({ data: formData });
+            toast.success(result.message || "Tạo khóa học thành công");
+            navigate("/instructor/courses");
+          } catch (error) {
+            const status = error.status;
+            const message = error.data.message;
+            if (status === 409)
+              setError((prev) => ({ ...prev, errorCourseName: message }));
+            console.log(message);
+          }
         }
       }
     }
@@ -216,14 +307,19 @@ const CourseEditor = () => {
                 type="text"
                 placeholder="React cơ bản và nâng cao"
               />
-              <span>{error.errorCourseName}</span>
+              {error.errorCourseName && (
+                <span className="text-body-md text-red-500">
+                  {error.errorCourseName}
+                </span>
+              )}
               <label
                 className="text-surface-nav text-body-lg font-medium"
                 htmlFor="description"
               >
                 Mô tả *
               </label>
-              <input
+              <textarea
+                rows={5}
                 className="p-2 bg-surface-bg rounded-[8px]"
                 value={courseInfo.description}
                 onChange={(e) =>
@@ -266,7 +362,9 @@ const CourseEditor = () => {
                         );
                       })}
                     </select>
-                    <span>{error.errorCategory}</span>
+                    <span className="text-body-md text-red-500">
+                      {error.errorCategory}
+                    </span>
                   </div>
                 </div>
                 <div>
@@ -298,7 +396,9 @@ const CourseEditor = () => {
                         );
                       })}
                     </select>
-                    <span>{error.errorLevel}</span>
+                    <span className="text-body-md text-red-500">
+                      {error.errorLevel}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -314,12 +414,17 @@ const CourseEditor = () => {
                     ...prev,
                     image: e.target.files[0],
                   }));
-                  handleSetError({ setError, field: "errorFile" });
+                  handlePreview({ e, setPreview: setImagePreview });
                 }}
                 type="file"
                 accept="image/*"
               />
-              <img src={courseInfo.image} className="w-[80px] h-[80px]"></img>
+              {(imagePreview || courseInfo.image) && (
+                <img
+                  src={imagePreview || courseInfo.image}
+                  className="w-[80px] h-[80px]"
+                />
+              )}
               <label
                 className="text-surface-nav text-body-lg font-medium"
                 htmlFor="thumbnail"
@@ -332,16 +437,20 @@ const CourseEditor = () => {
                     ...prev,
                     thumbnail: e.target.files[0],
                   }));
-                  handleSetError({ setError, field: "errorFile" });
+                  handlePreview({ e, setPreview: setThumbnailPreview });
                 }}
                 type="file"
                 accept="image/*"
               />
-              <img
-                src={courseInfo.thumbnail}
-                className="w-[200px] h-[100px]"
-              ></img>
-              <span>{error.errorFile}</span>
+              {(thumbnailPreview || courseInfo.thumbnail) && (
+                <img
+                  src={thumbnailPreview || courseInfo.thumbnail}
+                  className="w-[150px] h-[100px]"
+                />
+              )}
+              <span className="text-body-md text-red-500">
+                {error.errorFile}
+              </span>
             </div>
           </div>
           {/* Yêu cầu & kết quả đạt được */}
@@ -505,7 +614,7 @@ const CourseEditor = () => {
                       <p className="text-title-lg text-surface-nav font-medium">
                         Bài học {index + 1}
                       </p>
-                      {lessons?.length > 1 && (
+                      {(lessons?.length > 1 || lessons[0].lessonId) && (
                         <button
                           type="button"
                           onClick={() => handleDeleteLesson({ index })}
@@ -515,7 +624,7 @@ const CourseEditor = () => {
                         </button>
                       )}
                     </div>
-                    <div className="mt-3">
+                    <div className="flex flex-col mt-3">
                       <label
                         className="text-surface-nav text-body-lg font-medium"
                         htmlFor="lessonName"
@@ -537,48 +646,72 @@ const CourseEditor = () => {
                         type="text"
                         placeholder="Giới thiệu về React"
                       />
+                      <span className="text-body-md text-red-500">
+                        {errorLessons[index]?.errorLessonName}
+                      </span>
                       <label
                         className="text-surface-nav text-body-lg font-medium"
                         htmlFor="videoUrl"
                       >
-                        Link video *
+                        Link video
                       </label>
                       <input
                         className="p-2 bg-surface-bg rounded-[8px] w-full"
                         value={value.videoUrl}
-                        onChange={(e) =>
+                        onChange={async (e) => {
                           handleSetLesson({
                             fieldName: "videoUrl",
                             index,
                             e,
                             array: lessons,
                             setArray: setLessons,
-                          })
-                        }
+                          });
+                          const videoUrl = lessons[index].videoUrl;
+                          if (!videoUrl.includes("https://www.youtube.com/")) {
+                            const newErrors = [...errorLessons];
+                            newErrors[index].errorVideoUrl =
+                              "Đường dẫn video không hợp lệ!";
+                            return;
+                          }
+                          const id = getYouTubeId(videoUrl);
+                          const result = await axios.get(
+                            `https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=${id}&key=${
+                              import.meta.env.VITE_API_KEY_YOUTUBE
+                            }`
+                          );
+                          const duration =
+                            result?.data?.items[0]?.contentDetails?.duration;
+                          const second = durationToSecond(duration);
+                          const newArray = [...lessons];
+                          newArray[index].duration = second;
+                          setLessons(newArray);
+                        }}
                         type="text"
                         placeholder="https://www.youtube.com/watch?v=GQ-toR8F7rc"
                       />
+                      <span className="text-body-md text-red-500">
+                        {errorLessons[index]?.errorVideoUrl}
+                      </span>
+                      {value.videoUrl &&
+                        value.videoUrl.includes("https://www.youtube.com/") && (
+                          <ReactPlayer src={value.videoUrl} />
+                        )}
                       <label
                         className="text-surface-nav text-body-lg font-medium"
                         htmlFor="duration"
                       >
-                        Thời lượng *
+                        Thời lượng
                       </label>
                       <input
                         className="p-2 bg-surface-bg rounded-[8px] w-full"
                         value={value.duration}
-                        onChange={(e) =>
-                          handleSetLesson({
-                            fieldName: "duration",
-                            index,
-                            e,
-                            array: lessons,
-                            setArray: setLessons,
-                          })
-                        }
                         type="text"
-                        placeholder="15:00"
+                        disabled
+                        placeholder="Thời lượng hiển thị tự động sau khi điền link video hợp lệ"
                       />
+                      <span className="text-body-md text-red-500">
+                        {errorLessons[index]?.errorDuration}
+                      </span>
                     </div>
                   </div>
                 );
@@ -607,7 +740,9 @@ const CourseEditor = () => {
                 }}
                 placeholder="199000"
               />
-              <span>{error.errorPrice}</span>
+              <span className="text-body-md text-red-500">
+                {error.errorPrice}
+              </span>
               <input
                 className="bg-surface-nav text-surface-white  text-title-lg p-2 rounded-[8px] transition-transform duration-300 hover:text-surface-bg hover:cursor-pointer"
                 type="submit"

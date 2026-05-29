@@ -5,6 +5,7 @@ import { IoBarChartOutline } from "react-icons/io5";
 import { IoDocumentTextOutline } from "react-icons/io5";
 import { RxPeople } from "react-icons/rx";
 import { BiComment } from "react-icons/bi";
+import { LuUserRound } from "react-icons/lu";
 export const Sidebar = () => {
   const me = useSelector((state) => state.me.item);
   const currenRole = me?.role_id.role || "user";
@@ -33,11 +34,27 @@ export const Sidebar = () => {
       },
     ],
     admin: [
-      "Dashboard",
-      "Khóa học",
-      "Giảng viên",
-      "Học viên",
-      "Bình luận & Đánh giá",
+      {
+        item: <IoBarChartOutline />,
+        title: "Dashboard",
+        route: "/admin/dashboard",
+      },
+      {
+        item: <IoBookOutline />,
+        title: "Khóa học",
+        route: "/admin/courses",
+      },
+      {
+        item: <LuUserRound />,
+        title: "Giảng viên",
+        route: "/admin/instructors",
+      },
+      { item: <RxPeople />, title: "Người dùng", route: "/admin/users" },
+      {
+        item: <BiComment />,
+        title: "Bình luận",
+        route: "/admin/comments",
+      },
     ],
   };
   return (

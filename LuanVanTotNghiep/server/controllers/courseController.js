@@ -46,12 +46,34 @@ export class CourseController {
         .json({ message: error.message || "Lỗi hệ thống" });
     }
   };
+  getApprovedCourses = async (req, res) => {
+    try {
+      const result = await new CourseService().getApprovedCourses();
+      return res.status(200).json({ data: result });
+    } catch (error) {
+      const status = error.statusCode || 500;
+      return res
+        .status(status)
+        .json({ message: error.message || "Lỗi hệ thống" });
+    }
+  };
   getCoursesByInstructor = async (req, res) => {
     try {
       const payload = req.payload;
       const result = await new CourseService().getCoursesByInstructor({
         instructorId: payload.sub,
       });
+      return res.status(200).json({ data: result });
+    } catch (error) {
+      const status = error.statusCode || 500;
+      return res
+        .status(status)
+        .json({ message: error.message || "Lỗi hệ thống" });
+    }
+  };
+  getCoursesByAdmin = async (req, res) => {
+    try {
+      const result = await new CourseService().getCoursesByAdmin();
       return res.status(200).json({ data: result });
     } catch (error) {
       const status = error.statusCode || 500;
@@ -88,6 +110,7 @@ export class CourseController {
             lessonName: value.lessonName,
             videoUrl: value.videoUrl,
             duration: value.duration,
+            order: value.order,
           });
         else {
           existingLessons.push({
@@ -95,6 +118,7 @@ export class CourseController {
             lessonName: value.lessonName,
             videoUrl: value.videoUrl,
             duration: value.duration,
+            order: value.order,
           });
         }
       });
@@ -105,7 +129,7 @@ export class CourseController {
       if (
         validateForm.validateFormCourse({ courseInfo: formData, categoryIds })
       ) {
-        await new CourseService().updateCourse({
+        const result = await new CourseService().updateCourse({
           courseId: id,
           formData,
           image_url,
@@ -117,12 +141,14 @@ export class CourseController {
             lessonArray: newLessons,
             courseId: id,
           });
-        //TH giảng viên sửa bài học cũ
         if (existingLessons?.length > 0)
+          //TH giảng viên sửa bài học cũ
           await new LessonService().updateLessons({
             lessonArray: existingLessons,
           });
-        return res.status(200).json({ message: "Cập nhật thành công" });
+        return res
+          .status(200)
+          .json({ message: "Cập nhật thành công", data: result });
       }
     } catch (error) {
       const status = error.statusCode || 500;
@@ -134,9 +160,69 @@ export class CourseController {
   deleteCourse = async (req, res) => {
     try {
       const { id } = req.params;
-      await new CourseService().deleteCourse({ courseId: id });
+      const result = await new CourseService().deleteCourse({ courseId: id });
       await new LessonService().deleteLessons({ courseId: id });
-      return res.status(200).json({ message: "Xóa thành công" });
+      return res.status(200).json({ message: "Xóa thành công", data: result });
+    } catch (error) {
+      const status = error.statusCode || 500;
+      return res
+        .status(status)
+        .json({ message: error.message || "Lỗi hệ thống" });
+    }
+  };
+  submitOrUnSubmitCourse = async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { status } = req.query;
+
+      const result = await new CourseService().submitOrUnSubmitCourse({
+        courseId: id,
+        status,
+      });
+      return res.status(200).json({
+        message: "Đăng tải/Hủy đăng tải khóa học thành công",
+        data: result,
+      });
+    } catch (error) {
+      const status = error.statusCode || 500;
+      return res
+        .status(status)
+        .json({ message: error.message || "Lỗi hệ thống" });
+    }
+  };
+  approveOrRejectCourse = async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { status } = req.query;
+      const result = await new CourseService().approveOrRejectCourse({
+        courseId: id,
+        status,
+      });
+      return res
+        .status(200)
+        .json({ message: "Duyệt/Từ chối khóa học thành công", data: result });
+    } catch (error) {
+      const status = error.statusCode || 500;
+      return res
+        .status(status)
+        .json({ message: error.message || "Lỗi hệ thống" });
+    }
+  };
+  deleteOrRestoreCourse = async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { action } = req.query;
+      const result = await new CourseService().deleteOrRestoreCourse({
+        courseId: id,
+        action,
+      });
+      return res.status(200).json({
+        message:
+          action == "restore"
+            ? "Khôi phục lại khóa học thành công"
+            : "Xóa khóa học thành công",
+        data: result,
+      });
     } catch (error) {
       const status = error.statusCode || 500;
       return res

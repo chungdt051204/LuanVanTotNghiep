@@ -14,7 +14,7 @@ export const middleware = {
       return next();
     } catch (error) {
       if (error.name == "TokenExpiredError")
-        return res.status(401).json({ message: "Phiên đăng nhập đã hết hạn!" });
+        return res.status(403).json({ message: "Phiên đăng nhập đã hết hạn!" });
     }
   },
   isAdmin: async (req, res, next) => {

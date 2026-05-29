@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { IoBookOutline } from "react-icons/io5";
@@ -20,6 +20,9 @@ const Register = () => {
     errorFullName: "",
     errorEmail: "",
     errorPassword: "",
+  });
+  useEffect(() => {
+    console.log(rolesDisplay);
   });
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -156,7 +159,7 @@ const Register = () => {
                       type="radio"
                     />
                     <p className="text-body-lg font-medium text-surface-nav ms-2">
-                      {value.displayName}
+                      {value.display_name}
                     </p>
                     <p className="text-body-md font-medium text-nav-muted ms-2">
                       {value.description}
