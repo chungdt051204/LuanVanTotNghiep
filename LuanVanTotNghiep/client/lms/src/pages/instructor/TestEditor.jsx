@@ -5,9 +5,10 @@ import { setCourses } from "../../stores/features/courseSlice";
 import { courseService } from "../../services/courseService";
 import { testService } from "../../services/testService";
 import { questionService } from "../../services/questionService";
-const QuizEditor = () => {
+import { updateTest } from "../../stores/features/testSlice";
+const TestEditor = () => {
   const navigate = useNavigate();
-  const { quizId } = useParams();
+  const { id } = useParams();
   const duration_minutes = [15, 20, 30, 45, 60];
   const pass_scores = [50, 60, 70, 80, 90];
   const dispatch = useDispatch();
@@ -22,18 +23,25 @@ const QuizEditor = () => {
     {
       questionContent: "",
       options: [
-        { optionContent: "", isCorrect: true },
-        { optionContent: "", isCorrect: false },
-        { optionContent: "", isCorrect: false },
-        { optionContent: "", isCorrect: false },
+        { answerContent: "", isCorrect: true },
+        { answerContent: "", isCorrect: false },
+        { answerContent: "", isCorrect: false },
+        { answerContent: "", isCorrect: false },
       ],
+      order: 0,
     },
   ]);
+  const formattedQuestions =
+    questions?.filter(
+      (value) =>
+        value.questionContent !== "" &&
+        !value.options?.some((item) => item.answerContent == "")
+    ) || [];
   useEffect(() => {
-    if (quizId) {
+    if (id) {
       const getTestById = async () => {
         try {
-          const result = await testService.getTestById({ testId: quizId });
+          const result = await testService.getTestById({ testId: id });
           console.log(result);
           setTestInfo({
             testName: result.data?.test_name || "",
@@ -52,9 +60,26 @@ const QuizEditor = () => {
       const getQuestionsByTest = async () => {
         try {
           const result = await questionService.getQuestionsByTest({
-            testId: quizId,
+            testId: id,
           });
           console.log(result.data);
+          if (result.data.length > 0) {
+            const questionsFormatted = result.data.map((value) => {
+              return {
+                questionId: value.question._id,
+                questionContent: value.question.question_content,
+                order: value.question.order,
+                options: value.options?.map((value) => {
+                  return {
+                    optionId: value._id,
+                    answerContent: value.answer_content,
+                    isCorrect: value.is_correct,
+                  };
+                }),
+              };
+            });
+            setQuestions(questionsFormatted);
+          }
         } catch (error) {
           const status = error.status;
           const message = error.data.message;
@@ -63,7 +88,7 @@ const QuizEditor = () => {
       };
       getQuestionsByTest();
     }
-  }, [quizId]);
+  }, [id]);
   useEffect(() => {
     const getCoursesByInstructor = async () => {
       try {
@@ -89,26 +114,67 @@ const QuizEditor = () => {
         courseId: testInfo.courseId,
         durationMinutes: testInfo.durationMinutes,
         passScore: testInfo.passScore,
-        questions: questions,
+        questions: formattedQuestions,
       };
+      if (id) {
+        try {
+          const result = await testService.updateTest({ testId: id, formData });
+          dispatch(updateTest(result.data));
+          alert(result.message || "Cập nhật bài kiểm tra thành công");
+          navigate("/instructor/tests");
+        } catch (error) {
+          const status = error.status;
+          const message = error.data.message;
+          console.log(status, message);
+        }
+      } else {
+        console.log(formData);
+        try {
+          const result = await testService.createTest({
+            formData,
+          });
+          alert(result.message || "Tạo bài kiểm tra thành công");
+          navigate("/instructor/tests");
+        } catch (error) {
+          const status = error.status;
+          const message = error.data.message;
+          console.log(status, message);
+        }
+      }
+    }
+  };
+  const handleDeleteQuestion = async ({ index }) => {
+    const question = questions.find((_, idx) => idx === index);
+    if (question.questionId) {
       try {
-        const result = await testService.createTest({
-          formData,
+        const result = await questionService.deleteQuestion({
+          questionId: question.questionId,
         });
-        alert(result.message || "Tạo bài kiểm tra thành công");
-        navigate("/instructor/quizzes");
+        alert(result.message || "Xóa câu hỏi thành công");
+        setQuestions(
+          questions?.filter((value) => value.questionId !== question.questionId)
+        );
       } catch (error) {
         const status = error.status;
         const message = error.data.message;
         console.log(status, message);
       }
+    } else {
+      setQuestions(questions?.filter((_, idx) => idx !== index));
+      alert("Xóa câu hỏi thành công");
     }
   };
   return (
     <>
       <div className="flex flex-col border">
-        <p>Tạo bài kiểm tra mới</p>
-        <p>Tạo bài kiểm tra trắc nghiệm cho khóa học của bạn</p>
+        <p>
+          {id ? "Chỉnh sửa thông tin bài kiểm tra" : "Tạo bài kiểm tra mới"}
+        </p>
+        <p>
+          {id
+            ? "Chỉnh sửa thông tin bài kiểm tra trắc nghiệm của bạn"
+            : "Tạo bài kiểm tra trắc nghiệm cho khóa học của bạn"}
+        </p>
       </div>
       <br />
       <form onSubmit={handleSave}>
@@ -136,8 +202,8 @@ const QuizEditor = () => {
             <option value="">Chọn khóa học</option>
             {courses?.map((value) => {
               return (
-                <option key={value._id} value={value._id}>
-                  {value.course_name}
+                <option key={value.course._id} value={value.course._id}>
+                  {value.course.course_name}
                 </option>
               );
             })}
@@ -197,11 +263,12 @@ const QuizEditor = () => {
                 {
                   questionContent: "",
                   options: [
-                    { optionContent: "", isCorrect: true },
-                    { optionContent: "", isCorrect: false },
-                    { optionContent: "", isCorrect: false },
-                    { optionContent: "", isCorrect: false },
+                    { answerContent: "", isCorrect: true },
+                    { answerContent: "", isCorrect: false },
+                    { answerContent: "", isCorrect: false },
+                    { answerContent: "", isCorrect: false },
                   ],
+                  order: 0,
                 },
               ])
             }
@@ -217,12 +284,8 @@ const QuizEditor = () => {
                   <p>Câu hỏi {index + 1}</p>
                   {questions.length > 1 && (
                     <button
-                      onClick={() => {
-                        const newQuestions = [...questions];
-                        setQuestions(
-                          newQuestions.filter((_, idx) => idx !== index)
-                        );
-                      }}
+                      type="button"
+                      onClick={() => handleDeleteQuestion({ index })}
                     >
                       X
                     </button>
@@ -232,6 +295,7 @@ const QuizEditor = () => {
                   onChange={(e) => {
                     const newQuestions = [...questions];
                     newQuestions[index]["questionContent"] = e.target.value;
+                    newQuestions[index]["order"] = index + 1;
                     setQuestions(newQuestions);
                   }}
                   value={questions[index].questionContent}
@@ -259,12 +323,12 @@ const QuizEditor = () => {
                           checked={questions[index].options[idx].isCorrect}
                         />
                         <input
-                          value={questions[index].options[idx].optionContent}
+                          value={questions[index].options[idx].answerContent}
                           onChange={(e) => {
                             const newQuestions = [...questions];
                             const options = newQuestions[index].options;
                             const newOptions = [...options];
-                            newOptions[idx].optionContent = e.target.value;
+                            newOptions[idx].answerContent = e.target.value;
                             newQuestions[index].options = newOptions;
                             setQuestions(newQuestions);
                           }}
@@ -288,4 +352,4 @@ const QuizEditor = () => {
     </>
   );
 };
-export default QuizEditor;
+export default TestEditor;

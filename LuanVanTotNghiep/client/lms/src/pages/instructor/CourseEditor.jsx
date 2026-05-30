@@ -11,8 +11,8 @@ import axios from "axios";
 
 const CourseEditor = () => {
   const navigate = useNavigate();
-  const { courseId } = useParams();
-  const isEdit = courseId ? true : false;
+  const { id } = useParams();
+  const isEdit = id ? true : false;
   const categories = useSelector((state) => state.categories.items);
   const levels = ["Cơ bản", "Trung bình", "Nâng cao"];
   const [courseInfo, setCourseInfo] = useState({
@@ -31,7 +31,7 @@ const CourseEditor = () => {
   const [requirementContent, setRequirementContent] = useState("");
   const [objectiveContent, setObjectiveContent] = useState("");
   const [lessons, setLessons] = useState([
-    { lessonName: "", videoUrl: "", duration: "", order: "" },
+    { lessonName: "", videoUrl: "", duration: "", order: 0 },
   ]);
   const validateLessons =
     lessons.filter(
@@ -103,9 +103,9 @@ const CourseEditor = () => {
   };
 
   useEffect(() => {
-    if (courseId) {
+    if (id) {
       const getCourseById = async () => {
-        const result = await courseService.getCourseById({ courseId });
+        const result = await courseService.getCourseById({ courseId: id });
         console.log(result.data);
         setCourseInfo({
           courseName: result.data.course_name || "",
@@ -125,7 +125,7 @@ const CourseEditor = () => {
       };
       getCourseById();
       const getLessonsByCourse = async () => {
-        const result = await lessonService.getLessonsByCourse({ courseId });
+        const result = await lessonService.getLessonsByCourse({ courseId: id });
         if (result.data?.length > 0) {
           const formattedLessons = result.data?.map((value) => {
             return {
@@ -141,7 +141,7 @@ const CourseEditor = () => {
       };
       getLessonsByCourse();
     }
-  }, [courseId]);
+  }, [id]);
 
   // Hàm set thông tin khóa học
   const handleSetCourseInfo = ({ e, setCourseInfo, field }) => {
@@ -240,7 +240,7 @@ const CourseEditor = () => {
         if (isEdit) {
           try {
             const result = await courseService.updateCourse({
-              courseId,
+              courseId: id,
               data: formData,
             });
             toast.success(result.message || "Cập nhật thành công");
@@ -272,10 +272,10 @@ const CourseEditor = () => {
       <div className="py-8">
         <div className="h-[70px] flex flex-col justify-between">
           <p className="text-display-sm text-surface-nav font-bold">
-            {courseId ? "Chỉnh sửa khóa học" : "Tạo khóa học mới"}
+            {id ? "Chỉnh sửa khóa học" : "Tạo khóa học mới"}
           </p>
           <p className="text-title-lg text-nav-muted">
-            {courseId
+            {id
               ? "Chỉnh sửa thông tin khóa học của bạn"
               : "Điền thông tin khóa học của bạn"}
           </p>
@@ -594,7 +594,7 @@ const CourseEditor = () => {
                 onClick={() => {
                   setLessons((prev) => [
                     ...prev,
-                    { lessonName: "", videoUrl: "", duration: "" },
+                    { lessonName: "", videoUrl: "", duration: "", order: 0 },
                   ]);
                 }}
                 className="w-[20%] flex items-center gap-x-4 p-2 border border-surface-bg rounded-[8px] transition-transform duration-300 hover:bg-surface-bg hover:cursor-pointer"

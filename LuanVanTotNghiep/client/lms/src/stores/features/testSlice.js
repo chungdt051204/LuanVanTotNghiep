@@ -13,9 +13,15 @@ export const testSlice = createSlice({
     },
     deleteTest: (state, action) => {
       state.items = state.items.filter(
-        (value) => value._id != action.payload._id
+        (value) => value.test._id != action.payload
       );
+    },
+    updateTest: (state, action) => {
+      const index = state.items.findIndex(
+        (value) => value.test._id == action.payload.test._id
+      );
+      state.items[index] = action.payload;
     },
   },
 });
-export const { setTests, deleteTest } = testSlice.actions;
+export const { setTests, deleteTest, updateTest } = testSlice.actions;

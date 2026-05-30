@@ -24,14 +24,9 @@ export const Sidebar = () => {
       {
         item: <IoDocumentTextOutline />,
         title: "Bài kiểm tra",
-        route: "/instructor/quizzes",
+        route: "/instructor/tests",
       },
       { item: <RxPeople />, title: "Học viên", route: "/instructor/students" },
-      {
-        item: <BiComment />,
-        title: "Bình luận",
-        route: "/instructor/comments",
-      },
     ],
     admin: [
       {

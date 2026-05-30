@@ -2,14 +2,16 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { testService } from "../../services/testService";
-import { setTests } from "../../stores/features/testSlice";
+import { deleteTest, setTests } from "../../stores/features/testSlice";
 import { IoEyeOutline } from "react-icons/io5";
 import { LuSquarePen } from "react-icons/lu";
 import { RiDeleteBinLine } from "react-icons/ri";
-const Quizzes = () => {
+import { toast } from "react-toastify";
+const Tests = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const tests = useSelector((state) => state.tests.items);
+
   useEffect(() => {
     const getTestsByInstructor = async () => {
       try {
@@ -24,6 +26,17 @@ const Quizzes = () => {
     };
     getTestsByInstructor();
   }, [dispatch]);
+  const handleDeleteTest = async ({ testId }) => {
+    try {
+      const result = await testService.deleteTest({ testId });
+      dispatch(deleteTest(testId));
+      toast.success(result.message || "Xóa bài kiểm tra thành công");
+    } catch (error) {
+      const status = error.status;
+      const message = error.data.message;
+      console.log(status, message);
+    }
+  };
   return (
     <>
       <div className="flex justify-between border">
@@ -32,7 +45,7 @@ const Quizzes = () => {
           <p>Tạo và quản lý các bài kiểm tra trắc nghiệm</p>
         </div>
         <button
-          onClick={() => navigate("/instructor/quiz/create")}
+          onClick={() => navigate("/instructor/test/create")}
           className="border"
         >
           Tạo bài kiểm tra
@@ -60,25 +73,29 @@ const Quizzes = () => {
           <tbody>
             {tests?.map((value) => {
               return (
-                <tr key={value._id}>
+                <tr key={value.test._id}>
                   <td className="flex flex-col">
-                    <p>{value.test_name}</p>
-                    <p>{value.createdAt}</p>
+                    <p>{value.test.test_name}</p>
+                    <p>{value.test.createdAt}</p>
                   </td>
-                  <td>{value.course_id.course_name}</td>
+                  <td>{value.test.course_id.course_name}</td>
+                  <td>{value.numberQuestion}</td>
+                  <td>{value.test.duration_minutes}</td>
                   <td></td>
-                  <td>{value.duration_minutes}</td>
                   <td></td>
-                  <td></td>
-                  <td>{value.status ? "Hoạt động" : "Nháp"}</td>
+                  <td>{value.test.status ? "Hoạt động" : "Nháp"}</td>
                   <td>
-                    {!value.status && (
+                    {!value.test.status && (
                       <div className="flex gap-x-1 items-center">
                         <IoEyeOutline />
-                        <RiDeleteBinLine />
+                        <RiDeleteBinLine
+                          onClick={() =>
+                            handleDeleteTest({ testId: value.test._id })
+                          }
+                        />
                         <LuSquarePen
                           onClick={() =>
-                            navigate(`/instructor/quiz/${value._id}/edit`)
+                            navigate(`/instructor/test/${value.test._id}/edit`)
                           }
                         />
                         <button>Kích hoạt</button>
@@ -94,4 +111,4 @@ const Quizzes = () => {
     </>
   );
 };
-export default Quizzes;
+export default Tests;

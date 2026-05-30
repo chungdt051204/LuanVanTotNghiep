@@ -180,7 +180,10 @@ export class CourseController {
         status,
       });
       return res.status(200).json({
-        message: "Đăng tải/Hủy đăng tải khóa học thành công",
+        message:
+          status === "pending"
+            ? "Đăng tải khóa học thành công"
+            : "Hủy đăng tải khóa học thành công",
         data: result,
       });
     } catch (error) {

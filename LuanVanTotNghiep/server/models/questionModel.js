@@ -9,6 +9,11 @@ const questionSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    order: {
+      type: Number,
+      min: 1,
+      required: true,
+    },
   },
   {
     timestamps: true,

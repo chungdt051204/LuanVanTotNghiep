@@ -18,8 +18,8 @@ import { setCategories } from "./stores/features/categorySlice";
 import { categoryService } from "./services/categoryService";
 import CourseEditor from "./pages/instructor/CourseEditor";
 import InstructorPage from "./pages/instructor/InstructorPage";
-import Quizzes from "./pages/instructor/Quizzes";
-import QuizEditor from "./pages/instructor/QuizEditor";
+import Tests from "./pages/instructor/Tests";
+import TestEditor from "./pages/instructor/TestEditor";
 import Students from "./pages/instructor/Students";
 import Comments from "./pages/instructor/Comments";
 
@@ -83,10 +83,10 @@ function App() {
             <Route path="dashboard" element={<InstructorDashboard />} />
             <Route path="courses" element={<InstructorCourses />} />
             <Route path="course/add" element={<CourseEditor />} />
-            <Route path="course/:courseId/edit" element={<CourseEditor />} />
-            <Route path="quizzes" element={<Quizzes />} />
-            <Route path="quiz/create" element={<QuizEditor />} />
-            <Route path="quiz/:quizId/edit" element={<QuizEditor />} />
+            <Route path="course/:id/edit" element={<CourseEditor />} />
+            <Route path="tests" element={<Tests />} />
+            <Route path="test/create" element={<TestEditor />} />
+            <Route path="test/:id/edit" element={<TestEditor />} />
             <Route path="students" element={<Students />} />
             <Route path="comments" element={<Comments />} />
           </Route>

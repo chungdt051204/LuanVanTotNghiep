@@ -13,14 +13,9 @@ export const courseSlice = createSlice({
     },
     updateCourse: (state, action) => {
       const index = state.items.findIndex(
-        (value) => value._id == action.payload._id
+        (value) => value.course._id == action.payload.course._id
       );
       state.items[index] = action.payload;
-    },
-    deleteCourse: (state, action) => {
-      state.items = state.items.filter(
-        (value) => value._id != action.payload._id
-      );
     },
   },
 });

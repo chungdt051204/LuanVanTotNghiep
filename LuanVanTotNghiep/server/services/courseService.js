@@ -1,4 +1,5 @@
 import courseEntity from "../models/courseModel.js";
+import enrollmentEntity from "../models/enrollmentModel.js";
 export class CourseService {
   addCourse = async ({ userId, formData, image_url, thumbnail_url }) => {
     const existingCourse = await courseEntity.findOne({
@@ -35,7 +36,15 @@ export class CourseService {
     const courses = await courseEntity
       .find({ user_id: instructorId })
       .populate("category_id");
-    return courses || [];
+    const arrayCourse = await Promise.all(
+      courses?.map(async (value) => {
+        const numberEnrollment = await enrollmentEntity.countDocuments({
+          course_id: value._id,
+        });
+        return { course: value, numberEnrollment };
+      })
+    );
+    return arrayCourse || [];
   };
   getCoursesByAdmin = async () => {
     const arrayStatus = ["pending", "approved", "rejected"];
@@ -118,7 +127,10 @@ export class CourseService {
           { returnDocument: "after" }
         )
         .populate("category_id");
-      return result;
+      const numberEnrollment = await enrollmentEntity.countDocuments({
+        course_id: result,
+      });
+      return { course: result, numberEnrollment };
     } else {
       const error = new Error(
         "Khóa học đã được đăng tải, không thể thay đổi trạng thái!"
@@ -187,8 +199,10 @@ export class CourseService {
         { is_visible: action === "delete" ? false : true },
         { returnDocument: "after" }
       )
-      .populate("category_id")
-      .populate("user_id");
-    return result;
+      .populate("category_id");
+    const numberEnrollment = await enrollmentEntity.countDocuments({
+      course_id: result,
+    });
+    return { course: result, numberEnrollment };
   };
 }

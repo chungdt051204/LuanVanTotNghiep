@@ -53,9 +53,6 @@ export class LessonService {
     flag = true;
     return flag;
   };
-  deleteLessons = async ({ courseId }) => {
-    await lessonEntity.deleteMany({ course_id: courseId });
-  };
   deleteLesson = async ({ lessonId }) => {
     const result = await lessonEntity.deleteOne({ _id: lessonId });
     if (result.deletedCount === 0) {

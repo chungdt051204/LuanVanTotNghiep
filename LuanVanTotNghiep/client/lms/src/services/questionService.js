@@ -4,4 +4,10 @@ export const questionService = {
     const response = await axiosClient.get(`/test/${testId}/questions`);
     return response;
   },
+  deleteQuestion: async ({ questionId }) => {
+    const response = await axiosClient.delete(
+      `/instructor/question/${questionId}`
+    );
+    return response;
+  },
 };

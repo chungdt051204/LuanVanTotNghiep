@@ -12,7 +12,7 @@ export const lessonService = {
     return response;
   },
   deleteLesson: async ({ lessonId }) => {
-    const response = await axiosClient.delete(`/lesson/${lessonId}`);
+    const response = await axiosClient.delete(`/instructor/lesson/${lessonId}`);
     return response;
   },
 };

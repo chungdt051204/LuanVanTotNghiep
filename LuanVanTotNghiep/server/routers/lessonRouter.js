@@ -13,6 +13,8 @@ lessonRouter.get(
   new LessonController().getLessonById
 );
 lessonRouter.delete(
-  `${prefix}/lesson/:id`,
+  `${prefix}/instructor/lesson/:id`,
+  middleware.verifyToken,
+  middleware.isInstructor,
   new LessonController().deleteLesson
 );

@@ -8,9 +8,24 @@ export class OptionService {
     const optionPromise = options?.map((value) => {
       return optionEntity.create({
         question_id: questionId,
-        answer_content: value.optionContent,
+        answer_content: value.answerContent,
         is_correct: value.isCorrect,
       });
+    });
+    await Promise.all(optionPromise);
+  };
+  deleteOptions = async ({ questions }) => {
+    const optionPromise = questions?.map((value) => {
+      return optionEntity.deleteMany({ question_id: value._id });
+    });
+    await Promise.all(optionPromise);
+  };
+  updateOptions = async ({ arrayOption }) => {
+    const optionPromise = arrayOption.map(async (value) => {
+      await optionEntity.updateOne(
+        { _id: value.optionId },
+        { answer_content: value.answerContent, is_correct: value.isCorrect }
+      );
     });
     await Promise.all(optionPromise);
   };

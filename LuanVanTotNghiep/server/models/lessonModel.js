@@ -19,6 +19,7 @@ const lessonSchema = new mongoose.Schema(
     },
     order: {
       type: Number,
+      min: 1,
       required: true,
     },
   },

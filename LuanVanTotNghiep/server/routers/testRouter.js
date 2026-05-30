@@ -16,3 +16,15 @@ testRouter.post(
   middleware.isInstructor,
   new TestController().createTest
 );
+testRouter.delete(
+  `${prefix}/instructor/test/:id`,
+  middleware.verifyToken,
+  middleware.isInstructor,
+  new TestController().deleteTest
+);
+testRouter.put(
+  `${prefix}/instructor/test/:id`,
+  middleware.verifyToken,
+  middleware.isInstructor,
+  new TestController().updateTest
+);
