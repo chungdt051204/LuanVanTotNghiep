@@ -1,7 +1,9 @@
 import { axiosClient } from "./axiosClient";
 export const enrollmentService = {
-  createEnrollment: async ({ courseId }) => {
-    const response = await axiosClient.post("/enrollment", { courseId });
+  createEnrollment: async ({ data }) => {
+    const response = await axiosClient.post("/enrollment", {
+      data,
+    });
     return response;
   },
   getEnrollmentsByUser: async () => {

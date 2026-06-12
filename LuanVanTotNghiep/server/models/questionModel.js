@@ -4,6 +4,7 @@ const questionSchema = new mongoose.Schema(
     test_id: {
       type: mongoose.Schema.ObjectId,
       ref: "testEntity",
+      required: true,
     },
     question_content: {
       type: String,

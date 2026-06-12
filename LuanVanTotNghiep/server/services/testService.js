@@ -92,4 +92,23 @@ export class TestService {
     });
     return { test: result, numberQuestion };
   };
+  activeTest = async ({ testId }) => {
+    const test = await testEntity.findOne({ _id: testId });
+    if (!test) {
+      const error = new Error("Bài kiểm tra này không tồn tại!");
+      error.statusCode = 404;
+      throw error;
+    }
+    const result = await testEntity
+      .findOneAndUpdate(
+        { _id: testId },
+        { is_active: true },
+        { returnDocument: "after" }
+      )
+      .populate("course_id");
+    const numberQuestion = await questionEntity.countDocuments({
+      test_id: result._id,
+    });
+    return { test: result, numberQuestion };
+  };
 }

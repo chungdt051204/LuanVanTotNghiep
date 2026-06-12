@@ -16,7 +16,10 @@ import {
   createEnrollment,
   setEnrollments,
 } from "../../stores/features/enrollmentSlice";
+import { createNotification } from "../../stores/features/notificationSlice";
 import { lessonProgressService } from "../../services/lessonProgressService";
+import { cartService } from "../../services/cartService";
+import { addToCart } from "../../stores/features/cartSlice";
 
 const CourseDetail = () => {
   const navigate = useNavigate();
@@ -28,7 +31,11 @@ const CourseDetail = () => {
   const [lessons, setLessons] = useState([]);
   const [lessonProgresses, setLessonProgresses] = useState([]);
 
-  const enrolledCourse = enrollments?.find((value) => value.course_id == id);
+  const enrolledCourse = enrollments?.find(
+    (value) => value?.course_id?._id == id
+  );
+  const myCart = useSelector((state) => state.cart);
+  const courseInCart = myCart.items?.some((value) => value.course_id._id == id);
 
   const secondToTime = (second) => {
     if (second < 60) return `00:${second}`;
@@ -98,9 +105,33 @@ const CourseDetail = () => {
       return;
     }
     try {
-      const result = await enrollmentService.createEnrollment({ courseId: id });
+      const result = await enrollmentService.createEnrollment({
+        data: { courseId: id, accessLevel: "UNLIMITED" },
+      });
+      console.log(result.data);
+      dispatch(createEnrollment(result.data?.result1));
+      dispatch(createNotification(result.data?.result2));
       toast.success(result.message || "Đăng ký học khóa học thành công");
-      dispatch(createEnrollment(result.data));
+    } catch (error) {
+      const status = error.status;
+      const message = error.data.message;
+      console.log(status, message);
+    }
+  };
+  const handleAddToCart = async () => {
+    if (!isLogin) {
+      toast.warning("Bạn chưa đăng nhập!");
+      return;
+    }
+    if (courseInCart) {
+      toast.warning("Khóa học này đã có trong giỏ hàng!");
+      return;
+    }
+    try {
+      const result = await cartService.addToCart({ courseId: id });
+      console.log(result.data);
+      dispatch(addToCart(result.data));
+      toast.success(result.message || "Thêm khóa học vào giỏ hàng thành công");
     } catch (error) {
       const status = error.status;
       const message = error.data.message;
@@ -116,17 +147,17 @@ const CourseDetail = () => {
           <div className="flex flex-col justify-between h-[30%]">
             <div className="flex gap-x-2 text-title-lg text-surface-white">
               <div className="px-3 bg-primary-purple-light rounded-[8px]">
-                {course?.category_id.category_name || ""}
+                {course?.item?.category_id.category_name || ""}
               </div>
               <div className="px-3 bg-primary-purple-light rounded-[8px]">
-                {course?.level || ""}
+                {course?.item?.level || ""}
               </div>
             </div>
             <p className="text-display-lg text-surface-white font-medium">
-              {course?.course_name || ""}
+              {course?.item?.course_name || ""}
             </p>
             <p className="text-headline-sm text-surface-bg">
-              {course?.description || ""}
+              {course?.item?.description || ""}
             </p>
             <div className="flex gap-x-8 text-headline-sm text-surface-white">
               <div className="flex items-center gap-x-1">
@@ -135,37 +166,45 @@ const CourseDetail = () => {
               </div>
               <div className="flex items-center gap-x-1">
                 <RxPeople className="text-surface-white" />
-                <p>0 học viên</p>
+                <p>{course?.numberEnrollment} học viên</p>
               </div>
             </div>
             <div className="flex gap-x-4">
               <img
                 className="w-[60px] h-[60px] object-cover rounded-[1000px]"
-                src={course?.user_id?.avatar || null}
+                src={course?.item?.user_id?.avatar || null}
               />
               <div className="flex flex-col">
                 <p className="text-title-lg text-surface-bg">Giảng viên</p>
                 <p className="text-headline-sm text-surface-white font-medium">
-                  {course?.user_id?.full_name || ""}
+                  {course?.item?.user_id?.full_name || ""}
                 </p>
               </div>
             </div>
           </div>
           <div className="flex flex-col justify-between h-[65%] bg-surface-white rounded-[16px] p-8">
             <img
-              className="w-full h-[400px] object-cover rounded-[16px]"
-              src={course?.thumbnail_url || null}
+              className="w-full h-[400px] object-fill rounded-[16px]"
+              src={course?.item?.thumbnail_url || null}
               alt=""
             />
             <p className="text-display-md text-brand-blue font-medium">
-              {course?.is_free ? 0 : course?.price}đ
+              {course?.item?.is_free ? 0 : course?.item?.price}đ
             </p>
             {!enrolledCourse && (
               <button
-                onClick={handleCreateEnrollment}
+                onClick={
+                  course?.item?.is_free
+                    ? handleCreateEnrollment
+                    : handleAddToCart
+                }
                 className="bg-surface-nav py-2 text-headline-sm text-surface-white rounded-[8px] transition-transform duration-300 hover:cursor-pointer hover:text-surface-bg"
               >
-                {course?.is_free ? "Đăng ký học ngay" : "Thêm vào giỏ hàng"}
+                {course?.item?.is_free
+                  ? "Đăng ký học ngay"
+                  : courseInCart
+                  ? "Đã thêm vào giỏ hàng"
+                  : "Thêm vào giỏ hàng"}
               </button>
             )}
             <div className="flex flex-col">
@@ -188,7 +227,7 @@ const CourseDetail = () => {
               Yêu cầu
             </p>
             <ul className="flex flex-col gap-y-2">
-              {course?.requirements?.map((value, index) => {
+              {course?.item?.requirements?.map((value, index) => {
                 return (
                   <li key={index} className="flex gap-x-1 items-center">
                     <p className="text-brand-blue">✓</p>
@@ -204,7 +243,7 @@ const CourseDetail = () => {
               Bạn sẽ học được gì ?
             </p>
             <ul className="flex flex-col gap-y-2">
-              {course?.objectives?.map((value, index) => {
+              {course?.item?.objectives?.map((value, index) => {
                 return (
                   <li key={index} className="flex gap-x-1 items-center">
                     <FaCheck className="text-green-500" />

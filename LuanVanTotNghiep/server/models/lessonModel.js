@@ -4,6 +4,7 @@ const lessonSchema = new mongoose.Schema(
     course_id: {
       type: mongoose.Schema.ObjectId,
       ref: "courseEntity",
+      required: true,
     },
     lesson_name: {
       type: String,

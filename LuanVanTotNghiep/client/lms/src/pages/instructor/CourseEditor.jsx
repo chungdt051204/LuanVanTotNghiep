@@ -108,18 +108,18 @@ const CourseEditor = () => {
         const result = await courseService.getCourseById({ courseId: id });
         console.log(result.data);
         setCourseInfo({
-          courseName: result.data.course_name || "",
-          description: result.data.description || "",
-          category_id: result.data.category_id._id || "",
-          level: result.data.level || "",
-          image: result.data.image_url || null,
-          thumbnail: result.data.thumbnail_url || null,
-          price: result.data.price,
+          courseName: result.data?.item?.course_name || "",
+          description: result.data?.item?.description || "",
+          category_id: result.data?.item?.category_id._id || "",
+          level: result.data?.item?.level || "",
+          image: result.data?.item?.image_url || null,
+          thumbnail: result.data?.item?.thumbnail_url || null,
+          price: result.data?.item?.price,
         });
-        result.data.requirements?.forEach((value) => {
+        result.data?.item?.requirements?.forEach((value) => {
           setRequirements((prev) => [...prev, value]);
         });
-        result.data.objectives?.forEach((value) => {
+        result.data?.item?.objectives?.forEach((value) => {
           setObjectives((prev) => [...prev, value]);
         });
       };
@@ -178,11 +178,12 @@ const CourseEditor = () => {
 
   // Hàm xóa bài học(khi chưa thêm, khi đã tồn tại trong khóa học)
   const handleDeleteLesson = async ({ index }) => {
-    if (!lessons[index].lessonId)
+    if (!lessons[index].lessonId) {
       setLessons(lessons?.filter((_, i) => i !== index));
-    else {
+      toast.success("Xóa bài học thành công");
+    } else {
       try {
-        await lessonService.deleteLesson({
+        const result = await lessonService.deleteLesson({
           lessonId: lessons[index].lessonId,
         });
         if (lessons.length == 1)
@@ -193,6 +194,7 @@ const CourseEditor = () => {
               (value) => value.lessonId !== lessons[index].lessonId
             )
           );
+        toast.success(result.message || "Xóa bài học thành công");
       } catch (error) {
         const status = error.status;
         const message = error.message;
@@ -252,6 +254,7 @@ const CourseEditor = () => {
           }
         } else {
           try {
+            console.log(courseInfo.category_id);
             const result = await courseService.addCourse({ data: formData });
             toast.success(result.message || "Tạo khóa học thành công");
             navigate("/instructor/courses");
@@ -270,7 +273,7 @@ const CourseEditor = () => {
   return (
     <>
       <div className="py-8">
-        <div className="h-[70px] flex flex-col justify-between">
+        <div className="flex flex-col gap-y-1">
           <p className="text-display-sm text-surface-nav font-bold">
             {id ? "Chỉnh sửa khóa học" : "Tạo khóa học mới"}
           </p>
@@ -282,11 +285,11 @@ const CourseEditor = () => {
         </div>
         <form className="mt-5" onSubmit={handleSave}>
           {/* Thông tin cơ bản */}
-          <div className="flex flex-col justify-between h-[600px] border-1 border-surface-bg rounded-[16px] p-5">
+          <div className="flex flex-col gap-y-5 border-1 border-surface-bg rounded-[16px] p-5">
             <p className="text-title-lg text-surface-nav font-medium">
               Thông tin cơ bản
             </p>
-            <div className="flex flex-col justify-between h-[90%]">
+            <div className="flex flex-col gap-y-2">
               <label
                 className="text-surface-nav text-body-lg font-medium"
                 htmlFor="courseName"
@@ -333,14 +336,14 @@ const CourseEditor = () => {
                 placeholder="Mô tả chi tiết về khóa học..."
               />
               <div className="flex justify-between w-[35%]">
-                <div>
+                <div className="flex flex-col gap-y-1">
                   <label
                     className="text-surface-nav text-body-lg font-medium"
                     htmlFor="category"
                   >
                     Danh mục *
                   </label>
-                  <div className="flex flex-col">
+                  <div className="flex flex-col gap-y-1">
                     <select
                       className="p-2 bg-surface-white border-1 border-surface-bg rounded-[8px] text-nav-muted outline-none"
                       value={courseInfo.category_id}
@@ -356,8 +359,11 @@ const CourseEditor = () => {
                       <option value="">Chọn danh mục</option>
                       {categories?.map((value) => {
                         return (
-                          <option key={value._id} value={value._id}>
-                            {value.category_name}
+                          <option
+                            key={value?.item?._id}
+                            value={value?.item?._id}
+                          >
+                            {value?.item?.category_name}
                           </option>
                         );
                       })}
@@ -367,14 +373,14 @@ const CourseEditor = () => {
                     </span>
                   </div>
                 </div>
-                <div>
+                <div className="flex flex-col gap-y-1">
                   <label
                     className="text-surface-nav text-body-lg font-medium"
                     htmlFor="level"
                   >
                     Cấp độ *
                   </label>
-                  <div className="flex flex-col">
+                  <div className="flex flex-col gap-y-1">
                     <select
                       className="p-2 bg-surface-white border-1 border-surface-bg rounded-[8px] text-nav-muted outline-none"
                       value={courseInfo.level}
@@ -458,8 +464,8 @@ const CourseEditor = () => {
             <p className="text-title-lg text-surface-nav font-medium">
               Yêu cầu & Kết quả đạt được
             </p>
-            <div className="flex flex-col justify-between h-[90%]">
-              <div>
+            <div className="flex flex-col gap-y-2">
+              <div className="flex flex-col gap-y-1">
                 <p className="text-surface-nav text-body-lg font-medium">
                   Yêu cầu trước khi học
                 </p>
@@ -489,7 +495,7 @@ const CourseEditor = () => {
                     Thêm
                   </button>
                 </div>
-                <ul className="mt-3">
+                <ul>
                   {requirements.length > 0 ? (
                     requirements.map((value, index) => {
                       return (
@@ -520,7 +526,7 @@ const CourseEditor = () => {
                   )}
                 </ul>
               </div>
-              <div className="mt-3">
+              <div className="flex flex-col gap-y-1">
                 <p className="text-surface-nav text-body-lg font-medium">
                   Kết quả đạt được sau khóa học
                 </p>
@@ -551,7 +557,7 @@ const CourseEditor = () => {
                     Thêm
                   </button>
                 </div>
-                <ul className="mt-3">
+                <ul>
                   {objectives.length > 0 ? (
                     objectives.map((value, index) => {
                       return (
@@ -584,31 +590,16 @@ const CourseEditor = () => {
               </div>
             </div>
           </div>
-          <div className="border border-surface-bg rounded-[16px] mt-6 p-4">
-            <div className="flex justify-between items-center">
-              <p className="text-title-lg text-surface-nav font-medium">
-                Nội dung khóa học
-              </p>
-              <button
-                type="button"
-                onClick={() => {
-                  setLessons((prev) => [
-                    ...prev,
-                    { lessonName: "", videoUrl: "", duration: "", order: 0 },
-                  ]);
-                }}
-                className="w-[20%] flex items-center gap-x-4 p-2 border border-surface-bg rounded-[8px] transition-transform duration-300 hover:bg-surface-bg hover:cursor-pointer"
-              >
-                <FaPlus />
-                Thêm bài học
-              </button>
-            </div>
-            <div className="flex flex-col gap-y-3 mt-6">
+          <div className="flex flex-col gap-y-6 border border-surface-bg rounded-[16px] mt-6 p-4">
+            <p className="text-title-lg text-surface-nav font-medium">
+              Nội dung khóa học
+            </p>
+            <div className="flex flex-col gap-y-4">
               {lessons?.map((value, index) => {
                 return (
                   <div
                     key={index}
-                    className="border border-surface-bg rounded-[16px] py-4 ps-4 pe-8"
+                    className="flex flex-col gap-y-4 border border-surface-bg rounded-[16px] py-4 ps-4 pe-8"
                   >
                     <div className="flex justify-between">
                       <p className="text-title-lg text-surface-nav font-medium">
@@ -624,7 +615,7 @@ const CourseEditor = () => {
                         </button>
                       )}
                     </div>
-                    <div className="flex flex-col mt-3">
+                    <div className="flex flex-col gap-y-1">
                       <label
                         className="text-surface-nav text-body-lg font-medium"
                         htmlFor="lessonName"
@@ -716,6 +707,21 @@ const CourseEditor = () => {
                   </div>
                 );
               })}
+            </div>
+            <div className="flex justify-end">
+              <button
+                type="button"
+                onClick={() => {
+                  setLessons((prev) => [
+                    ...prev,
+                    { lessonName: "", videoUrl: "", duration: "", order: 0 },
+                  ]);
+                }}
+                className="w-[18%] flex items-center gap-x-4 p-2  bg-surface-nav rounded-[8px] text-body-lg text-surface-white transition-transform duration-300 hover:text-surface-bg hover:cursor-pointer"
+              >
+                <FaPlus />
+                Thêm bài học
+              </button>
             </div>
           </div>
           {/* Cài đặt */}

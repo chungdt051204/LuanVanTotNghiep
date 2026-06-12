@@ -4,6 +4,7 @@ const optionSchema = new mongoose.Schema(
     question_id: {
       type: mongoose.Schema.ObjectId,
       ref: "questionEntity",
+      required: true,
     },
     answer_content: {
       type: String,

@@ -27,7 +27,7 @@ const Login = () => {
       return;
     try {
       const result = await authService.Login({ data: formData });
-      localStorage.setItem("token", result.token);
+      sessionStorage.setItem("token", result.token);
       dispatch(setIsLogin(true));
       dispatch(setMe(result.data));
       console.log(result.data.role_id.role);

@@ -3,10 +3,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { courseService } from "../services/courseService";
 import { setCourses } from "../stores/features/courseSlice";
 import { useNavigate } from "react-router-dom";
+import { FaStar } from "react-icons/fa";
+import { RxPeople } from "react-icons/rx";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+import { LuInbox } from "react-icons/lu";
+
 const ListCourses = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { items: courses, isLoading } = useSelector((state) => state.courses);
+  const displayItems = isLoading ? Array.from({ length: 6 }) : courses;
   useEffect(() => {
     const getApprovedCourses = async () => {
       try {
@@ -21,37 +28,89 @@ const ListCourses = () => {
     };
     getApprovedCourses();
   }, [dispatch]);
-  if (isLoading) return <p>Đang tải dữ liệu...</p>;
   return (
     <>
-      {courses?.length > 0 ? (
-        courses.map((value) => {
-          return (
-            <div
-              key={value._id}
-              className="flex flex-col w-[30%] p-4 border mt-4"
-            >
-              <img src={value.image_url} alt="" width={200} height={150} />
-              <div className="flex gap-x-1 items-center">
-                <img src={value.user_id.avatar} alt="" width={40} height={40} />
-                <p>{value.user_id.full_name}</p>
+      <div className="flex flex-wrap gap-6 mx-auto">
+        {displayItems?.length > 0 ? (
+          displayItems.map((value, index) => {
+            return (
+              <div
+                onClick={() => navigate(`/course/${value?.course?._id}`)}
+                key={index}
+                className={`${
+                  !isLoading &&
+                  "border border-gray-300 rounded-[16px] transition-shadow duration-300 hover:shadow-lg hover:cursor-pointer"
+                } flex flex-col gap-y-4 w-[31%] p-5 `}
+              >
+                {isLoading ? (
+                  <Skeleton width={250} height={200} />
+                ) : (
+                  <div className="w-[250px] h-[200px]">
+                    <img
+                      className="w-full h-full object-contain"
+                      src={value?.course?.image_url}
+                      alt=""
+                    />
+                  </div>
+                )}
+                <div className="flex flex-col gap-y-1">
+                  {isLoading ? (
+                    <div className="flex gap-x-4 items-center">
+                      <Skeleton width={40} height={40} borderRadius={1000} />
+                      <Skeleton width={180} height={25} />
+                    </div>
+                  ) : (
+                    <div className="flex gap-x-1 items-center">
+                      <img
+                        className="h-[40px] rounded-[1000px]"
+                        src={value?.course?.user_id?.avatar}
+                        alt=""
+                      />
+                      <p className="text-body-lg text-nav-muted">
+                        {value?.course?.user_id?.full_name}
+                      </p>
+                    </div>
+                  )}
+                  {isLoading ? (
+                    <Skeleton height={30} />
+                  ) : (
+                    <p className="text-headline-sm text-surface-nav font-medium hover:text-brand-blue transition-transform duration-300">
+                      {value?.course?.course_name}
+                    </p>
+                  )}
+                  {isLoading ? (
+                    <Skeleton width={180} height={25} />
+                  ) : (
+                    <div className="flex gap-x-3 items-center text-body-lg text-nav-muted">
+                      <div className="flex gap-x-1 items-center">
+                        <FaStar className="text-yellow-500" />
+                        <p>0.0</p>
+                      </div>
+                      <div className="flex gap-x-1 items-center">
+                        <RxPeople />
+                        <p>{value?.numberEnrollment}</p>
+                      </div>
+                      <p>{value?.totalLesson} bài học</p>
+                    </div>
+                  )}
+                </div>
+                {isLoading ? (
+                  <Skeleton width={150} height={30} />
+                ) : (
+                  <p className="text-headline-md text-brand-blue font-bold">
+                    {value?.course?.price}đ
+                  </p>
+                )}
               </div>
-              <p>{value.course_name}</p>
-              <div className="flex justify-between items-center">
-                <p>{value.price}</p>
-                <button
-                  onClick={() => navigate(`/course/${value._id}`)}
-                  className="border"
-                >
-                  Xem chi tiết
-                </button>
-              </div>
-            </div>
-          );
-        })
-      ) : (
-        <p>Không tìm thấy khóa học để hiển thị</p>
-      )}
+            );
+          })
+        ) : (
+          <div className="flex flex-col items-center gap-y-2 text-title-sm text-nav-muted mt-6">
+            <LuInbox className="text-display-md text-gray-300" />
+            <p>Không tìm thấy khóa học để hiển thị</p>
+          </div>
+        )}
+      </div>
     </>
   );
 };

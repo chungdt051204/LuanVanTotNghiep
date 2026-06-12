@@ -5,7 +5,7 @@ export const AdminPage = () => {
   return (
     <>
       <Navbar />
-      <div className="flex justify-between">
+      <div className="flex justify-between pt-20">
         <div className="w-[20%]">
           <Sidebar />
         </div>

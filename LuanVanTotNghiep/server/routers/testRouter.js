@@ -28,3 +28,9 @@ testRouter.put(
   middleware.isInstructor,
   new TestController().updateTest
 );
+testRouter.put(
+  `${prefix}/instructor/test/:id/status`,
+  middleware.verifyToken,
+  middleware.isInstructor,
+  new TestController().activeTest
+);

@@ -4,10 +4,12 @@ const courseSchema = new mongoose.Schema(
     user_id: {
       type: mongoose.Schema.ObjectId,
       ref: "userEntity",
+      required: true,
     },
     category_id: {
       type: mongoose.Schema.ObjectId,
       ref: "categoryEntity",
+      required: true,
     },
     course_name: {
       type: String,

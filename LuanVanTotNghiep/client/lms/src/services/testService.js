@@ -24,4 +24,8 @@ export const testService = {
     });
     return response;
   },
+  activeTest: async ({ testId }) => {
+    const response = await axiosClient.put(`/instructor/test/${testId}/status`);
+    return response;
+  },
 };

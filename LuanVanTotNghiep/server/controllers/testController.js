@@ -120,4 +120,18 @@ export class TestController {
         .json({ message: error.message || "Lỗi hệ thống" });
     }
   };
+  activeTest = async (req, res) => {
+    try {
+      const { id } = req.params;
+      const result = await new TestService().activeTest({ testId: id });
+      return res
+        .status(200)
+        .json({ message: "Kích hoạt bài kiểm tra thành công", data: result });
+    } catch (error) {
+      const status = error.statusCode || 500;
+      return res
+        .status(status)
+        .json({ message: error.message || "Lỗi hệ thống" });
+    }
+  };
 }

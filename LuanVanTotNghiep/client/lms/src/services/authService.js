@@ -14,7 +14,7 @@ export const authService = {
     return result;
   },
   Logout: ({ dispatch, setIsLogin, setMe, navigate }) => {
-    localStorage.removeItem("token");
+    sessionStorage.removeItem("token");
     dispatch(setIsLogin(false));
     dispatch(setMe(null));
     dispatch(setEnrollments([]));

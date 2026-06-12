@@ -19,8 +19,9 @@ export class CourseController {
       console.log(lessonArray);
       const categories = await new CategoryService().getAllCategories();
       const categoryIds = categories?.map((value) => {
-        return value._id;
+        return value?.item?._id;
       });
+      console.log(categoryIds);
       if (
         validateForm.validateFormCourse({ courseInfo: formData, categoryIds })
       ) {
@@ -124,7 +125,7 @@ export class CourseController {
       });
       const categories = await new CategoryService().getAllCategories();
       const categoryIds = categories?.map((value) => {
-        return value._id;
+        return value?.item?._id;
       });
       if (
         validateForm.validateFormCourse({ courseInfo: formData, categoryIds })
@@ -201,9 +202,13 @@ export class CourseController {
         courseId: id,
         status,
       });
-      return res
-        .status(200)
-        .json({ message: "Duyệt/Từ chối khóa học thành công", data: result });
+      return res.status(200).json({
+        message:
+          status === "approved"
+            ? "Duyệt khóa học thành công"
+            : "Từ chối khóa học thành công",
+        data: result,
+      });
     } catch (error) {
       const status = error.statusCode || 500;
       return res

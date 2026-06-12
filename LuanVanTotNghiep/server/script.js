@@ -17,6 +17,10 @@ import { enrollmentRouter } from "./routers/enrollmentRouter.js";
 import { lessonProgressRouter } from "./routers/lessonProgressRouter.js";
 import { testRouter } from "./routers/testRouter.js";
 import { questionRouter } from "./routers/questionRouter.js";
+import { cartRouter } from "./routers/cartRouter.js";
+import { cartItemRouter } from "./routers/cartItemRouter.js";
+import { orderRouter } from "./routers/orderRouter.js";
+import { notificationRouter } from "./routers/notificationRouter.js";
 app.use(
   cors({
     origin: process.env.URL_FRONTEND,
@@ -24,6 +28,7 @@ app.use(
   })
 );
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use("/", authRouter);
 app.use("/", roleRouter);
 app.use("/", userRouter);
@@ -34,6 +39,10 @@ app.use("/", enrollmentRouter);
 app.use("/", lessonProgressRouter);
 app.use("/", testRouter);
 app.use("/", questionRouter);
+app.use("/", cartRouter);
+app.use("/", cartItemRouter);
+app.use("/", orderRouter);
+app.use("/", notificationRouter);
 app.get("/", (req, res) => {
   return res.json("Server is running...");
 });

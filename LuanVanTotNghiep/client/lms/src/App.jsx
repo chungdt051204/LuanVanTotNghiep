@@ -1,5 +1,5 @@
 import { Routes, Route, useSearchParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login";
@@ -29,16 +29,24 @@ import AdminDashboard from "./pages/admin/Dashboard";
 import AdminCourses from "./pages/admin/Courses";
 import CourseDetail from "./pages/user/CourseDetail";
 import LessonDetail from "./pages/LessonDetail";
+import { cartService } from "./services/cartService";
+import { setCart } from "./stores/features/cartSlice";
+import { notificationService } from "./services/notificationService";
+import { setNotifications } from "./stores/features/notificationSlice";
+import Cart from "./pages/user/Cart";
+import Notifications from "./pages/user/Notifications";
+import MyCourses from "./pages/user/MyCourses";
 
 export const api = "http://localhost:3000";
 function App() {
+  const isLogin = useSelector((state) => state.auth.isLogin);
+  const me = useSelector((state) => state.me.item);
   const dispatch = useDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
   const token = searchParams.get("token");
   useEffect(() => {
     const getAllRoles = async () => {
       const result = await roleService.getAllRoles();
-      console.log(result);
       dispatch(setRoles(result.data));
     };
     getAllRoles();
@@ -46,7 +54,7 @@ function App() {
   useEffect(() => {
     const getMe = async () => {
       if (token) {
-        localStorage.setItem("token", token);
+        sessionStorage.setItem("token", token);
         setSearchParams((prev) => {
           prev.delete("token");
         });
@@ -70,6 +78,34 @@ function App() {
     };
     getAllCategories();
   }, [dispatch]);
+  useEffect(() => {
+    if (isLogin && me?.role_id?.role == "user") {
+      const getMyCart = async () => {
+        try {
+          const result = await cartService.getMyCart();
+          console.log(result.data);
+          dispatch(setCart(result.data));
+        } catch (error) {
+          const status = error.status;
+          const message = error.data.message;
+          console.log(status, message);
+        }
+      };
+      getMyCart();
+      const getNotificationsByUser = async () => {
+        try {
+          const result = await notificationService.getNotificationsByUser();
+          console.log(result.data);
+          dispatch(setNotifications(result.data));
+        } catch (error) {
+          const status = error.status;
+          const message = error.data.message;
+          console.log(status, message);
+        }
+      };
+      getNotificationsByUser();
+    }
+  }, [dispatch, isLogin, me]);
   return (
     <>
       <Routes>
@@ -78,6 +114,9 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/course/:id" element={<CourseDetail />} />
         <Route path="/course/:courseId/lesson/:id" element={<LessonDetail />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/notifications" element={<Notifications />} />
+        <Route path="/my-courses" element={<MyCourses />} />
         <Route element={<ProtectedRouteInstructor />}>
           <Route path="/instructor" element={<InstructorPage />}>
             <Route path="dashboard" element={<InstructorDashboard />} />

@@ -95,7 +95,10 @@ export const validateForm = {
       }
     }
     //Kiểm tra giá
-    if (!onlyNumberRegex.test(courseInfo.price)) {
+    if (courseInfo.price === null) {
+      errors.errorPrice = "Vui lòng nhập giá!";
+      isValid = false;
+    } else if (!onlyNumberRegex.test(courseInfo.price)) {
       errors.errorPrice = "Vui lòng nhập đúng định dạng giá!";
       isValid = false;
     }

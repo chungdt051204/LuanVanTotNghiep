@@ -1,20 +1,76 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { courseService } from "../../services/courseService";
 import { setCourses, updateCourse } from "../../stores/features/courseSlice";
 import { toast } from "react-toastify";
 import { FaPlus } from "react-icons/fa6";
-import { IoEyeOutline } from "react-icons/io5";
 import { LuSquarePen } from "react-icons/lu";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { FaTrashRestore } from "react-icons/fa";
 import { RxPeople } from "react-icons/rx";
+import { IoListOutline } from "react-icons/io5";
+import { RiDraftLine } from "react-icons/ri";
+import { GoClock } from "react-icons/go";
+import { CiCircleCheck } from "react-icons/ci";
+import { LuInbox } from "react-icons/lu";
 
 const InstructorCourses = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { items: myCourses, isLoading } = useSelector((state) => state.courses);
+  const filterTabs = [
+    {
+      status: "",
+      title: "Tất cả khóa học",
+      icon: <IoListOutline />,
+      numberCourse: myCourses?.filter((value) => value?.course?.is_visible)
+        ?.length,
+    },
+    {
+      status: "draft",
+      title: "Bản nháp",
+      icon: <RiDraftLine />,
+      numberCourse: myCourses?.filter(
+        (value) => value?.course?.is_visible && value?.course?.status == "draft"
+      )?.length,
+    },
+    {
+      status: "pending",
+      title: "Đang chờ duyệt",
+      icon: <GoClock />,
+      numberCourse: myCourses?.filter(
+        (value) =>
+          value?.course?.is_visible && value?.course?.status == "pending"
+      )?.length,
+    },
+    {
+      status: "approved",
+      title: "Đã đăng tải",
+      icon: <CiCircleCheck />,
+      numberCourse: myCourses?.filter(
+        (value) =>
+          value?.course?.is_visible && value?.course?.status == "approved"
+      )?.length,
+    },
+    {
+      status: "deleted",
+      title: "Đã xóa",
+      icon: <RiDeleteBinLine />,
+      numberCourse: myCourses?.filter((value) => !value?.course?.is_visible)
+        ?.length,
+    },
+  ];
+  const [idx, setIdx] = useState(0);
+  const currentStatus = filterTabs[idx].status;
+  const displayCourses = myCourses?.filter((value) => {
+    if (currentStatus == "") return value?.course?.is_visible;
+    else if (currentStatus == "deleted") return !value?.course?.is_visible;
+    else
+      return (
+        value?.course?.is_visible && value?.course?.status == currentStatus
+      );
+  });
 
   useEffect(() => {
     const getCoursesByInstructor = async () => {
@@ -47,7 +103,13 @@ const InstructorCourses = () => {
     }
   };
   const handleSubmitOrUnSubmitCourse = async ({ courseId, status }) => {
-    console.log(courseId, status);
+    const course = myCourses?.find((value) => value?.course?._id == courseId);
+    if (course?.numberLesson == 0 || course?.numberTest == 0) {
+      toast.error(
+        "Khóa học này chưa có bài học hoặc bài kiểm tra, không thể đăng tải!"
+      );
+      return;
+    }
     const statusCourse =
       status === "draft" || status === "rejected" ? "pending" : "draft";
     try {
@@ -86,12 +148,56 @@ const InstructorCourses = () => {
             Tạo khóa học mới
           </button>
         </div>
+        <div className="flex mt-6 border border-gray-300 rounded-[8px] w-[95%]">
+          {filterTabs?.map((value, index) => {
+            const borderBottomColors = [
+              "border-b-2 border-b-blue-600",
+              "border-b-2 border-b-gray-600",
+              "border-b-2 border-b-yellow-600",
+              "border-b-2 border-b-green-600",
+              "border-b-2 border-b-red-600",
+            ];
+            const textColors = [
+              "text-blue-600",
+              "text-gray-600",
+              "text-yellow-600",
+              "text-green-600",
+              "text-red-600",
+            ];
+            return (
+              <div
+                className={`flex py-4 ${
+                  idx == index && borderBottomColors[index]
+                }`}
+                onClick={() => setIdx(index)}
+                key={index}
+              >
+                <div
+                  className={`flex gap-x-2 items-center px-6 text-title-sm font-medium ${
+                    idx == index ? textColors[index] : "text-nav-muted"
+                  }`}
+                >
+                  {value.icon}
+                  <p>{value.title}</p>
+                  <p>({value.numberCourse})</p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
         {isLoading ? (
-          <p>Đang tải dữ liệu...</p>
+          <p className="text-title-lg text-surface-nav text-center">
+            Đang tải dữ liệu...
+          </p>
+        ) : displayCourses?.length == 0 ? (
+          <div className="flex flex-col items-center gap-y-2 text-title-sm text-nav-muted w-[95%] mt-6">
+            <LuInbox className="text-display-md text-gray-300" />
+            <p>Chưa có khóa học nào</p>
+          </div>
         ) : (
-          <table className="w-[95%] border-separate border-spacing-0 overflow-hidden border-1 border-surface-bg rounded-[16px] mt-6">
+          <table className="w-[95%] border-separate border-spacing-0 overflow-hidden border-1 border-gray-300 rounded-[16px] mt-6">
             <thead>
-              <tr className="flex items-center justify-between text-surface-nav font-medium">
+              <tr className="flex items-center justify-between text-surface-nav font-medium border-b border-gray-200">
                 <td className="w-[36%] p-2">Khóa học</td>
                 <td className="w-[10%]">Trạng thái</td>
                 <td className="w-[10%] text-center">Học viên</td>
@@ -101,41 +207,40 @@ const InstructorCourses = () => {
               </tr>
             </thead>
             <tbody>
-              {myCourses.length > 0 &&
-                myCourses.map((value) => {
+              {displayCourses.length > 0 &&
+                displayCourses.map((value) => {
                   return (
                     <tr
-                      className="flex justify-between items-center border border-surface-bg hover:bg-surface-bg"
-                      key={value.course._id}
+                      className="flex justify-between items-center border-b border-gray-200 hover:bg-surface-bg"
+                      key={value.course?._id}
                     >
                       <td className="flex items-center gap-x-2 w-[36%] p-2">
                         <img
-                          src={value.course.image_url}
-                          width={50}
-                          height={50}
+                          className="w-[50px] h-[50px] object-fill"
+                          src={value.course?.image_url}
                         />
                         <div>
                           <p className="text-surface-nav text-title-lg font-medium">
-                            {value.course.course_name}
+                            {value.course?.course_name}
                           </p>
                           <p className="text-nav-muted text-body-lg">
-                            {value.course.category_id.category_name}
+                            {value.course?.category_id.category_name}
                           </p>
                         </div>
                       </td>
                       <td className="w-[10%]">
                         <p
                           className={`text-body-md text-center font-medium rounded-[8px] ${
-                            value.course.status === "draft"
+                            value.course?.status === "draft"
                               ? "text-surface-nav bg-gray-200"
-                              : value.course.status === "pending"
+                              : value.course?.status === "pending"
                               ? "text-yellow-700 bg-yellow-100"
-                              : value.course.status === "approved"
+                              : value.course?.status === "approved"
                               ? "text-green-700 bg-green-100"
                               : "text-red-700 bg-red-100"
                           } `}
                         >
-                          {value.course.status}
+                          {value.course?.status}
                         </p>
                       </td>
                       <td className="flex gap-x-1 items-center w-[10%] ms-8">
@@ -146,33 +251,28 @@ const InstructorCourses = () => {
                       <td className="w-[10%]"></td>
                       <td className="flex justify-end gap-x-2 items-center w-[30%] pe-2">
                         <div className="flex gap-x-1">
-                          {value.course.is_visible && (
-                            <div className="p-3 rounded-[8px] text-title-lg transition-transform duration-300 hover:bg-gray-200 hover:cursor-pointer">
-                              <IoEyeOutline />
-                            </div>
-                          )}
-                          {(value.course.status === "draft" ||
-                            value.course.status === "rejected") && (
+                          {(value.course?.status === "draft" ||
+                            value.course?.status === "rejected") && (
                             <div className="flex gap-x-2">
-                              {value.course.is_visible && (
+                              {value.course?.is_visible && (
                                 <div className="p-3 rounded-[8px] text-title-lg hover:bg-gray-200 transition-transform duration-300 hover:cursor-pointer">
                                   <LuSquarePen
                                     onClick={() =>
                                       navigate(
-                                        `/instructor/course/${value.course._id}/edit`
+                                        `/instructor/course/${value.course?._id}/edit`
                                       )
                                     }
                                   />
                                 </div>
                               )}
                               <div className="p-3 rounded-[8px] text-title-lg hover:bg-gray-200 transition-transform duration-300 hover:cursor-pointer">
-                                {value.course.is_visible ? (
+                                {value.course?.is_visible ? (
                                   <RiDeleteBinLine
                                     className="text-brand-primary"
                                     onClick={() =>
                                       handleDeleteOrRestoreCourse({
-                                        courseId: value.course._id,
-                                        isVisible: value.course.is_visible,
+                                        courseId: value.course?._id,
+                                        isVisible: value.course?.is_visible,
                                       })
                                     }
                                   />
@@ -181,8 +281,8 @@ const InstructorCourses = () => {
                                     className="text-brand-primary"
                                     onClick={() =>
                                       handleDeleteOrRestoreCourse({
-                                        courseId: value.course._id,
-                                        isVisible: value.course.is_visible,
+                                        courseId: value.course?._id,
+                                        isVisible: value.course?.is_visible,
                                       })
                                     }
                                   />
@@ -191,24 +291,24 @@ const InstructorCourses = () => {
                             </div>
                           )}
                         </div>
-                        {value.course.status !== "approved" &&
-                          value.course.is_visible && (
+                        {value.course?.status !== "approved" &&
+                          value.course?.is_visible && (
                             <button
                               onClick={() =>
                                 handleSubmitOrUnSubmitCourse({
-                                  courseId: value.course._id,
-                                  status: value.course.status,
+                                  courseId: value.course?._id,
+                                  status: value.course?.status,
                                 })
                               }
                               className={`px-2 py-1 ${
-                                value.course.status === "pending"
+                                value.course?.status === "pending"
                                   ? "bg-brand-primary"
                                   : "bg-green-700"
                               }  text-body-lg text-surface-white rounded-[8px] transition-transform duration-300 hover:text-surface-bg hover:cursor-pointer`}
                             >
-                              {value.course.status === "pending"
+                              {value.course?.status === "pending"
                                 ? "Hủy đăng tải"
-                                : value.course.status === "draft"
+                                : value.course?.status === "draft"
                                 ? "Đăng tải"
                                 : "Đăng tải lại"}
                             </button>

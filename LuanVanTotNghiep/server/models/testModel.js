@@ -4,6 +4,7 @@ const testSchema = new mongoose.Schema(
     course_id: {
       type: mongoose.Schema.ObjectId,
       ref: "courseEntity",
+      required: true,
     },
     test_name: {
       type: String,
@@ -19,7 +20,7 @@ const testSchema = new mongoose.Schema(
       enum: [50, 60, 70, 80, 90],
       required: true,
     },
-    status: {
+    is_active: {
       type: Boolean,
       default: false,
     },
