@@ -1,4 +1,4 @@
-import { useNavigate, NavLink } from "react-router-dom";
+import { useNavigate, NavLink, useSearchParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { authService } from "../services/authService";
 import { setIsLogin } from "../stores/features/authSlice";
@@ -10,21 +10,26 @@ import { RxPeople } from "react-icons/rx";
 import { BiComment } from "react-icons/bi";
 import { LuUserRound } from "react-icons/lu";
 import { AiOutlineHome } from "react-icons/ai";
-import SearchBar from "./SearchBar";
 import { IoSearch } from "react-icons/io5";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { IoCartOutline } from "react-icons/io5";
 import { FaAngleDown } from "react-icons/fa6";
 import { FaAngleUp } from "react-icons/fa6";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LuInbox } from "react-icons/lu";
+import { courseService } from "../services/courseService";
+import { FaStar } from "react-icons/fa";
+import { format } from "../../helper/format";
 
 export const Navbar = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const dispatch = useDispatch();
   const isLogin = useSelector((state) => state.auth.isLogin);
   const me = useSelector((state) => state.me.item);
   const currentRole = me?.role_id?.role || "user";
+  const [searchValue, setSearchValue] = useState("");
+  const [suggestedCourses, setSuggestedCourses] = useState([]);
   const myCart = useSelector((state) => state.cart);
   const notifications = useSelector((state) => state.notifications.items);
   const navbarItem = {
@@ -88,6 +93,24 @@ export const Navbar = () => {
     ],
   };
   const [clicked, setClicked] = useState(false);
+  useEffect(() => {
+    const getApprovedCourses = async () => {
+      try {
+        const params = new URLSearchParams(searchParams);
+        if (searchValue) params.append("search", searchValue);
+        const result = await courseService.getApprovedCourses({
+          params: params.toString(),
+        });
+        console.log(result.data);
+        setSuggestedCourses(result.data);
+      } catch (error) {
+        const status = error.status;
+        const message = error.message;
+        console.log(status, message);
+      }
+    };
+    getApprovedCourses();
+  }, [searchValue, searchParams]);
   const handleLogout = () => {
     authService.Logout({ dispatch, navigate, setIsLogin, setMe });
   };
@@ -101,9 +124,96 @@ export const Navbar = () => {
           </p>
         </div>
         {currentRole === "user" && (
-          <div className="flex gap-x-2 items-center w-[32%] py-2 px-4 bg-surface-bg rounded-[8px]">
-            <IoSearch className="text-headline-sm text-nav-muted font-medium" />
-            <SearchBar />
+          <div className="relative w-[32%] ">
+            <div className="flex gap-x-2 items-center py-2 px-4 bg-surface-bg rounded-[8px]">
+              <IoSearch
+                onClick={() =>
+                  navigate(`/courses?search=${encodeURIComponent(searchValue)}`)
+                }
+                className="text-headline-sm text-nav-muted font-medium"
+              />
+              <input
+                type="text"
+                value={searchValue}
+                className="w-full outline-0"
+                placeholder="Nhập tên khóa học, danh mục, giảng viên"
+                onChange={(e) => setSearchValue(e.target.value)}
+              />
+            </div>
+            {searchValue && (
+              <div className="absolute top-[50px] w-[600px]">
+                <div className="flex justify-between text-title-sm text-nav-muted px-5 py-3 bg-surface-bg rounded-t-[16px]">
+                  <p className="font-medium">KHÓA HỌC GỢI Ý</p>
+                  {suggestedCourses?.arrayCourse?.length} kết quả
+                </div>
+                {suggestedCourses?.arrayCourse?.length > 0 ? (
+                  <div
+                    className={`flex flex-col py-6 rounded-b-[16px] bg-surface-white ${
+                      suggestedCourses?.arrayCourse?.length >= 4 && "h-[400px]"
+                    }  overflow-y-auto`}
+                  >
+                    {suggestedCourses?.arrayCourse?.map((value) => {
+                      return (
+                        <div
+                          className="flex justify-between px-5 py-2 border-b border-b-surface-bg transition-transform duration-300 hover:bg-blue-50 hover:cursor-pointer"
+                          key={value?.course?._id}
+                          onClick={() =>
+                            navigate(`/course/${value?.course?._id}`)
+                          }
+                        >
+                          <div className="flex gap-x-4">
+                            <img
+                              className="w-[70px] h-[80px] object-contain"
+                              src={value?.course?.image_url}
+                              alt=""
+                            />
+                            <div className="flex flex-col gap-y-1">
+                              <p className="text-title-lg text-surface-nav font-medium transition-transform duration-300 hover:text-brand-blue">
+                                {value?.course?.course_name}
+                              </p>
+                              <div className="flex gap-x-2 text-title-sm font-medium">
+                                <p className="text-nav-muted">
+                                  {value?.course?.user_id?.full_name}
+                                </p>
+                                <p className="text-brand-blue">
+                                  {value?.course?.category_id?.category_name}
+                                </p>
+                              </div>
+                              <div className="flex gap-x-6">
+                                <div className="flex gap-x-1 items-center text-body-sm">
+                                  <FaStar className="text-yellow-300" />
+                                  <p className="text-surface-nav">
+                                    {value?.course?.rating_star > 0
+                                      ? value?.course?.rating_star
+                                      : "0.0"}
+                                  </p>
+                                </div>
+                                <p className="text-nav-muted">
+                                  {value?.numberEnrollment} học viên
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                          <p className="text-title-lg text-brand-blue font-bold">
+                            {format.formatPrice({
+                              price: value?.course?.price,
+                            })}
+                            đ
+                          </p>
+                        </div>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <div className="flex flex-col items-center gap-y-1 bg-surface-white py-3 rounded-b-[16px]">
+                    <LuInbox className="text-display-md text-gray-300" />
+                    <p className="text-title-sm text-nav-muted">
+                      Không tìm thấy khóa học
+                    </p>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         )}
         <ul className="flex gap-x-8">
@@ -172,16 +282,27 @@ export const Navbar = () => {
               {clicked ? <FaAngleUp /> : <FaAngleDown />}
               {clicked && (
                 <div className="absolute flex flex-col gap-y-2 top-16 p-4 w-[160px] bg-surface-white rounded-[6px] shadow-md text-title-sm text-nav-muted">
-                  <p className="transition-transform duration-300 hover:cursor-pointer hover:text-brand-blue hover:underline">
+                  <p
+                    onClick={() => navigate("/my-profile")}
+                    className="transition-transform duration-300 hover:cursor-pointer hover:text-brand-blue hover:underline"
+                  >
                     Tài khoản của tôi
                   </p>
                   {currentRole == "user" && (
-                    <p
-                      onClick={() => navigate("/my-courses")}
-                      className="transition-transform duration-300 hover:cursor-pointer hover:text-brand-blue hover:underline"
-                    >
-                      Khóa học của tôi
-                    </p>
+                    <div className="flex flex-col gap-y-2">
+                      <p
+                        onClick={() => navigate("/my-courses")}
+                        className="transition-transform duration-300 hover:cursor-pointer hover:text-brand-blue hover:underline"
+                      >
+                        Khóa học của tôi
+                      </p>
+                      <p
+                        onClick={() => navigate("/my-orders")}
+                        className="transition-transform duration-300 hover:cursor-pointer hover:text-brand-blue hover:underline"
+                      >
+                        Đơn hàng của tôi
+                      </p>
+                    </div>
                   )}
                   <button
                     onClick={handleLogout}

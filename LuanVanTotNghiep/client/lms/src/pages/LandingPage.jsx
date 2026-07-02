@@ -1,17 +1,23 @@
 import ListCourses from "../components/ListCourses";
 import Navbar from "../components/Navbar";
 import image from "../assets/image.png";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { FaArrowRight } from "react-icons/fa6";
 import { IoBookOutline } from "react-icons/io5";
 import { RxPeople } from "react-icons/rx";
 import { LuAward } from "react-icons/lu";
 import { IoIosTrendingUp } from "react-icons/io";
 import { FaArrowUp } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { useEffect } from "react";
+import { courseService } from "../services/courseService";
+import { setCourses } from "../stores/features/courseSlice";
 
 const LandingPage = () => {
   const navigate = useNavigate();
+  const { searchParams } = useSearchParams();
+  const dispatch = useDispatch();
+  const { items: courses, isLoading } = useSelector((state) => state.courses);
   const categories = useSelector((state) => state.categories.items);
   const items = [
     {
@@ -39,6 +45,25 @@ const LandingPage = () => {
       bgColor: "bg-orange-100",
     },
   ];
+  useEffect(() => {
+    const getApprovedCourses = async () => {
+      try {
+        const params = new URLSearchParams(searchParams);
+        params.append("page", 1);
+        params.append("limit", 6);
+        const result = await courseService.getApprovedCourses({
+          params: params.toString(),
+        });
+        console.log(result.data);
+        dispatch(setCourses(result.data));
+      } catch (error) {
+        const status = error.status;
+        const message = error.message;
+        console.log(status, message);
+      }
+    };
+    getApprovedCourses();
+  }, [dispatch, searchParams]);
   return (
     <>
       <Navbar />
@@ -86,12 +111,15 @@ const LandingPage = () => {
                 Các khóa học mới cập nhật gần đây
               </p>
             </div>
-            <button className="flex gap-x-4 items-center py-2 px-4 border border-gray-300 rounded-[8px] text-surface-nav text-title-lg font-medium transition-transform duration-300 hover:cursor-pointer hover:bg-surface-bg">
+            <button
+              onClick={() => navigate("/courses")}
+              className="flex gap-x-4 items-center py-2 px-4 border border-gray-300 rounded-[8px] text-surface-nav text-title-lg font-medium transition-transform duration-300 hover:cursor-pointer hover:bg-surface-bg"
+            >
               Xem tất cả
               <FaArrowRight />
             </button>
           </div>
-          <ListCourses />
+          <ListCourses courses={courses} isLoading={isLoading} />
         </div>
         <div className="bg-surface-white py-16 px-48">
           <div className="flex justify-between">

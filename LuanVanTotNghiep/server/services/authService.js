@@ -31,6 +31,11 @@ export class AuthService {
       throw error;
     }
     const hashedPassword = await bcrypt.hash(data.password, saltRounds);
+    if (data.role === undefined || !data.role) {
+      const error = new Error("Vui lòng chọn vai trò!");
+      error.statusCode = 422;
+      throw error;
+    }
     const role = await new RoleService().getRoleByName({ name: data.role });
     const newUser = await userEntity.create({
       full_name: data.fullName,

@@ -25,7 +25,7 @@ export class AuthController {
   Register = async (req, res) => {
     try {
       const data = req.body;
-      if (validateForm.validateFormAuth({ data })) {
+      if (validateForm.validateUserForm({ formData: data })) {
         const result = await new AuthService().Register({ data });
         return res
           .status(201)
@@ -42,7 +42,7 @@ export class AuthController {
   Login = async (req, res) => {
     try {
       const data = req.body;
-      if (validateForm.validateFormAuth({ data })) {
+      if (validateForm.validateUserForm({ formData: data })) {
         const result = await new AuthService().Login({ data });
         return res.status(200).json({
           message: "Đăng nhập thành công",

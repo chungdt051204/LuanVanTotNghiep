@@ -21,6 +21,8 @@ import { cartRouter } from "./routers/cartRouter.js";
 import { cartItemRouter } from "./routers/cartItemRouter.js";
 import { orderRouter } from "./routers/orderRouter.js";
 import { notificationRouter } from "./routers/notificationRouter.js";
+import { testResultRouter } from "./routers/testResultRouter.js";
+import { ratingRouter } from "./routers/ratingRouter.js";
 app.use(
   cors({
     origin: process.env.URL_FRONTEND,
@@ -43,6 +45,8 @@ app.use("/", cartRouter);
 app.use("/", cartItemRouter);
 app.use("/", orderRouter);
 app.use("/", notificationRouter);
+app.use("/", testResultRouter);
+app.use("/", ratingRouter);
 app.get("/", (req, res) => {
   return res.json("Server is running...");
 });

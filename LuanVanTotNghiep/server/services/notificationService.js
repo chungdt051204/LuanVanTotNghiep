@@ -25,4 +25,7 @@ export class NotificationService {
       .sort({ createdAt: -1 });
     return notifications || [];
   };
+  deleteReadNotifications = async ({ userId }) => {
+    await notificationEntity.deleteMany({ user_id: userId, is_read: true });
+  };
 }

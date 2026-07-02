@@ -13,3 +13,8 @@ notificationRouter.put(
   middleware.verifyToken,
   new NotificationController().markAsAllRead
 );
+notificationRouter.delete(
+  `${prefix}/notifications`,
+  middleware.verifyToken,
+  new NotificationController().deleteReadNotifications
+);

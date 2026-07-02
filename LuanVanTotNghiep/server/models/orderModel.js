@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import paginate from "mongoose-paginate-v2";
 const orderSchema = new mongoose.Schema(
   {
     user_id: {
@@ -33,10 +34,17 @@ const orderSchema = new mongoose.Schema(
       min: 0,
       required: true,
     },
+    applied_amount: {
+      type: Number,
+      min: 0,
+      default: 0,
+    },
     transaction_id: {
       type: String,
+      default: null,
     },
   },
   { timestamps: true }
 );
+orderSchema.plugin(paginate);
 export default mongoose.model("orderEntity", orderSchema, "Order");

@@ -15,7 +15,10 @@ export const notificationSlice = createSlice({
     createNotification: (state, action) => {
       state.items.push(action.payload);
     },
+    deleteReadNotification: (state, action) => {
+      state.items = state.items.filter((value) => value._id !== action.payload);
+    },
   },
 });
-export const { setNotifications, createNotification } =
+export const { setNotifications, createNotification, deleteReadNotification } =
   notificationSlice.actions;

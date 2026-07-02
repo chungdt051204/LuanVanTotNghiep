@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { courseService } from "../../services/courseService";
 import { setCourses, updateCourse } from "../../stores/features/courseSlice";
 import { toast } from "react-toastify";
@@ -14,9 +14,13 @@ import { RiDraftLine } from "react-icons/ri";
 import { GoClock } from "react-icons/go";
 import { CiCircleCheck } from "react-icons/ci";
 import { LuInbox } from "react-icons/lu";
+import { format } from "../../../helper/format";
+import PaginationButton from "../../components/PaginationButton";
+import { FaStar } from "react-icons/fa";
 
 const InstructorCourses = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const dispatch = useDispatch();
   const { items: myCourses, isLoading } = useSelector((state) => state.courses);
   const filterTabs = [
@@ -24,58 +28,40 @@ const InstructorCourses = () => {
       status: "",
       title: "Tất cả khóa học",
       icon: <IoListOutline />,
-      numberCourse: myCourses?.filter((value) => value?.course?.is_visible)
-        ?.length,
     },
     {
       status: "draft",
       title: "Bản nháp",
       icon: <RiDraftLine />,
-      numberCourse: myCourses?.filter(
-        (value) => value?.course?.is_visible && value?.course?.status == "draft"
-      )?.length,
     },
     {
       status: "pending",
       title: "Đang chờ duyệt",
       icon: <GoClock />,
-      numberCourse: myCourses?.filter(
-        (value) =>
-          value?.course?.is_visible && value?.course?.status == "pending"
-      )?.length,
     },
     {
       status: "approved",
       title: "Đã đăng tải",
       icon: <CiCircleCheck />,
-      numberCourse: myCourses?.filter(
-        (value) =>
-          value?.course?.is_visible && value?.course?.status == "approved"
-      )?.length,
     },
     {
       status: "deleted",
       title: "Đã xóa",
       icon: <RiDeleteBinLine />,
-      numberCourse: myCourses?.filter((value) => !value?.course?.is_visible)
-        ?.length,
     },
   ];
+  const [status, setStatus] = useState("");
   const [idx, setIdx] = useState(0);
-  const currentStatus = filterTabs[idx].status;
-  const displayCourses = myCourses?.filter((value) => {
-    if (currentStatus == "") return value?.course?.is_visible;
-    else if (currentStatus == "deleted") return !value?.course?.is_visible;
-    else
-      return (
-        value?.course?.is_visible && value?.course?.status == currentStatus
-      );
-  });
 
   useEffect(() => {
     const getCoursesByInstructor = async () => {
       try {
-        const result = await courseService.getCoursesByInstructor();
+        const params = new URLSearchParams(searchParams);
+        params.append("limit", 5);
+        if (status) params.append("status", status);
+        const result = await courseService.getCoursesByInstructor({
+          params: params.toString(),
+        });
         console.log(result);
         dispatch(setCourses(result.data));
       } catch (error) {
@@ -85,7 +71,7 @@ const InstructorCourses = () => {
       }
     };
     getCoursesByInstructor();
-  }, [dispatch]);
+  }, [dispatch, searchParams, status]);
   const handleDeleteOrRestoreCourse = async ({ courseId, isVisible }) => {
     try {
       const action = isVisible ? "delete" : "restore";
@@ -103,12 +89,15 @@ const InstructorCourses = () => {
     }
   };
   const handleSubmitOrUnSubmitCourse = async ({ courseId, status }) => {
-    const course = myCourses?.find((value) => value?.course?._id == courseId);
-    if (course?.numberLesson == 0 || course?.numberTest == 0) {
-      toast.error(
-        "Khóa học này chưa có bài học hoặc bài kiểm tra, không thể đăng tải!"
-      );
-      return;
+    const item = myCourses?.find((value) => value?.course?._id == courseId);
+    console.log(item?.course?.status);
+    if (item?.course?.status == "draft") {
+      if (item?.numberLesson == 0 || item?.numberTest == 0) {
+        toast.error(
+          "Khóa học này chưa có bài học hoặc bài kiểm tra, không thể đăng tải!"
+        );
+        return;
+      }
     }
     const statusCourse =
       status === "draft" || status === "rejected" ? "pending" : "draft";
@@ -169,7 +158,10 @@ const InstructorCourses = () => {
                 className={`flex py-4 ${
                   idx == index && borderBottomColors[index]
                 }`}
-                onClick={() => setIdx(index)}
+                onClick={() => {
+                  setIdx(index);
+                  setStatus(value.status);
+                }}
                 key={index}
               >
                 <div
@@ -179,147 +171,161 @@ const InstructorCourses = () => {
                 >
                   {value.icon}
                   <p>{value.title}</p>
-                  <p>({value.numberCourse})</p>
                 </div>
               </div>
             );
           })}
         </div>
-        {isLoading ? (
-          <p className="text-title-lg text-surface-nav text-center">
-            Đang tải dữ liệu...
-          </p>
-        ) : displayCourses?.length == 0 ? (
-          <div className="flex flex-col items-center gap-y-2 text-title-sm text-nav-muted w-[95%] mt-6">
-            <LuInbox className="text-display-md text-gray-300" />
-            <p>Chưa có khóa học nào</p>
-          </div>
-        ) : (
-          <table className="w-[95%] border-separate border-spacing-0 overflow-hidden border-1 border-gray-300 rounded-[16px] mt-6">
-            <thead>
-              <tr className="flex items-center justify-between text-surface-nav font-medium border-b border-gray-200">
-                <td className="w-[36%] p-2">Khóa học</td>
-                <td className="w-[10%]">Trạng thái</td>
-                <td className="w-[10%] text-center">Học viên</td>
-                <td className="w-[15%] text-center">Doanh thu</td>
-                <td className="w-[10%]">Đánh giá</td>
-                <td className="w-[30%] p-2 text-right">Thao tác</td>
-              </tr>
-            </thead>
-            <tbody>
-              {displayCourses.length > 0 &&
-                displayCourses.map((value) => {
-                  return (
-                    <tr
-                      className="flex justify-between items-center border-b border-gray-200 hover:bg-surface-bg"
-                      key={value.course?._id}
-                    >
-                      <td className="flex items-center gap-x-2 w-[36%] p-2">
-                        <img
-                          className="w-[50px] h-[50px] object-fill"
-                          src={value.course?.image_url}
-                        />
-                        <div>
-                          <p className="text-surface-nav text-title-lg font-medium">
-                            {value.course?.course_name}
+        <div className="flex flex-col gap-y-6">
+          {isLoading ? (
+            <p className="text-title-lg text-surface-nav text-center">
+              Đang tải dữ liệu...
+            </p>
+          ) : myCourses?.arrayCourse?.length == 0 ? (
+            <div className="flex flex-col items-center gap-y-2 text-title-sm text-nav-muted w-[95%] mt-6">
+              <LuInbox className="text-display-md text-gray-300" />
+              <p>Chưa có khóa học nào</p>
+            </div>
+          ) : (
+            <table className="w-[95%] border-separate border-spacing-0 overflow-hidden border-1 border-gray-300 rounded-[16px] mt-6">
+              <thead>
+                <tr className="flex items-center justify-between text-surface-nav font-medium border-b border-gray-200">
+                  <td className="w-[35%] p-2">Khóa học</td>
+                  <td className="w-[10%]">Trạng thái</td>
+                  <td className="w-[10%]">Học viên</td>
+                  <td className="w-[10%]">Doanh thu</td>
+                  <td className="w-[10%]">Đánh giá</td>
+                  <td className="w-[22%] p-2 text-right">Thao tác</td>
+                </tr>
+              </thead>
+              <tbody>
+                {myCourses?.arrayCourse?.length > 0 &&
+                  myCourses?.arrayCourse?.map((value) => {
+                    return (
+                      <tr
+                        className="flex justify-between items-center border-b border-gray-200 hover:bg-surface-bg"
+                        key={value.course?._id}
+                      >
+                        <td className="flex items-center gap-x-2 w-[35%] p-2">
+                          <img
+                            className="w-[50px] h-[50px] object-fill"
+                            src={value.course?.image_url}
+                          />
+                          <div>
+                            <p className="text-surface-nav text-title-lg font-medium">
+                              {value.course?.course_name}
+                            </p>
+                            <p className="text-nav-muted text-body-lg">
+                              {value.course?.category_id.category_name}
+                            </p>
+                          </div>
+                        </td>
+                        <td className="w-[10%]">
+                          <p
+                            className={`text-body-md text-center font-medium rounded-[8px] ${
+                              value.course?.status === "draft"
+                                ? "text-surface-nav bg-gray-200"
+                                : value.course?.status === "pending"
+                                ? "text-yellow-700 bg-yellow-100"
+                                : value.course?.status === "approved"
+                                ? "text-green-700 bg-green-100"
+                                : "text-red-700 bg-red-100"
+                            } `}
+                          >
+                            {value.course?.status}
                           </p>
-                          <p className="text-nav-muted text-body-lg">
-                            {value.course?.category_id.category_name}
-                          </p>
-                        </div>
-                      </td>
-                      <td className="w-[10%]">
-                        <p
-                          className={`text-body-md text-center font-medium rounded-[8px] ${
-                            value.course?.status === "draft"
-                              ? "text-surface-nav bg-gray-200"
-                              : value.course?.status === "pending"
-                              ? "text-yellow-700 bg-yellow-100"
-                              : value.course?.status === "approved"
-                              ? "text-green-700 bg-green-100"
-                              : "text-red-700 bg-red-100"
-                          } `}
-                        >
-                          {value.course?.status}
-                        </p>
-                      </td>
-                      <td className="flex gap-x-1 items-center w-[10%] ms-8">
-                        <RxPeople />
-                        <p>{value.numberEnrollment}</p>
-                      </td>
-                      <td className="w-[15%]"></td>
-                      <td className="w-[10%]"></td>
-                      <td className="flex justify-end gap-x-2 items-center w-[30%] pe-2">
-                        <div className="flex gap-x-1">
-                          {(value.course?.status === "draft" ||
-                            value.course?.status === "rejected") && (
-                            <div className="flex gap-x-2">
-                              {value.course?.is_visible && (
-                                <div className="p-3 rounded-[8px] text-title-lg hover:bg-gray-200 transition-transform duration-300 hover:cursor-pointer">
-                                  <LuSquarePen
-                                    onClick={() =>
-                                      navigate(
-                                        `/instructor/course/${value.course?._id}/edit`
-                                      )
-                                    }
-                                  />
-                                </div>
-                              )}
-                              <div className="p-3 rounded-[8px] text-title-lg hover:bg-gray-200 transition-transform duration-300 hover:cursor-pointer">
-                                {value.course?.is_visible ? (
-                                  <RiDeleteBinLine
-                                    className="text-brand-primary"
-                                    onClick={() =>
-                                      handleDeleteOrRestoreCourse({
-                                        courseId: value.course?._id,
-                                        isVisible: value.course?.is_visible,
-                                      })
-                                    }
-                                  />
-                                ) : (
-                                  <FaTrashRestore
-                                    className="text-brand-primary"
-                                    onClick={() =>
-                                      handleDeleteOrRestoreCourse({
-                                        courseId: value.course?._id,
-                                        isVisible: value.course?.is_visible,
-                                      })
-                                    }
-                                  />
+                        </td>
+                        <td className="flex gap-x-1 items-center ms-8 text-title-sm text-surface-nav w-[10%]">
+                          <RxPeople />
+                          <p>{value.numberEnrollment}</p>
+                        </td>
+                        <td className="text-title-sm text-surface-nav font-medium w-[10%]">
+                          {value.revenue > 0
+                            ? format.formatPrice({ price: value.revenue })
+                            : 0}
+                          đ
+                        </td>
+                        <td className="w-[10%] flex gap-x-1 items-center">
+                          <FaStar className="text-title-sm text-yellow-300" />
+                          {value?.course?.rating_star > 0
+                            ? value?.course?.rating_star
+                            : "0.0"}
+                        </td>
+                        <td className="flex justify-end gap-x-2 items-center pe-2 w-[22%]">
+                          <div className="flex gap-x-1">
+                            {(value.course?.status === "draft" ||
+                              value.course?.status === "rejected") && (
+                              <div className="flex gap-x-2">
+                                {value.course?.is_visible && (
+                                  <div className="p-3 rounded-[8px] text-title-lg hover:bg-gray-200 transition-transform duration-300 hover:cursor-pointer">
+                                    <LuSquarePen
+                                      onClick={() =>
+                                        navigate(
+                                          `/instructor/course/${value.course?._id}/edit`
+                                        )
+                                      }
+                                    />
+                                  </div>
                                 )}
+                                <div className="p-3 rounded-[8px] text-title-lg hover:bg-gray-200 transition-transform duration-300 hover:cursor-pointer">
+                                  {value.course?.is_visible ? (
+                                    <RiDeleteBinLine
+                                      className="text-brand-primary"
+                                      onClick={() =>
+                                        handleDeleteOrRestoreCourse({
+                                          courseId: value.course?._id,
+                                          isVisible: value.course?.is_visible,
+                                        })
+                                      }
+                                    />
+                                  ) : (
+                                    <FaTrashRestore
+                                      className="text-brand-primary"
+                                      onClick={() =>
+                                        handleDeleteOrRestoreCourse({
+                                          courseId: value.course?._id,
+                                          isVisible: value.course?.is_visible,
+                                        })
+                                      }
+                                    />
+                                  )}
+                                </div>
                               </div>
-                            </div>
-                          )}
-                        </div>
-                        {value.course?.status !== "approved" &&
-                          value.course?.is_visible && (
-                            <button
-                              onClick={() =>
-                                handleSubmitOrUnSubmitCourse({
-                                  courseId: value.course?._id,
-                                  status: value.course?.status,
-                                })
-                              }
-                              className={`px-2 py-1 ${
-                                value.course?.status === "pending"
-                                  ? "bg-brand-primary"
-                                  : "bg-green-700"
-                              }  text-body-lg text-surface-white rounded-[8px] transition-transform duration-300 hover:text-surface-bg hover:cursor-pointer`}
-                            >
-                              {value.course?.status === "pending"
-                                ? "Hủy đăng tải"
-                                : value.course?.status === "draft"
-                                ? "Đăng tải"
-                                : "Đăng tải lại"}
-                            </button>
-                          )}
-                      </td>
-                    </tr>
-                  );
-                })}
-            </tbody>
-          </table>
-        )}
+                            )}
+                          </div>
+                          {value.course?.status !== "approved" &&
+                            value.course?.is_visible && (
+                              <button
+                                onClick={() =>
+                                  handleSubmitOrUnSubmitCourse({
+                                    courseId: value?.course?._id,
+                                    status: value?.course?.status,
+                                  })
+                                }
+                                className={`px-2 py-1 ${
+                                  value.course?.status === "pending"
+                                    ? "bg-brand-primary"
+                                    : "bg-green-700"
+                                }  text-body-lg text-surface-white rounded-[8px] transition-transform duration-300 hover:text-surface-bg hover:cursor-pointer`}
+                              >
+                                {value.course?.status === "pending"
+                                  ? "Hủy đăng tải"
+                                  : value.course?.status === "draft"
+                                  ? "Đăng tải"
+                                  : "Đăng tải lại"}
+                              </button>
+                            )}
+                        </td>
+                      </tr>
+                    );
+                  })}
+              </tbody>
+            </table>
+          )}
+          {myCourses?.totalPages > 1 && (
+            <PaginationButton totalPages={myCourses?.totalPages} />
+          )}
+        </div>
       </div>
     </>
   );

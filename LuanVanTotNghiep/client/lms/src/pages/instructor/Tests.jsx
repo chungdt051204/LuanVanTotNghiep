@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { testService } from "../../services/testService";
@@ -17,9 +17,11 @@ import { IoListOutline } from "react-icons/io5";
 import { RiDraftLine } from "react-icons/ri";
 import { CiCircleCheck } from "react-icons/ci";
 import { LuInbox } from "react-icons/lu";
+import PaginationButton from "../../components/PaginationButton";
 
 const Tests = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const dispatch = useDispatch();
   const tests = useSelector((state) => state.tests.items);
   const getDate = ({ date }) => {
@@ -34,33 +36,30 @@ const Tests = () => {
       status: "",
       title: "Tất cả bài kiểm tra",
       icon: <IoListOutline />,
-      numberCourse: tests?.length,
     },
     {
       status: "draft",
       title: "Bản nháp",
       icon: <RiDraftLine />,
-      numberCourse: tests?.filter((value) => !value?.test?.is_active)?.length,
     },
     {
       status: "active",
       title: "Đang hoạt động",
       icon: <CiCircleCheck />,
-      numberCourse: tests?.filter((value) => value?.test?.is_active)?.length,
     },
   ];
+  const [status, setStatus] = useState("");
   const [idx, setIdx] = useState(0);
-  const currentStatus = filterTabs[idx].status;
-  const displayTests = tests?.filter((value) => {
-    if (currentStatus == "") return value;
-    else if (currentStatus == "draft") return !value?.test?.is_active;
-    else return value?.test?.is_active;
-  });
 
   useEffect(() => {
     const getTestsByInstructor = async () => {
       try {
-        const result = await testService.getTestsByInstructor();
+        const params = new URLSearchParams(searchParams);
+        params.append("limit", 5);
+        if (status) params.append("status", status);
+        const result = await testService.getTestsByInstructor({
+          params: params.toString(),
+        });
         console.log(result.data);
         dispatch(setTests(result.data));
       } catch (error) {
@@ -70,7 +69,7 @@ const Tests = () => {
       }
     };
     getTestsByInstructor();
-  }, [dispatch]);
+  }, [dispatch, searchParams, status]);
   const handleDeleteTest = async ({ testId }) => {
     try {
       const result = await testService.deleteTest({ testId });
@@ -135,7 +134,10 @@ const Tests = () => {
                 className={`flex py-4 ${
                   idx == index && borderBottomColors[index]
                 }`}
-                onClick={() => setIdx(index)}
+                onClick={() => {
+                  setIdx(index);
+                  setStatus(value.status);
+                }}
                 key={index}
               >
                 <div
@@ -145,122 +147,129 @@ const Tests = () => {
                 >
                   {value.icon}
                   <p>{value.title}</p>
-                  <p>({value.numberCourse})</p>
                 </div>
               </div>
             );
           })}
         </div>
-        <div className="flex flex-col gap-y-3 border w-[95%] p-6 border-gray-300 rounded-[16px] mt-6">
-          <div className="flex flex-col">
-            <p className="text-title-lg text-surface-nav font-medium">
-              Danh sách bài kiểm tra
-            </p>
-            <p className="text-body-lg text-nav-muted">{`${displayTests.length} bài kiểm tra`}</p>
-          </div>
-          {displayTests?.length == 0 ? (
-            <div className="flex flex-col items-center gap-y-2 text-title-sm text-nav-muted w-[95%] mt-6">
-              <LuInbox className="text-display-md text-gray-300" />
-              <p>Chưa có bài kiểm tra nào</p>
+        <div className="flex flex-col gap-y-6">
+          <div className="flex flex-col gap-y-3 border w-[95%] p-6 border-gray-300 rounded-[16px] mt-6">
+            <div className="flex flex-col">
+              <p className="text-title-lg text-surface-nav font-medium">
+                Danh sách bài kiểm tra
+              </p>
+              <p className="text-body-lg text-nav-muted">{`${tests?.arrayTest?.length} bài kiểm tra`}</p>
             </div>
-          ) : (
-            <table>
-              <thead>
-                <tr className="text-title-sm text-surface-nav font-medium border-b border-b-gray-300">
-                  <td className="py-2 ps-2">Tên bài kiểm tra</td>
-                  <td>Khóa học</td>
-                  <td>Số câu hỏi</td>
-                  <td>Thời gian</td>
-                  <td>Lượt làm</td>
-                  <td className="text-center">Trạng thái</td>
-                  <td className="text-right pe-2">Thao tác</td>
-                </tr>
-              </thead>
-              <tbody>
-                {displayTests?.map((value) => {
-                  return (
-                    <tr
-                      className="border-b border-b-gray-300 hover:bg-surface-bg"
-                      key={value?.test?._id}
-                    >
-                      <td className="flex flex-col py-2 ps-2">
-                        <p className="text-body-lg text-surface-nav font-medium">
-                          {value?.test?.test_name}
-                        </p>
-                        <p className="text-nav-muted text-body-md">
-                          Ngày tạo: {getDate({ date: value?.test?.createdAt })}
-                        </p>
-                      </td>
-                      <td className="text-body-lg text-surface-nav">
-                        {value?.test?.course_id?.course_name}
-                      </td>
-                      <td>
-                        <p className="text-body-md text-surface-nav font-medium text-center border border-gray-300 rounded-[8px] w-[75%]">
-                          {value?.numberQuestion} câu
-                        </p>
-                      </td>
-                      <td>
-                        <div className="flex gap-x-1 items-center">
-                          <IoMdTime />
-                          <p className="text-body-lg text-surface-nav">
-                            {value?.test?.duration_minutes} phút
+            {tests?.arrayTest?.length == 0 ? (
+              <div className="flex flex-col items-center gap-y-2 text-title-sm text-nav-muted w-[95%] mt-6">
+                <LuInbox className="text-display-md text-gray-300" />
+                <p>Chưa có bài kiểm tra nào</p>
+              </div>
+            ) : (
+              <table>
+                <thead>
+                  <tr className="text-title-sm text-surface-nav font-medium border-b border-b-gray-300">
+                    <td className="py-2 ps-2">Tên bài kiểm tra</td>
+                    <td>Khóa học</td>
+                    <td>Số câu hỏi</td>
+                    <td>Thời gian</td>
+                    <td>Lượt làm</td>
+                    <td className="text-center">Trạng thái</td>
+                    <td className="text-right pe-2">Thao tác</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  {tests?.arrayTest?.map((value) => {
+                    return (
+                      <tr
+                        className="border-b border-b-gray-300 hover:bg-surface-bg"
+                        key={value?.test?._id}
+                      >
+                        <td className="flex flex-col py-2 ps-2">
+                          <p className="text-body-lg text-surface-nav font-medium">
+                            {value?.test?.test_name}
                           </p>
-                        </div>
-                      </td>
-                      <td>
-                        <div className="flex gap-x-1 items-center w-[50%] mx-auto">
-                          <RxPeople />
-                          <p>0</p>
-                        </div>
-                      </td>
-                      <td>
-                        <p
-                          className={`text-body-md font-medium text-center border border-gray-300 rounded-[8px] ${
-                            value?.test?.is_active
-                              ? "bg-green-700 text-surface-white"
-                              : "text-surface-nav"
-                          }`}
-                        >
-                          {value?.test?.is_active ? "Hoạt động" : "Nháp"}
-                        </p>
-                      </td>
-                      <td className="pe-2">
-                        {!value?.test?.is_active && (
-                          <div className="flex gap-x-1 justify-end items-center">
-                            <div className="p-3 rounded-[8px] text-title-lg hover:bg-gray-200 transition-transform duration-300 hover:cursor-pointer">
-                              <LuSquarePen
-                                onClick={() =>
-                                  navigate(
-                                    `/instructor/test/${value?.test?._id}/edit`
-                                  )
-                                }
-                              />
-                            </div>
-                            <div className="p-3 rounded-[8px] text-title-lg hover:bg-gray-200 transition-transform duration-300 hover:cursor-pointer">
-                              <RiDeleteBinLine
-                                className="text-brand-primary"
-                                onClick={() =>
-                                  handleDeleteTest({ testId: value?.test?._id })
-                                }
-                              />
-                            </div>
-                            <button
-                              onClick={() =>
-                                handleActiveTest({ testId: value?.test?._id })
-                              }
-                              className="px-2 py-1 bg-green-700 text-body-lg text-surface-white rounded-[8px] transition-transform duration-300 hover:text-surface-bg hover:cursor-pointer"
-                            >
-                              Kích hoạt
-                            </button>
+                          <p className="text-nav-muted text-body-md">
+                            Ngày tạo:{" "}
+                            {getDate({ date: value?.test?.createdAt })}
+                          </p>
+                        </td>
+                        <td className="text-body-lg text-surface-nav">
+                          {value?.test?.course_id?.course_name}
+                        </td>
+                        <td>
+                          <p className="text-body-md text-surface-nav font-medium text-center border border-gray-300 rounded-[8px] w-[75%]">
+                            {value?.numberQuestion} câu
+                          </p>
+                        </td>
+                        <td>
+                          <div className="flex gap-x-1 items-center">
+                            <IoMdTime />
+                            <p className="text-body-lg text-surface-nav">
+                              {value?.test?.duration_minutes} phút
+                            </p>
                           </div>
-                        )}
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          )}
+                        </td>
+                        <td>
+                          <div className="flex gap-x-1 items-center w-[50%] mx-auto">
+                            <RxPeople />
+                            <p>{value?.numberAttempt}</p>
+                          </div>
+                        </td>
+                        <td>
+                          <p
+                            className={`text-body-md font-medium text-center border border-gray-300 rounded-[8px] ${
+                              value?.test?.is_active
+                                ? "bg-green-700 text-surface-white"
+                                : "text-surface-nav"
+                            }`}
+                          >
+                            {value?.test?.is_active ? "Hoạt động" : "Nháp"}
+                          </p>
+                        </td>
+                        <td className="pe-2">
+                          {!value?.test?.is_active && (
+                            <div className="flex gap-x-1 justify-end items-center">
+                              <div className="p-3 rounded-[8px] text-title-lg hover:bg-gray-200 transition-transform duration-300 hover:cursor-pointer">
+                                <LuSquarePen
+                                  onClick={() =>
+                                    navigate(
+                                      `/instructor/test/${value?.test?._id}/edit`
+                                    )
+                                  }
+                                />
+                              </div>
+                              <div className="p-3 rounded-[8px] text-title-lg hover:bg-gray-200 transition-transform duration-300 hover:cursor-pointer">
+                                <RiDeleteBinLine
+                                  className="text-brand-primary"
+                                  onClick={() =>
+                                    handleDeleteTest({
+                                      testId: value?.test?._id,
+                                    })
+                                  }
+                                />
+                              </div>
+                              <button
+                                onClick={() =>
+                                  handleActiveTest({ testId: value?.test?._id })
+                                }
+                                className="px-2 py-1 bg-green-700 text-body-lg text-surface-white rounded-[8px] transition-transform duration-300 hover:text-surface-bg hover:cursor-pointer"
+                              >
+                                Kích hoạt
+                              </button>
+                            </div>
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            )}
+            {tests?.totalPages > 1 && (
+              <PaginationButton totalPages={tests?.totalPages} />
+            )}
+          </div>
         </div>
       </div>
     </>

@@ -8,4 +8,8 @@ export const notificationService = {
     const response = await axiosClient.put("/notifications/read-all");
     return response;
   },
+  deleteReadNotifications: async () => {
+    const response = await axiosClient.delete("/notifications");
+    return response;
+  },
 };

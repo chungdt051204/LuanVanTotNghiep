@@ -15,6 +15,7 @@ import logoZalo from "../../assets/zalo-pay-logo.png";
 import { FaCheck } from "react-icons/fa6";
 import { orderService } from "../../services/orderService";
 import { LuInbox } from "react-icons/lu";
+import { format } from "../../../helper/format";
 const Cart = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -30,6 +31,13 @@ const Cart = () => {
     return (price * 50) / 100;
   };
   const totalAmount = () => {
+    let sum = 0;
+    myCart?.items?.forEach((value) => {
+      if (cartItemIds.includes(value._id)) sum = sum + value?.course_id?.price;
+    });
+    return sum;
+  };
+  const appliedAmount = () => {
     let sum = 0;
     myCart?.items?.forEach((value) => {
       const price =
@@ -110,10 +118,6 @@ const Cart = () => {
         price: value?.course_id?.price,
         paymentOption:
           paymentOptions[value._id] === "PARTIAL" ? "PARTIAL" : "FULL",
-        appliedAmount:
-          paymentOptions[value._id] === "PARTIAL"
-            ? getHaftPrice({ price: value?.course_id?.price })
-            : value?.course_id?.price,
       };
     });
     const formData = {
@@ -122,6 +126,7 @@ const Cart = () => {
       email: me?.email || "",
       paymentMethod: "ZALOPAY",
       totalAmount: totalAmount(),
+      appliedAmount: appliedAmount(),
       cartItemIds,
       orderItems,
     };
@@ -231,7 +236,11 @@ const Cart = () => {
                             </div>
                             <p>
                               (
-                              {getHaftPrice({ price: value?.course_id?.price })}
+                              {format.formatPrice({
+                                price: getHaftPrice({
+                                  price: value?.course_id?.price,
+                                }),
+                              })}
                               đ)
                             </p>
                           </div>
@@ -253,14 +262,21 @@ const Cart = () => {
                               />
                               <p>Thanh toán 100%</p>
                             </div>
-                            <p>({value?.course_id?.price}đ)</p>
+                            <p>
+                              (
+                              {format.formatPrice({
+                                price: value?.course_id?.price,
+                              })}
+                              đ)
+                            </p>
                           </div>
                         </div>
                       </div>
                     </div>
                     <div className="flex gap-x-4 text-headline-sm">
                       <p className="text-brand-blue font-bold">
-                        {value?.course_id?.price}đ
+                        {format.formatPrice({ price: value?.course_id?.price })}
+                        đ
                       </p>
                       <button
                         onClick={() =>
@@ -280,7 +296,7 @@ const Cart = () => {
                   Đã chọn {cartItemIds?.length} khóa học
                 </p>
                 <p className="text-headline-md text-brand-blue font-bold">
-                  Tổng: {totalAmount()}đ
+                  Tổng: {format.formatPrice({ price: totalAmount() })}đ
                 </p>
               </div>
               <button
@@ -365,7 +381,7 @@ const Cart = () => {
                       </div>
                     </div>
                     <p className="text-title-lg text-brand-blue font-bold">
-                      {value?.course_id?.price}đ
+                      {format.formatPrice({ price: value?.course_id?.price })}đ
                     </p>
                   </div>
                 );
@@ -399,7 +415,7 @@ const Cart = () => {
                 Tổng thanh toán
               </p>
               <p className="text-headline-md text-brand-blue font-bold">
-                {totalAmount()}đ
+                {format.formatPrice({ price: totalAmount() })}đ
               </p>
             </div>
           </div>

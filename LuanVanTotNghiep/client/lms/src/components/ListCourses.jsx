@@ -1,36 +1,19 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { courseService } from "../services/courseService";
-import { setCourses } from "../stores/features/courseSlice";
 import { useNavigate } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
 import { RxPeople } from "react-icons/rx";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { LuInbox } from "react-icons/lu";
+import { format } from "../../helper/format";
 
-const ListCourses = () => {
+const ListCourses = ({ courses, isLoading }) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { items: courses, isLoading } = useSelector((state) => state.courses);
-  const displayItems = isLoading ? Array.from({ length: 6 }) : courses;
-  useEffect(() => {
-    const getApprovedCourses = async () => {
-      try {
-        const result = await courseService.getApprovedCourses();
-        console.log(result.data);
-        dispatch(setCourses(result.data));
-      } catch (error) {
-        const status = error.status;
-        const message = error.message;
-        console.log(status, message);
-      }
-    };
-    getApprovedCourses();
-  }, [dispatch]);
+  const displayItems = isLoading
+    ? Array.from({ length: 6 })
+    : courses?.arrayCourse;
   return (
     <>
-      <div className="flex flex-wrap gap-6 mx-auto">
+      <div className="flex flex-wrap gap-6 mx-auto w-full">
         {displayItems?.length > 0 ? (
           displayItems.map((value, index) => {
             return (
@@ -83,8 +66,12 @@ const ListCourses = () => {
                   ) : (
                     <div className="flex gap-x-3 items-center text-body-lg text-nav-muted">
                       <div className="flex gap-x-1 items-center">
-                        <FaStar className="text-yellow-500" />
-                        <p>0.0</p>
+                        <FaStar className="text-yellow-300" />
+                        <p>
+                          {value?.course?.rating_star > 0
+                            ? value?.course?.rating_star
+                            : "0.0"}
+                        </p>
                       </div>
                       <div className="flex gap-x-1 items-center">
                         <RxPeople />
@@ -98,14 +85,14 @@ const ListCourses = () => {
                   <Skeleton width={150} height={30} />
                 ) : (
                   <p className="text-headline-md text-brand-blue font-bold">
-                    {value?.course?.price}đ
+                    {format.formatPrice({ price: value?.course?.price })}đ
                   </p>
                 )}
               </div>
             );
           })
         ) : (
-          <div className="flex flex-col items-center gap-y-2 text-title-sm text-nav-muted mt-6">
+          <div className="flex flex-col items-center gap-y-2 text-title-sm text-nav-muted mt-6 mx-auto">
             <LuInbox className="text-display-md text-gray-300" />
             <p>Không tìm thấy khóa học để hiển thị</p>
           </div>

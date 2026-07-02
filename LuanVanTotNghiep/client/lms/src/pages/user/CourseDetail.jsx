@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { courseService } from "../../services/courseService";
-import { lessonService } from "../../services/lessonService";
 import Navbar from "../../components/Navbar";
 import { FaStar } from "react-icons/fa";
 import { RxPeople } from "react-icons/rx";
@@ -19,88 +18,137 @@ import {
 import { createNotification } from "../../stores/features/notificationSlice";
 import { lessonProgressService } from "../../services/lessonProgressService";
 import { cartService } from "../../services/cartService";
+import { testService } from "../../services/testService";
 import { addToCart } from "../../stores/features/cartSlice";
+import { FiFileText } from "react-icons/fi";
+import { LuTimer } from "react-icons/lu";
+import { FiTarget } from "react-icons/fi";
+import { FaAngleRight } from "react-icons/fa6";
+import { format } from "../../../helper/format";
+import { FaRegStar } from "react-icons/fa";
+import { ratingService } from "../../services/ratingService";
+import { Progress } from "antd";
 
 const CourseDetail = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const enrollments = useSelector((state) => state.enrollments.items);
-  const { isLogin } = useSelector((state) => state.auth);
+  const { item: me } = useSelector((state) => state.me);
   const { id } = useParams();
   const [course, setCourse] = useState(null);
-  const [lessons, setLessons] = useState([]);
+  const [ratings, setRatings] = useState([]);
+  const [myRating, setMyRating] = useState(null);
   const [lessonProgresses, setLessonProgresses] = useState([]);
+  const [test, setTest] = useState(null);
+  const [refresh, setRefresh] = useState(0);
 
   const enrolledCourse = enrollments?.find(
     (value) => value?.course_id?._id == id
   );
+  const numberAccessLesson =
+    enrolledCourse?.access_level == "LIMITED"
+      ? (course?.lessons?.length * 50) / 100
+      : enrolledCourse?.access_level == "UNLIMITED"
+      ? course?.lessons?.length
+      : 0;
   const myCart = useSelector((state) => state.cart);
   const courseInCart = myCart.items?.some((value) => value.course_id._id == id);
+  const ratingStar = Array.from({ length: 5 });
+  const [idx, setIdx] = useState(-1);
+  const [comment, setComment] = useState("");
 
   const secondToTime = (second) => {
-    if (second < 60) return `00:${second}`;
+    if (second < 60) return `00:${String(second).padStart(2, "0")}`;
     if (second >= 60 && second < 3600)
-      return `${Math.floor(second / 60)}:${second % 60}`;
+      return `${Math.floor(second / 60)}:${String(second % 60).padStart(
+        2,
+        "0"
+      )}`;
     if (second >= 3600)
-      return `${Math.floor(second / 3600)}:${Math.floor(
-        (second % 3600) / 60
+      return `${Math.floor(second / 3600)}:${String(
+        Math.floor((second % 3600) / 60).padStart(2, "0")
       )}:${(second % 3600) % 60}`;
   };
 
   useEffect(() => {
-    const getCourseById = async () => {
-      try {
-        const result = await courseService.getCourseById({ courseId: id });
-        console.log(result.data);
-        setCourse(result.data);
-      } catch (error) {
-        const status = error.status;
-        const message = error.data.message;
-        console.log(status, message);
-      }
-    };
-    getCourseById();
-    const getLessonsByCourse = async () => {
-      try {
-        const result = await lessonService.getLessonsByCourse({ courseId: id });
-        setLessons(result.data);
-      } catch (error) {
-        const status = error.status;
-        const message = error.data.message;
-        console.log(status, message);
-      }
-    };
-    getLessonsByCourse();
-    const getEnrollmentsByUser = async () => {
-      try {
-        const result = await enrollmentService.getEnrollmentsByUser();
-        console.log(result.data);
-        dispatch(setEnrollments(result.data));
-      } catch (error) {
-        const status = error.status;
-        const message = error.data.message;
-        console.log(status, message);
-      }
-    };
-    getEnrollmentsByUser();
-  }, [id, dispatch]);
+    if (id) {
+      const getCourseById = async () => {
+        try {
+          const result = await courseService.getCourseById({ courseId: id });
+          console.log(result.data);
+          setCourse(result.data);
+          setRatings(result.data?.ratings);
+        } catch (error) {
+          const status = error.status;
+          const message = error.data.message;
+          console.log(status, message);
+        }
+      };
+      getCourseById();
+    }
+  }, [id, dispatch, refresh]);
   useEffect(() => {
-    const getLessonProgressesByUser = async () => {
-      try {
-        const result = await lessonProgressService.getLessonProgressesByUser();
-        console.log(result.data);
-        setLessonProgresses(result.data);
-      } catch (error) {
-        const status = error.status;
-        const message = error.data.message;
-        console.log(status, message);
-      }
-    };
-    getLessonProgressesByUser();
-  }, []);
+    if (me) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setMyRating(
+        ratings?.find(
+          (value) => value.course_id == id && value?.user_id?._id == me?._id
+        )
+      );
+      const getEnrollmentsByUser = async () => {
+        try {
+          const result = await enrollmentService.getEnrollmentsByUser();
+          dispatch(setEnrollments(result.data));
+        } catch (error) {
+          const status = error.status;
+          const message = error.data.message;
+          console.log(status, message);
+        }
+      };
+      getEnrollmentsByUser();
+      const getLessonProgressesByUser = async () => {
+        try {
+          const result =
+            await lessonProgressService.getLessonProgressesByUser();
+          console.log(result.data);
+          setLessonProgresses(result.data);
+        } catch (error) {
+          const status = error.status;
+          const message = error.data.message;
+          console.log(status, message);
+        }
+      };
+      getLessonProgressesByUser();
+    }
+  }, [me, dispatch, id, ratings]);
+
+  useEffect(() => {
+    console.log(myRating);
+    if (myRating) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setIdx(myRating?.rating_star - 1);
+      setComment(myRating?.comment || "");
+    }
+  }, [myRating]);
+
+  useEffect(() => {
+    if (enrolledCourse) {
+      const getTestByCourse = async () => {
+        try {
+          const result = await testService.getTestByCourse({ courseId: id });
+          setTest(result.data);
+        } catch (error) {
+          const status = error.status;
+          const message = error.data.message;
+          console.log(status, message);
+        }
+      };
+      getTestByCourse();
+    }
+  }, [enrolledCourse, id]);
 
   const handleCreateEnrollment = async () => {
-    if (!isLogin) {
+    if (!me) {
       toast.warning("Bạn chưa đăng nhập!");
       return;
     }
@@ -119,7 +167,7 @@ const CourseDetail = () => {
     }
   };
   const handleAddToCart = async () => {
-    if (!isLogin) {
+    if (!me) {
       toast.warning("Bạn chưa đăng nhập!");
       return;
     }
@@ -138,10 +186,32 @@ const CourseDetail = () => {
       console.log(status, message);
     }
   };
+  const handleRating = async () => {
+    if (!me) {
+      toast.warning("Vui lòng đăng nhập để thực hiện đánh giá!");
+      return;
+    }
+    if (!enrolledCourse) {
+      toast.warning("Bạn chưa sỡ hữu khóa học, không thể đánh giá!");
+      return;
+    }
+    try {
+      const result = await ratingService.createRating({
+        data: { courseId: id, ratingStar: idx + 1, comment },
+      });
+      console.log(result);
+      setRefresh((prev) => prev + 1);
+      toast.success(result.message || "Tạo đánh giá thành công");
+    } catch (error) {
+      const status = error.status;
+      const message = error.data.message;
+      console.log(status, message);
+    }
+  };
   return (
     <>
       <Navbar />
-      <div>
+      <div className="flex flex-col gap-y-10 bg-surface-bg">
         {/* Box 1 */}
         <div className="flex flex-col justify-between h-[1100px] bg-primary-purple px-28 py-12">
           <div className="flex flex-col justify-between h-[30%]">
@@ -162,7 +232,9 @@ const CourseDetail = () => {
             <div className="flex gap-x-8 text-headline-sm text-surface-white">
               <div className="flex items-center gap-x-1">
                 <FaStar className="text-yellow-300" />
-                <p>0.0 (0 đánh giá)</p>
+                <p>
+                  {course?.averageStar} ({course?.ratings?.length} đánh giá)
+                </p>
               </div>
               <div className="flex items-center gap-x-1">
                 <RxPeople className="text-surface-white" />
@@ -189,7 +261,10 @@ const CourseDetail = () => {
               alt=""
             />
             <p className="text-display-md text-brand-blue font-medium">
-              {course?.item?.is_free ? 0 : course?.item?.price}đ
+              {course?.item?.is_free
+                ? 0
+                : format.formatPrice({ price: course?.item?.price })}
+              đ
             </p>
             {!enrolledCourse && (
               <button
@@ -210,7 +285,7 @@ const CourseDetail = () => {
             <div className="flex flex-col">
               <div className="flex gap-x-2 items-center text-headline-sm">
                 <IoBookOutline className="text-nav-muted" />
-                <p>{lessons?.length + " " + "bài học"}</p>
+                <p>{course?.lessons?.length + " " + "bài học"}</p>
               </div>
               <div className="flex gap-x-2 items-center text-headline-sm">
                 <IoPlayCircleOutline className="text-nav-muted" />
@@ -219,8 +294,147 @@ const CourseDetail = () => {
             </div>
           </div>
         </div>
+        <div className="px-28">
+          <div className="flex flex-col gap-y-8 border border-gray-300 rounded-[16px] p-8 bg-surface-white">
+            <p className="text-headline-md text-surface-nav font-medium">
+              Đánh giá từ học viên
+            </p>
+            <div className="flex justify-between items-center p-6 bg-blue-50 rounded-[16px]">
+              <div className="flex flex-col gap-y-2 w-[20%] text-center">
+                <p className="text-display-lg text-brand-blue font-bold">
+                  {course?.averageStar > 0 ? course?.averageStar : "0.0"}
+                </p>
+                <div className="flex gap-x-1">
+                  {ratingStar?.map((_, i) => {
+                    return i <= course?.averageStar - 1 ? (
+                      <FaStar className="text-display-sm text-yellow-300" />
+                    ) : (
+                      <FaRegStar className="text-display-sm text-gray-300" />
+                    );
+                  })}
+                </div>
+                <p className="text-title-sm text-nav-muted">
+                  {course?.ratings?.length} đánh giá
+                </p>
+              </div>
+              <div className="flex flex-col gap-y-4 w-[78%]">
+                {course?.ratingStats?.map((value, index) => {
+                  return (
+                    <div className="flex gap-x-6" key={index}>
+                      <p className="w-[50px] text-title-sm text-surface-nav">
+                        {value.star} sao
+                      </p>
+                      <Progress
+                        key={index}
+                        percent={
+                          value.count == 0 ? 0 : 100 / Number(value.count)
+                        }
+                        status="normal"
+                        showInfo={false}
+                      />
+                      <p className="w-[100px] text-title-sm text-nav-muted">
+                        {value.count == 0 ? 0 : 100 / Number(value.count)} %
+                      </p>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+            <div className="flex flex-col gap-y-4 p-5 bg-gray-50 rounded-[16px]">
+              <p className="text-headline-sm text-surface-nav font-medium">
+                Viết đánh giá của bạn
+              </p>
+              <div className="flex gap-x-2 items-center">
+                <p className="text-title-sm text-surface-nav">Đánh giá:</p>
+                <div className="flex gap-x-1">
+                  {ratingStar?.map((_, i) => {
+                    return i <= idx ? (
+                      <FaStar
+                        onClick={() => {
+                          if (!myRating) setIdx(i);
+                        }}
+                        className={`text-headline-md text-yellow-300 ${
+                          myRating && "hover:cursor-not-allowed"
+                        }`}
+                      />
+                    ) : (
+                      <FaRegStar
+                        onClick={() => {
+                          if (!myRating) setIdx(i);
+                        }}
+                        className={`text-headline-md text-gray-300 ${
+                          myRating && "hover:cursor-not-allowed"
+                        }`}
+                      />
+                    );
+                  })}
+                </div>
+              </div>
+              <textarea
+                onChange={(e) => setComment(e.target.value)}
+                value={comment}
+                disabled={myRating}
+                className="p-4 rounded-[8px] bg-surface-bg text-title-sm text-nav-muted"
+                placeholder="Chia sẻ của bạn về khóa học"
+              ></textarea>
+              <button
+                onClick={!myRating && handleRating}
+                className={`border ${
+                  myRating
+                    ? "hover:cursor-not-allowed"
+                    : "hover:cursor-pointer hover:text-surface-bg"
+                } w-[15%] py-2 bg-surface-nav text-title-sm font-medium text-surface-white rounded-[8px] transition-transform duration-300`}
+              >
+                Gửi đánh giá
+              </button>
+            </div>
+
+            <div className="flex flex-col gap-y-6">
+              <p className="text-title-lg text-surface-nav font-medium">
+                Tất cả đánh giá
+              </p>
+              <div className="flex flex-col gap-y-4">
+                {ratings?.map((value) => {
+                  return (
+                    <div className="flex gap-x-4" key={value._id}>
+                      <img
+                        className="w-[40px] h-[40px] rounded-[1000px] object-cover"
+                        src={value?.user_id?.avatar}
+                        referrerPolicy="no-referrer"
+                      />
+                      <div className="flex flex-col gap-y-1 w-full">
+                        <div className="flex justify-between">
+                          <p className="text-title-sm text-surface-nav font-medium">
+                            {value?.user_id?.full_name}
+                          </p>
+                          <p className="text-title-sm text-nav-muted">
+                            {format.formatDate({ date: value?.createdAt })}
+                          </p>
+                        </div>
+                        <div className="flex gap-x-1">
+                          {ratingStar?.map((_, i) => {
+                            return i <= value?.rating_star - 1 ? (
+                              <FaStar className="text-headline-sm text-yellow-300" />
+                            ) : (
+                              <FaRegStar className="text-headline-sm text-gray-300" />
+                            );
+                          })}
+                        </div>
+                        <p className="text-title-sm text-nav-muted">
+                          {value?.status
+                            ? value?.comment
+                            : "Bình luận này đã bị ẩn bởi quản trị viên"}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
         {/* Box 2 */}
-        <div className=" bg-surface-bg px-28 py-10">
+        <div className="px-28">
           {/* Yêu cầu */}
           <div className="flex flex-col gap-y-4 px-8 py-4 bg-surface-white border border-gray-300 rounded-[16px]">
             <p className="text-headline-md text-surface-nav font-medium">
@@ -260,15 +474,15 @@ const CourseDetail = () => {
                 Nội dung khóa học
               </p>
               <p className="text-title-sm text-surface-nav font-medium">
-                {lessons.length + " " + "bài học"}
+                {course?.lessons?.length + " " + "bài học"}
               </p>
             </div>
             <ul className="flex flex-col gap-y-2">
-              {lessons?.map((value, index) => {
+              {course?.lessons?.map((value, index) => {
                 const isCompleted = lessonProgresses?.some(
                   (item) => item.lesson_id._id == value._id && item.is_completed
                 );
-                const prevLesson = lessons[index - 1];
+                const prevLesson = course?.lessons[index - 1];
                 const accessLesson =
                   (enrolledCourse && value.order == 1) ||
                   (prevLesson &&
@@ -283,6 +497,10 @@ const CourseDetail = () => {
                       if (!enrolledCourse) {
                         toast.warning("Bạn chưa sỡ hữu khóa học này!");
                         return;
+                      } else if (value.order > numberAccessLesson) {
+                        toast.warning(
+                          "Vui lòng thanh toán đầy đủ khóa học để mở khóa toàn bộ bài học!"
+                        );
                       } else if (isCompleted) {
                         toast.success("Bài học này đã hoàn thành!");
                         return;
@@ -314,13 +532,63 @@ const CourseDetail = () => {
                         <IoPlayCircleOutline className="text-headline-md text-brand-blue" />
                       </div>
                     ) : (
-                      <IoIosLock />
+                      <IoIosLock
+                        className={`${
+                          value.order <= numberAccessLesson
+                            ? "text-brand-blue"
+                            : "text-surface-nav"
+                        } `}
+                      />
                     )}
                   </li>
                 );
               })}
             </ul>
           </div>
+          {test && enrolledCourse?.access_level === "UNLIMITED" && (
+            <div className="p-6 rounded-[16px] mt-10 bg-surface-white border border-gray-300">
+              <div className="flex justify-between items-center">
+                <p className="text-headline-md text-surface-nav font-medium">
+                  Bài kiểm tra
+                </p>
+                <p className="text-title-sm text-purple-700 font-medium px-2 py-1 rounded-[8px] bg-purple-100">
+                  1 bài kiểm tra
+                </p>
+              </div>
+              <div
+                onClick={() =>
+                  navigate(`/course/${id}/test/${test?.item?._id}`)
+                }
+                className="flex justify-between items-start border rounded-[8px] p-5 mt-6 border-2 border-purple-100 transition-transform duration-300 hover:border-purple-300 hover:cursor-pointer "
+              >
+                <div className="flex gap-x-4">
+                  <div className="p-3 bg-auth rounded-[8px] transition-transform duration-300 hover:scale-105">
+                    <FiFileText className="text-headline-md text-surface-white" />
+                  </div>
+                  <div className="flex flex-col gap-y-2">
+                    <p className="text-title-lg text-surface-nav font-medium transition-transform duration-300 hover:text-purple-500">
+                      {test?.item?.test_name || ""}
+                    </p>
+                    <div className="flex gap-x-4 text-title-sm text-nav-muted">
+                      <div className="flex gap-x-2 items-center">
+                        <FiFileText />
+                        <p>{test?.numberQuestion} câu hỏi</p>
+                      </div>
+                      <div className="flex gap-x-2 items-center">
+                        <LuTimer />
+                        <p>{test?.item?.duration_minutes || ""} phút</p>
+                      </div>
+                      <div className="flex gap-x-2 items-center">
+                        <FiTarget />
+                        <p>Điểm đạt: {test?.item?.pass_score || ""} %</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <FaAngleRight className="text-headline-sm text-purple-500" />
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </>

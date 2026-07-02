@@ -2,9 +2,62 @@ import express from "express";
 export const userRouter = express.Router();
 import { UserController } from "../controllers/userController.js";
 import { middleware } from "../middlewares/middleware.js";
+import cloudinary from "../configs/cloudinary.js";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
+import multer from "multer";
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: "User",
+    allowed_formats: ["jpg", "png", "jpeg"],
+  },
+});
+const upload = multer({ storage: storage });
 const prefix = "";
 userRouter.get(
   `${prefix}/me`,
   middleware.verifyToken,
   new UserController().getUserProfile
+);
+userRouter.get(
+  `${prefix}/admin/instructors`,
+  middleware.verifyToken,
+  middleware.isAdmin,
+  new UserController().getInstructors
+);
+userRouter.get(
+  `${prefix}/admin/users`,
+  middleware.verifyToken,
+  middleware.isAdmin,
+  new UserController().getUsers
+);
+userRouter.get(
+  `${prefix}/admin/instructor/:id`,
+  middleware.verifyToken,
+  middleware.isAdmin,
+  new UserController().getInstructorById
+);
+userRouter.get(
+  `${prefix}/admin/user/:id`,
+  middleware.verifyToken,
+  middleware.isAdmin,
+  new UserController().getUserById
+);
+userRouter.put(
+  `${prefix}/me`,
+  middleware.verifyToken,
+  upload.single("avatar"),
+  new UserController().updateProfile
+);
+userRouter.put(
+  `${prefix}/admin/user/:id/status`,
+  middleware.verifyToken,
+  middleware.isAdmin,
+  new UserController().updateStatusUser
+);
+userRouter.put(
+  `${prefix}/admin/instructor/:id`,
+  middleware.verifyToken,
+  middleware.isAdmin,
+  new UserController().updateInstructorInfo
 );

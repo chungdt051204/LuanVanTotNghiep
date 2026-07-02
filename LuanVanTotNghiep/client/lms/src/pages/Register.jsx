@@ -26,12 +26,14 @@ const Register = () => {
   });
   const handleRegister = async (e) => {
     e.preventDefault();
+    const data = {
+      fullName: formData.fullName,
+      email: formData.email,
+      password: formData.password,
+    };
     if (
-      !validateForm.validateFormAuth({
-        fullName: formData.fullName,
-        email: formData.email,
-        password: formData.password,
-        role: formData.role,
+      !validateForm.validateUserForm({
+        formData: data,
         setError,
       })
     ) {

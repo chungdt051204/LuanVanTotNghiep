@@ -15,12 +15,13 @@ const Login = () => {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState({ errorEmail: "", errorPassword: "" });
+  const [errorLogin, setErrorLogin] = useState("");
   const handleLogin = async (e) => {
     e.preventDefault();
+    const data = { email: formData.email, password: formData.password };
     if (
-      !validateForm.validateFormAuth({
-        email: formData.email,
-        password: formData.password,
+      !validateForm.validateUserForm({
+        formData: data,
         setError,
       })
     )
@@ -28,6 +29,10 @@ const Login = () => {
     try {
       const result = await authService.Login({ data: formData });
       sessionStorage.setItem("token", result.token);
+      if (!result.data?.status) {
+        setErrorLogin("Tài khoản này đã bị vô hiệu hóa!");
+        return;
+      }
       dispatch(setIsLogin(true));
       dispatch(setMe(result.data));
       console.log(result.data.role_id.role);
@@ -108,6 +113,7 @@ const Login = () => {
             />
             <span className="text-body-md font-medium text-red-500">
               {error?.errorPassword}
+              {errorLogin}
             </span>
             <input
               className="p-2 border-1 rounded-[8px] mt-[15px] text-title-lg font-medium text-surface-white bg-surface-nav hover:cursor-pointer hover:text-surface-bg"

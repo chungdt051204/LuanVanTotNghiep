@@ -5,8 +5,12 @@ import { LuDollarSign } from "react-icons/lu";
 import { IoBookOutline } from "react-icons/io5";
 import Navbar from "../../components/Navbar";
 import { notificationService } from "../../services/notificationService";
-import { setNotifications } from "../../stores/features/notificationSlice";
+import {
+  deleteReadNotification,
+  setNotifications,
+} from "../../stores/features/notificationSlice";
 import { LuInbox } from "react-icons/lu";
+import { AnimatePresence, motion } from "framer-motion";
 
 const Notifications = () => {
   const navigate = useNavigate();
@@ -64,6 +68,21 @@ const Notifications = () => {
       console.log(status, message);
     }
   };
+  const handleDeleteReadNotifications = async () => {
+    try {
+      const readNotifications = notifications?.filter((value) => value.is_read);
+      for (const item of readNotifications) {
+        dispatch(deleteReadNotification(item._id));
+        await new Promise((resolve) => setTimeout(resolve, 100));
+      }
+      const result = await notificationService.deleteReadNotifications();
+      console.log(result);
+    } catch (error) {
+      const status = error.status;
+      const message = error.data.message;
+      console.log(status, message);
+    }
+  };
   return (
     <>
       <Navbar />
@@ -77,13 +96,22 @@ const Notifications = () => {
               Cập nhật các thông báo mới nhất của bạn
             </p>
           </div>
+
           {notifications?.length > 0 && (
-            <button
-              onClick={handleMarkAsAllRead}
-              className="px-4 py-2 rounded-[8px] bg-surface-white border border-gray-200 text-body-lg text-surface-nav transition-transform duration-300 hover:bg-surface-bg hover:cursor-pointer"
-            >
-              Đánh dấu tất cả đã đọc
-            </button>
+            <div className="flex gap-x-4">
+              <button
+                onClick={handleMarkAsAllRead}
+                className="px-4 py-2 rounded-[8px] bg-surface-white border border-gray-200 text-body-lg text-surface-nav font-medium transition-transform duration-300 hover:bg-surface-bg hover:cursor-pointer"
+              >
+                Đánh dấu tất cả đã đọc
+              </button>
+              <button
+                onClick={handleDeleteReadNotifications}
+                className="px-4 py-2 rounded-[8px] bg-surface-nav  text-body-lg text-surface-white font-medium transition-transform duration-300 hover:text-surface-bg hover:cursor-pointer"
+              >
+                Xóa thông báo đã đọc
+              </button>
+            </div>
           )}
         </div>
         {displayNotifications?.length > 0 && (
@@ -107,44 +135,54 @@ const Notifications = () => {
         )}
         <div className="flex flex-col gap-y-4 mt-6">
           {displayNotifications?.length > 0 ? (
-            displayNotifications?.map((value) => {
-              return (
-                <div
-                  key={value._id}
-                  className={`flex justify-between items-start px-4 pt-4 pb-8 border rounded-[16px] ${
-                    !value.is_read
-                      ? "border-brand-blue"
-                      : "bg-surface-white border-gray-200"
-                  }`}
-                >
-                  <div className="flex gap-x-4 items-start">
-                    <div className="p-2 shadow-md rounded-[8px]">
-                      {value.type == "PAYMENT" ? (
-                        <LuDollarSign className="text-headline-md text-purple-500" />
-                      ) : (
-                        <IoBookOutline className="text-headline-md text-brand-blue" />
-                      )}
+            <AnimatePresence>
+              {displayNotifications?.map((value) => {
+                return (
+                  <motion.div
+                    key={value._id}
+                    exit={{
+                      x: 300,
+                      opacity: 0,
+                      transition: {
+                        duration: 0.3,
+                      },
+                    }}
+                    transition={{ duration: 0.3 }}
+                    className={`flex justify-between items-start px-4 pt-4 pb-8 border rounded-[16px] ${
+                      !value.is_read
+                        ? "border-brand-blue"
+                        : "bg-surface-white border-gray-200"
+                    }`}
+                  >
+                    <div className="flex gap-x-4 items-start">
+                      <div className="p-2 shadow-md rounded-[8px]">
+                        {value.type == "PAYMENT" ? (
+                          <LuDollarSign className="text-headline-md text-purple-500" />
+                        ) : (
+                          <IoBookOutline className="text-headline-md text-brand-blue" />
+                        )}
+                      </div>
+                      <div className="flex flex-col gap-y-2">
+                        <p className="text-headline-sm text-surface-nav font-medium">
+                          {value.title}
+                        </p>
+                        <p className="text-title-sm text-nav-muted">
+                          {value.message}
+                        </p>
+                        <p className="text-label-sm text-nav-muted">
+                          {getTime({ time: value.createdAt })}
+                        </p>
+                      </div>
                     </div>
-                    <div className="flex flex-col gap-y-2">
-                      <p className="text-headline-sm text-surface-nav font-medium">
-                        {value.title}
+                    {!value.is_read && (
+                      <p className="px-2 py-1 bg-brand-blue rounded-[8px] text-label-lg text-surface-white font-medium">
+                        Mới
                       </p>
-                      <p className="text-title-sm text-nav-muted">
-                        {value.message}
-                      </p>
-                      <p className="text-label-sm text-nav-muted">
-                        {getTime({ time: value.createdAt })}
-                      </p>
-                    </div>
-                  </div>
-                  {!value.is_read && (
-                    <p className="px-2 py-1 bg-brand-blue rounded-[8px] text-label-lg text-surface-white font-medium">
-                      Mới
-                    </p>
-                  )}
-                </div>
-              );
-            })
+                    )}
+                  </motion.div>
+                );
+              })}
+            </AnimatePresence>
           ) : (
             <div className="flex flex-col items-center gap-y-2 text-title-sm text-nav-muted mt-6">
               <LuInbox className="text-display-md text-gray-300" />

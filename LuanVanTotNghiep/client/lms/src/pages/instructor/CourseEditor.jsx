@@ -69,6 +69,7 @@ const CourseEditor = () => {
     } else {
       const previewUrl = URL.createObjectURL(image);
       setPreview(previewUrl);
+      setError((prev) => ({ ...prev, errorFile: "" }));
     }
   };
 
@@ -211,12 +212,20 @@ const CourseEditor = () => {
   // Hàm lưu (thêm, chỉnh sửa)
   const handleSave = async (e) => {
     e.preventDefault();
-    if (validateForm.validateFormCourse({ courseInfo, isEdit, setError })) {
+    const data = {
+      courseName: courseInfo.courseName,
+      category_id: courseInfo.category_id,
+      level: courseInfo.level,
+      image: courseInfo.image,
+      thumbnail: courseInfo.thumbnail,
+      price: courseInfo.price,
+    };
+    if (validateForm.validateCourseForm({ formData: data, isEdit, setError })) {
       let isAllLessonsValid = true;
       let newErrorLessons = [...errorLessons];
       lessons?.forEach((value, index) => {
-        const { isValid, errorLesson } = validateForm.validateFormLesson({
-          lessonInfo: value,
+        const { isValid, errorLesson } = validateForm.validateLessonForm({
+          formData: value,
         });
         newErrorLessons[index] = errorLesson;
         if (!isValid) isAllLessonsValid = false;

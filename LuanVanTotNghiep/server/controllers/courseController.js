@@ -49,7 +49,8 @@ export class CourseController {
   };
   getApprovedCourses = async (req, res) => {
     try {
-      const result = await new CourseService().getApprovedCourses();
+      const params = req.query;
+      const result = await new CourseService().getApprovedCourses({ params });
       return res.status(200).json({ data: result });
     } catch (error) {
       const status = error.statusCode || 500;
@@ -61,8 +62,10 @@ export class CourseController {
   getCoursesByInstructor = async (req, res) => {
     try {
       const payload = req.payload;
+      const params = req.query;
       const result = await new CourseService().getCoursesByInstructor({
         instructorId: payload.sub,
+        params,
       });
       return res.status(200).json({ data: result });
     } catch (error) {
@@ -74,7 +77,8 @@ export class CourseController {
   };
   getCoursesByAdmin = async (req, res) => {
     try {
-      const result = await new CourseService().getCoursesByAdmin();
+      const params = req.query;
+      const result = await new CourseService().getCoursesByAdmin({ params });
       return res.status(200).json({ data: result });
     } catch (error) {
       const status = error.statusCode || 500;

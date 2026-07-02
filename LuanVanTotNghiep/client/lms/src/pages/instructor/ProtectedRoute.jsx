@@ -3,9 +3,9 @@ import { useSelector } from "react-redux";
 
 const ProtectedRouteInstructor = () => {
   const { item: me, isLoading } = useSelector((state) => state.me);
-  if (isLoading) return <div>Loading...</div>;
-  if (!sessionStorage.getItem("token")) return <Navigate to="/" replace />;
+  if (!sessionStorage.getItem("token")) return <Navigate to="/login" replace />;
   if (me?.role_id.role === "instructor") return <Outlet />;
+  if (isLoading) return <div>Loading...</div>;
   return <Navigate to="/" replace />;
 };
 export default ProtectedRouteInstructor;

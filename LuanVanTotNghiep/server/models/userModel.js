@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import paginate from "mongoose-paginate-v2";
 const userSchema = new mongoose.Schema(
   {
     full_name: {
@@ -34,9 +35,19 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
+    level: {
+      type: String,
+      enum: ["Cử nhân", "Thạc sĩ", "Tiến sĩ"],
+    },
+    experience: {
+      type: Number,
+      min: 0,
+      max: 20,
+    },
   },
   {
     timestamps: true,
   }
 );
+userSchema.plugin(paginate);
 export default mongoose.model("userEntity", userSchema, "User");

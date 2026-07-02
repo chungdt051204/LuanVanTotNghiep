@@ -1,4 +1,11 @@
 import userEntity from "../models/userModel.js";
+import courseEntity from "../models/courseModel.js";
+import enrollmentEntity from "../models/enrollmentModel.js";
+import orderEntity from "../models/orderModel.js";
+import orderItemEntity from "../models/orderItemModel.js";
+import roleEntity from "../models/roleModel.js";
+import bcrypt from "bcrypt";
+const saltRounds = 10;
 
 export class UserService {
   getUserProfile = async ({ payload }) => {
@@ -11,5 +18,198 @@ export class UserService {
       throw error;
     }
     return me;
+  };
+  getInstructors = async ({ params }) => {
+    const instructorRole = await roleEntity.findOne({ role: "instructor" });
+    const options = {
+      page: params.page,
+      limit: params.limit,
+      sort: { createdAt: -1 },
+    };
+    let query = { role_id: instructorRole?._id };
+    if (params?.status !== undefined) {
+      query.status = params.status == "active" ? true : false;
+    }
+    const instructors = await userEntity.paginate(query, options);
+    const arrayInstructor = await Promise.all(
+      instructors?.docs?.map(async (value) => {
+        const numberCourse = await courseEntity.countDocuments({
+          user_id: value._id,
+        });
+        return { item: value, numberCourse };
+      })
+    );
+    return { arrayInstructor, totalPages: instructors?.totalPages };
+  };
+  getUsers = async ({ params }) => {
+    const userRole = await roleEntity.findOne({ role: "user" });
+    const options = {
+      page: params.page,
+      limit: params.limit,
+      sort: { createdAt: -1 },
+    };
+    let query = { role_id: userRole._id };
+    if (params?.status !== undefined) {
+      query.status = params.status == "active" ? true : false;
+    }
+    const users = await userEntity.paginate(query, options);
+    const arrayUser = await Promise.all(
+      users?.docs?.map(async (value) => {
+        const enrollments = await enrollmentEntity
+          .find({ user_id: value._id })
+          .populate("course_id");
+        const numberPurchasedCourse = enrollments?.filter(
+          (value) => !value?.course_id?.is_free
+        )?.length;
+        let totalSpent = 0;
+        const orders = await orderEntity.find({
+          user_id: value._id,
+          payment_status: { $in: ["PARTIAL_PAID", "PAID"] },
+        });
+        orders?.forEach((value) => {
+          totalSpent = totalSpent + value.applied_amount;
+        });
+        return { item: value, numberPurchasedCourse, totalSpent };
+      })
+    );
+    return { arrayUser, totalPages: users?.totalPages };
+  };
+  getInstructorById = async ({ instructorId }) => {
+    const user = await userEntity
+      .findOne({ _id: instructorId })
+      .populate("role_id");
+    if (!user) {
+      const error = new Error("Không tìm thấy tài khoản giảng viên này!");
+      error.statusCode = 404;
+      throw error;
+    } else if (user?.role_id?.role !== "instructor") {
+      const error = new Error("Tài khoản này không phải tài khoản giảng viên!");
+      error.statusCode = 400;
+      throw error;
+    }
+    const courses = await courseEntity
+      .find({ user_id: user._id })
+      .populate("category_id");
+    let numberEnrollment = 0;
+    let totalRevenue = 0;
+    const arrayCourse = await Promise.all(
+      courses?.map(async (value) => {
+        const numberStudent = await enrollmentEntity.countDocuments({
+          course_id: value._id,
+        });
+        numberEnrollment = numberEnrollment + numberStudent;
+        const orders = await orderEntity.find({
+          payment_status: { $in: ["PARTIAL_PAID", "PAID"] },
+        });
+        let revenue = 0;
+        await Promise.all(
+          orders?.map(async (item) => {
+            const orderItems = await orderItemEntity.find({
+              order_id: item._id,
+              course_id: value._id,
+            });
+            orderItems?.forEach((value) => {
+              const appliedAmount =
+                value.payment_option == "PARTIAL"
+                  ? (value.price * 50) / 100
+                  : value.price;
+              revenue = revenue + appliedAmount;
+            });
+          })
+        );
+        totalRevenue = totalRevenue + revenue;
+        return { item: value, numberStudent, revenue };
+      })
+    );
+    return {
+      item: user,
+      numberCourse: arrayCourse?.length,
+      numberEnrollment,
+      totalRevenue,
+      arrayCourse,
+    };
+  };
+  getUserById = async ({ userId }) => {
+    const user = await userEntity.findOne({ _id: userId }).populate("role_id");
+    if (!user) {
+      const error = new Error("Không tìm thấy tài khoản người dùng này!");
+      error.statusCode = 404;
+      throw error;
+    } else if (user?.role_id?.role !== "user") {
+      const error = new Error("Tài khoản này không phải tài khoản người dùng!");
+      error.statusCode = 400;
+      throw error;
+    }
+    const enrollments = await enrollmentEntity
+      .find({ user_id: userId })
+      .populate("course_id");
+    const courseIds = enrollments?.map((value) => {
+      return value?.course_id?._id;
+    });
+    const arrayCourse = await courseEntity
+      .find({ _id: { $in: courseIds } })
+      .populate("category_id")
+      .populate("user_id");
+    const numberCourse = await enrollmentEntity.countDocuments({
+      user_id: userId,
+    });
+    const orders = await orderEntity.find({
+      user_id: userId,
+      payment_status: { $in: ["PARTIAL_PAID", "PAID"] },
+    });
+    let totalAmount = 0;
+    orders?.forEach((value) => {
+      totalAmount = totalAmount + value.applied_amount;
+    });
+    return { item: user, numberCourse, arrayCourse, totalAmount };
+  };
+  updateProfile = async ({ userId, formData, avatar }) => {
+    const user = await userEntity.findOne({ _id: userId });
+    if (!user) {
+      const error = new Error("Tài khoản không tồn tại!");
+      error.statusCode = 404;
+      throw error;
+    }
+    const hashedPassword = await bcrypt.hash(formData.password, saltRounds);
+    await userEntity.updateOne(
+      { _id: userId },
+      {
+        full_name: formData.fullName,
+        phone: formData.phone,
+        password: hashedPassword,
+        avatar: avatar,
+      }
+    );
+  };
+  updateStatusUser = async ({ userId }) => {
+    const user = await userEntity.findOne({ _id: userId });
+    if (!user) {
+      const error = new Error(
+        "Không tìm thấy người dùng để cập nhật trạng thái!"
+      );
+      error.statusCode = 404;
+      throw error;
+    }
+    const currentStatus = user.status;
+    const result = await userEntity.findOneAndUpdate(
+      { _id: userId },
+      { status: currentStatus ? false : true },
+      { returnDocument: "after" }
+    );
+    return result;
+  };
+  updateInstructorInfo = async ({ instructorId, formData }) => {
+    const user = await userEntity.findOne({ _id: instructorId });
+    if (!user) {
+      const error = new Error(
+        "Không tìm thấy giảng viên để cập nhật thông tin!"
+      );
+      error.statusCode = 404;
+      throw error;
+    }
+    await userEntity.updateOne(
+      { _id: instructorId },
+      { level: formData.level, experience: formData.experience }
+    );
   };
 }

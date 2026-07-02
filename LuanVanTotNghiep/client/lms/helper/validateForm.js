@@ -1,52 +1,132 @@
 export const validateForm = {
-  validateFormAuth: ({ fullName, email, password, setError }) => {
+  validateUserForm: ({ formData, setError }) => {
     // Reset các lỗi cũ trước khi check
-    setError({ errorFullName: "", errorEmail: "", errorPassword: "" });
+    setError({
+      errorFullName: "",
+      errorEmail: "",
+      errorPassword: "",
+      errorConfirmPassword: "",
+      errorPhone: "",
+      errorFile: "",
+      errorLevel: "",
+      errorExperience: "",
+    });
     let errors = {};
-    const onlyAlphaRegex =
+    const levels = ["Cử nhân", "Thạc sĩ", "Tiến sĩ"];
+    const numberRegex = /^[0-9]+$/;
+    const alphaRegex =
       /^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s]+$/;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^\d{10}$/;
     let isValid = true;
-    // Kiểm tra Họ tên (Chỉ check nếu có fullName )
-    if (fullName !== undefined) {
-      if (!fullName.trim()) {
+
+    // Kiểm tra Họ tên (Nếu có)
+    if (formData.fullName !== undefined) {
+      if (!formData.fullName.trim()) {
         errors.errorFullName = "Họ tên không được bỏ trống!";
         isValid = false;
-      } else if (fullName.trim().length < 3 || fullName.trim().length > 50) {
+      } else if (
+        formData.fullName.trim().length < 3 ||
+        formData.fullName.trim().length > 50
+      ) {
         errors.errorFullName = "Họ tên phải từ 3 đến 50 ký tự! ";
         isValid = false;
-      } else if (!onlyAlphaRegex.test(fullName.trim())) {
+      } else if (!alphaRegex.test(formData.fullName.trim())) {
         errors.errorFullName = "Họ tên không được chứa số hoặc ký tự đặc biệt!";
         isValid = false;
       }
     }
-    // Kiểm tra Email
-    if (!email) {
-      errors.errorEmail = "Email không được bỏ trống!";
-      isValid = false;
-    } else if (!emailRegex.test(email)) {
-      errors.errorEmail = "Email không đúng định dạng!";
-      isValid = false;
+
+    // Kiểm tra Email (Nếu có)
+    if (formData.email !== undefined) {
+      if (!formData.email) {
+        errors.errorEmail = "Email không được bỏ trống!";
+        isValid = false;
+      } else if (!emailRegex.test(formData.email)) {
+        errors.errorEmail = "Email không đúng định dạng!";
+        isValid = false;
+      }
     }
-    // Kiểm tra Password
-    if (!password) {
-      errors.errorPassword = "Mật khẩu không được bỏ trống!";
-      isValid = false;
-    } else if (password.length < 6) {
-      errors.errorPassword = "Mật khẩu phải có tối thiểu 6 ký tự!";
-      isValid = false;
+
+    // Kiểm tra Password (Nếu có)
+    if (formData.password !== undefined) {
+      if (!formData.password) {
+        errors.errorPassword = "Mật khẩu không được bỏ trống!";
+        isValid = false;
+      } else if (formData.password.length < 6) {
+        errors.errorPassword = "Mật khẩu phải có tối thiểu 6 ký tự!";
+        isValid = false;
+      }
     }
+
+    // Kiểm tra confirmPassword (Nếu có)
+    if (formData.confirmPassword !== undefined) {
+      if (!formData.confirmPassword) {
+        errors.errorConfirmPassword = "Mật khẩu xác nhận không được bỏ trống!";
+        isValid = false;
+      } else if (formData.confirmPassword != formData.password) {
+        errors.errorConfirmPassword = "Mật khẩu không khớp!";
+        isValid = false;
+      }
+    }
+
+    //Kiểm tra số điện thoại (Nếu có)
+    if (formData.phone !== undefined) {
+      if (!formData.phone) {
+        errors.errorPhone = "Số điện thoại không được bỏ trống!";
+        isValid = false;
+      } else if (!phoneRegex.test(formData.phone)) {
+        errors.errorPhone = "Số điện thoại không hợp lệ!";
+        isValid = false;
+      }
+    }
+
+    //Kiểm tra định dạng ảnh (Nếu có)
+    if (formData.avatar !== undefined) {
+      if (!formData.avatar) {
+        errors.errorFile = "Vui lòng chọn ảnh!";
+        isValid = false;
+      } else if (formData.avatar?.size > 300000) {
+        errors.errorFile = "Kích thước ảnh tối đa 300KB!";
+        isValid = false;
+      }
+    }
+
+    // Kiểm tra trình độ (Nếu có)
+    if (formData.level !== undefined) {
+      if (!formData.level) {
+        errors.errorLevel = "Vui lòng chọn trình độ!";
+        isValid = false;
+      } else if (!levels?.includes(formData.level)) {
+        errors.errorLevel = "Trình độ không hợp lệ!";
+        isValid = false;
+      }
+    }
+
+    //Kiểm tra kinh nghiệm giảng dạy (Nếu có)
+    if (formData.experience !== undefined) {
+      if (!formData.experience) {
+        errors.errorExperience = "Kinh nghiệm giảng dạy không được để trống!";
+        isValid = false;
+      } else if (!numberRegex.test(formData.experience)) {
+        errors.errorExperience = "Số năm không hợp lệ!";
+        isValid = false;
+      } else if (formData.experience < 1 || formData.experience > 20) {
+        errors.errorExperience =
+          "Chỉ chấp nhận các giảng viên từ 1 đến 20 năm kinh nghiệm!";
+        isValid = false;
+      }
+    }
+
     // Cập nhật state lỗi và trả về kết quả
     if (!isValid) {
       setError((prev) => ({ ...prev, ...errors }));
     }
     return isValid;
   },
-
-  validateFormCourse: ({ courseInfo, isEdit, setError }) => {
+  validateCourseForm: ({ formData, isEdit, setError }) => {
     setError({
       errorCourseName: "",
-      errorDescription: "",
       errorCategory: "",
       errorLevel: "",
       errorFile: "",
@@ -54,59 +134,65 @@ export const validateForm = {
     });
     let errors = {};
     const courseNameRegex = /^[\p{L}\p{N}\s&.+\-_()#/,"';:!?%*]+$/u;
-    const onlyNumberRegex = /^[0-9]+$/;
+    const numberRegex = /^[0-9]+$/;
     let isValid = true;
+
     //Kiểm tra tên khóa học
-    if (!courseInfo.courseName.trim()) {
+    if (!formData.courseName.trim()) {
       errors.errorCourseName = "Tên khóa học không được bỏ trống!";
       isValid = false;
     } else if (
-      courseInfo.courseName.trim().length < 3 ||
-      courseInfo.courseName.trim().length > 50
+      formData.courseName.trim().length < 3 ||
+      formData.courseName.trim().length > 50
     ) {
       errors.errorCourseName = "Tên khóa học phải từ 3 đến 50 ký tự!";
       isValid = false;
-    } else if (!courseNameRegex.test(courseInfo.courseName)) {
+    } else if (!courseNameRegex.test(formData.courseName)) {
       errors.errorCourseName =
         "Tên khóa học không được chứa ký tự không hợp lệ!";
       isValid = false;
     }
+
     //Kiểm tra danh mục
-    if (!courseInfo.category_id) {
+    if (!formData.category_id) {
       errors.errorCategory = "Vui lòng chọn danh mục!";
       isValid = false;
     }
+
     //Kiểm tra cấp độ
-    if (!courseInfo.level) {
+    if (!formData.level) {
       errors.errorLevel = "Vui lòng chọn cấp độ!";
       isValid = false;
     }
+
     if (!isEdit) {
       //Kiểm tra ảnh khóa học và ảnh bìa
-      if (!courseInfo.image || !courseInfo.thumbnail) {
+      if (!formData.image || !formData.thumbnail) {
         errors.errorFile = "Vui lòng chọn ảnh!";
         isValid = false;
       } else if (
-        courseInfo.image?.size > 300000 ||
-        courseInfo.thumbnail?.size > 300000
+        formData.image?.size > 300000 ||
+        formData.thumbnail?.size > 300000
       ) {
         errors.errorFile = "Kích thước ảnh tối đa 300KB!";
         isValid = false;
       }
     }
+
     //Kiểm tra giá
-    if (courseInfo.price === null) {
+    if (!formData.price) {
       errors.errorPrice = "Vui lòng nhập giá!";
       isValid = false;
-    } else if (!onlyNumberRegex.test(courseInfo.price)) {
+    } else if (!numberRegex.test(formData.price)) {
       errors.errorPrice = "Vui lòng nhập đúng định dạng giá!";
       isValid = false;
     }
+
     if (!isValid) setError((prev) => ({ ...prev, ...errors }));
     return isValid;
   },
 
-  validateFormLesson: ({ lessonInfo }) => {
+  validateLessonForm: ({ formData }) => {
     let errorLesson = {
       errorLessonName: "",
       errorVideoUrl: "",
@@ -114,33 +200,36 @@ export const validateForm = {
     };
     const lessonNameRegex = /^[\p{L}\p{N}\s&.+\-_()#/,"';:!?%*]+$/u;
     let isValid = true;
-    //Kiểm tra nếu người dùng chưa nhập bất kỳ thông tin gì cho khóa học này thì bỏ qua không bắt lỗi
-    if (!lessonInfo.lessonName && !lessonInfo.videoUrl && !lessonInfo.duration)
+
+    //Kiểm tra nếu người dùng chưa nhập bất kỳ thông tin gì cho bài học này thì bỏ qua không bắt lỗi
+    if (!formData.lessonName && !formData.videoUrl && !formData.duration)
       return { isValid, errorLesson };
     else {
       //Kiểm tra tiêu đề bài học
-      if (!lessonInfo.lessonName.trim().length) {
+      if (!formData.lessonName.trim().length) {
         errorLesson.errorLessonName = "Vui lòng nhập tiêu đề bài học!";
         isValid = false;
       } else if (
-        lessonInfo.lessonName.trim().length < 3 ||
-        lessonInfo.lessonName.trim().length > 255
+        formData.lessonName.trim().length < 3 ||
+        formData.lessonName.trim().length > 255
       ) {
         errorLesson.errorLessonName =
           "Tiêu đề bài học phải từ 3 đến 255 ký tự!";
         isValid = false;
-      } else if (!lessonNameRegex.test(lessonInfo.lessonName)) {
+      } else if (!lessonNameRegex.test(formData.lessonName)) {
         errorLesson.errorLessonName =
           "Tiêu đề bài học không được chứa ký tự không hợp lệ!";
         isValid = false;
       }
+
       //Kiểm tra đường dẫn video
-      if (!lessonInfo.videoUrl.trim()) {
+      if (!formData.videoUrl.trim()) {
         errorLesson.errorVideoUrl = "Vui lòng nhập đường dẫn video!";
         isValid = false;
       }
+
       //Kiểm tra thời lượng
-      if (!lessonInfo.duration) {
+      if (!formData.duration) {
         errorLesson.errorDuration = "Thời lượng không được bỏ trống!";
         isValid = false;
       }

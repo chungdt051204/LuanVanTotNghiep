@@ -1,11 +1,15 @@
 import { axiosClient } from "./axiosClient";
 export const testService = {
-  getTestsByInstructor: async () => {
-    const response = await axiosClient.get("/instructor/tests");
+  getTestsByInstructor: async ({ params }) => {
+    const response = await axiosClient.get(`/instructor/tests?${params}`);
     return response;
   },
   getTestById: async ({ testId }) => {
     const response = await axiosClient.get(`/test/${testId}`);
+    return response;
+  },
+  getTestByCourse: async ({ courseId }) => {
+    const response = await axiosClient.get(`/course/${courseId}/test`);
     return response;
   },
   createTest: async ({ formData }) => {

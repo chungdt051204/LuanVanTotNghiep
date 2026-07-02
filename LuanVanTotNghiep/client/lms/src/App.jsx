@@ -1,4 +1,4 @@
-import { Routes, Route, useSearchParams } from "react-router-dom";
+import { Routes, Route, useSearchParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import LandingPage from "./pages/LandingPage";
@@ -21,7 +21,6 @@ import InstructorPage from "./pages/instructor/InstructorPage";
 import Tests from "./pages/instructor/Tests";
 import TestEditor from "./pages/instructor/TestEditor";
 import Students from "./pages/instructor/Students";
-import Comments from "./pages/instructor/Comments";
 
 import ProtectedRouteAdmin from "./pages/admin/ProtectedRoute";
 import AdminPage from "./pages/admin/AdminPage";
@@ -36,9 +35,22 @@ import { setNotifications } from "./stores/features/notificationSlice";
 import Cart from "./pages/user/Cart";
 import Notifications from "./pages/user/Notifications";
 import MyCourses from "./pages/user/MyCourses";
+import TestDetail from "./pages/TestDetail";
+import TestResult from "./pages/TestResult";
+import MyOrders from "./pages/user/MyOrders";
+import OrderDetail from "./pages/OrderDetail";
+import Instructors from "./pages/admin/Instructors";
+import Users from "./pages/admin/Users";
+import InstructorDetail from "./pages/admin/InstructorDetail";
+import UserDetail from "./pages/admin/UserDetail";
+import MyProfile from "./pages/user/MyProfile";
+import Courses from "./pages/Courses";
+import Comments from "./pages/admin/Comments";
+import Orders from "./pages/admin/Orders";
 
 export const api = "http://localhost:3000";
 function App() {
+  const navigate = useNavigate();
   const isLogin = useSelector((state) => state.auth.isLogin);
   const me = useSelector((state) => state.me.item);
   const dispatch = useDispatch();
@@ -67,10 +79,13 @@ function App() {
         const status = error.status;
         const message = error.data.message;
         console.log(status, message);
+        if (status == 403) {
+          navigate("/login");
+        }
       }
     };
     getMe();
-  }, [dispatch, setSearchParams, token]);
+  }, [dispatch, setSearchParams, token, navigate]);
   useEffect(() => {
     const getAllCategories = async () => {
       const result = await categoryService.getAllCategories();
@@ -83,7 +98,6 @@ function App() {
       const getMyCart = async () => {
         try {
           const result = await cartService.getMyCart();
-          console.log(result.data);
           dispatch(setCart(result.data));
         } catch (error) {
           const status = error.status;
@@ -105,18 +119,27 @@ function App() {
       };
       getNotificationsByUser();
     }
-  }, [dispatch, isLogin, me]);
+  }, [dispatch, isLogin, me, navigate]);
   return (
     <>
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<LandingPage />} />
+        <Route path="/courses" element={<Courses />} />
         <Route path="/course/:id" element={<CourseDetail />} />
         <Route path="/course/:courseId/lesson/:id" element={<LessonDetail />} />
+        <Route path="/course/:courseId/test/:id" element={<TestDetail />} />
+        <Route
+          path="/course/:courseId/test/:testId/result/:id"
+          element={<TestResult />}
+        />
         <Route path="/cart" element={<Cart />} />
         <Route path="/notifications" element={<Notifications />} />
+        <Route path="/my-profile" element={<MyProfile />} />
         <Route path="/my-courses" element={<MyCourses />} />
+        <Route path="/my-orders" element={<MyOrders />} />
+        <Route path="/order/:id" element={<OrderDetail />} />
         <Route element={<ProtectedRouteInstructor />}>
           <Route path="/instructor" element={<InstructorPage />}>
             <Route path="dashboard" element={<InstructorDashboard />} />
@@ -134,6 +157,12 @@ function App() {
           <Route path="/admin" element={<AdminPage />}>
             <Route path="dashboard" element={<AdminDashboard />} />
             <Route path="courses" element={<AdminCourses />} />
+            <Route path="instructors" element={<Instructors />} />
+            <Route path="instructor/:id" element={<InstructorDetail />} />
+            <Route path="users" element={<Users />} />
+            <Route path="user/:id" element={<UserDetail />} />
+            <Route path="comments" element={<Comments />} />
+            <Route path="orders" element={<Orders />} />
           </Route>
         </Route>
       </Routes>
