@@ -43,6 +43,18 @@ userRouter.get(
   middleware.isAdmin,
   new UserController().getUserById
 );
+userRouter.get(
+  `${prefix}/instructor/students`,
+  middleware.verifyToken,
+  middleware.isInstructor,
+  new UserController().getStudentsByInstructor
+);
+userRouter.get(
+  `${prefix}/instructor/student/:id`,
+  middleware.verifyToken,
+  middleware.isInstructor,
+  new UserController().getStudentById
+);
 userRouter.put(
   `${prefix}/me`,
   middleware.verifyToken,

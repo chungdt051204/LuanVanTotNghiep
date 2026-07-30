@@ -22,6 +22,16 @@ export const userService = {
     const response = await axiosClient.get(`/admin/user/${userId}`);
     return response;
   },
+  getStudentsByInstructor: async ({ params }) => {
+    const response = await axiosClient.get(`/instructor/students?${params}`);
+    return response;
+  },
+  getStudentById: async ({ studentId, params }) => {
+    const response = await axiosClient.get(
+      `/instructor/student/${studentId}?${params}`
+    );
+    return response;
+  },
   updateProfile: async ({ data }) => {
     const response = await axiosClient.put("/me", data, {
       headers: {

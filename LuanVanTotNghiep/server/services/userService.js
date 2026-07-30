@@ -4,6 +4,8 @@ import enrollmentEntity from "../models/enrollmentModel.js";
 import orderEntity from "../models/orderModel.js";
 import orderItemEntity from "../models/orderItemModel.js";
 import roleEntity from "../models/roleModel.js";
+import testEntity from "../models/testModel.js";
+import testResultEntity from "../models/testResultModel.js";
 import bcrypt from "bcrypt";
 const saltRounds = 10;
 
@@ -162,6 +164,70 @@ export class UserService {
       totalAmount = totalAmount + value.applied_amount;
     });
     return { item: user, numberCourse, arrayCourse, totalAmount };
+  };
+  getStudentsByInstructor = async ({ instructorId, params }) => {
+    const courses = await courseEntity.find({ user_id: instructorId });
+    const courseIds = courses?.map((value) => {
+      return value._id;
+    });
+    const enrollments = await enrollmentEntity.find({
+      course_id: { $in: courseIds },
+    });
+    const enrollmentIds = enrollments?.map((value) => {
+      return value.user_id;
+    });
+    const options = {
+      page: params?.page,
+      limit: params?.limit,
+      sort: { createdAt: -1 },
+    };
+    const query = { _id: { $in: enrollmentIds } };
+    const students = await userEntity.paginate(query, options);
+    return {
+      items: students?.docs,
+      totalPages: students?.totalPages,
+    };
+  };
+  getStudentById = async ({ studentId, instructorId, params }) => {
+    const student = await userEntity.findOne({ _id: studentId });
+    if (!student) {
+      const error = new Error("Không tìm thấy tài khoản học viên này!");
+      error.statusCode = 404;
+      throw error;
+    }
+    const courses = await courseEntity.find({ user_id: instructorId });
+    const coursesIds = courses?.map((value) => {
+      return value._id;
+    });
+    const totalEnrollments = await enrollmentEntity.countDocuments({
+      user_id: student._id,
+      course_id: { $in: coursesIds },
+    });
+    const options = {
+      page: params?.page,
+      limit: params?.limit,
+      populate: ["course_id"],
+    };
+    let query = { user_id: student._id, course_id: { $in: coursesIds } };
+    const enrollments = await enrollmentEntity.paginate(query, options);
+    const arrayEnrollment = await Promise.all(
+      enrollments?.docs?.map(async (value) => {
+        const test = await testEntity.findOne({
+          course_id: value?.course_id?._id,
+        });
+        const testResults = await testResultEntity
+          .find({ test_id: test._id })
+          .populate("test_id")
+          .sort({ submitted_at: -1 });
+        return { item: value, testResults };
+      })
+    );
+    return {
+      item: student,
+      totalEnrollments,
+      arrayEnrollment,
+      totalPagesEnrollment: enrollments?.totalPages,
+    };
   };
   updateProfile = async ({ userId, formData, avatar }) => {
     const user = await userEntity.findOne({ _id: userId });

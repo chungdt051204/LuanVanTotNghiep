@@ -12,6 +12,7 @@ import { IoEyeOutline } from "react-icons/io5";
 import { format } from "../../../helper/format";
 import { useSelector } from "react-redux";
 import PaginationButton from "../../components/PaginationButton";
+import Footer from "../../components/Footer";
 const MyOrders = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -222,6 +223,7 @@ const MyOrders = () => {
           )}
         </div>
       </div>
+      <Footer />
     </>
   );
 };

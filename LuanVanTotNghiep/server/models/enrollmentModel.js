@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import paginate from "mongoose-paginate-v2";
 const enrollmentSchema = new mongoose.Schema(
   {
     user_id: {
@@ -34,6 +35,7 @@ const enrollmentSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+enrollmentSchema.plugin(paginate);
 export default mongoose.model(
   "enrollmentEntity",
   enrollmentSchema,

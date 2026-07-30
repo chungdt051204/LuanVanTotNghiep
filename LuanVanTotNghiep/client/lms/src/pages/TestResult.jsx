@@ -4,6 +4,7 @@ import { testResultService } from "../services/testResultService";
 import Navbar from "../components/Navbar";
 import { FaRegCheckCircle } from "react-icons/fa";
 import { FaRegTimesCircle } from "react-icons/fa";
+import Footer from "../components/Footer";
 
 const TestResult = () => {
   const navigate = useNavigate();
@@ -107,6 +108,7 @@ const TestResult = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

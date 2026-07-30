@@ -13,11 +13,7 @@ export class RevenueService {
           course_id: courseId,
         });
         orderItems?.forEach((item) => {
-          const appliedAmount =
-            item.payment_option == "PARTIAL"
-              ? (item.price * 50) / 100
-              : item.price;
-          revenue = revenue + appliedAmount;
+          revenue = revenue + item.applied_amount;
         });
       })
     );

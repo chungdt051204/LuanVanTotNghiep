@@ -95,7 +95,9 @@ const TestEditor = () => {
   useEffect(() => {
     const getCoursesByInstructor = async () => {
       try {
-        const result = await courseService.getCoursesByInstructor();
+        const result = await courseService.getCoursesByInstructor({
+          params: "",
+        });
         console.log(result);
         dispatch(setCourses(result.data));
       } catch (error) {
@@ -152,6 +154,8 @@ const TestEditor = () => {
           const status = error.status;
           const message = error.data.message;
           console.log(status, message);
+          if (status === 409)
+            setError((prev) => ({ ...prev, errorCourse: message }));
         }
       }
     }
@@ -244,7 +248,7 @@ const TestEditor = () => {
                 value={testInfo.courseId}
               >
                 <option value="">Chọn khóa học</option>
-                {courses?.map((value) => {
+                {courses?.arrayCourse?.map((value) => {
                   return (
                     <option key={value.course._id} value={value.course._id}>
                       {value.course.course_name}

@@ -12,9 +12,11 @@ import { FiFlag } from "react-icons/fi";
 import { CiCircleCheck } from "react-icons/ci";
 import { FaArrowLeft } from "react-icons/fa6";
 import { FaArrowRight } from "react-icons/fa6";
+import Footer from "../components/Footer";
 const TestDetail = () => {
   const navigate = useNavigate();
   const { item: me, isLoading } = useSelector((state) => state.me);
+  const isAdmin = me?.role_id?.role === "admin";
   const { courseId } = useParams();
   const { id } = useParams();
   const [test, setTest] = useState(null);
@@ -36,11 +38,7 @@ const TestDetail = () => {
       navigate("/");
       return;
     }
-    if (!isLoading && me?.role_id?.role !== "user") {
-      navigate("/");
-      return;
-    }
-  }, [isLoading, me, navigate]);
+  }, [navigate]);
 
   useEffect(() => {
     if (id) {
@@ -109,6 +107,12 @@ const TestDetail = () => {
     }, 1000);
   };
   const handleSubmit = async () => {
+    if (!isLoading && isAdmin) {
+      toast.warning(
+        "Quản trị viên chỉ được test chức năng, không được nộp bài!"
+      );
+      return;
+    }
     setSubmitted(true);
     let numberAnswerCorrect = 0;
     questions?.forEach((value) => {
@@ -324,6 +328,7 @@ const TestDetail = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

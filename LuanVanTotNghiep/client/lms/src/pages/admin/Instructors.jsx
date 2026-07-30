@@ -1,5 +1,5 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { userService } from "../../services/userService";
 import { IoListOutline } from "react-icons/io5";
 import { CiCircleCheck } from "react-icons/ci";
@@ -8,11 +8,13 @@ import { IoEyeOutline } from "react-icons/io5";
 import { LuInbox } from "react-icons/lu";
 import { toast } from "react-toastify";
 import PaginationButton from "../../components/PaginationButton";
+import ConfirmDialog from "../../components/ConfirmDialog";
 
 const Instructors = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [instructors, setInstructors] = useState([]);
+  const [instructor, setInstructor] = useState(null);
   const [refresh, setRefresh] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const filterTabs = [
@@ -34,6 +36,8 @@ const Instructors = () => {
   ];
   const [status, setStatus] = useState("");
   const [idx, setIdx] = useState(0);
+  const [message, setMessage] = useState("");
+  const confirmDialog = useRef(0);
 
   useEffect(() => {
     const getInstructors = async () => {
@@ -56,10 +60,13 @@ const Instructors = () => {
     };
     getInstructors();
   }, [refresh, searchParams, status]);
-  const handleUpdateStatusUser = async (id) => {
+  const handleUpdateStatusInstructor = async () => {
     try {
-      const result = await userService.updateStatusUser({ userId: id });
+      const result = await userService.updateStatusUser({
+        userId: instructor?._id,
+      });
       console.log(result);
+      confirmDialog?.current?.close();
       setRefresh((prev) => prev + 1);
       toast.success(
         result?.message || "Vô hiệu hóa/Kích hoạt tài khoản thành công"
@@ -178,9 +185,22 @@ const Instructors = () => {
                           }
                         />
                         <button
-                          onClick={() =>
-                            handleUpdateStatusUser(value?.item?._id)
-                          }
+                          onClick={() => {
+                            const instructorId = value?.item?._id;
+                            const instructor =
+                              instructors?.arrayInstructor?.find(
+                                (value) => value?.item?._id === instructorId
+                              );
+                            setInstructor(instructor?.item);
+                            setMessage(
+                              `Bạn có muốn ${
+                                value?.item?.status
+                                  ? "vô hiệu hóa"
+                                  : "kích hoạt"
+                              } tài khoản giảng viên này không ? `
+                            );
+                            confirmDialog?.current?.showModal();
+                          }}
                           className={`px-2 py-1 rounded-[8px] text-title-sm text-surface-white ${
                             value?.item?.status ? "bg-red-600" : "bg-green-600"
                           } transition-transform duration-300 hover:text-surface-bg hover:cursor-pointer`}
@@ -199,6 +219,11 @@ const Instructors = () => {
           )}
         </div>
       </div>
+      <ConfirmDialog
+        ref={confirmDialog}
+        message={message}
+        handleClick={handleUpdateStatusInstructor}
+      />
     </>
   );
 };

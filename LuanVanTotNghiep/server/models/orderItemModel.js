@@ -25,6 +25,11 @@ const orderItemSchema = new mongoose.Schema(
       enum: ["PARTIAL", "FULL"],
       default: "FULL",
     },
+    applied_amount: {
+      type: Number,
+      min: 0,
+      default: 0,
+    },
   },
   { timestamps: true }
 );

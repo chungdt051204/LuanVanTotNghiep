@@ -1,8 +1,6 @@
-import { useSearchParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
 import { courseService } from "../../services/courseService";
-import { setCourses, updateCourse } from "../../stores/features/courseSlice";
 import { RxPeople } from "react-icons/rx";
 import { toast } from "react-toastify";
 import { IoListOutline } from "react-icons/io5";
@@ -10,11 +8,16 @@ import { GoClock } from "react-icons/go";
 import { CiCircleCheck } from "react-icons/ci";
 import { LuInbox } from "react-icons/lu";
 import PaginationButton from "../../components/PaginationButton";
+import { IoEyeOutline } from "react-icons/io5";
+import ConfirmDialog from "../../components/ConfirmDialog";
 
 const AdminCourses = () => {
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const dispatch = useDispatch();
-  const { items: courses, isLoading } = useSelector((state) => state.courses);
+  const [courses, setCourses] = useState([]);
+  const [course, setCourse] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [refresh, setRefresh] = useState(0);
   const filterTabs = [
     {
       status: "",
@@ -34,6 +37,9 @@ const AdminCourses = () => {
   ];
   const [status, setStatus] = useState("");
   const [idx, setIdx] = useState(0);
+  const [message, setMessage] = useState("");
+  const [isApproved, setIsApproved] = useState(false);
+  const confirmDialog = useRef();
 
   useEffect(() => {
     const getCoursesByAdmin = async () => {
@@ -45,38 +51,27 @@ const AdminCourses = () => {
           params: params.toString(),
         });
         console.log(result);
-        dispatch(setCourses(result.data));
+        setCourses(result.data);
       } catch (error) {
         const status = error.status;
         const message = error.data.message;
         console.log(status, message);
+      } finally {
+        setIsLoading(false);
       }
     };
     getCoursesByAdmin();
-  }, [dispatch, searchParams, status]);
+  }, [searchParams, status, refresh]);
 
-  const handleApproveCourse = async ({ courseId }) => {
+  const handleApproveOrRejectCourse = async () => {
     try {
       const result = await courseService.approveOrRejectCourse({
-        courseId,
-        status: "approved",
+        courseId: course?._id,
+        status: isApproved ? "approved" : "rejected",
       });
-      dispatch(updateCourse(result.data));
-      toast.success(result.message || "Duyệt khóa học thành công");
-    } catch (error) {
-      const status = error.status;
-      const message = error.data.message;
-      console.log(status, message);
-    }
-  };
-  const handleRejectCourse = async ({ courseId }) => {
-    try {
-      const result = await courseService.approveOrRejectCourse({
-        courseId,
-        status: "rejected",
-      });
-      dispatch(updateCourse(result.data));
-      toast.success(result.message || "Từ chối khóa học thành công");
+      toast.success(result.message || "Duyệt/Từ chối khóa học thành công");
+      confirmDialog?.current?.close();
+      setRefresh((prev) => prev + 1);
     } catch (error) {
       const status = error.status;
       const message = error.data.message;
@@ -193,28 +188,46 @@ const AdminCourses = () => {
                         </td>
                         <td className="flex justify-end items-center w-[20%] pe-2">
                           {value?.course.status === "pending" && (
-                            <div className="flex gap-x-1">
+                            <div className="flex items-center gap-x-2">
                               <button
-                                onClick={() =>
-                                  handleApproveCourse({
-                                    courseId: value?.course._id,
-                                  })
-                                }
+                                onClick={() => {
+                                  const courseId = value?.course?._id;
+                                  const item = courses?.arrayCourse?.find(
+                                    (value) => value?.course?._id == courseId
+                                  );
+                                  setIsApproved(true);
+                                  setCourse(item?.course);
+                                  setMessage(
+                                    "Bạn có muốn duyệt khóa học này không ?"
+                                  );
+                                  confirmDialog?.current?.showModal();
+                                }}
                                 className="px-2 py-1 bg-green-700 text-body-lg text-surface-white rounded-[8px] transition-transform duration-300 hover:text-surface-bg hover:cursor-pointer"
                               >
                                 Duyệt
                               </button>
                               <button
-                                onClick={() =>
-                                  handleRejectCourse({
-                                    courseId: value?.course._id,
-                                    status: value?.course.status,
-                                  })
-                                }
+                                onClick={() => {
+                                  const courseId = value?.course?._id;
+                                  const item = courses?.arrayCourse?.find(
+                                    (value) => value?.course?._id == courseId
+                                  );
+                                  setIsApproved(false);
+                                  setCourse(item?.course);
+                                  setMessage(
+                                    "Bạn có muốn từ chối khóa học này không ?"
+                                  );
+                                  confirmDialog?.current?.showModal();
+                                }}
                                 className="px-2 py-1 bg-brand-primary text-body-lg text-surface-white rounded-[8px] transition-transform duration-300 hover:text-surface-bg hover:cursor-pointer"
                               >
                                 Từ chối
                               </button>
+                              <IoEyeOutline
+                                onClick={() =>
+                                  navigate(`/course/${value?.course._id}`)
+                                }
+                              />
                             </div>
                           )}
                         </td>
@@ -234,6 +247,11 @@ const AdminCourses = () => {
           )}
         </div>
       </div>
+      <ConfirmDialog
+        ref={confirmDialog}
+        message={message}
+        handleClick={handleApproveOrRejectCourse}
+      />
     </>
   );
 };

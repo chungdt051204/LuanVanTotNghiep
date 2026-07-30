@@ -19,12 +19,10 @@ export class EnrollmentController {
         title: "Đăng ký khóa học thành công",
         message: `Khóa học ${course.course_name} đã được đăng ký thành công`,
       });
-      return res
-        .status(200)
-        .json({
-          message: "Đăng ký học khóa học thành công",
-          data: { result1, result2 },
-        });
+      return res.status(200).json({
+        message: "Đăng ký học khóa học thành công",
+        data: { result1, result2 },
+      });
     } catch (error) {
       const status = error.statusCode || 500;
       return res
@@ -35,8 +33,10 @@ export class EnrollmentController {
   getEnrollmentsByUser = async (req, res) => {
     try {
       const payload = req.payload;
+      const params = req.query;
       const result = await new EnrollmentService().getEnrollmentsByUser({
         userId: payload.sub,
+        params,
       });
       return res.status(200).json({ data: result });
     } catch (error) {

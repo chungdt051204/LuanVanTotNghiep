@@ -16,6 +16,7 @@ export class TestService {
       page: params.page,
       limit: params.limit,
       populate: ["course_id"],
+      sort: { createdAt: -1 },
     };
     let query = { course_id: { $in: courseIds } };
     if (params?.status !== undefined) {

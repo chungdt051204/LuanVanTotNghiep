@@ -1,6 +1,8 @@
 import enrollmentEntity from "../models/enrollmentModel.js";
 import courseEntity from "../models/courseModel.js";
 import lessonEntity from "../models/lessonModel.js";
+import testEntity from "../models/testModel.js";
+import testResultEntity from "../models/testResultModel.js";
 export class EnrollmentService {
   createEnrollment = async ({ courseId, userId, accessLevel }) => {
     const course = await courseEntity.findOne({ _id: courseId });
@@ -21,11 +23,27 @@ export class EnrollmentService {
     await newEnrollment.populate("course_id");
     return newEnrollment;
   };
-  getEnrollmentsByUser = async ({ userId }) => {
-    const enrollments = await enrollmentEntity
-      .find({ user_id: userId })
-      .populate("course_id");
-    return enrollments || [];
+  getEnrollmentsByUser = async ({ userId, params }) => {
+    const options = {
+      page: params?.page,
+      limit: params?.limit,
+      populate: ["course_id"],
+    };
+    let query = { user_id: userId };
+    const enrollments = await enrollmentEntity.paginate(query, options);
+    const arrayEnrollment = await Promise.all(
+      enrollments?.docs?.map(async (value) => {
+        const test = await testEntity.findOne({
+          course_id: value?.course_id?._id,
+        });
+        const testResults = await testResultEntity
+          .find({ test_id: test._id })
+          .populate("test_id")
+          .sort({ submitted_at: -1 });
+        return { item: value, testResults };
+      })
+    );
+    return { arrayEnrollment, totalPages: enrollments?.totalPages };
   };
   getEnrollmentByUserAndCourse = async ({ courseId, userId }) => {
     const enrollment = await enrollmentEntity.findOne({

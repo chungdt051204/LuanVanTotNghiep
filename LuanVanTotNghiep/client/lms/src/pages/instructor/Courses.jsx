@@ -1,8 +1,6 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { courseService } from "../../services/courseService";
-import { setCourses, updateCourse } from "../../stores/features/courseSlice";
 import { toast } from "react-toastify";
 import { FaPlus } from "react-icons/fa6";
 import { LuSquarePen } from "react-icons/lu";
@@ -17,12 +15,16 @@ import { LuInbox } from "react-icons/lu";
 import { format } from "../../../helper/format";
 import PaginationButton from "../../components/PaginationButton";
 import { FaStar } from "react-icons/fa";
+import { IoWarningOutline } from "react-icons/io5";
+import ConfirmDialog from "../../components/ConfirmDialog";
 
 const InstructorCourses = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const dispatch = useDispatch();
-  const { items: myCourses, isLoading } = useSelector((state) => state.courses);
+  const [myCourses, setMyCourses] = useState([]);
+  const [course, setCourse] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [refresh, setRefresh] = useState(0);
   const filterTabs = [
     {
       status: "",
@@ -45,6 +47,11 @@ const InstructorCourses = () => {
       icon: <CiCircleCheck />,
     },
     {
+      status: "rejected",
+      title: "Bị từ chối",
+      icon: <IoWarningOutline />,
+    },
+    {
       status: "deleted",
       title: "Đã xóa",
       icon: <RiDeleteBinLine />,
@@ -52,6 +59,9 @@ const InstructorCourses = () => {
   ];
   const [status, setStatus] = useState("");
   const [idx, setIdx] = useState(0);
+  const [message, setMessage] = useState("");
+  const [isUpdateStatus, setIsUpdateStatus] = useState(false);
+  const confirmDialog = useRef();
 
   useEffect(() => {
     const getCoursesByInstructor = async () => {
@@ -63,54 +73,50 @@ const InstructorCourses = () => {
           params: params.toString(),
         });
         console.log(result);
-        dispatch(setCourses(result.data));
+        setMyCourses(result.data);
       } catch (error) {
         const status = error.status;
         const message = error.data.message;
         console.log(status, message);
+      } finally {
+        setIsLoading(false);
       }
     };
     getCoursesByInstructor();
-  }, [dispatch, searchParams, status]);
-  const handleDeleteOrRestoreCourse = async ({ courseId, isVisible }) => {
+  }, [searchParams, status, refresh]);
+  const handleDeleteOrRestoreCourse = async () => {
     try {
+      const isVisible = course?.is_visible;
       const action = isVisible ? "delete" : "restore";
       const result = await courseService.deleteOrRestoreCourse({
-        courseId,
+        courseId: course?._id,
         action,
       });
       console.log(result);
       toast.success(result.message);
-      dispatch(updateCourse(result.data));
+      confirmDialog?.current?.close();
+      setRefresh((prev) => prev + 1);
     } catch (error) {
       const status = error.status;
       const message = error.message;
       console.log(status, message);
     }
   };
-  const handleSubmitOrUnSubmitCourse = async ({ courseId, status }) => {
-    const item = myCourses?.find((value) => value?.course?._id == courseId);
-    console.log(item?.course?.status);
-    if (item?.course?.status == "draft") {
-      if (item?.numberLesson == 0 || item?.numberTest == 0) {
-        toast.error(
-          "Khóa học này chưa có bài học hoặc bài kiểm tra, không thể đăng tải!"
-        );
-        return;
-      }
-    }
+  const handleSubmitOrUnSubmitCourse = async () => {
+    const status = course?.status;
     const statusCourse =
       status === "draft" || status === "rejected" ? "pending" : "draft";
     try {
       const result = await courseService.submitOrUnSubmitCourse({
-        courseId,
+        courseId: course?._id,
         status: statusCourse,
       });
       console.log(result);
-      dispatch(updateCourse(result.data));
       toast.success(
         result.message || "Đăng tải/Hủy đăng tải khóa học thành công"
       );
+      confirmDialog?.current?.close();
+      setRefresh((prev) => prev + 1);
     } catch (error) {
       const status = error.status;
       const message = error.data.message;
@@ -145,6 +151,7 @@ const InstructorCourses = () => {
               "border-b-2 border-b-yellow-600",
               "border-b-2 border-b-green-600",
               "border-b-2 border-b-red-600",
+              "border-b-2 border-b-gray-400",
             ];
             const textColors = [
               "text-blue-600",
@@ -152,6 +159,7 @@ const InstructorCourses = () => {
               "text-yellow-600",
               "text-green-600",
               "text-red-600",
+              "text-gray-400",
             ];
             return (
               <div
@@ -176,7 +184,7 @@ const InstructorCourses = () => {
             );
           })}
         </div>
-        <div className="flex flex-col gap-y-6">
+        <div className="flex flex-col gap-y-6 w-[95%]">
           {isLoading ? (
             <p className="text-title-lg text-surface-nav text-center">
               Đang tải dữ liệu...
@@ -187,7 +195,7 @@ const InstructorCourses = () => {
               <p>Chưa có khóa học nào</p>
             </div>
           ) : (
-            <table className="w-[95%] border-separate border-spacing-0 overflow-hidden border-1 border-gray-300 rounded-[16px] mt-6">
+            <table className="border-separate border-spacing-0 overflow-hidden border-1 border-gray-300 rounded-[16px] mt-6">
               <thead>
                 <tr className="flex items-center justify-between text-surface-nav font-medium border-b border-gray-200">
                   <td className="w-[35%] p-2">Khóa học</td>
@@ -267,27 +275,28 @@ const InstructorCourses = () => {
                                     />
                                   </div>
                                 )}
-                                <div className="p-3 rounded-[8px] text-title-lg hover:bg-gray-200 transition-transform duration-300 hover:cursor-pointer">
+                                <div
+                                  onClick={() => {
+                                    const courseId = value?.course?._id;
+                                    const isVisible = value.course?.is_visible;
+                                    const item = myCourses?.arrayCourse?.find(
+                                      (value) => value?.course?._id == courseId
+                                    );
+                                    setCourse(item?.course);
+                                    setIsUpdateStatus(false);
+                                    setMessage(
+                                      `Bạn có muốn ${
+                                        isVisible ? "xóa" : "khôi phục"
+                                      } khóa học này không ?`
+                                    );
+                                    confirmDialog?.current?.showModal();
+                                  }}
+                                  className="p-3 rounded-[8px] text-title-lg hover:bg-gray-200 transition-transform duration-300 hover:cursor-pointer"
+                                >
                                   {value.course?.is_visible ? (
-                                    <RiDeleteBinLine
-                                      className="text-brand-primary"
-                                      onClick={() =>
-                                        handleDeleteOrRestoreCourse({
-                                          courseId: value.course?._id,
-                                          isVisible: value.course?.is_visible,
-                                        })
-                                      }
-                                    />
+                                    <RiDeleteBinLine className="text-brand-primary" />
                                   ) : (
-                                    <FaTrashRestore
-                                      className="text-brand-primary"
-                                      onClick={() =>
-                                        handleDeleteOrRestoreCourse({
-                                          courseId: value.course?._id,
-                                          isVisible: value.course?.is_visible,
-                                        })
-                                      }
-                                    />
+                                    <FaTrashRestore className="text-brand-primary" />
                                   )}
                                 </div>
                               </div>
@@ -296,12 +305,34 @@ const InstructorCourses = () => {
                           {value.course?.status !== "approved" &&
                             value.course?.is_visible && (
                               <button
-                                onClick={() =>
-                                  handleSubmitOrUnSubmitCourse({
-                                    courseId: value?.course?._id,
-                                    status: value?.course?.status,
-                                  })
-                                }
+                                onClick={() => {
+                                  const courseId = value?.course?._id;
+                                  const status = value.course?.status;
+                                  const item = myCourses?.arrayCourse?.find(
+                                    (value) => value?.course?._id == courseId
+                                  );
+                                  if (item?.course?.status == "draft") {
+                                    if (
+                                      item?.numberLesson == 0 ||
+                                      item?.numberTest == 0
+                                    ) {
+                                      toast.error(
+                                        "Khóa học này chưa có bài học hoặc bài kiểm tra, không thể đăng tải!"
+                                      );
+                                      return;
+                                    }
+                                  }
+                                  setCourse(item?.course);
+                                  setIsUpdateStatus(true);
+                                  setMessage(
+                                    `Bạn có muốn ${
+                                      status === "draft" || status == "rejected"
+                                        ? "đăng tải"
+                                        : "hủy đăng tải"
+                                    } khóa học này không ?`
+                                  );
+                                  confirmDialog?.current?.showModal();
+                                }}
                                 className={`px-2 py-1 ${
                                   value.course?.status === "pending"
                                     ? "bg-brand-primary"
@@ -327,6 +358,15 @@ const InstructorCourses = () => {
           )}
         </div>
       </div>
+      <ConfirmDialog
+        ref={confirmDialog}
+        message={message}
+        handleClick={
+          isUpdateStatus
+            ? handleSubmitOrUnSubmitCourse
+            : handleDeleteOrRestoreCourse
+        }
+      />
     </>
   );
 };

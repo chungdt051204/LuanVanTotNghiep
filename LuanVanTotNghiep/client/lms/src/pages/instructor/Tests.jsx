@@ -1,12 +1,6 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { testService } from "../../services/testService";
-import {
-  deleteTest,
-  setTests,
-  updateTest,
-} from "../../stores/features/testSlice";
 import { LuSquarePen } from "react-icons/lu";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { toast } from "react-toastify";
@@ -18,12 +12,15 @@ import { RiDraftLine } from "react-icons/ri";
 import { CiCircleCheck } from "react-icons/ci";
 import { LuInbox } from "react-icons/lu";
 import PaginationButton from "../../components/PaginationButton";
+import ConfirmDialog from "../../components/ConfirmDialog";
 
 const Tests = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const dispatch = useDispatch();
-  const tests = useSelector((state) => state.tests.items);
+  const [myTests, setMyTests] = useState([]);
+  const [test, setTest] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [refresh, setRefresh] = useState(0);
   const getDate = ({ date }) => {
     const d = new Date(date);
     const day = d.getDay();
@@ -50,6 +47,9 @@ const Tests = () => {
   ];
   const [status, setStatus] = useState("");
   const [idx, setIdx] = useState(0);
+  const [message, setMessage] = useState("");
+  const [isDeleted, setIsDeleted] = useState(false);
+  const confirmDialog = useRef();
 
   useEffect(() => {
     const getTestsByInstructor = async () => {
@@ -61,36 +61,35 @@ const Tests = () => {
           params: params.toString(),
         });
         console.log(result.data);
-        dispatch(setTests(result.data));
+        setMyTests(result.data);
       } catch (error) {
         const status = error.status;
         const message = error.data.message;
         console.log(status, message);
+      } finally {
+        setIsLoading(false);
       }
     };
     getTestsByInstructor();
-  }, [dispatch, searchParams, status]);
-  const handleDeleteTest = async ({ testId }) => {
+  }, [searchParams, status, refresh]);
+  const handleDeleteTest = async () => {
     try {
-      const result = await testService.deleteTest({ testId });
-      dispatch(deleteTest(testId));
+      const result = await testService.deleteTest({ testId: test?._id });
       toast.success(result.message || "Xóa bài kiểm tra thành công");
+      confirmDialog?.current?.close();
+      setRefresh((prev) => prev + 1);
     } catch (error) {
       const status = error.status;
       const message = error.data.message;
       console.log(status, message);
     }
   };
-  const handleActiveTest = async ({ testId }) => {
-    const test = tests?.find((value) => value?.test?._id == testId);
-    if (test?.numberQuestion == 0) {
-      toast.error("Bài kiểm tra này chưa có câu hỏi, không thể kích hoạt!");
-      return;
-    }
+  const handleActiveTest = async () => {
     try {
-      const result = await testService.activeTest({ testId });
-      dispatch(updateTest(result.data));
+      const result = await testService.activeTest({ testId: test?._id });
       toast.success(result.message || "Kích hoạt bài kiểm tra thành công");
+      confirmDialog?.current?.close();
+      setRefresh((prev) => prev + 1);
     } catch (error) {
       const status = error.status;
       const message = error.data.message;
@@ -158,9 +157,13 @@ const Tests = () => {
               <p className="text-title-lg text-surface-nav font-medium">
                 Danh sách bài kiểm tra
               </p>
-              <p className="text-body-lg text-nav-muted">{`${tests?.arrayTest?.length} bài kiểm tra`}</p>
+              <p className="text-body-lg text-nav-muted">{`${myTests?.arrayTest?.length} bài kiểm tra`}</p>
             </div>
-            {tests?.arrayTest?.length == 0 ? (
+            {isLoading ? (
+              <p className="text-title-lg text-surface-nav text-center">
+                Đang tải dữ liệu...
+              </p>
+            ) : myTests?.arrayTest?.length == 0 ? (
               <div className="flex flex-col items-center gap-y-2 text-title-sm text-nav-muted w-[95%] mt-6">
                 <LuInbox className="text-display-md text-gray-300" />
                 <p>Chưa có bài kiểm tra nào</p>
@@ -179,7 +182,7 @@ const Tests = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {tests?.arrayTest?.map((value) => {
+                  {myTests?.arrayTest?.map((value) => {
                     return (
                       <tr
                         className="border-b border-b-gray-300 hover:bg-surface-bg"
@@ -242,17 +245,39 @@ const Tests = () => {
                               <div className="p-3 rounded-[8px] text-title-lg hover:bg-gray-200 transition-transform duration-300 hover:cursor-pointer">
                                 <RiDeleteBinLine
                                   className="text-brand-primary"
-                                  onClick={() =>
-                                    handleDeleteTest({
-                                      testId: value?.test?._id,
-                                    })
-                                  }
+                                  onClick={() => {
+                                    const testId = value?.test?._id;
+                                    const item = myTests?.arrayTest?.find(
+                                      (value) => value?.test?._id == testId
+                                    );
+                                    setTest(item?.test);
+                                    setIsDeleted(true);
+                                    setMessage(
+                                      "Bạn có muốn xóa bài kiểm tra này không ?"
+                                    );
+                                    confirmDialog?.current?.showModal();
+                                  }}
                                 />
                               </div>
                               <button
-                                onClick={() =>
-                                  handleActiveTest({ testId: value?.test?._id })
-                                }
+                                onClick={() => {
+                                  const testId = value?.test?._id;
+                                  const item = myTests?.arrayTest?.find(
+                                    (value) => value?.test?._id == testId
+                                  );
+                                  if (item?.numberQuestion == 0) {
+                                    toast.error(
+                                      "Bài kiểm tra này chưa có câu hỏi, không thể kích hoạt!"
+                                    );
+                                    return;
+                                  }
+                                  setTest(item?.test);
+                                  setIsDeleted(false);
+                                  setMessage(
+                                    "Bạn có muốn kích hoạt bài kiểm tra này không ?"
+                                  );
+                                  confirmDialog?.current?.showModal();
+                                }}
                                 className="px-2 py-1 bg-green-700 text-body-lg text-surface-white rounded-[8px] transition-transform duration-300 hover:text-surface-bg hover:cursor-pointer"
                               >
                                 Kích hoạt
@@ -266,12 +291,17 @@ const Tests = () => {
                 </tbody>
               </table>
             )}
-            {tests?.totalPages > 1 && (
-              <PaginationButton totalPages={tests?.totalPages} />
+            {myTests?.totalPages > 1 && (
+              <PaginationButton totalPages={myTests?.totalPages} />
             )}
           </div>
         </div>
       </div>
+      <ConfirmDialog
+        ref={confirmDialog}
+        message={message}
+        handleClick={isDeleted ? handleDeleteTest : handleActiveTest}
+      />
     </>
   );
 };

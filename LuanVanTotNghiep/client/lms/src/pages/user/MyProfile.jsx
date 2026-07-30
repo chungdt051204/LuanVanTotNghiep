@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { validateForm } from "../../../helper/validateForm";
 import { userService } from "../../services/userService";
 import { toast } from "react-toastify";
+import Footer from "../../components/Footer";
 
 const MyProfile = () => {
   const navigate = useNavigate();
@@ -269,6 +270,24 @@ const MyProfile = () => {
                 </span>
               </div>
             </div>
+            <hr />
+            {/* {me?.role_id?.role == "instructor" && (
+              <div className="flex flex-col gap-y-4 border p-4">
+                <p>Xác thực tài khoản giảng viên</p>
+                <div className="flex gap-x-4">
+                  <div className="flex flex-col gap-y-1">
+                    <p>CCCD/Thẻ công dân</p>
+                    <p>Tải lên ảnh mặt trước thẻ CCCD</p>
+                    <input type="file" />
+                  </div>
+                  <div className="flex flex-col gap-y-1">
+                    <p>Bằng cấp/chứng chỉ chuyên môn</p>
+                    <p>Tải lên ảnh bằng cấp hoặc chứng chỉ</p>
+                    <input type="file" />
+                  </div>
+                </div>
+              </div>
+            )} */}
             <input
               className="px-2 py-1 mt-4 rounded-[8px] bg-surface-nav text-title-lg text-surface-white transition-transform duration-300 hover:text-surface-bg hover:cursor-pointer"
               type="submit"
@@ -277,6 +296,7 @@ const MyProfile = () => {
           </form>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

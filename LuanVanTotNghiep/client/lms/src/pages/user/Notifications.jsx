@@ -11,6 +11,7 @@ import {
 } from "../../stores/features/notificationSlice";
 import { LuInbox } from "react-icons/lu";
 import { AnimatePresence, motion } from "framer-motion";
+import { socket } from "../../../socket";
 
 const Notifications = () => {
   const navigate = useNavigate();
@@ -45,9 +46,6 @@ const Notifications = () => {
     return `${Math.floor(secondsDifference / 2592000)} tháng trước`;
   };
   useEffect(() => {
-    console.log(currentStatus);
-  });
-  useEffect(() => {
     if (!sessionStorage.getItem("token")) {
       navigate("/");
       return;
@@ -57,7 +55,7 @@ const Notifications = () => {
       return;
     }
   }, [isLoading, me, navigate]);
-  if (isLoading) return <div>Đang tải dữ liệu...</div>;
+
   const handleMarkAsAllRead = async () => {
     try {
       const result = await notificationService.markAsAllRead();
@@ -83,6 +81,7 @@ const Notifications = () => {
       console.log(status, message);
     }
   };
+  if (isLoading) return <div>Đang tải dữ liệu...</div>;
   return (
     <>
       <Navbar />
@@ -114,7 +113,7 @@ const Notifications = () => {
             </div>
           )}
         </div>
-        {displayNotifications?.length > 0 && (
+        {notifications?.length > 0 && (
           <div className="flex justify-evenly mt-6 px-2 py-1 bg-surface-bg rounded-[8px] border border-surface-bg w-[16%]">
             {filterTabs?.map((value, index) => {
               return (
@@ -162,7 +161,7 @@ const Notifications = () => {
                           <IoBookOutline className="text-headline-md text-brand-blue" />
                         )}
                       </div>
-                      <div className="flex flex-col gap-y-2">
+                      <div className="flex flex-col gap-y-2 w-[85%]">
                         <p className="text-headline-sm text-surface-nav font-medium">
                           {value.title}
                         </p>

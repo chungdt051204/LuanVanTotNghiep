@@ -9,6 +9,7 @@ import { format } from "../../helper/format";
 import { FiUser } from "react-icons/fi";
 import { IoBookOutline } from "react-icons/io5";
 import { BsCreditCard } from "react-icons/bs";
+import Footer from "../components/Footer";
 
 const OrderDetail = () => {
   const navigate = useNavigate();
@@ -216,6 +217,7 @@ const OrderDetail = () => {
             </button>
           )}
       </div>
+      {me?.role_id?.role === "user" && <Footer />}
     </>
   );
 };

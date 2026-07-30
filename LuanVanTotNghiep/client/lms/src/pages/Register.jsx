@@ -161,10 +161,12 @@ const Register = () => {
                       type="radio"
                     />
                     <p className="text-body-lg font-medium text-surface-nav ms-2">
-                      {value.display_name}
+                      {value.role === "user" ? "Học viên" : "Giảng viên"}
                     </p>
                     <p className="text-body-md font-medium text-nav-muted ms-2">
-                      {value.description}
+                      {value.role === "user"
+                        ? "Tham gia và học khóa học"
+                        : "Tạo và bán khóa học"}
                     </p>
                   </div>
                 );

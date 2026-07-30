@@ -13,7 +13,7 @@ export const notificationSlice = createSlice({
       state.isLoading = false;
     },
     createNotification: (state, action) => {
-      state.items.push(action.payload);
+      state.items.unshift(action.payload);
     },
     deleteReadNotification: (state, action) => {
       state.items = state.items.filter((value) => value._id !== action.payload);

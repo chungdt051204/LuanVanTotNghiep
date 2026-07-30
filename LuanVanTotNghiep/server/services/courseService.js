@@ -98,6 +98,7 @@ export class CourseService {
       populate: ["category_id"],
     };
     let query = { user_id: instructorId };
+    query.is_visible = true;
     if (params?.status !== undefined) {
       if (params.status == "deleted") query.is_visible = false;
       else query.status = params.status;
@@ -133,10 +134,10 @@ export class CourseService {
     const options = {
       page: params.page,
       limit: params.limit,
-      sort: { createdAt: -1 },
+      sort: { updatedAt: -1 },
       populate: ["category_id", "user_id"],
     };
-    const arrayStatus = ["pending", "approved", "rejected"];
+    const arrayStatus = ["pending", "approved"];
     let query = { status: { $in: arrayStatus } };
     if (params?.status !== undefined) {
       query.status = params.status;

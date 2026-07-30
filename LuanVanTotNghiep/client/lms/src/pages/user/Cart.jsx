@@ -16,6 +16,7 @@ import { FaCheck } from "react-icons/fa6";
 import { orderService } from "../../services/orderService";
 import { LuInbox } from "react-icons/lu";
 import { format } from "../../../helper/format";
+import Footer from "../../components/Footer";
 const Cart = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -434,6 +435,7 @@ const Cart = () => {
           </div>
         </form>
       </dialog>
+      <Footer />
     </>
   );
 };

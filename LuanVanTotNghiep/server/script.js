@@ -4,6 +4,8 @@ import connectDB from "./configs/database.js";
 connectDB();
 import "./configs/passport.js";
 import express from "express";
+import { createServer } from "node:http";
+import { Server } from "socket.io";
 import cors from "cors";
 const app = express();
 const port = 3000;
@@ -23,12 +25,20 @@ import { orderRouter } from "./routers/orderRouter.js";
 import { notificationRouter } from "./routers/notificationRouter.js";
 import { testResultRouter } from "./routers/testResultRouter.js";
 import { ratingRouter } from "./routers/ratingRouter.js";
-app.use(
-  cors({
+import { statisticsRouter } from "./routers/statisticsRouter.js";
+import { messageRouter } from "./routers/messageRouter.js";
+import { conversationRouter } from "./routers/conversationRouter.js";
+import { MessageService } from "./services/messageService.js";
+import { NotificationService } from "./services/notificationService.js";
+
+const server = createServer(app);
+const io = new Server(server, {
+  cors: {
     origin: process.env.URL_FRONTEND,
     credentials: true,
-  })
-);
+  },
+});
+app.use(cors({ origin: process.env.URL_FRONTEND, credentials: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/", authRouter);
@@ -47,9 +57,39 @@ app.use("/", orderRouter);
 app.use("/", notificationRouter);
 app.use("/", testResultRouter);
 app.use("/", ratingRouter);
+app.use("/", statisticsRouter);
+app.use("/", messageRouter);
+app.use("/", conversationRouter);
+
+io.on("connection", (socket) => {
+  socket.on("join-user", (userId) => {
+    socket.join(userId);
+  });
+  socket.on("join-instructor", (instructorId) => {
+    socket.join(instructorId);
+  });
+  socket.on("join-conversation", (conversationId) => {
+    socket.join(conversationId);
+  });
+  socket.on("send-message", async (data) => {
+    const result = await new MessageService().postMessage({ data });
+    socket.join(result?.conversationId.toString());
+    io.to(data.instructorId).emit("new-message", result); //Gửi đến room Instructor
+    io.to(result?.conversationId.toString()).emit("received-message", result); // Gửi đến room Conversation
+  });
+  socket.on("post-comment", async (data) => {
+    const result = await new NotificationService().createNotification({
+      userId: data.userId,
+      type: data.type,
+      title: data.title,
+      message: data.message,
+    });
+    io.to(data.userId).emit("new-notification", result);
+  });
+});
 app.get("/", (req, res) => {
   return res.json("Server is running...");
 });
-app.listen(port, () => {
+server.listen(port, () => {
   console.log("Server đang chạy với port:" + port);
 });

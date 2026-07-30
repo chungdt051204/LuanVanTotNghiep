@@ -20,6 +20,9 @@ import { LuInbox } from "react-icons/lu";
 import { courseService } from "../services/courseService";
 import { FaStar } from "react-icons/fa";
 import { format } from "../../helper/format";
+import Conversations from "./Conversations";
+import { socket } from "../../socket";
+import { createNotification } from "../stores/features/notificationSlice";
 
 export const Navbar = () => {
   const navigate = useNavigate();
@@ -93,6 +96,14 @@ export const Navbar = () => {
     ],
   };
   const [clicked, setClicked] = useState(false);
+  useEffect(() => {
+    if (me && currentRole == "user") {
+      socket.emit("join-user", me?._id);
+      socket.on("new-notification", (data) => {
+        dispatch(createNotification(data));
+      });
+    }
+  }, [currentRole, me, dispatch]);
   useEffect(() => {
     const getApprovedCourses = async () => {
       try {
@@ -267,6 +278,7 @@ export const Navbar = () => {
             </div>
           </div>
         )}
+        {currentRole == "instructor" && <Conversations me={me} />}
         <div>
           {isLogin && me ? (
             <div

@@ -6,8 +6,8 @@ export const enrollmentService = {
     });
     return response;
   },
-  getEnrollmentsByUser: async () => {
-    const response = await axiosClient.get("/user/enrollments");
+  getEnrollmentsByUser: async ({ params }) => {
+    const response = await axiosClient.get(`/user/enrollments?${params}`);
     return response;
   },
   getAllEnrollments: async () => {

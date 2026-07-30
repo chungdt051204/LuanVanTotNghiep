@@ -57,7 +57,43 @@ export class UserController {
   getUserById = async (req, res) => {
     try {
       const { id } = req.params;
-      const result = await new UserService().getUserById({ userId: id });
+      const result = await new UserService().getUserById({
+        userId: id,
+      });
+      return res.status(200).json({ data: result });
+    } catch (error) {
+      const status = error.statusCode || 500;
+      return res
+        .status(status)
+        .json({ message: error.message || "Lỗi hệ thống!" });
+    }
+  };
+  getStudentsByInstructor = async (req, res) => {
+    try {
+      const payload = req.payload;
+      const params = req.query;
+      const result = await new UserService().getStudentsByInstructor({
+        instructorId: payload.sub,
+        params,
+      });
+      return res.status(200).json({ data: result });
+    } catch (error) {
+      const status = error.statusCode || 500;
+      return res
+        .status(status)
+        .json({ message: error.message || "Lỗi hệ thống!" });
+    }
+  };
+  getStudentById = async (req, res) => {
+    try {
+      const payload = req.payload;
+      const { id } = req.params;
+      const params = req.query;
+      const result = await new UserService().getStudentById({
+        studentId: id,
+        instructorId: payload.sub,
+        params,
+      });
       return res.status(200).json({ data: result });
     } catch (error) {
       const status = error.statusCode || 500;

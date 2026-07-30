@@ -1,5 +1,5 @@
 import { useSearchParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { IoListOutline } from "react-icons/io5";
 import { LuInbox } from "react-icons/lu";
@@ -7,9 +7,11 @@ import PaginationButton from "../../components/PaginationButton";
 import { FaRegEye } from "react-icons/fa6";
 import { FaRegEyeSlash } from "react-icons/fa6";
 import { ratingService } from "../../services/ratingService";
+import ConfirmDialog from "../../components/ConfirmDialog";
 const Comments = () => {
   const [searchParams] = useSearchParams();
-  const [ratings, setRatings] = useState([]);
+  const [comments, setComments] = useState([]);
+  const [comment, setComment] = useState(null);
   const [refresh, setRefresh] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const filterTabs = [
@@ -31,6 +33,8 @@ const Comments = () => {
   ];
   const [status, setStatus] = useState("");
   const [idx, setIdx] = useState(0);
+  const [message, setMessage] = useState("");
+  const confirmDialog = useRef();
 
   useEffect(() => {
     const getRatings = async () => {
@@ -42,7 +46,7 @@ const Comments = () => {
           params: params.toString(),
         });
         console.log(result.data);
-        setRatings(result.data);
+        setComments(result.data);
       } catch (error) {
         const status = error.status;
         const message = error.data.message;
@@ -53,10 +57,13 @@ const Comments = () => {
     };
     getRatings();
   }, [refresh, searchParams, status]);
-  const handleUpdateStatusUser = async (id) => {
+  const handleUpdateStatusComment = async () => {
     try {
-      const result = await ratingService.hideOrShowComment({ ratingId: id });
+      const result = await ratingService.hideOrShowComment({
+        ratingId: comment?._id,
+      });
       console.log(result);
+      confirmDialog?.current?.close();
       setRefresh((prev) => prev + 1);
       toast.success(result?.message || "Ẩn/Hiển bình luận thành công");
     } catch (error) {
@@ -114,7 +121,7 @@ const Comments = () => {
         <div className="flex flex-col gap-y-6 w-[95%]">
           {isLoading ? (
             <p>Đang tải dữ liệu...</p>
-          ) : ratings?.items?.length == 0 ? (
+          ) : comments?.items?.length == 0 ? (
             <div className="flex flex-col items-center gap-y-2 text-title-sm text-nav-muted w-[95%] mt-6">
               <LuInbox className="text-display-md text-gray-300" />
               <p>Chưa có bình luận nào</p>
@@ -131,7 +138,7 @@ const Comments = () => {
                 </tr>
               </thead>
               <tbody>
-                {ratings?.items?.map((value) => {
+                {comments?.items?.map((value) => {
                   return (
                     <tr
                       className="flex justify-between items-center border border-surface-bg hover:bg-surface-bg"
@@ -166,7 +173,19 @@ const Comments = () => {
                       </td>
                       <td className="flex justify-end w-[20%] pe-2">
                         <button
-                          onClick={() => handleUpdateStatusUser(value?._id)}
+                          onClick={() => {
+                            const commentId = value?._id;
+                            const comment = comments?.items?.find(
+                              (value) => value?._id === commentId
+                            );
+                            setComment(comment);
+                            setMessage(
+                              `Bạn có muốn ${
+                                value?.status ? "ẩn" : "hiện"
+                              } bình luận này không ? `
+                            );
+                            confirmDialog?.current?.showModal();
+                          }}
                           className={`px-2 py-1 rounded-[8px] text-title-sm text-surface-white ${
                             value?.status ? "bg-red-600" : "bg-green-600"
                           } transition-transform duration-300 hover:text-surface-bg hover:cursor-pointer`}
@@ -180,11 +199,16 @@ const Comments = () => {
               </tbody>
             </table>
           )}
-          {ratings?.totalPages > 1 && (
-            <PaginationButton totalPages={ratings?.totalPages} />
+          {comments?.totalPages > 1 && (
+            <PaginationButton totalPages={comments?.totalPages} />
           )}
         </div>
       </div>
+      <ConfirmDialog
+        ref={confirmDialog}
+        message={message}
+        handleClick={handleUpdateStatusComment}
+      />
     </>
   );
 };

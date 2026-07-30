@@ -7,11 +7,11 @@ import { IoBookOutline } from "react-icons/io5";
 import { RxPeople } from "react-icons/rx";
 import { LuAward } from "react-icons/lu";
 import { IoIosTrendingUp } from "react-icons/io";
-import { FaArrowUp } from "react-icons/fa";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
 import { courseService } from "../services/courseService";
 import { setCourses } from "../stores/features/courseSlice";
+import Footer from "../components/Footer";
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -51,6 +51,7 @@ const LandingPage = () => {
         const params = new URLSearchParams(searchParams);
         params.append("page", 1);
         params.append("limit", 6);
+        params.append("option", "newest");
         const result = await courseService.getApprovedCourses({
           params: params.toString(),
         });
@@ -186,29 +187,7 @@ const LandingPage = () => {
             })}
           </div>
         </div>
-        <div className="flex flex-col gap-y-8 p-16 bg-auth">
-          <div className="flex justify-end">
-            <button
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="p-2 rounded-[1000px] bg-surface-bg transition-transform duration-300 hover:scale-105 hover:cursor-pointer"
-            >
-              <FaArrowUp />
-            </button>
-          </div>
-          <div className="flex flex-col gap-y-2 text-center text-surface-white">
-            <p className="text-display-md font-bold">
-              Bắt đầu hành trình học tập ngay hôm nay
-            </p>
-            <p className="text-title-lg">
-              Tham gia cùng hàng nghìn học viên đang nâng cao kỹ năng lập trình
-              của họ
-            </p>
-          </div>
-          <button className="flex justify-between gap-x-4 items-center w-[25%] mx-auto py-2 px-4 rounded-[8px] bg-surface-white text-brand-blue text-title-lg font-medium transition-transform duration-300 hover:bg-surface-bg hover:cursor-pointer">
-            Khám phá khóa học
-            <FaArrowRight />
-          </button>
-        </div>
+        <Footer />
       </div>
     </>
   );

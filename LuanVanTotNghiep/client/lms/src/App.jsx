@@ -47,6 +47,8 @@ import MyProfile from "./pages/user/MyProfile";
 import Courses from "./pages/Courses";
 import Comments from "./pages/admin/Comments";
 import Orders from "./pages/admin/Orders";
+import { socket } from "../socket";
+import StudentDetail from "./pages/instructor/StudentDetail";
 
 export const api = "http://localhost:3000";
 function App() {
@@ -56,6 +58,11 @@ function App() {
   const dispatch = useDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
   const token = searchParams.get("token");
+  useEffect(() => {
+    socket.on("connect", () => {
+      console.log("Đã kết nối");
+    });
+  }, []);
   useEffect(() => {
     const getAllRoles = async () => {
       const result = await roleService.getAllRoles();
@@ -150,6 +157,7 @@ function App() {
             <Route path="test/create" element={<TestEditor />} />
             <Route path="test/:id/edit" element={<TestEditor />} />
             <Route path="students" element={<Students />} />
+            <Route path="student/:id" element={<StudentDetail />} />
             <Route path="comments" element={<Comments />} />
           </Route>
         </Route>

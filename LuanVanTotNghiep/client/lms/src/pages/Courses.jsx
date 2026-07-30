@@ -7,13 +7,16 @@ import { setCourses } from "../stores/features/courseSlice";
 import ListCourses from "../components/ListCourses";
 import PaginationButton from "../components/PaginationButton";
 import Select from "react-select";
+import { IoSearch } from "react-icons/io5";
+import Footer from "../components/Footer";
 
 const Courses = () => {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const page = searchParams.get("page");
   const dispatch = useDispatch();
   const { items: categories } = useSelector((state) => state.categories);
   const { items: courses, isLoading } = useSelector((state) => state.courses);
+  const [searchValue, setSearchValue] = useState("");
 
   let categoryOptions = [
     {
@@ -105,11 +108,28 @@ const Courses = () => {
           </p>
         </div>
         <div className="flex gap-x-6 px-6 py-6 border border-gray-300 rounded-[8px]">
-          <input
-            className="p-2 w-[65%] outline-none bg-surface-bg rounded-[8px]"
-            type="text"
-            placeholder="Nhập từ khóa tìm kiếm"
-          />
+          <div className="relative w-[65%] ">
+            <div className="flex gap-x-2 items-center py-2 px-4 bg-surface-bg rounded-[8px]">
+              <IoSearch
+                onClick={() =>
+                  setSearchParams((prev) => {
+                    const newParams = new URLSearchParams(prev);
+                    if (searchValue) newParams.set("search", searchValue);
+                    else newParams.delete("search");
+                    return newParams;
+                  })
+                }
+                className="text-headline-sm text-nav-muted font-medium"
+              />
+              <input
+                type="text"
+                value={searchValue}
+                className="w-full outline-0"
+                placeholder="Nhập tên khóa học, danh mục, giảng viên"
+                onChange={(e) => setSearchValue(e.target.value)}
+              />
+            </div>
+          </div>
           <Select
             onChange={setCategory}
             defaultValue={categoryOptions[0]}
@@ -141,6 +161,7 @@ const Courses = () => {
           )}
         </div>
       </div>
+      <Footer />
     </>
   );
 };

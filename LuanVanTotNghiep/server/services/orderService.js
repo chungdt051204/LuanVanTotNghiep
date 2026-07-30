@@ -196,22 +196,39 @@ export class OrderService {
     if (params.status != 1 && currentStatus == "PARTIAL_PAID")
       return { status: "PARTIAL_PAID" };
     const orderItems = await orderItemEntity.find({ order_id: order?._id });
+    const orderItemIds = orderItems?.map((value) => {
+      return value._id;
+    });
     if (currentStatus == "PENDING") {
       paymentStatus = orderItems?.some(
         (value) => value.payment_option == "PARTIAL"
       )
         ? "PARTIAL_PAID"
         : "PAID";
+      await new CartItemService().deletedCartItemsSelected({
+        cartItemIds: order?.cart_item_ids,
+      });
     } else if (currentStatus == "PARTIAL_PAID") paymentStatus = "PAID";
     const result = await orderEntity.findOneAndUpdate(
       { _id: order._id },
       { payment_status: paymentStatus, applied_amount: appliedAmount },
       { returnDocument: "after" }
     );
-    if (currentStatus == "PENDING")
-      await new CartItemService().deletedCartItemsSelected({
-        cartItemIds: order?.cart_item_ids,
-      });
+    await Promise.all(
+      orderItems?.map(async (value) => {
+        await orderItemEntity.updateOne(
+          { _id: value._id },
+          {
+            applied_amount:
+              value.payment_option === "FULL"
+                ? value.price
+                : paymentStatus === "PAID"
+                ? value.price
+                : (value.price * 50) / 100,
+          }
+        );
+      })
+    );
     await notificationService.createNotification({
       userId: order.user_id,
       type: "PAYMENT",

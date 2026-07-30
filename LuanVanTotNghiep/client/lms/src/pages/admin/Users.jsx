@@ -1,5 +1,5 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { userService } from "../../services/userService";
 import { toast } from "react-toastify";
 import { IoListOutline } from "react-icons/io5";
@@ -9,11 +9,13 @@ import { IoEyeOutline } from "react-icons/io5";
 import { LuInbox } from "react-icons/lu";
 import { format } from "../../../helper/format";
 import PaginationButton from "../../components/PaginationButton";
+import ConfirmDialog from "../../components/ConfirmDialog";
 
 const Users = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [users, setUsers] = useState([]);
+  const [user, setUser] = useState(null);
   const [refresh, setRefresh] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const filterTabs = [
@@ -35,6 +37,8 @@ const Users = () => {
   ];
   const [status, setStatus] = useState("");
   const [idx, setIdx] = useState(0);
+  const [message, setMessage] = useState("");
+  const confirmDialog = useRef();
 
   useEffect(() => {
     const getUsers = async () => {
@@ -57,10 +61,11 @@ const Users = () => {
     };
     getUsers();
   }, [refresh, searchParams, status]);
-  const handleUpdateStatusUser = async (id) => {
+  const handleUpdateStatusUser = async () => {
     try {
-      const result = await userService.updateStatusUser({ userId: id });
+      const result = await userService.updateStatusUser({ userId: user?._id });
       console.log(result);
+      confirmDialog?.current?.close();
       setRefresh((prev) => prev + 1);
       toast.success(
         result?.message || "Vô hiệu hóa/Kích hoạt tài khoản thành công"
@@ -186,9 +191,21 @@ const Users = () => {
                           }
                         />
                         <button
-                          onClick={() =>
-                            handleUpdateStatusUser(value?.item?._id)
-                          }
+                          onClick={() => {
+                            const userId = value?.item?._id;
+                            const user = users?.arrayUser?.find(
+                              (value) => value?.item?._id === userId
+                            );
+                            setUser(user?.item);
+                            setMessage(
+                              `Bạn có muốn ${
+                                value?.item?.status
+                                  ? "vô hiệu hóa"
+                                  : "kích hoạt"
+                              } tài khoản người dùng này không ? `
+                            );
+                            confirmDialog?.current?.showModal();
+                          }}
                           className={`px-2 py-1 rounded-[8px] text-title-sm text-surface-white ${
                             value?.item?.status ? "bg-red-600" : "bg-green-600"
                           } transition-transform duration-300 hover:text-surface-bg hover:cursor-pointer`}
@@ -207,6 +224,11 @@ const Users = () => {
           )}
         </div>
       </div>
+      <ConfirmDialog
+        ref={confirmDialog}
+        message={message}
+        handleClick={handleUpdateStatusUser}
+      />
     </>
   );
 };
