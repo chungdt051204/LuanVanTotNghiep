@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import { courseService } from "../services/courseService";
 import { setCourses } from "../stores/features/courseSlice";
 import Footer from "../components/Footer";
+import ChatBotAI from "../components/ChatBotAI";
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -65,6 +66,7 @@ const LandingPage = () => {
     };
     getApprovedCourses();
   }, [dispatch, searchParams]);
+
   return (
     <>
       <Navbar />
@@ -187,8 +189,9 @@ const LandingPage = () => {
             })}
           </div>
         </div>
-        <Footer />
       </div>
+      <ChatBotAI />
+      <Footer />
     </>
   );
 };

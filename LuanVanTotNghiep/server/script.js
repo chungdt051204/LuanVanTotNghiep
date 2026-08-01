@@ -28,6 +28,7 @@ import { ratingRouter } from "./routers/ratingRouter.js";
 import { statisticsRouter } from "./routers/statisticsRouter.js";
 import { messageRouter } from "./routers/messageRouter.js";
 import { conversationRouter } from "./routers/conversationRouter.js";
+import { aiRouter } from "./routers/aiRouter.js";
 import { MessageService } from "./services/messageService.js";
 import { NotificationService } from "./services/notificationService.js";
 
@@ -60,6 +61,7 @@ app.use("/", ratingRouter);
 app.use("/", statisticsRouter);
 app.use("/", messageRouter);
 app.use("/", conversationRouter);
+app.use("/", aiRouter);
 
 io.on("connection", (socket) => {
   socket.on("join-user", (userId) => {
