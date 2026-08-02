@@ -18,6 +18,7 @@ const LandingPage = () => {
   const navigate = useNavigate();
   const { searchParams } = useSearchParams();
   const dispatch = useDispatch();
+  const { item: me } = useSelector((state) => state.me);
   const { items: courses, isLoading } = useSelector((state) => state.courses);
   const categories = useSelector((state) => state.categories.items);
   const items = [
@@ -190,7 +191,7 @@ const LandingPage = () => {
           </div>
         </div>
       </div>
-      <ChatBotAI />
+      {me && <ChatBotAI />}
       <Footer />
     </>
   );

@@ -7,8 +7,8 @@ export class CourseController {
   addCourse = async (req, res) => {
     try {
       const payload = req.payload;
-      const image_url = req?.files["image"][0]?.path;
-      const thumbnail_url = req?.files["thumbnail"][0]?.path;
+      const image_url = req?.files?.["image"][0]?.path;
+      const thumbnail_url = req?.files?.["thumbnail"][0]?.path;
       const formData = req.body;
       console.log(formData);
       //Vì req.body.lessons là chuỗi nên phải dùng JSON.parse để biến chuỗi thành mảng

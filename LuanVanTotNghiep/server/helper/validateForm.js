@@ -144,6 +144,13 @@ export const validateForm = {
       isValid = false;
       throw error;
     }
+    //Kiểm tra mô tả
+    if (!courseInfo.description) {
+      const error = new Error("Mô tả không được bỏ trống!");
+      error.statusCode = 422;
+      isValid = false;
+      throw error;
+    }
     //Kiểm tra danh mục
     if (!courseInfo.category_id) {
       const error = new Error("Vui lòng chọn danh mục!");

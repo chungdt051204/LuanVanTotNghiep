@@ -46,6 +46,8 @@ const CourseEditor = () => {
     errorCategory: "",
     errorLevel: "",
     errorFile: "",
+    errorRequirement: "",
+    errorObjective: "",
     errorPrice: "",
   });
   const [errorLessons, setErrorLessons] = useState([
@@ -151,9 +153,18 @@ const CourseEditor = () => {
   };
 
   // Hàm thêm item (requirement, objective)
-  const handleAddItem = ({ content, setContent, setArray }) => {
+  const handleAddItem = ({ content, setContent, setArray, field }) => {
     if (!content) {
-      alert("Vui lòng nhập đầy đủ thông tin!");
+      if (field === "requirement")
+        setError((prev) => ({
+          ...prev,
+          errorRequirement: "Vui lòng nhập đầy đủ thông tin!",
+        }));
+      else
+        setError((prev) => ({
+          ...prev,
+          errorObjective: "Vui lòng nhập đầy đủ thông tin!",
+        }));
       return;
     }
     setArray((prev) => [...prev, content]);
@@ -214,8 +225,11 @@ const CourseEditor = () => {
     e.preventDefault();
     const data = {
       courseName: courseInfo.courseName,
+      description: courseInfo.description,
       category_id: courseInfo.category_id,
       level: courseInfo.level,
+      requirements,
+      objectives,
       image: courseInfo.image,
       thumbnail: courseInfo.thumbnail,
       price: courseInfo.price,
@@ -334,16 +348,22 @@ const CourseEditor = () => {
                 rows={5}
                 className="p-2 bg-surface-bg rounded-[8px]"
                 value={courseInfo.description}
-                onChange={(e) =>
+                onChange={(e) => {
                   handleSetCourseInfo({
                     e,
                     setCourseInfo,
                     field: "description",
-                  })
-                }
+                  });
+                  setError((prev) => ({ ...prev, errorDescription: "" }));
+                }}
                 type="text"
                 placeholder="Mô tả chi tiết về khóa học..."
               />
+              {error.errorDescription && (
+                <span className="text-body-md text-red-500">
+                  {error.errorDescription}
+                </span>
+              )}
               <div className="flex justify-between w-[35%]">
                 <div className="flex flex-col gap-y-1">
                   <label
@@ -496,6 +516,7 @@ const CourseEditor = () => {
                         content: requirementContent,
                         setContent: setRequirementContent,
                         setArray: setRequirements,
+                        field: "requirement",
                       })
                     }
                     className="flex items-center gap-x-2 px-4 py-2 rounded-[8px] bg-surface-nav text-body-lg text-surface-white transition-transform duration-300 hover:text-surface-bg hover:cursor-pointer"
@@ -504,6 +525,11 @@ const CourseEditor = () => {
                     Thêm
                   </button>
                 </div>
+                {error.errorRequirement && requirements?.length == 0 && (
+                  <span className="text-body-md text-red-500">
+                    {error.errorRequirement}
+                  </span>
+                )}
                 <ul>
                   {requirements.length > 0 ? (
                     requirements.map((value, index) => {
@@ -557,6 +583,7 @@ const CourseEditor = () => {
                         content: objectiveContent,
                         setContent: setObjectiveContent,
                         setArray: setObjectives,
+                        field: "objective",
                       })
                     }
                     className="flex items-center gap-x-2 px-4 py-2 rounded-[8px] bg-surface-nav text-body-lg text-surface-white transition-transform duration-300 hover:text-surface-bg hover:cursor-pointer"
@@ -566,6 +593,11 @@ const CourseEditor = () => {
                     Thêm
                   </button>
                 </div>
+                {error.errorObjective && objectives?.length == 0 && (
+                  <span className="text-body-md text-red-500">
+                    {error.errorObjective}
+                  </span>
+                )}
                 <ul>
                   {objectives.length > 0 ? (
                     objectives.map((value, index) => {

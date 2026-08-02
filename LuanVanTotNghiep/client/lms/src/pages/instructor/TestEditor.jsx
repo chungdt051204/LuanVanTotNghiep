@@ -115,7 +115,6 @@ const TestEditor = () => {
         ...prev,
         errorTestName: "Vui lòng nhập tên bài kiểm tra!",
       }));
-      return;
     }
     if (testInfo.courseId === "") {
       setError((prev) => ({

@@ -127,9 +127,12 @@ export const validateForm = {
   validateCourseForm: ({ formData, isEdit, setError }) => {
     setError({
       errorCourseName: "",
+      errorDescription: "",
       errorCategory: "",
       errorLevel: "",
       errorFile: "",
+      errorRequirement: "",
+      errorObjective: "",
       errorPrice: "",
     });
     let errors = {};
@@ -150,6 +153,12 @@ export const validateForm = {
     } else if (!courseNameRegex.test(formData.courseName)) {
       errors.errorCourseName =
         "Tên khóa học không được chứa ký tự không hợp lệ!";
+      isValid = false;
+    }
+
+    //Kiểm tra mô tả
+    if (!formData.description) {
+      errors.errorDescription = "Mô tả không được bỏ trống!";
       isValid = false;
     }
 
@@ -177,6 +186,18 @@ export const validateForm = {
         errors.errorFile = "Kích thước ảnh tối đa 300KB!";
         isValid = false;
       }
+    }
+
+    //Kiểm tra yêu cầu
+    if (formData.requirements?.length == 0) {
+      errors.errorRequirement = "Vui lòng thêm ít nhất 1 yêu cầu!";
+      isValid = false;
+    }
+
+    //Kiểm tra kết quả đạt được
+    if (formData.objectives?.length == 0) {
+      errors.errorObjective = "Vui lòng thêm ít nhất 1 kết quả đạt được!";
+      isValid = false;
     }
 
     //Kiểm tra giá
