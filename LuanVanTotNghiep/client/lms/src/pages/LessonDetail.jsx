@@ -122,12 +122,12 @@ const LessonDetail = () => {
     }
   }, [isAdmin, loading]);
   useEffect(() => {
-    const index = lessons?.findIndex((value) => value._id == id);
+    const index = lessons?.findIndex((value) => value?._id == id);
     if (
       index < lessons?.length &&
       lessonProgresses?.some(
         (value) =>
-          value.lesson_id._id == lessons[index]._id && value.is_completed
+          value?.lesson_id?._id == lessons[index]?._id && value?.is_completed
       )
     )
       navigate(`/course/${courseId}/lesson/${lessons[index + 1]._id}`);

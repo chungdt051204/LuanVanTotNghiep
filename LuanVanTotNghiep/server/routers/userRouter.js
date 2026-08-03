@@ -56,10 +56,20 @@ userRouter.get(
   new UserController().getStudentById
 );
 userRouter.put(
-  `${prefix}/me`,
+  `${prefix}/me/avatar`,
   middleware.verifyToken,
   upload.single("avatar"),
+  new UserController().updateAvatar
+);
+userRouter.put(
+  `${prefix}/me/profile`,
+  middleware.verifyToken,
   new UserController().updateProfile
+);
+userRouter.put(
+  `${prefix}/me/password`,
+  middleware.verifyToken,
+  new UserController().changePassword
 );
 userRouter.put(
   `${prefix}/admin/user/:id/status`,

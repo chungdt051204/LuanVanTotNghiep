@@ -110,16 +110,32 @@ const TestEditor = () => {
   }, [dispatch]);
   const handleSave = async (e) => {
     e.preventDefault();
+    const testNameRegex = /^[\p{L}\p{N}\s&.+\-_()#/,"';:!?%*]+$/u;
     if (testInfo.testName === "") {
       setError((prev) => ({
         ...prev,
         errorTestName: "Vui lòng nhập tên bài kiểm tra!",
+      }));
+    } else if (!testNameRegex.test(testInfo.testName)) {
+      setError((prev) => ({
+        ...prev,
+        errorTestName: "Tên bài kiểm tra không được chứa ký tự đặc biệt!",
       }));
     }
     if (testInfo.courseId === "") {
       setError((prev) => ({
         ...prev,
         errorCourse: "Vui lòng chọn khóa học!",
+      }));
+    } else if (
+      courses?.arrayCourse?.find(
+        (value) =>
+          value?.course?._id == testInfo.courseId && value?.numberTest == 1
+      )
+    ) {
+      setError((prev) => ({
+        ...prev,
+        errorCourse: "Khóa học này đã có bài kiểm tra!",
       }));
       return;
     } else {
@@ -177,7 +193,6 @@ const TestEditor = () => {
       }
     } else {
       setQuestions(questions?.filter((_, idx) => idx !== index));
-      toast.success("Xóa câu hỏi thành công");
     }
   };
   return (

@@ -37,7 +37,7 @@ export class EnrollmentService {
           course_id: value?.course_id?._id,
         });
         const testResults = await testResultEntity
-          .find({ test_id: test._id })
+          .find({ test_id: test._id, user_id: userId })
           .populate("test_id")
           .sort({ submitted_at: -1 });
         return { item: value, testResults };

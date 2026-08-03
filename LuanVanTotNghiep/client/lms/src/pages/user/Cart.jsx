@@ -297,7 +297,7 @@ const Cart = () => {
                   Đã chọn {cartItemIds?.length} khóa học
                 </p>
                 <p className="text-headline-md text-brand-blue font-bold">
-                  Tổng: {format.formatPrice({ price: totalAmount() })}đ
+                  Tổng: {format.formatPrice({ price: appliedAmount() })}đ
                 </p>
               </div>
               <button
@@ -416,7 +416,7 @@ const Cart = () => {
                 Tổng thanh toán
               </p>
               <p className="text-headline-md text-brand-blue font-bold">
-                {format.formatPrice({ price: totalAmount() })}đ
+                {format.formatPrice({ price: appliedAmount() })}đ
               </p>
             </div>
           </div>

@@ -192,7 +192,6 @@ const CourseEditor = () => {
   const handleDeleteLesson = async ({ index }) => {
     if (!lessons[index].lessonId) {
       setLessons(lessons?.filter((_, i) => i !== index));
-      toast.success("Xóa bài học thành công");
     } else {
       try {
         const result = await lessonService.deleteLesson({

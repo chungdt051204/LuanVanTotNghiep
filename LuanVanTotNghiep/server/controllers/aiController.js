@@ -8,6 +8,7 @@ export class AiController {
         input,
         userId: payload.sub,
       });
+      console.log(result);
       return res.status(200).json(result);
     } catch (error) {
       const status = error.statusCode || 500;

@@ -32,12 +32,20 @@ export const userService = {
     );
     return response;
   },
-  updateProfile: async ({ data }) => {
-    const response = await axiosClient.put("/me", data, {
+  updateAvatar: async ({ avatar }) => {
+    const response = await axiosClient.put("/me/avatar", avatar, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
     });
+    return response;
+  },
+  updateProfile: async ({ data }) => {
+    const response = await axiosClient.put("/me/profile", data);
+    return response;
+  },
+  changePassword: async ({ password }) => {
+    const response = await axiosClient.put("me/password", password);
     return response;
   },
   updateStatusUser: async ({ userId }) => {

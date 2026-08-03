@@ -216,7 +216,7 @@ export class UserService {
           course_id: value?.course_id?._id,
         });
         const testResults = await testResultEntity
-          .find({ test_id: test._id })
+          .find({ test_id: test._id, user_id: studentId })
           .populate("test_id")
           .sort({ submitted_at: -1 });
         return { item: value, testResults };
@@ -229,23 +229,40 @@ export class UserService {
       totalPagesEnrollment: enrollments?.totalPages,
     };
   };
-  updateProfile = async ({ userId, formData, avatar }) => {
+  updateAvatar = async ({ userId, avatar }) => {
+    const user = await userEntity.findOne({ _id: userId });
+    if (!user) {
+      const error = new Error("Tài khoản không tồn tại !");
+      error.statusCode = 404;
+      throw error;
+    }
+    await userEntity.updateOne({ _id: userId }, { avatar });
+  };
+  updateProfile = async ({ userId, formData }) => {
     const user = await userEntity.findOne({ _id: userId });
     if (!user) {
       const error = new Error("Tài khoản không tồn tại!");
       error.statusCode = 404;
       throw error;
     }
-    const hashedPassword = await bcrypt.hash(formData.password, saltRounds);
+    // const hashedPassword = await bcrypt.hash(formData.password, saltRounds);
     await userEntity.updateOne(
       { _id: userId },
       {
         full_name: formData.fullName,
         phone: formData.phone,
-        password: hashedPassword,
-        avatar: avatar,
       }
     );
+  };
+  changePassword = async ({ userId, password }) => {
+    const user = await userEntity.findOne({ _id: userId });
+    if (!user) {
+      const error = new Error("Tài khoản không tồn tại!");
+      error.statusCode = 404;
+      throw error;
+    }
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    await userEntity.updateOne({ _id: userId }, { password: hashedPassword });
   };
   updateStatusUser = async ({ userId }) => {
     const user = await userEntity.findOne({ _id: userId });

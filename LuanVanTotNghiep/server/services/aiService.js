@@ -55,7 +55,7 @@ export class AiService {
         let query = {};
         if (courseName)
           query.course_name = { $regex: courseName, $options: "i" };
-        else if (categoryName) {
+        if (categoryName) {
           const categories = await categoryEntity.find({
             category_name: {
               $regex: categoryName,
@@ -68,7 +68,8 @@ export class AiService {
           query.category_id = {
             $in: categoryIds,
           };
-        } else if (instructorName) {
+        }
+        if (instructorName) {
           const instructor = await userEntity.findOne({
             full_name: { $regex: instructorName, $options: "i" },
           });
@@ -116,6 +117,6 @@ export class AiService {
         input: prompt,
       });
     }
-    return { data: prompt ? result?.output_text : result, intent };
+    return { data: prompt ? result?.output_text : result, intent, interaction };
   };
 }

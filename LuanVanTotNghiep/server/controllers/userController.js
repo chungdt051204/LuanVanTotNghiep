@@ -102,23 +102,51 @@ export class UserController {
         .json({ message: error.message || "Lỗi hệ thống!" });
     }
   };
+  updateAvatar = async (req, res) => {
+    const payload = req.payload;
+    const formData = req.body;
+    const avatar = req?.file?.path || formData.avatar;
+    const result = await new UserService().updateAvatar({
+      userId: payload.sub,
+      avatar,
+    });
+    return res
+      .status(200)
+      .json({ message: "Cập nhật ảnh đại diện thành công" });
+  };
   updateProfile = async (req, res) => {
     try {
       const payload = req.payload;
       const formData = req.body;
       console.log(formData);
-      const avatar = req?.file?.path || formData.avatar;
       if (validateForm.validateUserForm({ formData })) {
-        const result = await new UserService().updateProfile({
+        await new UserService().updateProfile({
           userId: payload.sub,
           formData,
-          avatar,
         });
         return res.status(200).json({
           message: "Cập nhật thông tin tài khoản thành công",
-          data: result,
         });
       }
+    } catch (error) {
+      const status = error.statusCode || 500;
+      return res
+        .status(status)
+        .json({ message: error.message || "Lỗi hệ thống!" });
+    }
+  };
+  changePassword = async (req, res) => {
+    try {
+      const payload = req.payload;
+      const formData = req.body;
+      console.log(formData);
+      await new UserService().changePassword({
+        userId: payload.sub,
+        password: formData?.password,
+      });
+      return res.status(200).json({
+        message: "Thay đổi mật khẩu thành công",
+      });
     } catch (error) {
       const status = error.statusCode || 500;
       return res

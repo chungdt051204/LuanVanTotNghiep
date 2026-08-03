@@ -257,12 +257,13 @@ export class OrderService {
             { _id: enrollment._id },
             { access_level: accessLevel }
           );
-          await notificationService.createNotification({
-            userId: order.user_id,
-            type: "ENROLLMENT",
-            title: "Mở khóa toàn bộ khóa học",
-            message: `Khóa học ${value.course_name} đã mở khóa toàn bộ quyền truy cập`,
-          });
+          if (enrollment.access_level == "LIMITED")
+            await notificationService.createNotification({
+              userId: order.user_id,
+              type: "ENROLLMENT",
+              title: "Mở khóa toàn bộ khóa học",
+              message: `Khóa học ${value.course_name} đã mở khóa toàn bộ quyền truy cập`,
+            });
         } else {
           await enrollmentService.createEnrollment({
             courseId: value.course_id,

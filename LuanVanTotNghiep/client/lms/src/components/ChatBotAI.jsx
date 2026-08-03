@@ -173,17 +173,24 @@ const ChatBotAI = () => {
                             <div
                               key={index}
                               className={`flex ${
-                                value.sender == "user" && "justify-end"
+                                value.sender == "user"
+                                  ? "justify-end"
+                                  : "justify-start"
                               }`}
                             >
-                              <div className="flex gap-x-4 items-start">
+                              <div
+                                className={`flex gap-x-4 items-start ${
+                                  value.sender == "user" &&
+                                  "w-[60%] justify-end"
+                                }`}
+                              >
                                 {value.sender == "chatbot-ai" && (
-                                  <div className="rounded-[1000px] p-2 bg-blue-200">
+                                  <div className="rounded-[1000px] p-2 bg-blue-200 shrink-0">
                                     <img
                                       src={chatbotAI}
                                       alt=""
-                                      width={30}
-                                      height={30}
+                                      width={20}
+                                      height={20}
                                       className="object-cover"
                                     />
                                   </div>
@@ -204,7 +211,7 @@ const ChatBotAI = () => {
                           return (
                             <div key={index}>
                               <div className="flex gap-x-4 items-start">
-                                <div className="rounded-[1000px] p-2 bg-blue-200">
+                                <div className="rounded-[1000px] p-2 bg-blue-200 shrink-0">
                                   <img
                                     src={chatbotAI}
                                     alt=""
@@ -274,7 +281,7 @@ const ChatBotAI = () => {
                           return (
                             <div key={index}>
                               <div className="flex gap-x-4 items-start">
-                                <div className="rounded-[1000px] p-2 bg-blue-200">
+                                <div className="rounded-[1000px] p-2 bg-blue-200 shrink-0">
                                   <img
                                     src={chatbotAI}
                                     alt=""
@@ -324,7 +331,7 @@ const ChatBotAI = () => {
                                                 percent={
                                                   (value?.completed_lessons *
                                                     100) /
-                                                  10
+                                                  value?.total_lessons
                                                 }
                                               />
                                               <p>

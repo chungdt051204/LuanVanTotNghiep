@@ -9,6 +9,8 @@ import { validateForm } from "../../../helper/validateForm";
 import { userService } from "../../services/userService";
 import { toast } from "react-toastify";
 import Footer from "../../components/Footer";
+import { LuSave } from "react-icons/lu";
+import { MdLockOutline } from "react-icons/md";
 
 const MyProfile = () => {
   const navigate = useNavigate();
@@ -20,6 +22,7 @@ const MyProfile = () => {
     confirmPassword: "",
     avatar: null,
   });
+  const [fullName, setFullName] = useState("");
   const [avatarPreview, setAvatarPreview] = useState(null);
   const [error, setError] = useState({
     errorFullName: "",
@@ -62,30 +65,57 @@ const MyProfile = () => {
         phone: me?.phone || "",
         avatar: me?.avatar || null,
       }));
+      setFullName(me?.full_name || "");
     }
   }, [me]);
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleUpdateAvatar = async () => {
     const data = {
-      fullName: accountInfo.fullName,
-      password: accountInfo.password,
-      confirmPassword: accountInfo.confirmPassword,
-      phone: accountInfo.phone,
       avatar: accountInfo.avatar,
     };
     if (!validateForm.validateUserForm({ formData: data, setError })) return;
     const formData = new FormData();
-    formData.append("fullName", accountInfo.fullName);
-    formData.append("phone", accountInfo.phone);
-    formData.append("password", accountInfo.password);
     formData.append("avatar", accountInfo.avatar);
     try {
-      const result = await userService.updateProfile({ data: formData });
-      console.log(result);
-      toast.success(
-        result.message || "Cập nhật thông tin tài khoản thành công"
-      );
+      const result = await userService.updateAvatar({ avatar: formData });
+      toast.success(result?.message || "Cập nhật ảnh đại diện thành công");
       navigate("/");
+    } catch (error) {
+      const status = error.status;
+      const message = error.data.message;
+      console.log(status, message);
+    }
+  };
+  const handleUpdateProfile = async () => {
+    const data = {
+      fullName: accountInfo.fullName,
+      phone: accountInfo.phone,
+    };
+    if (!validateForm.validateUserForm({ formData: data, setError })) return;
+    try {
+      const result = await userService.updateProfile({ data });
+      toast.success(result?.message || "Cập nhật thông tin thành công");
+      navigate("/");
+    } catch (error) {
+      const status = error.status;
+      const message = error.data.message;
+      console.log(status, message);
+    }
+  };
+  const handleChangePassword = async () => {
+    const data = {
+      password: accountInfo.password,
+      confirmPassword: accountInfo.confirmPassword,
+    };
+    if (!validateForm.validateUserForm({ formData: data, setError })) return;
+    const formData = {
+      password: accountInfo.password,
+    };
+    try {
+      const result = await userService.changePassword({
+        password: formData,
+      });
+      toast.success(result?.message || "Thay đổi mật khẩu thành công");
+      navigate("/login");
     } catch (error) {
       const status = error.status;
       const message = error.data.message;
@@ -135,9 +165,18 @@ const MyProfile = () => {
                 {error.errorFile}
               </span>
               <p className="text-title-lg text-surface-nav font-medium">
-                {accountInfo.fullName}
+                {fullName}
               </p>
               <p className="text-title-sm text-nav-muted">{me?.email || ""}</p>
+              <button
+                onClick={handleUpdateAvatar}
+                className="flex justify-center px-2 py-1 mt-2 rounded-[8px] bg-surface-nav text-title-lg text-surface-white transition-transform duration-300 hover:text-surface-bg hover:cursor-pointer"
+              >
+                <div className="flex gap-x-2 items-center">
+                  <LuSave />
+                  Cập nhật ảnh đại diện
+                </div>
+              </button>
             </div>
             <div className="flex gap-x-4 items-center p-2 border border-gray-300 rounded-[8px] text-nav-muted">
               <FaRegCalendarAlt className="text-title-lg" />
@@ -147,10 +186,7 @@ const MyProfile = () => {
               </div>
             </div>
           </div>
-          <form
-            onSubmit={handleSubmit}
-            className="flex flex-col gap-y-4 w-[64%] border border-gray-300 rounded-[16px] p-5"
-          >
+          <form className="flex flex-col gap-y-4 w-[64%] border border-gray-300 rounded-[16px] p-5">
             <p className="text-title-lg text-surface-nav font-medium">
               Thông tin cá nhân
             </p>
@@ -218,11 +254,23 @@ const MyProfile = () => {
                 </span>
               </div>
             </div>
+            <div className="flex justify-end">
+              <button
+                type="button"
+                onClick={handleUpdateProfile}
+                className="flex justify-center w-[35%] px-2 py-1 mt-2 rounded-[8px] bg-surface-nav text-title-lg text-surface-white transition-transform duration-300 hover:text-surface-bg hover:cursor-pointer"
+              >
+                <div className="flex gap-x-2 items-center">
+                  <LuSave />
+                  Lưu thông tin
+                </div>
+              </button>
+            </div>
             <hr className="text-gray-300" />
             <p className="text-title-lg text-surface-nav font-medium">
               Đổi mật khẩu
             </p>
-            <div className="flex gap-x-6">
+            <div className="flex flex-col gap-y-2">
               <div className="flex flex-col gap-y-1">
                 <label
                   className="text-title-sm text-surface-nav font-medium"
@@ -270,29 +318,18 @@ const MyProfile = () => {
                 </span>
               </div>
             </div>
-            <hr />
-            {/* {me?.role_id?.role == "instructor" && (
-              <div className="flex flex-col gap-y-4 border p-4">
-                <p>Xác thực tài khoản giảng viên</p>
-                <div className="flex gap-x-4">
-                  <div className="flex flex-col gap-y-1">
-                    <p>CCCD/Thẻ công dân</p>
-                    <p>Tải lên ảnh mặt trước thẻ CCCD</p>
-                    <input type="file" />
-                  </div>
-                  <div className="flex flex-col gap-y-1">
-                    <p>Bằng cấp/chứng chỉ chuyên môn</p>
-                    <p>Tải lên ảnh bằng cấp hoặc chứng chỉ</p>
-                    <input type="file" />
-                  </div>
+            <div className="flex justify-end">
+              <button
+                type="button"
+                onClick={handleChangePassword}
+                className="flex justify-center w-[35%] px-2 py-1 mt-2 rounded-[8px] bg-surface-nav text-title-lg text-surface-white transition-transform duration-300 hover:text-surface-bg hover:cursor-pointer"
+              >
+                <div className="flex gap-x-2 items-center">
+                  <MdLockOutline />
+                  Đổi mật khẩu
                 </div>
-              </div>
-            )} */}
-            <input
-              className="px-2 py-1 mt-4 rounded-[8px] bg-surface-nav text-title-lg text-surface-white transition-transform duration-300 hover:text-surface-bg hover:cursor-pointer"
-              type="submit"
-              value="Lưu thay đổi"
-            />
+              </button>
+            </div>
           </form>
         </div>
       </div>
