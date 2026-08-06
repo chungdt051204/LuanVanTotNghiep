@@ -7,10 +7,29 @@ import { FaStar } from "react-icons/fa";
 import { format } from "../../../helper/format";
 import { FiDollarSign } from "react-icons/fi";
 import { FiUserCheck } from "react-icons/fi";
-import LineChart from "../../components/LineChart";
+import BarChart from "../../components/BarChart";
+import MultiAxisLineChart from "../../components/MultiAxisLineChart";
+import { BsCreditCard } from "react-icons/bs";
 
 const AdminDashboard = () => {
   const [statistics, setStatistics] = useState("");
+  const days = statistics?.profitAndRevenueStats?.map((value) => {
+    return value?._id;
+  });
+  const profits = statistics?.profitAndRevenueStats?.map((value) => {
+    return value?.profit;
+  });
+  const revenues = statistics?.profitAndRevenueStats?.map((value) => {
+    return value?.revenue;
+  });
+  const instructorNames = statistics?.instructors
+    ?.filter((value) => value.balance > 0)
+    ?.map((value) => {
+      return value?.full_name;
+    });
+  const instructorProfits = statistics?.instructors?.map((value) => {
+    return value?.balance;
+  });
   useEffect(() => {
     const getStatisticsByAdmin = async () => {
       try {
@@ -92,7 +111,7 @@ const AdminDashboard = () => {
             </div>
             <div className="flex flex-col gap-y-1">
               <p className="text-title-sm text-surface-nav font-medium">
-                Tổng doanh thu
+                Tổng doanh thu (100%)
               </p>
               <p className="text-headline-sm text-surface-nav font-bold">
                 {format.formatPrice({ price: statistics?.totalRevenue })}đ
@@ -100,12 +119,36 @@ const AdminDashboard = () => {
               <p className="text-title-sm text-nav-muted">Doanh thu</p>
             </div>
           </div>
+          <div className="flex gap-x-4 items-center border border-gray-300 rounded-[16px] p-5 w-[32%] shadow-md">
+            <div className="bg-red-50 rounded-[8px] p-2">
+              <BsCreditCard className="text-headline-md text-orange-500" />
+            </div>
+            <div className="flex flex-col gap-y-1">
+              <p className="text-title-sm text-surface-nav font-medium">
+                Lợi nhuận thu được (20%)
+              </p>
+              <p className="text-headline-sm text-surface-nav font-bold">
+                {format.formatPrice({ price: statistics?.adminProfit })}đ
+              </p>
+              <p className="text-title-sm text-nav-muted">Lợi nhuận</p>
+            </div>
+          </div>
         </div>
-        <div className="p-5 border border-gray-200 rounded-[16px]">
-          <p className="text-title-lg text-surface-nav font-medium">
-            Doanh thu trong 7 ngày gần nhất
-          </p>
-          <LineChart array={statistics?.revenueStats} />
+        <div className="flex flex-col gap-y-6 p-5 border border-gray-200 rounded-[16px]">
+          <MultiAxisLineChart
+            text="Biểu đồ thống kê tổng doanh thu (100%) và lợi nhuận thu được (20%)"
+            labels={days}
+            label1="Tổng doanh thu (100%)"
+            data1={revenues}
+            label2="Lợi nhuận thu được (20%)"
+            data2={profits}
+          />
+          <BarChart
+            text="Biểu đồ thống kê lợi nhuận thu được (80%) của từng giảng viên"
+            labels={instructorNames}
+            label1="Lợi nhuận thu được (80%)"
+            data1={instructorProfits}
+          />
         </div>
         <div className="flex flex-col gap-y-6">
           <div className="flex flex-col gap-y-4 border py-6 border-gray-200 rounded-[16px] mt-6">

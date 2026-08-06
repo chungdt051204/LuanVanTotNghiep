@@ -33,7 +33,7 @@ import { MessageService } from "./services/messageService.js";
 import { NotificationService } from "./services/notificationService.js";
 
 const server = createServer(app);
-const io = new Server(server, {
+export const io = new Server(server, {
   cors: {
     origin: process.env.URL_FRONTEND,
     credentials: true,
@@ -65,6 +65,7 @@ app.use("/", aiRouter);
 
 io.on("connection", (socket) => {
   socket.on("join-user", (userId) => {
+    console.log(userId);
     socket.join(userId);
   });
   socket.on("join-instructor", (instructorId) => {

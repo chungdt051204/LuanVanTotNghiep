@@ -56,6 +56,29 @@ userRouter.get(
   new UserController().getStudentById
 );
 userRouter.put(
+  `${prefix}/instructor/verification/send`,
+  middleware.verifyToken,
+  middleware.isInstructor,
+  upload.fields([
+    { name: "frontIdCard", maxCount: 1 },
+    { name: "backIdCard", maxCount: 1 },
+    { name: "degreeCertificate", maxCount: 1 },
+  ]),
+  new UserController().sendRequestVerification
+);
+userRouter.put(
+  `${prefix}/instructor/verification/cancel`,
+  middleware.verifyToken,
+  middleware.isInstructor,
+  new UserController().cancelRequestVerification
+);
+userRouter.put(
+  `${prefix}/admin/instructor/:id`,
+  middleware.verifyToken,
+  middleware.isAdmin,
+  new UserController().approvedOrRejectedInstructor
+);
+userRouter.put(
   `${prefix}/me/avatar`,
   middleware.verifyToken,
   upload.single("avatar"),
@@ -78,7 +101,7 @@ userRouter.put(
   new UserController().updateStatusUser
 );
 userRouter.put(
-  `${prefix}/admin/instructor/:id`,
+  `${prefix}/admin/instructor/:id/info`,
   middleware.verifyToken,
   middleware.isAdmin,
   new UserController().updateInstructorInfo

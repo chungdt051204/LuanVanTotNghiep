@@ -3,8 +3,8 @@ import { userService } from "../../services/userService";
 import { useParams } from "react-router-dom";
 import { format } from "../../../helper/format";
 import { FaRegCalendarAlt } from "react-icons/fa";
-import { GoShieldCheck } from "react-icons/go";
-import { GoShieldX } from "react-icons/go";
+import { CiCircleCheck } from "react-icons/ci";
+import { IoBan } from "react-icons/io5";
 import { IoBookOutline } from "react-icons/io5";
 import { BsCreditCard } from "react-icons/bs";
 import { LuInbox } from "react-icons/lu";
@@ -69,9 +69,9 @@ const UserDetail = () => {
             </div>
             <div className="flex gap-x-4 items-center p-2 border border-gray-300 rounded-[8px] text-nav-muted">
               {user?.item?.status ? (
-                <GoShieldCheck className="text-title-lg" />
+                <CiCircleCheck className="text-title-lg" />
               ) : (
-                <GoShieldX className="text-title-lg" />
+                <IoBan className="text-title-lg" />
               )}
               <div className="flex flex-col gap-y-2 text-title-sm">
                 <p>Trạng thái tài khoản</p>

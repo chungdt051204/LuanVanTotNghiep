@@ -10,6 +10,10 @@ export const validateForm = {
       errorFile: "",
       errorLevel: "",
       errorExperience: "",
+      errorAvatar: "",
+      errorFrontIdCard: "",
+      errorBackIdCard: "",
+      errorDegreeCertificate: "",
     });
     let errors = {};
     const levels = ["Cử nhân", "Thạc sĩ", "Tiến sĩ"];
@@ -18,6 +22,7 @@ export const validateForm = {
       /^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s]+$/;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const phoneRegex = /^\d{10}$/;
+    const allowedTypes = ["jpg", "png", "jpeg"];
     let isValid = true;
 
     // Kiểm tra Họ tên (Nếu có)
@@ -81,13 +86,62 @@ export const validateForm = {
       }
     }
 
-    //Kiểm tra định dạng ảnh (Nếu có)
+    //Kiểm tra ảnh đại diện (Nếu có)
     if (formData.avatar !== undefined) {
+      const type = formData.avatar?.name?.split(".")[1];
       if (!formData.avatar) {
-        errors.errorFile = "Vui lòng chọn ảnh!";
+        errors.errorAvatar = "Vui lòng chọn ảnh!";
+        isValid = false;
+      } else if (!allowedTypes.includes(type)) {
+        errors.errorAvatar = "Định dạng ảnh không hợp lệ!";
         isValid = false;
       } else if (formData.avatar?.size > 300000) {
-        errors.errorFile = "Kích thước ảnh tối đa 300KB!";
+        errors.errorAvatar = "Kích thước ảnh tối đa 300KB!";
+        isValid = false;
+      }
+    }
+
+    //Kiểm tra mặt trước cccd (Nếu có)
+    if (formData.frontIdCard !== undefined) {
+      const type = formData.frontIdCard?.name?.split(".")[1];
+      if (!formData.frontIdCard) {
+        errors.errorFrontIdCard = "Vui lòng chọn ảnh!";
+        isValid = false;
+      } else if (!allowedTypes.includes(type)) {
+        errors.errorFrontIdCard = "Định dạng ảnh không hợp lệ!";
+        isValid = false;
+      } else if (formData.frontIdCard?.size > 300000) {
+        errors.errorFrontIdCard = "Kích thước ảnh tối đa 300KB!";
+        isValid = false;
+      }
+    }
+
+    //Kiểm tra mặt sau cccd (Nếu có)
+    if (formData.backIdCard !== undefined) {
+      const type = formData.backIdCard?.name?.split(".")[1];
+      if (!formData.backIdCard) {
+        errors.errorBackIdCard = "Vui lòng chọn ảnh!";
+        isValid = false;
+      } else if (!allowedTypes.includes(type)) {
+        errors.errorBackIdCard = "Định dạng ảnh không hợp lệ!";
+        isValid = false;
+      } else if (formData.backIdCard?.size > 300000) {
+        errors.errorBackIdCard = "Kích thước ảnh tối đa 300KB!";
+        isValid = false;
+      }
+    }
+
+    //Kiểm tra bằng cấp (Nếu có)
+    if (formData.degreeCertificate !== undefined) {
+      const type = formData.degreeCertificate?.name?.split(".")[1];
+      if (!formData.degreeCertificate) {
+        errors.errorDegreeCertificate = "Vui lòng chọn ảnh!";
+        isValid = false;
+      } else if (!allowedTypes.includes(type)) {
+        errors.errorDegreeCertificate = "Định dạng ảnh không hợp lệ!";
+        isValid = false;
+      } else if (formData.degreeCertificate?.size > 300000) {
+        errors.errorDegreeCertificate = "Kích thước ảnh tối đa 300KB!";
         isValid = false;
       }
     }

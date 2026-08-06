@@ -10,6 +10,8 @@ import axios from "axios";
 import CryptoJS from "crypto-js";
 import moment from "moment";
 import { NotificationService } from "./notificationService.js";
+import roleEntity from "../models/roleModel.js";
+import userEntity from "../models/userModel.js";
 
 const config = {
   appid: process.env.APP_ID,
@@ -195,10 +197,9 @@ export class OrderService {
     }
     if (params.status != 1 && currentStatus == "PARTIAL_PAID")
       return { status: "PARTIAL_PAID" };
-    const orderItems = await orderItemEntity.find({ order_id: order?._id });
-    const orderItemIds = orderItems?.map((value) => {
-      return value._id;
-    });
+    const orderItems = await orderItemEntity
+      .find({ order_id: order?._id })
+      .populate("course_id");
     if (currentStatus == "PENDING") {
       paymentStatus = orderItems?.some(
         (value) => value.payment_option == "PARTIAL"
@@ -214,9 +215,12 @@ export class OrderService {
       { payment_status: paymentStatus, applied_amount: appliedAmount },
       { returnDocument: "after" }
     );
+    const adminRole = await roleEntity.findOne({ role: "admin" });
+    const admin = await userEntity.findOne({ role_id: adminRole?._id });
+    let totalAdminProfit = 0;
     await Promise.all(
       orderItems?.map(async (value) => {
-        await orderItemEntity.updateOne(
+        const result = await orderItemEntity.findOneAndUpdate(
           { _id: value._id },
           {
             applied_amount:
@@ -225,7 +229,16 @@ export class OrderService {
                 : paymentStatus === "PAID"
                 ? value.price
                 : (value.price * 50) / 100,
+          },
+          {
+            returnDocument: "after",
           }
+        );
+        const adminProfit = (result.applied_amount * 20) / 100;
+        totalAdminProfit = totalAdminProfit + adminProfit;
+        await userEntity.updateOne(
+          { _id: value?.course_id?.user_id },
+          { $inc: { balance: (result.applied_amount * 80) / 100 } }
         );
       })
     );
@@ -249,7 +262,7 @@ export class OrderService {
             ? "UNLIMITED"
             : "LIMITED";
         const enrollment = await enrollmentEntity.findOne({
-          course_id: value.course_id,
+          course_id: value?.course_id?._id,
           user_id: order.user_id,
         });
         if (enrollment) {
@@ -266,7 +279,7 @@ export class OrderService {
             });
         } else {
           await enrollmentService.createEnrollment({
-            courseId: value.course_id,
+            courseId: value?.course_id?._id,
             userId: order.user_id,
             accessLevel,
           });
@@ -282,6 +295,10 @@ export class OrderService {
           });
         }
       })
+    );
+    await userEntity.updateOne(
+      { _id: admin?._id },
+      { $inc: { balance: totalAdminProfit } }
     );
     return { status: paymentStatus };
   };

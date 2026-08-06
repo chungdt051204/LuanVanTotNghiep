@@ -44,6 +44,25 @@ const userSchema = new mongoose.Schema(
       min: 0,
       max: 20,
     },
+    verified_status: {
+      type: String,
+      enum: ["NOT_VERIFIED", "PENDING", "VERIFIED", "REJECTED"],
+    },
+    front_id_card: {
+      type: String,
+    },
+    back_id_card: {
+      type: String,
+    },
+    degree_certificate: {
+      type: String,
+    },
+    balance: {
+      type: Number,
+    },
+    access_token: {
+      type: String,
+    },
   },
   {
     timestamps: true,

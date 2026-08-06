@@ -6,7 +6,7 @@ const prefix = "";
 notificationRouter.get(
   `${prefix}/notifications`,
   middleware.verifyToken,
-  new NotificationController().getNotificationsByUser
+  new NotificationController().getNotifications
 );
 notificationRouter.put(
   `${prefix}/notifications/read-all`,

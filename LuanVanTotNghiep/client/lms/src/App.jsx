@@ -1,11 +1,11 @@
 import { Routes, Route, useSearchParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import InstructorDashboard from "./pages/instructor/Dashboard";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { userService } from "./services/userService";
 import { setIsLogin } from "./stores/features/authSlice";
 import { setMe } from "./stores/features/meSlice";
@@ -54,13 +54,19 @@ export const api = "http://localhost:3000";
 function App() {
   const navigate = useNavigate();
   const isLogin = useSelector((state) => state.auth.isLogin);
-  const me = useSelector((state) => state.me.item);
+  const { item: me, isLoading } = useSelector((state) => state.me);
   const dispatch = useDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
   const token = searchParams.get("token");
+  const [refresh, setRefresh] = useState(0);
   useEffect(() => {
     socket.on("connect", () => {
       console.log("Đã kết nối");
+    });
+  }, [me]);
+  useEffect(() => {
+    socket.on("force-logout", () => {
+      setRefresh((prev) => prev + 1);
     });
   }, []);
   useEffect(() => {
@@ -78,21 +84,25 @@ function App() {
           prev.delete("token");
         });
       }
+      const currentToken = sessionStorage.getItem("token");
+      if (!currentToken) return;
       try {
         const result = await userService.getMe();
         dispatch(setIsLogin(true));
         dispatch(setMe(result.data));
       } catch (error) {
-        const status = error.status;
-        const message = error.data.message;
+        const status = error?.status;
+        const message = error?.data?.message;
         console.log(status, message);
-        if (status == 403) {
+        if (status === 401) {
+          sessionStorage.removeItem("token");
+          toast.warning("Phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại!");
           navigate("/login");
         }
       }
     };
     getMe();
-  }, [dispatch, setSearchParams, token, navigate]);
+  }, [dispatch, setSearchParams, token, navigate, refresh]);
   useEffect(() => {
     const getAllCategories = async () => {
       const result = await categoryService.getAllCategories();
@@ -101,21 +111,23 @@ function App() {
     getAllCategories();
   }, [dispatch]);
   useEffect(() => {
-    if (isLogin && me?.role_id?.role == "user") {
-      const getMyCart = async () => {
+    if (isLogin) {
+      if (me?.role_id?.role == "user") {
+        const getMyCart = async () => {
+          try {
+            const result = await cartService.getMyCart();
+            dispatch(setCart(result.data));
+          } catch (error) {
+            const status = error.status;
+            const message = error.data.message;
+            console.log(status, message);
+          }
+        };
+        getMyCart();
+      }
+      const getNotifications = async () => {
         try {
-          const result = await cartService.getMyCart();
-          dispatch(setCart(result.data));
-        } catch (error) {
-          const status = error.status;
-          const message = error.data.message;
-          console.log(status, message);
-        }
-      };
-      getMyCart();
-      const getNotificationsByUser = async () => {
-        try {
-          const result = await notificationService.getNotificationsByUser();
+          const result = await notificationService.getNotifications();
           console.log(result.data);
           dispatch(setNotifications(result.data));
         } catch (error) {
@@ -124,7 +136,7 @@ function App() {
           console.log(status, message);
         }
       };
-      getNotificationsByUser();
+      getNotifications();
     }
   }, [dispatch, isLogin, me, navigate]);
   return (
@@ -149,6 +161,7 @@ function App() {
         <Route path="/order/:id" element={<OrderDetail />} />
         <Route element={<ProtectedRouteInstructor />}>
           <Route path="/instructor" element={<InstructorPage />}>
+            <Route path="dashboard" element={<InstructorDashboard />} />
             <Route path="dashboard" element={<InstructorDashboard />} />
             <Route path="courses" element={<InstructorCourses />} />
             <Route path="course/add" element={<CourseEditor />} />

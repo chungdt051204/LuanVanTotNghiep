@@ -1,10 +1,10 @@
 import { NotificationService } from "../services/notificationService.js";
 
 export class NotificationController {
-  getNotificationsByUser = async (req, res) => {
+  getNotifications = async (req, res) => {
     try {
       const payload = req.payload;
-      const result = await new NotificationService().getNotificationsByUser({
+      const result = await new NotificationService().getNotifications({
         userId: payload.sub,
       });
       return res.status(200).json({ data: result });

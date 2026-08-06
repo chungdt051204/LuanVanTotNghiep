@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar";
-import { useSelector } from "react-redux";
 import { format } from "../../../helper/format";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { IoCameraOutline } from "react-icons/io5";
@@ -11,10 +10,16 @@ import { toast } from "react-toastify";
 import Footer from "../../components/Footer";
 import { LuSave } from "react-icons/lu";
 import { MdLockOutline } from "react-icons/md";
+import { IoShieldCheckmarkOutline } from "react-icons/io5";
+import { IoIosInformationCircleOutline } from "react-icons/io";
+import { FaRegAddressCard } from "react-icons/fa";
+import { FaGraduationCap } from "react-icons/fa";
+import { IoCloudUploadOutline } from "react-icons/io5";
 
 const MyProfile = () => {
   const navigate = useNavigate();
-  const { item: me, isLoading } = useSelector((state) => state.me);
+  const [me, setMe] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [accountInfo, setAccountInfo] = useState({
     fullName: "",
     phone: "",
@@ -22,31 +27,53 @@ const MyProfile = () => {
     confirmPassword: "",
     avatar: null,
   });
-  const [fullName, setFullName] = useState("");
   const [avatarPreview, setAvatarPreview] = useState(null);
+  const [fullName, setFullName] = useState("");
   const [error, setError] = useState({
     errorFullName: "",
     errorPhone: "",
     errorPassword: "",
     errorConfirmPassword: "",
-    errorFile: "",
   });
+  const [frontIdCard, setFrontIdCard] = useState(null);
+  const [backIdCard, setBackIdCard] = useState(null);
+  const [degreeCertificate, setDegreeCertificate] = useState(null);
+  const [preview, setPreview] = useState({
+    avatarPreview: null,
+    frontIdCardPreview: null,
+    backIdCardPreview: null,
+    degreeCertificatePreview: null,
+  });
+  const [errorImage, setErrorImage] = useState({
+    errorAvatar: "",
+    errorFrontIdCard: "",
+    errorBackIdCard: "",
+    errorDegreeCertificate: "",
+  });
+  const [refresh, setRefresh] = useState(0);
 
-  const handlePreview = ({ e, setPreview }) => {
+  const handlePreview = ({ e, field, errorField }) => {
     const allowedTypes = ["jpg", "png", "jpeg"];
     const image = e.target.files[0];
     const type = image?.name?.split(".")[1];
     if (!allowedTypes.includes(type)) {
-      setError((prev) => ({
+      setErrorImage((prev) => ({
         ...prev,
-        errorFile: "Định dạng ảnh không hợp lệ!",
+        [errorField]: "Định dạng ảnh không hợp lệ!",
       }));
-      setPreview(accountInfo.avatar);
+      setPreview((prev) => ({ ...prev, [field]: avatarPreview }));
+      return;
+    } else if (image?.size > 300000) {
+      setErrorImage((prev) => ({
+        ...prev,
+        [errorField]: "Kích thước ảnh tối đa 300KB!",
+      }));
+      setPreview((prev) => ({ ...prev, [field]: avatarPreview }));
       return;
     } else {
       const previewUrl = URL.createObjectURL(image);
-      setPreview(previewUrl);
-      setError((prev) => ({ ...prev, errorFile: "" }));
+      setPreview((prev) => ({ ...prev, [field]: previewUrl }));
+      setErrorImage((prev) => ({ ...prev, [errorField]: "" }));
     }
   };
   useEffect(() => {
@@ -57,6 +84,22 @@ const MyProfile = () => {
   }, [isLoading, me, navigate]);
 
   useEffect(() => {
+    const getMe = async () => {
+      try {
+        const result = await userService.getMe();
+        console.log(result.data);
+        setMe(result.data);
+      } catch (error) {
+        const status = error.status;
+        const message = error.data.message;
+        console.log(status, message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    getMe();
+  }, [refresh]);
+  useEffect(() => {
     if (me) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setAccountInfo((prev) => ({
@@ -66,6 +109,10 @@ const MyProfile = () => {
         avatar: me?.avatar || null,
       }));
       setFullName(me?.full_name || "");
+      setAvatarPreview(me?.avatar || null);
+      setFrontIdCard(me?.front_id_card || null);
+      setBackIdCard(me?.back_id_card || null);
+      setDegreeCertificate(me?.degree_certificate || null);
     }
   }, [me]);
   const handleUpdateAvatar = async () => {
@@ -78,7 +125,7 @@ const MyProfile = () => {
     try {
       const result = await userService.updateAvatar({ avatar: formData });
       toast.success(result?.message || "Cập nhật ảnh đại diện thành công");
-      navigate("/");
+      setRefresh((prev) => prev + 1);
     } catch (error) {
       const status = error.status;
       const message = error.data.message;
@@ -94,7 +141,7 @@ const MyProfile = () => {
     try {
       const result = await userService.updateProfile({ data });
       toast.success(result?.message || "Cập nhật thông tin thành công");
-      navigate("/");
+      setRefresh((prev) => prev + 1);
     } catch (error) {
       const status = error.status;
       const message = error.data.message;
@@ -115,7 +162,55 @@ const MyProfile = () => {
         password: formData,
       });
       toast.success(result?.message || "Thay đổi mật khẩu thành công");
+      setRefresh((prev) => prev + 1);
       navigate("/login");
+    } catch (error) {
+      const status = error.status;
+      const message = error.data.message;
+      console.log(status, message);
+    }
+  };
+  const handleSendRequestVerification = async () => {
+    const data = {
+      frontIdCard,
+      backIdCard,
+      degreeCertificate,
+    };
+    console.log(data);
+    if (
+      (typeof frontIdCard == "object" ||
+        typeof backIdCard == "object" ||
+        typeof degreeCertificate == "object") &&
+      !validateForm.validateUserForm({
+        formData: data,
+        setError: setErrorImage,
+      })
+    )
+      return;
+    const formData = new FormData();
+    formData.append("frontIdCard", frontIdCard);
+    formData.append("backIdCard", backIdCard);
+    formData.append("degreeCertificate", degreeCertificate);
+    try {
+      const result = await userService.sendRequestVerification({
+        images: formData,
+      });
+      toast.success(result?.message || "Gửi yêu cầu xác thực thành công");
+      setRefresh((prev) => prev + 1);
+    } catch (error) {
+      const status = error.status;
+      const message = error.data.message;
+      console.log(status, message);
+    }
+  };
+  const handleCancelRequestVerification = async () => {
+    try {
+      const result = await userService.cancelRequestVerification();
+      toast.success(result?.message || "Hủy yêu cầu xác thực thành công");
+      setFrontIdCard(null);
+      setBackIdCard(null);
+      setDegreeCertificate(null);
+      setRefresh((prev) => prev + 1);
     } catch (error) {
       const status = error.status;
       const message = error.data.message;
@@ -140,7 +235,7 @@ const MyProfile = () => {
             <div className="relative flex flex-col gap-y-1 text-center">
               <img
                 className="w-[180px] h-[180px] object-cover rounded-[1000px] mx-auto"
-                src={avatarPreview || accountInfo.avatar}
+                src={preview.avatarPreview || accountInfo.avatar}
                 alt=""
               />
               <label
@@ -155,14 +250,18 @@ const MyProfile = () => {
                     ...prev,
                     avatar: e.target.files[0],
                   }));
-                  handlePreview({ e, setPreview: setAvatarPreview });
+                  handlePreview({
+                    e,
+                    field: "avatarPreview",
+                    errorField: "errorAvatar",
+                  });
                 }}
                 id="avatar"
                 className="hidden"
                 type="file"
               />
               <span className="text-body-md text-red-500 font-medium">
-                {error.errorFile}
+                {errorImage.errorAvatar}
               </span>
               <p className="text-title-lg text-surface-nav font-medium">
                 {fullName}
@@ -185,155 +284,458 @@ const MyProfile = () => {
                 <p>{format.formatDate({ date: me?.createdAt })}</p>
               </div>
             </div>
+            {me?.role_id?.role == "instructor" && (
+              <div className="flex flex-col gap-y-1 p-2 border border-gray-300 rounded-[8px] text-nav-muted">
+                <div className="flex gap-x-4 items-center">
+                  <IoShieldCheckmarkOutline className="text-title-lg" />
+                  <div className="flex flex-col gap-y-2 text-title-sm">
+                    <p>Trạng thái xác thực</p>
+                    <p
+                      className={`p-1 rounded-[8px] text-center ${
+                        me?.verified_status === "NOT_VERIFIED"
+                          ? "bg-orange-100 text-orange-500"
+                          : me?.verified_status === "PENDING"
+                          ? "bg-gray-100 text-gray-500"
+                          : me?.verified_status === "REJECTED"
+                          ? "bg-red-100 text-red-500"
+                          : "bg-green-100 text-green-500"
+                      }`}
+                    >
+                      {me?.verified_status === "NOT_VERIFIED"
+                        ? "Chưa xác thực"
+                        : me?.verified_status === "PENDING"
+                        ? "Chờ xác thực"
+                        : me?.verified_status === "REJECTED"
+                        ? "Bị từ chối"
+                        : "Đã xác thực"}
+                    </p>
+                  </div>
+                </div>
+                <p className="text-body-md text-nav-muted">
+                  {me?.verified_status === "NOT_VERIFIED"
+                    ? "Vui lòng gửi giấy tờ để được quản trị viên duyệt"
+                    : me?.verified_status === "PENDING"
+                    ? "Yêu cầu xác thực đang được xử lý"
+                    : me?.verified_status === "REJECTED" &&
+                      "Vui lòng xác thực lại"}
+                </p>
+              </div>
+            )}
           </div>
-          <form className="flex flex-col gap-y-4 w-[64%] border border-gray-300 rounded-[16px] p-5">
-            <p className="text-title-lg text-surface-nav font-medium">
-              Thông tin cá nhân
-            </p>
-            <div className="flex flex-wrap gap-y-2 justify-between">
-              <div className="flex flex-col gap-y-1 w-[40%]">
-                <label
-                  className="text-title-sm text-surface-nav font-medium"
-                  htmlFor="fullName"
-                >
-                  Họ và tên
-                </label>
-                <input
-                  className="px-2 py-1 border border-gray-300 rounded-[8px]"
-                  type="text"
-                  onChange={(e) => {
-                    setAccountInfo((prev) => ({
-                      ...prev,
-                      fullName: e.target.value,
-                    }));
-                    setError((prev) => ({ ...prev, errorFullName: "" }));
-                  }}
-                  value={accountInfo.fullName}
-                  placeholder="Nhập họ tên"
-                />
-                <span className="text-body-md text-red-500 font-medium">
-                  {error.errorFullName}
-                </span>
-              </div>
-              <div className="flex flex-col gap-y-1 w-[40%]">
-                <label
-                  className="text-title-sm text-surface-nav font-medium"
-                  htmlFor="email"
-                >
-                  Email
-                </label>
-                <input
-                  className="px-2 py-1 border border-gray-300 rounded-[8px] hover:cursor-not-allowed"
-                  type="text"
-                  value={me?.email || ""}
-                  readOnly
-                />
-              </div>
-              <div className="flex flex-col gap-y-1 w-[40%]">
-                <label
-                  className="text-title-sm text-surface-nav font-medium"
-                  htmlFor="phone"
-                >
-                  Số điện thoại
-                </label>
-                <input
-                  className="px-2 py-1 border border-gray-300 rounded-[8px]"
-                  type="text"
-                  onChange={(e) => {
-                    setAccountInfo((prev) => ({
-                      ...prev,
-                      phone: e.target.value,
-                    }));
-                    setError((prev) => ({ ...prev, errorPhone: "" }));
-                  }}
-                  value={accountInfo.phone}
-                  placeholder="Nhập số điện thoại"
-                />
-                <span className="text-body-md text-red-500 font-medium">
-                  {error.errorPhone}
-                </span>
-              </div>
-            </div>
-            <div className="flex justify-end">
-              <button
-                type="button"
-                onClick={handleUpdateProfile}
-                className="flex justify-center w-[35%] px-2 py-1 mt-2 rounded-[8px] bg-surface-nav text-title-lg text-surface-white transition-transform duration-300 hover:text-surface-bg hover:cursor-pointer"
-              >
-                <div className="flex gap-x-2 items-center">
-                  <LuSave />
-                  Lưu thông tin
+          <div className="flex flex-col gap-y-4 w-[64%] ">
+            <form className="flex flex-col gap-y-4 border border-gray-300 rounded-[16px] p-5">
+              <p className="text-title-lg text-surface-nav font-medium">
+                Thông tin cá nhân
+              </p>
+              <div className="flex flex-wrap gap-y-2 justify-between">
+                <div className="flex flex-col gap-y-1 w-[40%]">
+                  <label
+                    className="text-title-sm text-surface-nav font-medium"
+                    htmlFor="fullName"
+                  >
+                    Họ và tên
+                  </label>
+                  <input
+                    className="px-2 py-1 border border-gray-300 rounded-[8px]"
+                    type="text"
+                    onChange={(e) => {
+                      setAccountInfo((prev) => ({
+                        ...prev,
+                        fullName: e.target.value,
+                      }));
+                      setError((prev) => ({ ...prev, errorFullName: "" }));
+                    }}
+                    value={accountInfo.fullName}
+                    placeholder="Nhập họ tên"
+                  />
+                  <span className="text-body-md text-red-500 font-medium">
+                    {error.errorFullName}
+                  </span>
                 </div>
-              </button>
-            </div>
-            <hr className="text-gray-300" />
-            <p className="text-title-lg text-surface-nav font-medium">
-              Đổi mật khẩu
-            </p>
-            <div className="flex flex-col gap-y-2">
-              <div className="flex flex-col gap-y-1">
-                <label
-                  className="text-title-sm text-surface-nav font-medium"
-                  htmlFor="newPassword"
-                >
-                  Mật khẩu mới
-                </label>
-                <input
-                  className="px-2 py-1 border border-gray-300 rounded-[8px]"
-                  type="password"
-                  onChange={(e) => {
-                    setAccountInfo((prev) => ({
-                      ...prev,
-                      password: e.target.value,
-                    }));
-                    setError((prev) => ({ ...prev, errorPassword: "" }));
-                  }}
-                  placeholder="Nhập mật khẩu mới"
-                  autoComplete="new-password"
-                />
-                <span className="text-body-md text-red-500 font-medium">
-                  {error.errorPassword}
-                </span>
-              </div>
-              <div className="flex flex-col gap-y-1">
-                <label
-                  className="text-title-sm text-surface-nav font-medium"
-                  htmlFor="confirmNewPassword"
-                >
-                  Xác nhận mật khẩu mới
-                </label>
-                <input
-                  className="px-2 py-1 border border-gray-300 rounded-[8px]"
-                  type="password"
-                  onChange={(e) => {
-                    setAccountInfo((prev) => ({
-                      ...prev,
-                      confirmPassword: e.target.value,
-                    }));
-                    setError((prev) => ({ ...prev, errorConfirmPassword: "" }));
-                  }}
-                />
-                <span className="text-body-md text-red-500 font-medium">
-                  {error.errorConfirmPassword}
-                </span>
-              </div>
-            </div>
-            <div className="flex justify-end">
-              <button
-                type="button"
-                onClick={handleChangePassword}
-                className="flex justify-center w-[35%] px-2 py-1 mt-2 rounded-[8px] bg-surface-nav text-title-lg text-surface-white transition-transform duration-300 hover:text-surface-bg hover:cursor-pointer"
-              >
-                <div className="flex gap-x-2 items-center">
-                  <MdLockOutline />
-                  Đổi mật khẩu
+                <div className="flex flex-col gap-y-1 w-[40%]">
+                  <label
+                    className="text-title-sm text-surface-nav font-medium"
+                    htmlFor="email"
+                  >
+                    Email
+                  </label>
+                  <input
+                    className="px-2 py-1 border border-gray-300 rounded-[8px] hover:cursor-not-allowed"
+                    type="text"
+                    value={me?.email || ""}
+                    readOnly
+                  />
                 </div>
-              </button>
-            </div>
-          </form>
+                <div className="flex flex-col gap-y-1 w-[40%]">
+                  <label
+                    className="text-title-sm text-surface-nav font-medium"
+                    htmlFor="phone"
+                  >
+                    Số điện thoại
+                  </label>
+                  <input
+                    className="px-2 py-1 border border-gray-300 rounded-[8px]"
+                    type="text"
+                    onChange={(e) => {
+                      setAccountInfo((prev) => ({
+                        ...prev,
+                        phone: e.target.value,
+                      }));
+                      setError((prev) => ({ ...prev, errorPhone: "" }));
+                    }}
+                    value={accountInfo.phone}
+                    placeholder="Nhập số điện thoại"
+                  />
+                  <span className="text-body-md text-red-500 font-medium">
+                    {error.errorPhone}
+                  </span>
+                </div>
+              </div>
+              <div className="flex justify-end">
+                <button
+                  type="button"
+                  onClick={handleUpdateProfile}
+                  className="flex justify-center w-[35%] px-2 py-1 mt-2 rounded-[8px] bg-surface-nav text-title-lg text-surface-white transition-transform duration-300 hover:text-surface-bg hover:cursor-pointer"
+                >
+                  <div className="flex gap-x-2 items-center">
+                    <LuSave />
+                    Lưu thông tin
+                  </div>
+                </button>
+              </div>
+              <hr className="text-gray-300" />
+              <p className="text-title-lg text-surface-nav font-medium">
+                Đổi mật khẩu
+              </p>
+              <div className="flex flex-col gap-y-2">
+                <div className="flex flex-col gap-y-1">
+                  <label
+                    className="text-title-sm text-surface-nav font-medium"
+                    htmlFor="newPassword"
+                  >
+                    Mật khẩu mới
+                  </label>
+                  <input
+                    className="px-2 py-1 border border-gray-300 rounded-[8px]"
+                    type="password"
+                    onChange={(e) => {
+                      setAccountInfo((prev) => ({
+                        ...prev,
+                        password: e.target.value,
+                      }));
+                      setError((prev) => ({ ...prev, errorPassword: "" }));
+                    }}
+                    placeholder="Nhập mật khẩu mới"
+                    autoComplete="new-password"
+                  />
+                  <span className="text-body-md text-red-500 font-medium">
+                    {error.errorPassword}
+                  </span>
+                </div>
+                <div className="flex flex-col gap-y-1">
+                  <label
+                    className="text-title-sm text-surface-nav font-medium"
+                    htmlFor="confirmNewPassword"
+                  >
+                    Xác nhận mật khẩu mới
+                  </label>
+                  <input
+                    className="px-2 py-1 border border-gray-300 rounded-[8px]"
+                    type="password"
+                    onChange={(e) => {
+                      setAccountInfo((prev) => ({
+                        ...prev,
+                        confirmPassword: e.target.value,
+                      }));
+                      setError((prev) => ({
+                        ...prev,
+                        errorConfirmPassword: "",
+                      }));
+                    }}
+                  />
+                  <span className="text-body-md text-red-500 font-medium">
+                    {error.errorConfirmPassword}
+                  </span>
+                </div>
+              </div>
+              <div className="flex justify-end">
+                <button
+                  type="button"
+                  onClick={handleChangePassword}
+                  className="flex justify-center w-[35%] px-2 py-1 mt-2 rounded-[8px] bg-surface-nav text-title-lg text-surface-white transition-transform duration-300 hover:text-surface-bg hover:cursor-pointer"
+                >
+                  <div className="flex gap-x-2 items-center">
+                    <MdLockOutline />
+                    Đổi mật khẩu
+                  </div>
+                </button>
+              </div>
+            </form>
+            {me?.role_id?.role == "instructor" && (
+              <form className="flex flex-col gap-y-4 border border-gray-300 rounded-[16px] p-5">
+                <p className="text-title-lg text-surface-nav font-medium">
+                  Xác minh giảng viên
+                </p>
+                <div className="flex gap-x-2 items-start p-4 rounded-[8px] bg-blue-50 text-blue-800">
+                  <IoIosInformationCircleOutline className="text-title-lg shrink-0" />
+                  <div className="flex flex-col gap-y-2 text-title-sm">
+                    <p className="font-medium">Xác minh giảng viên</p>
+                    <p>
+                      Để trở thành giảng viên và có thể quản lý các khóa học,
+                      bạn cần gửi ảnh CCCD và ảnh bằng cấp chuyên môn để quản
+                      trị viên kiểm tra và duyệt
+                    </p>
+                  </div>
+                </div>
+                <div className="flex flex-col gap-y-2 p-4 border border-gray-300 rounded-[8px]">
+                  <div className="flex gap-x-2 items-center text-title-lg text-surface-nav">
+                    <FaRegAddressCard />
+                    <p className="font-medium">Ảnh CCCD/CMND</p>
+                  </div>
+                  <div className="flex justify-between text-title-sm font-medium">
+                    <div className="flex flex-col gap-y-2 w-[45%]">
+                      <p>Ảnh mặt trước</p>
+                      {preview.frontIdCardPreview || frontIdCard ? (
+                        <div className="relative">
+                          <img
+                            className="rounded-[16px] opacity-80"
+                            src={preview.frontIdCardPreview || frontIdCard}
+                            alt=""
+                          />
+                          {(me?.verified_status === "NOT_VERIFIED" ||
+                            me?.verified_status === "REJECTED") && (
+                            <div>
+                              <label
+                                htmlFor="frontIdCard"
+                                className="absolute p-2 top-[70px] left-[120px] rounded-[1000px] bg-surface-nav"
+                              >
+                                <IoCameraOutline className="text-headline-md text-surface-white" />
+                              </label>
+                              <input
+                                onChange={(e) => {
+                                  setFrontIdCard(e.target.files[0]);
+                                  handlePreview({
+                                    e,
+                                    field: "frontIdCardPreview",
+                                    errorField: "errorFrontIdCard",
+                                  });
+                                }}
+                                id="frontIdCard"
+                                className="hidden"
+                                type="file"
+                              />
+                            </div>
+                          )}
+                        </div>
+                      ) : (
+                        <div className="border-2 border-gray-300 border-dashed p-4 rounded-[8px]">
+                          <label htmlFor="frontIdCard" className="text-body-md">
+                            <div className="flex gap-x-2 items-center text-brand-blue">
+                              <IoCloudUploadOutline />
+                              <p>Nhấp để chọn ảnh</p>
+                            </div>
+                            <p className="text-nav-muted">
+                              Định dạng: JPG, PNG, JPEG
+                            </p>
+                          </label>
+                          <input
+                            onChange={(e) => {
+                              setFrontIdCard(e.target.files[0]);
+                              handlePreview({
+                                e,
+                                field: "frontIdCardPreview",
+                                errorField: "errorFrontIdCard",
+                              });
+                            }}
+                            disabled={
+                              me?.verified_status == "PENDING" ||
+                              me?.verified_status == "VERIFIED"
+                            }
+                            id="frontIdCard"
+                            type="file"
+                            className="hidden"
+                          />
+                        </div>
+                      )}
+                      <span className="text-body-md text-red-500 font-medium">
+                        {errorImage.errorFrontIdCard}
+                      </span>
+                    </div>
+                    <div className="flex flex-col gap-y-2 w-[45%]">
+                      <p className="text-body-lg">Ảnh mặt sau</p>
+                      {preview.backIdCardPreview || backIdCard ? (
+                        <div className="relative">
+                          <img
+                            className="rounded-[16px] opacity-80"
+                            src={preview.backIdCardPreview || backIdCard}
+                            alt=""
+                          />
+                          {(me?.verified_status === "NOT_VERIFIED" ||
+                            me?.verified_status === "REJECTED") && (
+                            <div>
+                              <label
+                                htmlFor="backIdCard"
+                                className="absolute p-2 top-[70px] left-[120px] rounded-[1000px] bg-surface-nav"
+                              >
+                                <IoCameraOutline className="text-headline-md text-surface-white" />
+                              </label>
+                              <input
+                                onChange={(e) => {
+                                  setBackIdCard(e.target.files[0]);
+                                  handlePreview({
+                                    e,
+                                    field: "backIdCardPreview",
+                                    errorField: "errorBackIdCard",
+                                  });
+                                }}
+                                id="backIdCard"
+                                className="hidden"
+                                type="file"
+                              />
+                            </div>
+                          )}
+                        </div>
+                      ) : (
+                        <div className="border-2 border-gray-300 border-dashed p-4 rounded-[8px]">
+                          <label htmlFor="backIdCard" className="text-body-md">
+                            <div className="flex gap-x-2 items-center text-brand-blue">
+                              <IoCloudUploadOutline />
+                              <p>Nhấp để chọn ảnh</p>
+                            </div>
+                            <p className="text-nav-muted">
+                              Định dạng: JPG, PNG, JPEG
+                            </p>
+                          </label>
+                          <input
+                            onChange={(e) => {
+                              setBackIdCard(e.target.files[0]);
+                              handlePreview({
+                                e,
+                                field: "backIdCardPreview",
+                                errorField: "errorBackIdCard",
+                              });
+                            }}
+                            disabled={
+                              me?.verified_status == "PENDING" ||
+                              me?.verified_status == "VERIFIED"
+                            }
+                            id="backIdCard"
+                            type="file"
+                            className="hidden"
+                          />
+                        </div>
+                      )}
+                      <span className="text-body-md text-red-500 font-medium">
+                        {errorImage.errorBackIdCard}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex flex-col gap-y-2 p-4 border border-gray-300 rounded-[8px]">
+                  <div className="flex gap-x-2 items-center text-title-lg text-surface-nav">
+                    <FaGraduationCap />
+                    <p className="font-medium">Ảnh bằng cấp chuyên môn</p>
+                  </div>
+                  {preview.degreeCertificatePreview || degreeCertificate ? (
+                    <div className="relative">
+                      <img
+                        className="rounded-[16px] opacity-80"
+                        src={
+                          preview.degreeCertificatePreview || degreeCertificate
+                        }
+                        alt=""
+                      />
+                      {(me?.verified_status === "NOT_VERIFIED" ||
+                        me?.verified_status === "REJECTED") && (
+                        <div>
+                          <label
+                            htmlFor="degreeCertificate"
+                            className="absolute p-2 top-[180px] left-[280px] rounded-[1000px] bg-surface-nav"
+                          >
+                            <IoCameraOutline className="text-headline-md text-surface-white" />
+                          </label>
+                          <input
+                            onChange={(e) => {
+                              setDegreeCertificate(e.target.files[0]);
+                              handlePreview({
+                                e,
+                                field: "degreeCertificatePreview",
+                                errorField: "errorDegreeCertificate",
+                              });
+                            }}
+                            id="degreeCertificate"
+                            className="hidden"
+                            type="file"
+                          />
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <div className="border-2 border-gray-300 border-dashed p-4 rounded-[8px]">
+                      <label
+                        htmlFor="degreeCertificate"
+                        className="text-body-md"
+                      >
+                        <div className="flex gap-x-2 items-center text-brand-blue">
+                          <IoCloudUploadOutline />
+                          <p>Nhấp để chọn ảnh</p>
+                        </div>
+                        <p className="text-nav-muted">
+                          Định dạng: JPG, PNG, JPEG
+                        </p>
+                      </label>
+                      <input
+                        onChange={(e) => {
+                          setDegreeCertificate(e.target.files[0]);
+                          handlePreview({
+                            e,
+                            field: "degreeCertificatePreview",
+                            errorField: "errorDegreeCertificate",
+                          });
+                        }}
+                        disabled={
+                          me?.verified_status == "PENDING" ||
+                          me?.verified_status == "VERIFIED"
+                        }
+                        id="degreeCertificate"
+                        className="hidden"
+                        type="file"
+                      />
+                    </div>
+                  )}
+                  <span className="text-body-md text-red-500 font-medium">
+                    {errorImage.errorDegreeCertificate}
+                  </span>
+                </div>
+                <div className="flex justify-end">
+                  <button
+                    type="button"
+                    onClick={
+                      me?.verified_status === "NOT_VERIFIED" ||
+                      me?.verified_status === "REJECTED"
+                        ? handleSendRequestVerification
+                        : me?.verified_status === "PENDING"
+                        ? handleCancelRequestVerification
+                        : undefined
+                    }
+                    disabled={me?.verified_status === "VERIFIED"}
+                    className="w-[40%] px-4 py-1 mt-2 rounded-[8px] bg-surface-nav text-title-lg text-surface-white transition-transform duration-300 hover:text-surface-bg hover:cursor-pointer"
+                  >
+                    {me?.verified_status === "NOT_VERIFIED"
+                      ? "Gửi yêu cầu xác thực"
+                      : me?.verified_status === "PENDING"
+                      ? "Hủy yêu cầu xác thực"
+                      : me?.verified_status === "REJECTED"
+                      ? "Gửi lại yêu cầu xác thực"
+                      : "Đã xác thực"}
+                  </button>
+                </div>
+              </form>
+            )}
+          </div>
         </div>
       </div>
-      <Footer />
+      {me?.role_id?.role == "user" && <Footer />}
     </>
   );
 };

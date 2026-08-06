@@ -23,6 +23,8 @@ import { format } from "../../helper/format";
 import Conversations from "./Conversations";
 import { socket } from "../../socket";
 import { createNotification } from "../stores/features/notificationSlice";
+import { toast } from "react-toastify";
+import { setEnrollments } from "../stores/features/enrollmentSlice";
 
 export const Navbar = () => {
   const navigate = useNavigate();
@@ -122,8 +124,20 @@ export const Navbar = () => {
     };
     getApprovedCourses();
   }, [searchValue, searchParams]);
-  const handleLogout = () => {
-    authService.Logout({ dispatch, navigate, setIsLogin, setMe });
+  const handleLogout = async () => {
+    try {
+      const result = await authService.Logout();
+      sessionStorage.removeItem("token");
+      dispatch(setIsLogin(false));
+      dispatch(setMe(null));
+      dispatch(setEnrollments([]));
+      toast.success(result?.message || "Đăng xuất thành công");
+      navigate("/login");
+    } catch (error) {
+      const status = error.status;
+      const message = error.message;
+      console.log(status, message);
+    }
   };
   return (
     <>
@@ -232,6 +246,17 @@ export const Navbar = () => {
             return (
               <li key={index}>
                 <NavLink
+                  onClick={() => {
+                    if (
+                      currentRole == "instructor" &&
+                      me?.verified_status !== "VERIFIED"
+                    ) {
+                      toast.warning(
+                        "Tài khoản của bạn chưa được xác thực, không thể truy cập vào các trang quản lý!"
+                      );
+                      return;
+                    }
+                  }}
                   to={value.route}
                   className={({ isActive }) => {
                     return `flex items-center gap-x-1 text-title-lg transition-colors duration-200 ${
@@ -248,8 +273,8 @@ export const Navbar = () => {
             );
           })}
         </ul>
-        {isLogin && currentRole == "user" && (
-          <div className="flex gap-x-6 items-center">
+        <div className="flex gap-x-6 items-center">
+          {isLogin && currentRole == "user" && (
             <div className="relative">
               <IoCartOutline
                 className="text-headline-md text-surface-nav"
@@ -263,6 +288,8 @@ export const Navbar = () => {
                 </div>
               )}
             </div>
+          )}
+          {isLogin && (
             <div className="relative">
               <IoMdNotificationsOutline
                 className="text-headline-md"
@@ -276,9 +303,11 @@ export const Navbar = () => {
                 </div>
               )}
             </div>
-          </div>
+          )}
+        </div>
+        {currentRole == "instructor" && me?.verified_status === "VERIFIED" && (
+          <Conversations me={me} />
         )}
-        {currentRole == "instructor" && <Conversations me={me} />}
         <div>
           {isLogin && me ? (
             <div

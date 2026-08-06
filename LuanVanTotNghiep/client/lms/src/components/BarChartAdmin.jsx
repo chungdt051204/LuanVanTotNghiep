@@ -16,25 +16,30 @@ ChartJS.register({
   Tooltip,
   Legend,
 });
-const BarChart = ({ text, labels, label1, data1 }) => {
-  const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: "top",
-      },
-      title: {
-        display: true,
-        text: text,
-      },
+const options = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: "top",
     },
-  };
+    title: {
+      display: true,
+      text: "Biểu đồ thống kê doanh thu trong 7 ngày gần nhất",
+    },
+  },
+};
+const BarChart = ({ array }) => {
+  const labels = array?.map((value) => {
+    return value?._id;
+  });
   const data = {
     labels,
     datasets: [
       {
-        label: label1,
-        data: data1,
+        label: "Tổng doanh thu",
+        data: array?.map((value) => {
+          return value.revenue;
+        }),
         backgroundColor: "#3b82f6",
       },
     ],

@@ -6,6 +6,7 @@ import orderItemEntity from "../models/orderItemModel.js";
 import roleEntity from "../models/roleModel.js";
 import testEntity from "../models/testModel.js";
 import testResultEntity from "../models/testResultModel.js";
+import { NotificationService } from "../services/notificationService.js";
 import bcrypt from "bcrypt";
 const saltRounds = 10;
 
@@ -111,11 +112,7 @@ export class UserService {
               course_id: value._id,
             });
             orderItems?.forEach((value) => {
-              const appliedAmount =
-                value.payment_option == "PARTIAL"
-                  ? (value.price * 50) / 100
-                  : value.price;
-              revenue = revenue + appliedAmount;
+              revenue = revenue + value.applied_amount;
             });
           })
         );
@@ -228,6 +225,77 @@ export class UserService {
       arrayEnrollment,
       totalPagesEnrollment: enrollments?.totalPages,
     };
+  };
+  sendRequestVerification = async ({ userId, images }) => {
+    const instructor = await userEntity.findOne({ _id: userId });
+    if (!instructor) {
+      const error = new Error("Tài khoản không tồn tại !");
+      error.statusCode = 404;
+      throw error;
+    }
+    await userEntity.updateOne(
+      { _id: userId },
+      {
+        front_id_card: images?.frontIdCard,
+        back_id_card: images?.backIdCard,
+        degree_certificate: images?.degreeCertificate,
+        verified_status: "PENDING",
+      }
+    );
+    const role = await roleEntity.findOne({ role: "admin" });
+    const admin = await userEntity.findOne({ role_id: role?._id });
+    await new NotificationService().createNotification({
+      message: `${instructor?.full_name} đã gửi yêu cầu xác thực tài khoản cho bạn`,
+      title: "Yêu cầu xác thực tài khoản",
+      type: "ACCOUNT",
+      userId: admin?.id,
+    });
+  };
+  cancelRequestVerification = async ({ userId }) => {
+    const instructor = await userEntity.findOne({ _id: userId });
+    if (!instructor) {
+      const error = new Error("Tài khoản không tồn tại !");
+      error.statusCode = 404;
+      throw error;
+    }
+    await userEntity.updateOne(
+      { _id: userId },
+      {
+        verified_status: "NOT_VERIFIED",
+      }
+    );
+    const role = await roleEntity.findOne({ role: "admin" });
+    const admin = await userEntity.findOne({ role_id: role?._id });
+    await new NotificationService().createNotification({
+      message: `${instructor?.full_name} đã hủy yêu cầu xác thực tài khoản`,
+      title: "Hủy yêu cầu xác thực tài khoản",
+      type: "ACCOUNT",
+      userId: admin?.id,
+    });
+  };
+  approvedOrRejectedInstructor = async ({ instructorId, status, message }) => {
+    const instructor = await userEntity.findOne({ _id: instructorId });
+    if (!instructor) {
+      const error = new Error("Tài khoản không tồn tại !");
+      error.statusCode = 404;
+      throw error;
+    }
+    await userEntity.updateOne(
+      { _id: instructorId },
+      { verified_status: status }
+    );
+    await new NotificationService().createNotification({
+      message:
+        status === "VERIFIED"
+          ? "Yêu cầu xác thực tài khoản của bạn đã được quản trị viên duyệt"
+          : `Lý do: ${message}`,
+      title:
+        status === "VERIFIED"
+          ? "Xác thực tài khoản thành công"
+          : "Yêu cầu xác thực của bạn đã bị quản trị viên từ chối",
+      type: "ACCOUNT",
+      userId: instructorId,
+    });
   };
   updateAvatar = async ({ userId, avatar }) => {
     const user = await userEntity.findOne({ _id: userId });

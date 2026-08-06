@@ -9,6 +9,7 @@ import { validateForm } from "../../helper/validateForm";
 import { toast } from "react-toastify";
 import { api } from "../App";
 import logo_google from "../assets/logo-google.png";
+import { socket } from "../../socket";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -37,6 +38,7 @@ const Login = () => {
       dispatch(setMe(result.data));
       console.log(result.data.role_id.role);
       toast.success(result?.message || "Đăng nhập thành công");
+      socket.emit("join-user", result?.data?._id);
       setTimeout(() => {
         if (result.data.role_id.role === "instructor") {
           navigate("/instructor/dashboard");

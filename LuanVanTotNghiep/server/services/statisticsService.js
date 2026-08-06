@@ -7,6 +7,14 @@ import roleEntity from "../models/roleModel.js";
 import dayjs from "dayjs";
 export class StatisticsService {
   getStatisticsByInstructor = async ({ instructorId }) => {
+    const startOfMonth = dayjs().startOf("year").toDate();
+    const endOfMonth = dayjs().endOf("year").toDate();
+    const orders = await orderEntity.find({
+      payment_status: { $in: ["PARTIAL_PAID", "PAID"] },
+    });
+    const orderIds = orders?.map((value) => {
+      return value?._id;
+    });
     const courses = await courseEntity.find({ user_id: instructorId });
     const courseIds = courses?.map((value) => {
       return value._id;
@@ -14,6 +22,31 @@ export class StatisticsService {
     const studentIds = await enrollmentEntity.distinct("user_id", {
       course_id: { $in: courseIds },
     }); //Lấy danh sách đơn đăng ký các khóa học giảng viên đã tạo, không lấy trùng user_id
+    const monthlyRevenueAndProfit = await orderItemEntity.aggregate([
+      {
+        $match: {
+          order_id: { $in: orderIds },
+          course_id: { $in: courseIds },
+          updatedAt: { $gte: startOfMonth, $lte: endOfMonth },
+        },
+      },
+      {
+        $group: {
+          _id: { $dateToString: { format: "%Y-%m-%d", date: "$updatedAt" } },
+          totalProfit: {
+            $sum: { $multiply: ["$applied_amount", 0.8] },
+          },
+          totalRevenue: {
+            $sum: "$applied_amount",
+          },
+        },
+      },
+      {
+        $sort: {
+          _id: -1,
+        },
+      },
+    ]);
     const courseRevenueStats = await orderItemEntity.aggregate([
       {
         $match: { course_id: { $in: courseIds } },
@@ -48,9 +81,12 @@ export class StatisticsService {
       .find({ _id: { $in: courseIds }, rating_star: { $gte: 4.5 } })
       .sort({ rating_star: -1 })
       .limit(5);
+    const instructor = await userEntity.findOne({ _id: instructorId });
     return {
       totalCourses: courses?.length,
       totalStudents: studentIds?.length,
+      myProfit: instructor?.balance,
+      monthlyRevenueAndProfit,
       courseRevenueStats,
       top5HighRatingCourses: top5HighRatingCourses?.filter(
         (value) => value.rating_star != 0
@@ -58,23 +94,24 @@ export class StatisticsService {
     };
   };
   getStatisticsByAdmin = async () => {
-    const startDay = dayjs().subtract(30, "day").toDate();
     const totalCourses = await courseEntity.countDocuments();
     const instructorRole = await roleEntity.findOne({ role: "instructor" });
     const userRole = await roleEntity.findOne({ role: "user" });
-    const totalInstructors = await userEntity.countDocuments({
-      role_id: instructorRole._id,
-    });
+    const instructors = await userEntity
+      .find({ role_id: instructorRole?._id })
+      .select("full_name balance");
     const totalUsers = await userEntity.countDocuments({
       role_id: userRole._id,
     });
     const orders = await orderEntity.find();
     let totalRevenue = 0;
+    let adminProfit = 0;
     const orderItems = await orderItemEntity.find();
     orderItems?.forEach((value) => {
       totalRevenue = totalRevenue + value.applied_amount;
+      adminProfit = adminProfit + (value.applied_amount * 20) / 100;
     });
-    const revenueStats = await orderEntity.aggregate([
+    const profitAndRevenueStats = await orderEntity.aggregate([
       {
         $match: {
           $and: [
@@ -83,9 +120,6 @@ export class StatisticsService {
                 $in: ["PARTIAL_PAID", "PAID"],
               },
             },
-            {
-              updatedAt: { $gte: startDay },
-            },
           ],
         },
       },
@@ -93,6 +127,9 @@ export class StatisticsService {
         $group: {
           _id: {
             $dateToString: { format: "%Y-%m-%d", date: "$updatedAt" },
+          },
+          profit: {
+            $sum: { $multiply: ["$applied_amount", 0.2] },
           },
           revenue: {
             $sum: "$applied_amount",
@@ -199,11 +236,13 @@ export class StatisticsService {
       .limit(5);
     return {
       totalCourses,
-      totalInstructors,
+      instructors,
+      totalInstructors: instructors?.length,
       totalUsers,
       totalOrders: orders?.length,
       totalRevenue,
-      revenueStats,
+      adminProfit,
+      profitAndRevenueStats,
       top5BestSellerCourses,
       top5HighestRevenueCourses,
       top5HighestRatingCourses: top5HighestRatingCourses?.filter(

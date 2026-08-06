@@ -10,6 +10,7 @@ import { LuInbox } from "react-icons/lu";
 import PaginationButton from "../../components/PaginationButton";
 import { IoEyeOutline } from "react-icons/io5";
 import ConfirmDialog from "../../components/ConfirmDialog";
+import { IoBan } from "react-icons/io5";
 
 const AdminCourses = () => {
   const navigate = useNavigate();
@@ -33,6 +34,11 @@ const AdminCourses = () => {
       status: "approved",
       title: "Đã duyệt",
       icon: <CiCircleCheck />,
+    },
+    {
+      status: "rejected",
+      title: "Từ chối",
+      icon: <IoBan />,
     },
   ];
   const [status, setStatus] = useState("");
@@ -95,11 +101,13 @@ const AdminCourses = () => {
               "border-b-2 border-b-blue-600",
               "border-b-2 border-b-yellow-600",
               "border-b-2 border-b-green-600",
+              "border-b-2 border-b-red-600",
             ];
             const textColors = [
               "text-blue-600",
               "text-yellow-600",
               "text-green-600",
+              "text-red-600",
             ];
             return (
               <div

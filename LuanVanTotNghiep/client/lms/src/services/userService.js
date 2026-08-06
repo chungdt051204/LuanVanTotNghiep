@@ -40,6 +40,29 @@ export const userService = {
     });
     return response;
   },
+  sendRequestVerification: async ({ images }) => {
+    const response = await axiosClient.put(
+      "/instructor/verification/send",
+      images,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    return response;
+  },
+  cancelRequestVerification: async () => {
+    const response = await axiosClient.put("/instructor/verification/cancel");
+    return response;
+  },
+  approvedOrRejectedInstructor: async ({ instructorId, status, message }) => {
+    const response = await axiosClient.put(
+      `/admin/instructor/${instructorId}?status=${status}`,
+      message
+    );
+    return response;
+  },
   updateProfile: async ({ data }) => {
     const response = await axiosClient.put("/me/profile", data);
     return response;
@@ -54,7 +77,7 @@ export const userService = {
   },
   updateInstructorInfo: async ({ instructorId, formData }) => {
     const response = await axiosClient.put(
-      `/admin/instructor/${instructorId}`,
+      `/admin/instructor/${instructorId}/info`,
       { formData }
     );
     return response;

@@ -9,7 +9,7 @@ export class NotificationService {
     });
     return newNotification;
   };
-  getNotificationsByUser = async ({ userId }) => {
+  getNotifications = async ({ userId }) => {
     const notification = await notificationEntity
       .find({ user_id: userId })
       .sort({ createdAt: -1 });

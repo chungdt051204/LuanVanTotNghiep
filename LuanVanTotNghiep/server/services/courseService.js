@@ -137,7 +137,7 @@ export class CourseService {
       sort: { updatedAt: -1 },
       populate: ["category_id", "user_id"],
     };
-    const arrayStatus = ["pending", "approved"];
+    const arrayStatus = ["pending", "approved", "rejected"];
     let query = { status: { $in: arrayStatus } };
     if (params?.status !== undefined) {
       query.status = params.status;

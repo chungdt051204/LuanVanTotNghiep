@@ -188,6 +188,13 @@ const CourseEditor = () => {
     setArray(newArray);
   };
 
+  // Hàm clear lỗi bài học
+  const handleSetErrorLesson = ({ fieldName, index, array, setArray }) => {
+    const newArray = [...array];
+    newArray[index][fieldName] = "";
+    setArray(newArray);
+  };
+
   // Hàm xóa bài học(khi chưa thêm, khi đã tồn tại trong khóa học)
   const handleDeleteLesson = async ({ index }) => {
     if (!lessons[index].lessonId) {
@@ -504,7 +511,10 @@ const CourseEditor = () => {
                   <input
                     className="p-2 w-[88%] bg-surface-bg rounded-[8px]"
                     value={requirementContent}
-                    onChange={(e) => setRequirementContent(e.target.value)}
+                    onChange={(e) => {
+                      setRequirementContent(e.target.value);
+                      setError((prev) => ({ ...prev, errorRequirement: "" }));
+                    }}
                     type="text"
                     placeholder="Ví dụ: Hiểu biết cơ bản về HTML, CSS"
                   />
@@ -524,7 +534,7 @@ const CourseEditor = () => {
                     Thêm
                   </button>
                 </div>
-                {error.errorRequirement && requirements?.length == 0 && (
+                {error.errorRequirement && (
                   <span className="text-body-md text-red-500">
                     {error.errorRequirement}
                   </span>
@@ -572,7 +582,10 @@ const CourseEditor = () => {
                   <input
                     className="p-2 w-[88%] bg-surface-bg rounded-[8px]"
                     value={objectiveContent}
-                    onChange={(e) => setObjectiveContent(e.target.value)}
+                    onChange={(e) => {
+                      setObjectiveContent(e.target.value);
+                      setError((prev) => ({ ...prev, errorObjective: "" }));
+                    }}
                     type="text"
                     placeholder="Ví dụ: Xây dựng được ứng dụng web hoàn chỉnh với React"
                   />
@@ -592,7 +605,7 @@ const CourseEditor = () => {
                     Thêm
                   </button>
                 </div>
-                {error.errorObjective && objectives?.length == 0 && (
+                {error.errorObjective && (
                   <span className="text-body-md text-red-500">
                     {error.errorObjective}
                   </span>
@@ -665,15 +678,21 @@ const CourseEditor = () => {
                       <input
                         className="p-2 bg-surface-bg rounded-[8px] w-full"
                         value={value.lessonName}
-                        onChange={(e) =>
+                        onChange={(e) => {
                           handleSetLesson({
                             fieldName: "lessonName",
                             index,
                             e,
                             array: lessons,
                             setArray: setLessons,
-                          })
-                        }
+                          });
+                          handleSetErrorLesson({
+                            fieldName: "errorLessonName",
+                            index,
+                            array: errorLessons,
+                            setArray: setErrorLessons,
+                          });
+                        }}
                         type="text"
                         placeholder="Giới thiệu về React"
                       />
@@ -705,17 +724,35 @@ const CourseEditor = () => {
                             return;
                           }
                           const id = getYouTubeId(videoUrl);
-                          const result = await axios.get(
-                            `https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=${id}&key=${
-                              import.meta.env.VITE_API_KEY_YOUTUBE
-                            }`
-                          );
-                          const duration =
-                            result?.data?.items[0]?.contentDetails?.duration;
-                          const second = durationToSecond(duration);
-                          const newArray = [...lessons];
-                          newArray[index].duration = second;
-                          setLessons(newArray);
+                          try {
+                            const result = await axios.get(
+                              `https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=${id}&key=${
+                                import.meta.env.VITE_API_KEY_YOUTUBE
+                              }`
+                            );
+                            const duration =
+                              result?.data?.items[0]?.contentDetails?.duration;
+                            const second = durationToSecond(duration);
+                            const newArray = [...lessons];
+                            newArray[index].duration = second;
+                            setLessons(newArray);
+                            handleSetErrorLesson({
+                              fieldName: "errorVideoUrl",
+                              index,
+                              array: errorLessons,
+                              setArray: setErrorLessons,
+                            });
+                            handleSetErrorLesson({
+                              fieldName: "errorDuration",
+                              index,
+                              array: errorLessons,
+                              setArray: setErrorLessons,
+                            });
+                          } catch (error) {
+                            const status = error.status;
+                            const message = error.message;
+                            console.log(status, message);
+                          }
                         }}
                         type="text"
                         placeholder="https://www.youtube.com/watch?v=GQ-toR8F7rc"

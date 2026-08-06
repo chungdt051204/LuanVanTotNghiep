@@ -38,7 +38,11 @@ const Instructors = () => {
   const [idx, setIdx] = useState(0);
   const [message, setMessage] = useState("");
   const confirmDialog = useRef(0);
-
+  const [isApproved, setIsApproved] = useState(false);
+  const [isRejected, setIsRejected] = useState(false);
+  const [reason, setReason] = useState("");
+  const verifiedStatus = isApproved ? "VERIFIED" : "REJECTED";
+  const rejectDialog = useRef();
   useEffect(() => {
     const getInstructors = async () => {
       try {
@@ -71,6 +75,43 @@ const Instructors = () => {
       toast.success(
         result?.message || "Vô hiệu hóa/Kích hoạt tài khoản thành công"
       );
+    } catch (error) {
+      const status = error.status;
+      const message = error.data.message;
+      console.log(status, message);
+    }
+  };
+  const handleApprovedOrRejectedInstructor = async () => {
+    if (isRejected) {
+      confirmDialog?.current?.close();
+      rejectDialog?.current?.showModal();
+    } else if (isApproved) {
+      try {
+        const result = await userService.approvedOrRejectedInstructor({
+          instructorId: instructor?._id,
+          status: verifiedStatus,
+          message: { message: reason },
+        });
+        toast.success(result?.message || "Duyệt tài khoản thành công");
+        confirmDialog?.current?.close();
+        setRefresh((prev) => prev + 1);
+      } catch (error) {
+        const status = error.status;
+        const message = error.data.message;
+        console.log(status, message);
+      }
+    }
+  };
+  const handleRejectedInstructor = async () => {
+    try {
+      const result = await userService.approvedOrRejectedInstructor({
+        instructorId: instructor?._id,
+        status: verifiedStatus,
+        message: { message: reason },
+      });
+      toast.success(result?.message || "Từ chối tài khoản thành công");
+      rejectDialog?.current?.close();
+      setRefresh((prev) => prev + 1);
     } catch (error) {
       const status = error.status;
       const message = error.data.message;
@@ -135,10 +176,10 @@ const Instructors = () => {
             <table className="border-separate border-spacing-0 overflow-hidden border-1 border-surface-bg rounded-[16px] mt-6">
               <thead>
                 <tr className="flex items-center justify-between text-surface-nav font-medium">
-                  <td className="w-[35%] p-2">Giảng viên</td>
-                  <td className="w-[10%]">Khóa học</td>
+                  <td className="w-[25%] p-2">Giảng viên</td>
+                  <td className="w-[18%]">Trạng thái xác thực</td>
                   <td className="w-[15%] text-center">Trạng thái</td>
-                  <td className="w-[20%] p-2 text-right">Thao tác</td>
+                  <td className="w-[30%] p-2 text-right">Thao tác</td>
                 </tr>
               </thead>
               <tbody>
@@ -148,7 +189,7 @@ const Instructors = () => {
                       className="flex justify-between items-center border border-surface-bg hover:bg-surface-bg"
                       key={value?.item?._id}
                     >
-                      <td className="flex items-center gap-x-2 w-[35%] p-2">
+                      <td className="flex items-center gap-x-2 w-[25%] p-2">
                         <img
                           className="w-[40px] h-[40px] rounded-[1000px] object-cover"
                           src={value?.item?.avatar}
@@ -162,8 +203,24 @@ const Instructors = () => {
                           </p>
                         </div>
                       </td>
-                      <td className="w-[10%] text-title-sm text-surface-nav">
-                        {value?.numberCourse}
+                      <td
+                        className={`w-[15%] text-body-md text-center font-medium rounded-[8px] ${
+                          value?.item?.verified_status === "NOT_VERIFIED"
+                            ? "bg-orange-100 text-orange-700"
+                            : value?.item?.verified_status === "PENDING"
+                            ? "bg-gray-100 text-gray-700"
+                            : value?.item?.verified_status === "REJECTED"
+                            ? "bg-red-100 text-red-700"
+                            : "bg-green-100 text-green-700"
+                        }`}
+                      >
+                        {value?.item?.verified_status === "NOT_VERIFIED"
+                          ? "Chưa xác thực"
+                          : value?.item?.verified_status === "PENDING"
+                          ? "Chờ xác thực"
+                          : value?.item?.verified_status === "REJECTED"
+                          ? "Bị từ chối"
+                          : "Đã xác thực"}
                       </td>
                       <td className="w-[15%]">
                         <p
@@ -178,12 +235,48 @@ const Instructors = () => {
                             : "Ngừng hoạt động"}
                         </p>
                       </td>
-                      <td className="flex justify-end gap-x-2 items-center w-[20%] pe-2">
-                        <IoEyeOutline
-                          onClick={() =>
-                            navigate(`/admin/instructor/${value?.item?._id}`)
-                          }
-                        />
+                      <td className="flex justify-end gap-x-2 items-center w-[30%] pe-2">
+                        {value?.item?.verified_status === "PENDING" && (
+                          <div className="flex gap-x-2">
+                            <button
+                              onClick={() => {
+                                const instructorId = value?.item?._id;
+                                const instructor =
+                                  instructors?.arrayInstructor?.find(
+                                    (value) => value?.item?._id == instructorId
+                                  );
+                                setIsApproved(true);
+                                setInstructor(instructor?.item);
+                                setMessage(
+                                  "Bạn có muốn duyệt tài khoản giảng viên này không ?"
+                                );
+                                confirmDialog?.current?.showModal();
+                              }}
+                              className="px-2 py-1 bg-green-700 text-body-lg text-surface-white rounded-[8px] transition-transform duration-300 hover:text-surface-bg hover:cursor-pointer"
+                            >
+                              Duyệt
+                            </button>
+                            <button
+                              onClick={() => {
+                                const instructorId = value?.item?._id;
+                                const instructor =
+                                  instructors?.arrayInstructor?.find(
+                                    (value) => value?.item?._id == instructorId
+                                  );
+                                setIsApproved(false);
+                                setIsRejected(true);
+                                setInstructor(instructor?.item);
+                                setMessage(
+                                  "Bạn có muốn từ chối tài khoản giảng viên này không ?"
+                                );
+                                confirmDialog?.current?.showModal();
+                              }}
+                              className="px-2 py-1 bg-brand-primary text-body-lg text-surface-white rounded-[8px] transition-transform duration-300 hover:text-surface-bg hover:cursor-pointer"
+                            >
+                              Từ chối
+                            </button>
+                          </div>
+                        )}
                         <button
                           onClick={() => {
                             const instructorId = value?.item?._id;
@@ -207,6 +300,11 @@ const Instructors = () => {
                         >
                           {value?.item?.status ? "Vô hiệu hóa" : "Kích hoạt"}
                         </button>
+                        <IoEyeOutline
+                          onClick={() =>
+                            navigate(`/admin/instructor/${value?.item?._id}`)
+                          }
+                        />
                       </td>
                     </tr>
                   );
@@ -222,8 +320,44 @@ const Instructors = () => {
       <ConfirmDialog
         ref={confirmDialog}
         message={message}
-        handleClick={handleUpdateStatusInstructor}
+        handleClick={
+          isApproved || isRejected
+            ? handleApprovedOrRejectedInstructor
+            : handleUpdateStatusInstructor
+        }
       />
+      <dialog
+        ref={rejectDialog}
+        className="w-[480px] p-4 m-auto rounded-[8px] shadow-lg"
+      >
+        <input
+          value={reason}
+          onChange={(e) => setReason(e.target.value)}
+          className="w-full outline-none p-2 rounded-[8px] text-body-lg border border-gray-300"
+          type="text"
+          placeholder="Nhập lý do từ chối"
+        />
+        <div className="flex flex-col items-end mt-4">
+          <div className="flex gap-x-4 text-title-sm">
+            <button
+              className="px-6 py-2 border border-gray-300 rounded-[8px] transition-transform duration-300 hover:cursor-pointer"
+              onClick={() => {
+                setIsRejected(false);
+                rejectDialog?.current?.close();
+                confirmDialog?.current?.showModal();
+              }}
+            >
+              Hủy
+            </button>
+            <button
+              className="px-6 py-2 bg-blue-600 rounded-[8px] text-surface-white transition-transform duration-300 hover:text-surface-bg hover:cursor-pointer"
+              onClick={handleRejectedInstructor}
+            >
+              Xác nhận
+            </button>
+          </div>
+        </div>
+      </dialog>
     </>
   );
 };

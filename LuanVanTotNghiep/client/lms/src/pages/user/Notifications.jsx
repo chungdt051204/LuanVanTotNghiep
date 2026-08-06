@@ -11,7 +11,7 @@ import {
 } from "../../stores/features/notificationSlice";
 import { LuInbox } from "react-icons/lu";
 import { AnimatePresence, motion } from "framer-motion";
-import { socket } from "../../../socket";
+import Footer from "../../components/Footer";
 
 const Notifications = () => {
   const navigate = useNavigate();
@@ -47,10 +47,6 @@ const Notifications = () => {
   };
   useEffect(() => {
     if (!sessionStorage.getItem("token")) {
-      navigate("/");
-      return;
-    }
-    if (!isLoading && me?.role_id?.role !== "user") {
       navigate("/");
       return;
     }
@@ -161,7 +157,7 @@ const Notifications = () => {
                           <IoBookOutline className="text-headline-md text-brand-blue" />
                         )}
                       </div>
-                      <div className="flex flex-col gap-y-2 w-[85%]">
+                      <div className="flex flex-col gap-y-2">
                         <p className="text-headline-sm text-surface-nav font-medium">
                           {value.title}
                         </p>

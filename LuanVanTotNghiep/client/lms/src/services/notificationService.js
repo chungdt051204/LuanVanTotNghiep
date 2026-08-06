@@ -1,6 +1,6 @@
 import { axiosClient } from "./axiosClient";
 export const notificationService = {
-  getNotificationsByUser: async () => {
+  getNotifications: async () => {
     const response = await axiosClient.get("/notifications");
     return response;
   },
