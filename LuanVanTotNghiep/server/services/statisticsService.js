@@ -5,10 +5,10 @@ import orderEntity from "../models/orderModel.js";
 import userEntity from "../models/userModel.js";
 import roleEntity from "../models/roleModel.js";
 import dayjs from "dayjs";
+const startOfMonth = dayjs().startOf("month").toDate();
+const endOfMonth = dayjs().endOf("month").toDate();
 export class StatisticsService {
   getStatisticsByInstructor = async ({ instructorId }) => {
-    const startOfMonth = dayjs().startOf("year").toDate();
-    const endOfMonth = dayjs().endOf("year").toDate();
     const orders = await orderEntity.find({
       payment_status: { $in: ["PARTIAL_PAID", "PAID"] },
     });
@@ -43,7 +43,7 @@ export class StatisticsService {
       },
       {
         $sort: {
-          _id: -1,
+          _id: 1,
         },
       },
     ]);
@@ -119,6 +119,9 @@ export class StatisticsService {
               payment_status: {
                 $in: ["PARTIAL_PAID", "PAID"],
               },
+            },
+            {
+              updatedAt: { $gte: startOfMonth, $lte: endOfMonth },
             },
           ],
         },
@@ -243,10 +246,14 @@ export class StatisticsService {
       totalRevenue,
       adminProfit,
       profitAndRevenueStats,
-      top5BestSellerCourses,
-      top5HighestRevenueCourses,
+      top5BestSellerCourses: top5BestSellerCourses?.filter(
+        (value) => value?.count >= 5
+      ),
+      top5HighestRevenueCourses: top5HighestRevenueCourses?.filter(
+        (value) => value?.revenue >= 1000000
+      ),
       top5HighestRatingCourses: top5HighestRatingCourses?.filter(
-        (value) => value.rating_star != 0
+        (value) => value?.rating_star != 0
       ),
     };
   };

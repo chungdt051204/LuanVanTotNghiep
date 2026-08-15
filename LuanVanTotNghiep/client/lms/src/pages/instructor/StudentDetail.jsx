@@ -28,7 +28,7 @@ const StudentDetail = () => {
     studentInfo?.arrayEnrollment?.forEach((value) => {
       sum = sum + value?.item?.progress_percent;
     });
-    return Math.floor(sum / studentInfo?.arrayEnrollment?.length);
+    return Math.floor(sum / studentInfo?.totalEnrollments);
   };
   useEffect(() => {
     if (id) {
@@ -142,6 +142,7 @@ const StudentDetail = () => {
         </div>
         <div className="flex flex-col gap-y-6 mt-6">
           {studentInfo?.arrayEnrollment?.map((value) => {
+            const isCompleted = value?.item?.progress_percent == 100;
             return (
               <div
                 className="flex flex-col gap-y-4 p-5 shadow-sm rounded-[16px]"
@@ -240,31 +241,33 @@ const StudentDetail = () => {
                     </div>
                   </div>
                 )}
-                <div className="flex justify-between">
-                  <input
-                    className="px-4 py-2 w-[90%] bg-gray-50 rounded-[8px] outline-none"
-                    onChange={(e) =>
-                      setComment((prev) => ({
-                        ...prev,
-                        [value?.item?.course_id?._id]: e.target.value,
-                      }))
-                    }
-                    value={comment?.[value?.item?.course_id?._id] || ""}
-                    type="text"
-                    placeholder="Nhập đánh giá của bạn"
-                  />
-                  <button
-                    onClick={() =>
-                      handlePostComment({
-                        courseId: value?.item?.course_id?._id,
-                        courseName: value?.item?.course_id?.course_name,
-                      })
-                    }
-                    className="px-4 py-1 bg-surface-nav text-title-lg text-surface-white rounded-[8px] transition-transform hover:cursor-pointer hover:text-surface-bg"
-                  >
-                    Gửi
-                  </button>
-                </div>
+                {isCompleted && (
+                  <div className="flex justify-between">
+                    <input
+                      className="px-4 py-2 w-[90%] bg-gray-50 rounded-[8px] outline-none"
+                      onChange={(e) =>
+                        setComment((prev) => ({
+                          ...prev,
+                          [value?.item?.course_id?._id]: e.target.value,
+                        }))
+                      }
+                      value={comment?.[value?.item?.course_id?._id] || ""}
+                      type="text"
+                      placeholder="Nhập đánh giá của bạn"
+                    />
+                    <button
+                      onClick={() =>
+                        handlePostComment({
+                          courseId: value?.item?.course_id?._id,
+                          courseName: value?.item?.course_id?.course_name,
+                        })
+                      }
+                      className="px-4 py-1 bg-surface-nav text-title-lg text-surface-white rounded-[8px] transition-transform hover:cursor-pointer hover:text-surface-bg"
+                    >
+                      Gửi
+                    </button>
+                  </div>
+                )}
               </div>
             );
           })}

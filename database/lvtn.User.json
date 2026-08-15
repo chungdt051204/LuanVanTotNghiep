@@ -1,0 +1,268 @@
+[{
+  "_id": {
+    "$oid": "6a057e0b304bd6e262f58be2"
+  },
+  "full_name": "Thành Chung",
+  "email": "thanhchung@gmail.com",
+  "password": "$2b$10$DMRX1fECdansezWpKZnEX.zDCCZaVfgnIMb0XTjzVHmNhsLHvgCYi",
+  "avatar": "https://res.cloudinary.com/dk45c0kqo/image/upload/v1786103665/User/hhpbxiis6d85c7ujz9gi.jpg",
+  "role_id": {
+    "$oid": "6a0570bd31b2d9b8c29e4b1d"
+  },
+  "login_method": "email thường",
+  "status": true,
+  "createdAt": {
+    "$date": "2026-05-14T07:47:23.551Z"
+  },
+  "updatedAt": {
+    "$date": "2026-08-07T23:48:37.375Z"
+  },
+  "__v": 0,
+  "phone": "0933898121",
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2YTA1N2UwYjMwNGJkNmUyNjJmNThiZTIiLCJpYXQiOjE3ODYxNDY1MTcsImV4cCI6MTc4NjE1MDExN30.TIiHLOVz-xRGpAk7HH3f43tbsgeLCMMSEz4i8kE5wM0"
+},
+{
+  "_id": {
+    "$oid": "6a057fa784acf534256a1f5c"
+  },
+  "full_name": "Giảng viên A",
+  "email": "giangviena@gmail.com",
+  "password": "$2b$10$QcfYupC2E1kKOwKCXkgv6eUHnQ5P0/OW5FDYbfOAVKYWC4IwPp4IW",
+  "avatar": "https://static.vecteezy.com/system/resources/previews/019/879/186/non_2x/user-icon-on-transparent-background-free-png.png",
+  "role_id": {
+    "$oid": "6a0570d631b2d9b8c29e4b1e"
+  },
+  "login_method": "email thường",
+  "status": true,
+  "createdAt": {
+    "$date": "2026-05-14T07:54:15.764Z"
+  },
+  "updatedAt": {
+    "$date": "2026-08-06T11:57:33.692Z"
+  },
+  "__v": 0,
+  "experience": 2,
+  "level": "Cử nhân",
+  "verified_status": "VERIFIED",
+  "balance": 1209600,
+  "access_token": null,
+  "back_id_card": "https://res.cloudinary.com/dk45c0kqo/image/upload/v1786014691/User/w4xj5cm8muhnoqlqruta.jpg",
+  "degree_certificate": "https://res.cloudinary.com/dk45c0kqo/image/upload/v1786014691/User/snoc3mgdm205x16yhw0p.jpg",
+  "front_id_card": "https://res.cloudinary.com/dk45c0kqo/image/upload/v1786014691/User/xpgo1hcmgr5l7ivgunfs.jpg"
+},
+{
+  "_id": {
+    "$oid": "6a0581183b01101c7fa9235f"
+  },
+  "full_name": "Do Chung",
+  "email": "chungdo051204@gmail.com",
+  "avatar": "https://res.cloudinary.com/dk45c0kqo/image/upload/v1783220734/User/vbrvg93lfb24hl7y5s94.jpg",
+  "role_id": {
+    "$oid": "6a0570bd31b2d9b8c29e4b1d"
+  },
+  "login_method": "google",
+  "status": true,
+  "createdAt": {
+    "$date": "2026-05-14T08:00:24.936Z"
+  },
+  "updatedAt": {
+    "$date": "2026-07-05T03:04:35.398Z"
+  },
+  "__v": 0,
+  "password": "$2b$10$Un0TUKlbWH3AhpnhVbjuWe3n341tnnEpkfpyIlWk2zLdPpqotfJAi",
+  "phone": "0933898120"
+},
+{
+  "_id": {
+    "$oid": "6a07e454241f5e8f0ff0e678"
+  },
+  "full_name": "Giảng viên B",
+  "email": "giangvienb@gmail.com",
+  "password": "$2b$10$WehEKHwcxH1YJXpNQzf3Pu/Pq3eGCd64QT5fizehCQ5Pm7YY8DDnm",
+  "avatar": "https://static.vecteezy.com/system/resources/previews/019/879/186/non_2x/user-icon-on-transparent-background-free-png.png",
+  "role_id": {
+    "$oid": "6a0570d631b2d9b8c29e4b1e"
+  },
+  "login_method": "email thường",
+  "status": true,
+  "createdAt": {
+    "$date": "2026-05-16T03:28:20.194Z"
+  },
+  "updatedAt": {
+    "$date": "2026-08-08T02:19:54.648Z"
+  },
+  "__v": 0,
+  "experience": 2,
+  "level": "Thạc sĩ",
+  "verified_status": "VERIFIED",
+  "balance": 1936000,
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2YTA3ZTQ1NDI0MWY1ZThmMGZmMGU2NzgiLCJpYXQiOjE3ODYxNTU1OTQsImV4cCI6MTc4NjE1OTE5NH0.pEwKDnMS-2iv7v9JWG0tSPpQkXCgMdE8hArmOE43v9k",
+  "back_id_card": "https://res.cloudinary.com/dk45c0kqo/image/upload/v1786014522/User/tmfyyiibcemxr3f9wgum.jpg",
+  "degree_certificate": "https://res.cloudinary.com/dk45c0kqo/image/upload/v1786014522/User/kyri1fquwlr4j8mrrifw.jpg",
+  "front_id_card": "https://res.cloudinary.com/dk45c0kqo/image/upload/v1786014522/User/ckurk2ffum5vprjefnbx.jpg"
+},
+{
+  "_id": {
+    "$oid": "6a0d789d1a806538af4e7f22"
+  },
+  "full_name": "Admin",
+  "email": "admin@gmail.com",
+  "password": "$2b$10$7YnJzPKbtRu0oB.zXbhaHuaqtVsNGpw2TlpsT1myXIUB.PItuULtO",
+  "avatar": "https://static.vecteezy.com/system/resources/previews/019/879/186/non_2x/user-icon-on-transparent-background-free-png.png",
+  "role_id": {
+    "$oid": "6a0570e231b2d9b8c29e4b1f"
+  },
+  "login_method": "email thường",
+  "status": true,
+  "createdAt": {
+    "$date": "2026-05-20T09:02:21.386Z"
+  },
+  "updatedAt": {
+    "$date": "2026-08-09T03:11:56.838Z"
+  },
+  "__v": 0,
+  "balance": 976400,
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2YTBkNzg5ZDFhODA2NTM4YWY0ZTdmMjIiLCJpYXQiOjE3ODYyNDUxMTYsImV4cCI6MTc4NjI0ODcxNn0.-EEoEHP73fyy5VJXtGgke8cAfGl_z-bAgzCkp3_IBr0"
+},
+{
+  "_id": {
+    "$oid": "6a151d1be9acd59370a1eb2d"
+  },
+  "full_name": "Mizuhara Chizuru",
+  "email": "mizuhara051204@gmail.com",
+  "avatar": "https://lh3.googleusercontent.com/a/ACg8ocKfvAmTJBCkw-_6QhdyZJanNXCxixwyLwW_LF82DUmwl6aCxg=s96-c",
+  "role_id": {
+    "$oid": "6a0570bd31b2d9b8c29e4b1d"
+  },
+  "login_method": "google",
+  "status": true,
+  "createdAt": {
+    "$date": "2026-05-26T04:10:03.589Z"
+  },
+  "updatedAt": {
+    "$date": "2026-05-26T04:10:03.589Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a16311e1cbdb9d6896d6104"
+  },
+  "full_name": "Lu Anh Hao",
+  "email": "AnhLao22@gmail.com",
+  "password": "$2b$10$NF4hRraUrpb0yYqI49yPguRFWd04LgT7ivsR3.7vqmOhPCHqKpNbi",
+  "avatar": "https://static.vecteezy.com/system/resources/previews/019/879/186/non_2x/user-icon-on-transparent-background-free-png.png",
+  "role_id": {
+    "$oid": "6a0570d631b2d9b8c29e4b1e"
+  },
+  "login_method": "email thường",
+  "status": true,
+  "createdAt": {
+    "$date": "2026-05-26T23:47:42.690Z"
+  },
+  "updatedAt": {
+    "$date": "2026-08-06T11:57:48.353Z"
+  },
+  "__v": 0,
+  "verified_status": "VERIFIED",
+  "balance": 760000,
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2YTE2MzExZTFjYmRiOWQ2ODk2ZDYxMDQiLCJpYXQiOjE3ODYwMTc0NjgsImV4cCI6MTc4NjAyMTA2OH0.7O12D-yBe0ZVkZ3y6swzNEKVO09IuWXRhn_bLwNIslM",
+  "back_id_card": "https://res.cloudinary.com/dk45c0kqo/image/upload/v1786014820/User/azc2zkanl9augiue37bb.jpg",
+  "degree_certificate": "https://res.cloudinary.com/dk45c0kqo/image/upload/v1786014820/User/eco4bulgkapblviley85.jpg",
+  "front_id_card": "https://res.cloudinary.com/dk45c0kqo/image/upload/v1786014820/User/dcy5uqnoeyflidjqnytw.jpg"
+},
+{
+  "_id": {
+    "$oid": "6a1634111cbdb9d6896d6110"
+  },
+  "full_name": "Lư Anh Hào D22_TH01",
+  "email": "luanhhao491@gmail.com",
+  "avatar": "https://lh3.googleusercontent.com/a/ACg8ocIlWmYGNDk26oJB2ANiVu2fjEqJY2aYQBEqvkHd11-_Fftagg=s96-c",
+  "role_id": {
+    "$oid": "6a0570bd31b2d9b8c29e4b1d"
+  },
+  "login_method": "google",
+  "status": false,
+  "createdAt": {
+    "$date": "2026-05-27T00:00:17.468Z"
+  },
+  "updatedAt": {
+    "$date": "2026-08-03T12:09:15.206Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a29f581a0021c2b915c401e"
+  },
+  "full_name": "Chung Đỗ ",
+  "email": "chung051204@gmail.com",
+  "avatar": "https://lh3.googleusercontent.com/a/ACg8ocIsWpxFBWhq3wWvpUz-ikg8tS1vKfEYmEEk69S2ZBuJyp5GSA=s96-c",
+  "role_id": {
+    "$oid": "6a0570bd31b2d9b8c29e4b1d"
+  },
+  "login_method": "google",
+  "status": true,
+  "createdAt": {
+    "$date": "2026-06-10T23:38:41.053Z"
+  },
+  "updatedAt": {
+    "$date": "2026-08-08T02:35:29.576Z"
+  },
+  "__v": 0,
+  "phone": "0933898120",
+  "password": "$2b$10$We1xeIrNQIfLGPQ8pGXdJOxQRvpnItTP8YHy0wsJyuTNdgnUQJYT6",
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2YTI5ZjU4MWEwMDIxYzJiOTE1YzQwMWUiLCJpYXQiOjE3ODYxNTY1MjksImV4cCI6MTc4NjE2MDEyOX0.nBtMPwmMMKaApWJVEzcZjstR_WVsHStEAKazsnbfjJY"
+},
+{
+  "_id": {
+    "$oid": "6a71bdac8eb051c2eac5797d"
+  },
+  "full_name": "Giảng viên C",
+  "email": "giangvienc@gmail.com",
+  "password": "$2b$10$yzg1KNvEWuSEdkoMA83FNeUp/a3Hixmpfu/cyG2L9IJBM5kZRoJ/G",
+  "avatar": "https://static.vecteezy.com/system/resources/previews/019/879/186/non_2x/user-icon-on-transparent-background-free-png.png",
+  "role_id": {
+    "$oid": "6a0570d631b2d9b8c29e4b1e"
+  },
+  "login_method": "email thường",
+  "status": true,
+  "createdAt": {
+    "$date": "2026-08-04T10:23:40.584Z"
+  },
+  "updatedAt": {
+    "$date": "2026-08-05T10:32:24.328Z"
+  },
+  "__v": 0,
+  "verified_status": "PENDING",
+  "back_id_card": "https://res.cloudinary.com/dk45c0kqo/image/upload/v1785925718/User/msx9ydgnukcrp7l3fxum.jpg",
+  "front_id_card": "https://res.cloudinary.com/dk45c0kqo/image/upload/v1785925717/User/pxyteiydhfsdwx29hjr8.jpg",
+  "degree_certificate": "https://res.cloudinary.com/dk45c0kqo/image/upload/v1785925719/User/an9p9eidhnuxtffhqw0n.jpg",
+  "phone": "0933898121"
+},
+{
+  "_id": {
+    "$oid": "6a7694e96c00e9ed77be14d3"
+  },
+  "full_name": "Giảng viên D",
+  "email": "giangviend@gmail.com",
+  "password": "$2b$10$nenJUR/5/fNmKIKgct5PleZd/JKJpItJ9ArRyxoLEq8XjWLYwonQW",
+  "avatar": "https://static.vecteezy.com/system/resources/previews/019/879/186/non_2x/user-icon-on-transparent-background-free-png.png",
+  "role_id": {
+    "$oid": "6a0570d631b2d9b8c29e4b1e"
+  },
+  "login_method": "email thường",
+  "status": true,
+  "createdAt": {
+    "$date": "2026-08-08T02:31:05.726Z"
+  },
+  "updatedAt": {
+    "$date": "2026-08-08T02:34:20.363Z"
+  },
+  "__v": 0,
+  "verified_status": "VERIFIED",
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2YTc2OTRlOTZjMDBlOWVkNzdiZTE0ZDMiLCJpYXQiOjE3ODYxNTYyOTksImV4cCI6MTc4NjE1OTg5OX0.LI9669qW4hU1PiyXXzgrVA7KimwT7HvCUwFkkwXZiOA",
+  "back_id_card": "https://res.cloudinary.com/dk45c0kqo/image/upload/v1786156428/User/p2jkmulee9qsr8qyeejw.jpg",
+  "degree_certificate": "https://res.cloudinary.com/dk45c0kqo/image/upload/v1786156428/User/ikwgi6no6a3ovci7vizz.jpg",
+  "front_id_card": "https://res.cloudinary.com/dk45c0kqo/image/upload/v1786156427/User/n2rc5td17pvjb5vystyz.jpg"
+}]

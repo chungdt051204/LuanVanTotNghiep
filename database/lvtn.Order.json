@@ -1,0 +1,554 @@
+[{
+  "_id": {
+    "$oid": "6a28d40e8c34e4b9d196147f"
+  },
+  "user_id": {
+    "$oid": "6a151d1be9acd59370a1eb2d"
+  },
+  "full_name": "Mizuhara Chizuru",
+  "email": "mizuhara051204@gmail.com",
+  "cart_item_ids": [
+    "6a28d3b98495a5d2ea7cc572"
+  ],
+  "payment_method": "ZALOPAY",
+  "payment_status": "FAILED",
+  "total_amount": 299000,
+  "transaction_id": "260610_1781060622437",
+  "createdAt": {
+    "$date": "2026-06-10T03:03:42.428Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-10T03:03:48.413Z"
+  },
+  "__v": 0,
+  "applied_amount": 0
+},
+{
+  "_id": {
+    "$oid": "6a28d44e8c34e4b9d1961483"
+  },
+  "user_id": {
+    "$oid": "6a151d1be9acd59370a1eb2d"
+  },
+  "full_name": "Mizuhara Chizuru",
+  "email": "mizuhara051204@gmail.com",
+  "cart_item_ids": [
+    "6a28d3b98495a5d2ea7cc572",
+    "6a28d4258c34e4b9d1961482"
+  ],
+  "payment_method": "ZALOPAY",
+  "payment_status": "PARTIAL_PAID",
+  "total_amount": 686000,
+  "transaction_id": "260626_1782479695860",
+  "createdAt": {
+    "$date": "2026-06-10T03:04:46.707Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-26T13:14:56.141Z"
+  },
+  "__v": 0,
+  "applied_amount": 536500
+},
+{
+  "_id": {
+    "$oid": "6a28ec3fab9474efe23e0b4a"
+  },
+  "user_id": {
+    "$oid": "6a151d1be9acd59370a1eb2d"
+  },
+  "full_name": "Mizuhara Chizuru",
+  "email": "mizuhara051204@gmail.com",
+  "cart_item_ids": [
+    "6a2173ab28f8e420660b3d2a"
+  ],
+  "payment_method": "ZALOPAY",
+  "payment_status": "FAILED",
+  "total_amount": 325000,
+  "transaction_id": "260610_1781066815643",
+  "createdAt": {
+    "$date": "2026-06-10T04:46:55.629Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-10T04:47:01.952Z"
+  },
+  "__v": 0,
+  "applied_amount": 0
+},
+{
+  "_id": {
+    "$oid": "6a28f07e2494678e42d4e325"
+  },
+  "user_id": {
+    "$oid": "6a151d1be9acd59370a1eb2d"
+  },
+  "full_name": "Mizuhara Chizuru",
+  "email": "mizuhara051204@gmail.com",
+  "cart_item_ids": [
+    "6a2173ab28f8e420660b3d2a"
+  ],
+  "payment_method": "ZALOPAY",
+  "payment_status": "FAILED",
+  "total_amount": 325000,
+  "transaction_id": "260610_1781067902484",
+  "createdAt": {
+    "$date": "2026-06-10T05:05:02.473Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-10T05:05:08.859Z"
+  },
+  "__v": 0,
+  "applied_amount": 0
+},
+{
+  "_id": {
+    "$oid": "6a295fa4a342602747041d95"
+  },
+  "user_id": {
+    "$oid": "6a0581183b01101c7fa9235f"
+  },
+  "full_name": "Do Chung",
+  "email": "chungdo051204@gmail.com",
+  "cart_item_ids": [
+    "6a27a94299f6f7e9b0bf544b"
+  ],
+  "payment_method": "ZALOPAY",
+  "payment_status": "FAILED",
+  "total_amount": 325000,
+  "transaction_id": "260610_1781096356978",
+  "createdAt": {
+    "$date": "2026-06-10T12:59:16.928Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-10T12:59:24.441Z"
+  },
+  "__v": 0,
+  "applied_amount": 0
+},
+{
+  "_id": {
+    "$oid": "6a296992d63e8a0dd653a907"
+  },
+  "user_id": {
+    "$oid": "6a0581183b01101c7fa9235f"
+  },
+  "full_name": "Do Chung",
+  "email": "chungdo051204@gmail.com",
+  "cart_item_ids": [
+    "6a27a94299f6f7e9b0bf544b"
+  ],
+  "payment_method": "ZALOPAY",
+  "payment_status": "PAID",
+  "total_amount": 325000,
+  "transaction_id": "260626_1782478578320",
+  "createdAt": {
+    "$date": "2026-06-10T13:41:38.305Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-26T12:56:25.310Z"
+  },
+  "__v": 0,
+  "applied_amount": 325000
+},
+{
+  "_id": {
+    "$oid": "6a2b726c0c83ac9d5d801353"
+  },
+  "user_id": {
+    "$oid": "6a29f581a0021c2b915c401e"
+  },
+  "full_name": "Chung Đỗ",
+  "email": "chung051204@gmail.com",
+  "cart_item_ids": [
+    "6a2a06862ffedfc144059809"
+  ],
+  "payment_method": "ZALOPAY",
+  "payment_status": "FAILED",
+  "total_amount": 397000,
+  "transaction_id": "260612_1781232236996",
+  "createdAt": {
+    "$date": "2026-06-12T02:43:56.947Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-12T02:44:20.233Z"
+  },
+  "__v": 0,
+  "applied_amount": 0
+},
+{
+  "_id": {
+    "$oid": "6a2b7c93b95e186ae816e04c"
+  },
+  "user_id": {
+    "$oid": "6a29f581a0021c2b915c401e"
+  },
+  "full_name": "Chung Đỗ",
+  "email": "chung051204@gmail.com",
+  "cart_item_ids": [
+    "6a2a06862ffedfc144059809"
+  ],
+  "payment_method": "ZALOPAY",
+  "payment_status": "PAID",
+  "total_amount": 387000,
+  "transaction_id": "260612_1781234835815",
+  "createdAt": {
+    "$date": "2026-06-12T03:27:15.806Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-12T03:28:49.072Z"
+  },
+  "__v": 0,
+  "applied_amount": 387000
+},
+{
+  "_id": {
+    "$oid": "6a2bb335f6629d4753068956"
+  },
+  "user_id": {
+    "$oid": "6a0581183b01101c7fa9235f"
+  },
+  "full_name": "Do Chung",
+  "email": "chungdo051204@gmail.com",
+  "cart_item_ids": [
+    "6a2bb314f6629d4753068955"
+  ],
+  "payment_method": "ZALOPAY",
+  "payment_status": "FAILED",
+  "total_amount": 299000,
+  "transaction_id": "260612_1781248821607",
+  "createdAt": {
+    "$date": "2026-06-12T07:20:21.518Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-12T07:20:32.686Z"
+  },
+  "__v": 0,
+  "applied_amount": 0
+},
+{
+  "_id": {
+    "$oid": "6a2bb35df6629d4753068959"
+  },
+  "user_id": {
+    "$oid": "6a0581183b01101c7fa9235f"
+  },
+  "full_name": "Do Chung",
+  "email": "chungdo051204@gmail.com",
+  "cart_item_ids": [
+    "6a2bb314f6629d4753068955"
+  ],
+  "payment_method": "ZALOPAY",
+  "payment_status": "PAID",
+  "total_amount": 299000,
+  "transaction_id": "260612_1781248861761",
+  "createdAt": {
+    "$date": "2026-06-12T07:21:01.753Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-12T07:21:43.671Z"
+  },
+  "__v": 0,
+  "applied_amount": 299000
+},
+{
+  "_id": {
+    "$oid": "6a2bb473f6629d475306895e"
+  },
+  "user_id": {
+    "$oid": "6a151d1be9acd59370a1eb2d"
+  },
+  "full_name": "Mizuhara Chizuru",
+  "email": "mizuhara051204@gmail.com",
+  "cart_item_ids": [
+    "6a2173ab28f8e420660b3d2a"
+  ],
+  "payment_method": "ZALOPAY",
+  "payment_status": "PAID",
+  "total_amount": 325000,
+  "transaction_id": "260612_1781249139271",
+  "createdAt": {
+    "$date": "2026-06-12T07:25:39.265Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-12T07:26:10.214Z"
+  },
+  "__v": 0,
+  "applied_amount": 325000
+},
+{
+  "_id": {
+    "$oid": "6a30d5f79d92a6827dccc766"
+  },
+  "user_id": {
+    "$oid": "6a29f581a0021c2b915c401e"
+  },
+  "full_name": "Chung Đỗ",
+  "email": "chung051204@gmail.com",
+  "cart_item_ids": [
+    "6a30d5ea9d92a6827dccc765"
+  ],
+  "payment_method": "ZALOPAY",
+  "payment_status": "PAID",
+  "total_amount": 299000,
+  "transaction_id": "260616_1781611053458",
+  "createdAt": {
+    "$date": "2026-06-16T04:49:59.224Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-16T11:58:10.335Z"
+  },
+  "__v": 0,
+  "applied_amount": 299000
+},
+{
+  "_id": {
+    "$oid": "6a3128eec991e67a143a8d06"
+  },
+  "user_id": {
+    "$oid": "6a29f581a0021c2b915c401e"
+  },
+  "full_name": "Chung Đỗ",
+  "email": "chung051204@gmail.com",
+  "cart_item_ids": [
+    "6a3128ddc991e67a143a8d05"
+  ],
+  "payment_method": "ZALOPAY",
+  "payment_status": "PAID",
+  "total_amount": 325000,
+  "applied_amount": 325000,
+  "transaction_id": "260616_1781610838261",
+  "createdAt": {
+    "$date": "2026-06-16T10:43:58.828Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-16T11:54:47.332Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3339ceb3a9fd5c6cc5ebcb"
+  },
+  "user_id": {
+    "$oid": "6a057e0b304bd6e262f58be2"
+  },
+  "full_name": "Thành Chung",
+  "email": "thanhchung@gmail.com",
+  "cart_item_ids": [
+    "6a3339a5b3a9fd5c6cc5ebc8"
+  ],
+  "payment_method": "ZALOPAY",
+  "payment_status": "FAILED",
+  "total_amount": 387000,
+  "applied_amount": 0,
+  "transaction_id": "260618_1781742030926",
+  "createdAt": {
+    "$date": "2026-06-18T00:20:30.879Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-18T00:20:40.466Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a333a63b3a9fd5c6cc5ebce"
+  },
+  "user_id": {
+    "$oid": "6a057e0b304bd6e262f58be2"
+  },
+  "full_name": "Thành Chung",
+  "email": "thanhchung@gmail.com",
+  "cart_item_ids": [
+    "6a3339b1b3a9fd5c6cc5ebca",
+    "6a3339abb3a9fd5c6cc5ebc9"
+  ],
+  "payment_method": "ZALOPAY",
+  "payment_status": "PAID",
+  "total_amount": 624000,
+  "applied_amount": 624000,
+  "transaction_id": "260620_1781922857133",
+  "createdAt": {
+    "$date": "2026-06-18T00:22:59.194Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-20T02:49:26.167Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a35d58256b873670b14e832"
+  },
+  "user_id": {
+    "$oid": "6a057e0b304bd6e262f58be2"
+  },
+  "full_name": "Thành Chung",
+  "email": "thanhchung@gmail.com",
+  "cart_item_ids": [
+    "6a3339a5b3a9fd5c6cc5ebc8"
+  ],
+  "payment_method": "ZALOPAY",
+  "payment_status": "FAILED",
+  "total_amount": 387000,
+  "applied_amount": 0,
+  "transaction_id": "260620_1781912962077",
+  "createdAt": {
+    "$date": "2026-06-19T23:49:22.037Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-19T23:49:28.807Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a35fb8356b873670b14e846"
+  },
+  "user_id": {
+    "$oid": "6a057e0b304bd6e262f58be2"
+  },
+  "full_name": "Thành Chung",
+  "email": "thanhchung@gmail.com",
+  "cart_item_ids": [
+    "6a3339a5b3a9fd5c6cc5ebc8"
+  ],
+  "payment_method": "ZALOPAY",
+  "payment_status": "FAILED",
+  "total_amount": 387000,
+  "applied_amount": 0,
+  "transaction_id": "260620_1781922691453",
+  "createdAt": {
+    "$date": "2026-06-20T02:31:31.441Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-20T02:31:38.915Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a55ac4d5481a4079df228ec"
+  },
+  "user_id": {
+    "$oid": "6a151d1be9acd59370a1eb2d"
+  },
+  "full_name": "Mizuhara Chizuru",
+  "email": "mizuhara051204@gmail.com",
+  "cart_item_ids": [
+    "6a55a83de17ab502f27d4f5a"
+  ],
+  "payment_method": "ZALOPAY",
+  "payment_status": "PAID",
+  "total_amount": 475000,
+  "applied_amount": 475000,
+  "transaction_id": "260714_1783999821128",
+  "createdAt": {
+    "$date": "2026-07-14T03:26:05.229Z"
+  },
+  "updatedAt": {
+    "$date": "2026-07-14T03:30:45.601Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a55accf5481a4079df228f2"
+  },
+  "user_id": {
+    "$oid": "6a29f581a0021c2b915c401e"
+  },
+  "full_name": "Chung Đỗ",
+  "email": "chung051204@gmail.com",
+  "cart_item_ids": [
+    "6a55acc95481a4079df228f1"
+  ],
+  "payment_method": "ZALOPAY",
+  "payment_status": "FAILED",
+  "total_amount": 212000,
+  "applied_amount": 0,
+  "transaction_id": "260714_1783999695918",
+  "createdAt": {
+    "$date": "2026-07-14T03:28:15.914Z"
+  },
+  "updatedAt": {
+    "$date": "2026-07-14T03:28:34.918Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a58289a2d7f6b47a4916b3e"
+  },
+  "user_id": {
+    "$oid": "6a29f581a0021c2b915c401e"
+  },
+  "full_name": "Chung Đỗ",
+  "email": "chung051204@gmail.com",
+  "cart_item_ids": [
+    "6a55acc95481a4079df228f1",
+    "6a58288a2d7f6b47a4916b3d"
+  ],
+  "payment_method": "ZALOPAY",
+  "payment_status": "PARTIAL_PAID",
+  "total_amount": 687000,
+  "applied_amount": 449500,
+  "transaction_id": "260716_1784162458761",
+  "createdAt": {
+    "$date": "2026-07-16T00:40:58.706Z"
+  },
+  "updatedAt": {
+    "$date": "2026-07-16T00:41:47.965Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a740b8d8c51e46148df7029"
+  },
+  "user_id": {
+    "$oid": "6a057e0b304bd6e262f58be2"
+  },
+  "full_name": "Thành Chung",
+  "email": "thanhchung@gmail.com",
+  "cart_item_ids": [
+    "6a740b208c51e46148df7027",
+    "6a740b268c51e46148df7028"
+  ],
+  "payment_method": "ZALOPAY",
+  "payment_status": "PARTIAL_PAID",
+  "total_amount": 862000,
+  "applied_amount": 624500,
+  "transaction_id": "260806_1785990029798",
+  "createdAt": {
+    "$date": "2026-08-06T04:20:29.790Z"
+  },
+  "updatedAt": {
+    "$date": "2026-08-06T04:21:11.519Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a75c787be599ef588a381a7"
+  },
+  "user_id": {
+    "$oid": "6a057e0b304bd6e262f58be2"
+  },
+  "full_name": "Thành Chung",
+  "email": "thanhchung@gmail.com",
+  "cart_item_ids": [
+    "6a716b0e51aa1e8fe649ae48"
+  ],
+  "payment_method": "ZALOPAY",
+  "payment_status": "PARTIAL_PAID",
+  "total_amount": 425000,
+  "applied_amount": 212500,
+  "transaction_id": "260807_1786103687667",
+  "createdAt": {
+    "$date": "2026-08-07T11:54:47.636Z"
+  },
+  "updatedAt": {
+    "$date": "2026-08-07T11:55:41.174Z"
+  },
+  "__v": 0
+}]

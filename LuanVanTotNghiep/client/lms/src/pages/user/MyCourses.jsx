@@ -77,6 +77,7 @@ const MyCourses = () => {
             </div>
           ) : (
             enrollments?.arrayEnrollment?.map((value) => {
+              const isCompleted = value?.item?.progress_percent == 100;
               return (
                 <div
                   className="flex flex-col gap-y-4 p-5 shadow-sm rounded-[16px]"
@@ -182,10 +183,14 @@ const MyCourses = () => {
                       onClick={() =>
                         navigate(`/course/${value?.item?.course_id?._id}`)
                       }
-                      className="flex gap-x-4 items-center w-[30%] px-16 py-2 rounded-[8px] bg-surface-nav text-title-lg text-surface-white font-medium transition-transform duration-300 hover:cursor-pointer hover:text-surface-bg"
+                      className={`flex gap-x-4 items-center  px-16 py-2 rounded-[8px] ${
+                        isCompleted
+                          ? "bg-nav-muted w-[35%]"
+                          : "bg-surface-nav w-[30%]"
+                      } text-title-lg text-surface-white font-medium transition-transform duration-300 hover:cursor-pointer hover:text-surface-bg`}
                     >
                       <IoPlayOutline />
-                      Tiếp tục học
+                      {isCompleted ? "Xem lại khóa học" : "Tiếp tục học"}
                     </button>
                   </div>
                 </div>

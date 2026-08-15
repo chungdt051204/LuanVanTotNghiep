@@ -202,9 +202,11 @@ export class CourseController {
     try {
       const { id } = req.params;
       const { status } = req.query;
+      const { message } = req.body;
       const result = await new CourseService().approveOrRejectCourse({
         courseId: id,
         status,
+        message,
       });
       return res.status(200).json({
         message:

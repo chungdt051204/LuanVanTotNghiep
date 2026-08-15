@@ -6,6 +6,8 @@ import ratingEntity from "../models/ratingModel.js";
 import { RevenueService } from "./revenueService.js";
 import categoryEntity from "../models/categoryModel.js";
 import userEntity from "../models/userModel.js";
+import roleEntity from "../models/roleModel.js";
+import { NotificationService } from "../services/notificationService.js";
 
 export class CourseService {
   addCourse = async ({ userId, formData, image_url, thumbnail_url }) => {
@@ -244,7 +246,9 @@ export class CourseService {
       error.statusCode = 400;
       throw error;
     }
-    const course = await courseEntity.findOne({ _id: courseId });
+    const course = await courseEntity
+      .findOne({ _id: courseId })
+      .populate("user_id");
     if (!course) {
       const error = new Error(
         "Không tìm thấy khóa học để cập nhật trạng thái!"
@@ -263,6 +267,20 @@ export class CourseService {
       const numberEnrollment = await enrollmentEntity.countDocuments({
         course_id: result,
       });
+      const role = await roleEntity.findOne({ role: "admin" });
+      const admin = await userEntity.findOne({ role_id: role?._id });
+      await new NotificationService().createNotification({
+        message:
+          status == "pending"
+            ? `${course?.user_id?.full_name} đã gửi yêu cầu xét duyệt khóa học cho bạn`
+            : `${course?.user_id?.full_name} đã hủy yêu cầu xét duyệt khóa học`,
+        title:
+          status == "pending"
+            ? "Yêu cầu xét duyệt khóa học"
+            : "Hủy yêu cầu xét duyệt khóa học",
+        type: "COURSE",
+        userId: admin?.id,
+      });
       return { course: result, numberEnrollment };
     } else {
       const error = new Error(
@@ -272,7 +290,7 @@ export class CourseService {
       throw error;
     }
   };
-  approveOrRejectCourse = async ({ courseId, status }) => {
+  approveOrRejectCourse = async ({ courseId, status, message }) => {
     const allowedStatus = ["approved", "rejected"];
     if (!allowedStatus.includes(status)) {
       const error = new Error(
@@ -281,7 +299,9 @@ export class CourseService {
       error.statusCode = 400;
       throw error;
     }
-    const course = await courseEntity.findOne({ _id: courseId });
+    const course = await courseEntity
+      .findOne({ _id: courseId })
+      .populate("user_id");
     if (!course) {
       const error = new Error(
         "Không tìm thấy khóa học để cập nhật trạng thái!"
@@ -300,6 +320,18 @@ export class CourseService {
         .populate("user_id");
       const numberEnrollment = await enrollmentEntity.countDocuments({
         course_id: result,
+      });
+      await new NotificationService().createNotification({
+        message:
+          status == "approved"
+            ? "Yêu cầu xét duyệt khóa học của bạn đã được quản trị viên duyệt"
+            : `Lý do: ${message}`,
+        title:
+          status === "approved"
+            ? "Xét duyệt khóa học thành công"
+            : "Yêu cầu xét duyệt khóa học của bạn đã bị quản trị viên từ chối",
+        type: "COURSE",
+        userId: course?.user_id?._id,
       });
       return { course: result, numberEnrollment };
     } else {

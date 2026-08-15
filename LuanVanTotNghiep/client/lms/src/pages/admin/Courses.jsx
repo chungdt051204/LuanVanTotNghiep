@@ -46,6 +46,9 @@ const AdminCourses = () => {
   const [message, setMessage] = useState("");
   const [isApproved, setIsApproved] = useState(false);
   const confirmDialog = useRef();
+  const [isRejected, setIsRejected] = useState(false);
+  const [reason, setReason] = useState("");
+  const rejectDialog = useRef();
 
   useEffect(() => {
     const getCoursesByAdmin = async () => {
@@ -70,13 +73,35 @@ const AdminCourses = () => {
   }, [searchParams, status, refresh]);
 
   const handleApproveOrRejectCourse = async () => {
+    if (isRejected) {
+      confirmDialog?.current?.close();
+      rejectDialog?.current?.showModal();
+    } else if (isApproved) {
+      try {
+        const result = await courseService.approveOrRejectCourse({
+          courseId: course?._id,
+          status: isApproved ? "approved" : "rejected",
+          data: { message: reason },
+        });
+        toast.success(result.message || "Duyệt khóa học thành công");
+        confirmDialog?.current?.close();
+        setRefresh((prev) => prev + 1);
+      } catch (error) {
+        const status = error.status;
+        const message = error.data.message;
+        console.log(status, message);
+      }
+    }
+  };
+  const handleRejectedCourse = async () => {
     try {
       const result = await courseService.approveOrRejectCourse({
         courseId: course?._id,
         status: isApproved ? "approved" : "rejected",
+        data: { message: reason },
       });
-      toast.success(result.message || "Duyệt/Từ chối khóa học thành công");
-      confirmDialog?.current?.close();
+      toast.success(result.message || "Từ chối khóa học thành công");
+      rejectDialog?.current?.close();
       setRefresh((prev) => prev + 1);
     } catch (error) {
       const status = error.status;
@@ -221,6 +246,7 @@ const AdminCourses = () => {
                                     (value) => value?.course?._id == courseId
                                   );
                                   setIsApproved(false);
+                                  setIsRejected(true);
                                   setCourse(item?.course);
                                   setMessage(
                                     "Bạn có muốn từ chối khóa học này không ?"
@@ -260,6 +286,38 @@ const AdminCourses = () => {
         message={message}
         handleClick={handleApproveOrRejectCourse}
       />
+      <dialog
+        ref={rejectDialog}
+        className="w-[480px] p-4 m-auto rounded-[8px] shadow-lg"
+      >
+        <input
+          value={reason}
+          onChange={(e) => setReason(e.target.value)}
+          className="w-full outline-none p-2 rounded-[8px] text-body-lg border border-gray-300"
+          type="text"
+          placeholder="Nhập lý do từ chối"
+        />
+        <div className="flex flex-col items-end mt-4">
+          <div className="flex gap-x-4 text-title-sm">
+            <button
+              className="px-6 py-2 border border-gray-300 rounded-[8px] transition-transform duration-300 hover:cursor-pointer"
+              onClick={() => {
+                setIsRejected(false);
+                rejectDialog?.current?.close();
+                confirmDialog?.current?.showModal();
+              }}
+            >
+              Hủy
+            </button>
+            <button
+              className="px-6 py-2 bg-blue-600 rounded-[8px] text-surface-white transition-transform duration-300 hover:text-surface-bg hover:cursor-pointer"
+              onClick={handleRejectedCourse}
+            >
+              Xác nhận
+            </button>
+          </div>
+        </div>
+      </dialog>
     </>
   );
 };

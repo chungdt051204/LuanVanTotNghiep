@@ -1,0 +1,192 @@
+[{
+  "_id": {
+    "$oid": "6a4e096332e71ad07fb65b8f"
+  },
+  "user_id": {
+    "$oid": "6a151d1be9acd59370a1eb2d"
+  },
+  "instructor_id": {
+    "$oid": "6a07e454241f5e8f0ff0e678"
+  },
+  "course_id": {
+    "$oid": "6a1d850c9afaa9d68d831f94"
+  },
+  "createdAt": {
+    "$date": "2026-07-08T08:25:07.440Z"
+  },
+  "updatedAt": {
+    "$date": "2026-07-08T08:27:50.665Z"
+  },
+  "__v": 0,
+  "newest_message_id": {
+    "$oid": "6a4e0a06d733759c62a6a198"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a4e0aaed733759c62a6a199"
+  },
+  "user_id": {
+    "$oid": "6a151d1be9acd59370a1eb2d"
+  },
+  "instructor_id": {
+    "$oid": "6a057fa784acf534256a1f5c"
+  },
+  "course_id": {
+    "$oid": "6a1e52f73d86e6de2aa61d8d"
+  },
+  "createdAt": {
+    "$date": "2026-07-08T08:30:38.623Z"
+  },
+  "updatedAt": {
+    "$date": "2026-07-08T08:31:16.416Z"
+  },
+  "__v": 0,
+  "newest_message_id": {
+    "$oid": "6a4e0ad4937f50b8c626dff6"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a4e0d0a7cdac48a03ec4777"
+  },
+  "user_id": {
+    "$oid": "6a151d1be9acd59370a1eb2d"
+  },
+  "instructor_id": {
+    "$oid": "6a07e454241f5e8f0ff0e678"
+  },
+  "course_id": {
+    "$oid": "6a1a60c2e8ae79b7ec50e3f5"
+  },
+  "createdAt": {
+    "$date": "2026-07-08T08:40:42.195Z"
+  },
+  "updatedAt": {
+    "$date": "2026-07-08T12:18:09.037Z"
+  },
+  "__v": 0,
+  "newest_message_id": {
+    "$oid": "6a4e40013f12735e304fb83d"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a4f1a44b97862aea10c7bf6"
+  },
+  "user_id": {
+    "$oid": "6a0581183b01101c7fa9235f"
+  },
+  "instructor_id": {
+    "$oid": "6a07e454241f5e8f0ff0e678"
+  },
+  "course_id": {
+    "$oid": "6a1d850c9afaa9d68d831f94"
+  },
+  "createdAt": {
+    "$date": "2026-07-09T03:49:24.746Z"
+  },
+  "updatedAt": {
+    "$date": "2026-07-09T03:49:24.768Z"
+  },
+  "__v": 0,
+  "newest_message_id": {
+    "$oid": "6a4f1a44b97862aea10c7bf7"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a4f5b8c02fc6df7926a72c4"
+  },
+  "user_id": {
+    "$oid": "6a29f581a0021c2b915c401e"
+  },
+  "instructor_id": {
+    "$oid": "6a07e454241f5e8f0ff0e678"
+  },
+  "course_id": {
+    "$oid": "6a1d850c9afaa9d68d831f94"
+  },
+  "createdAt": {
+    "$date": "2026-07-09T08:27:56.818Z"
+  },
+  "updatedAt": {
+    "$date": "2026-08-02T11:46:34.633Z"
+  },
+  "__v": 0,
+  "newest_message_id": {
+    "$oid": "6a6f2e1a5dead5a573adfe9d"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5834396f5dc80be9c99c95"
+  },
+  "user_id": {
+    "$oid": "6a29f581a0021c2b915c401e"
+  },
+  "instructor_id": {
+    "$oid": "6a07e454241f5e8f0ff0e678"
+  },
+  "course_id": {
+    "$oid": "6a13f077cb6fde913388ae4c"
+  },
+  "createdAt": {
+    "$date": "2026-07-16T01:30:33.530Z"
+  },
+  "updatedAt": {
+    "$date": "2026-07-16T01:30:45.253Z"
+  },
+  "__v": 0,
+  "newest_message_id": {
+    "$oid": "6a5834456f5dc80be9c99c97"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a6560254fa099933cdadc8d"
+  },
+  "user_id": {
+    "$oid": "6a057e0b304bd6e262f58be2"
+  },
+  "instructor_id": {
+    "$oid": "6a07e454241f5e8f0ff0e678"
+  },
+  "course_id": {
+    "$oid": "6a1d850c9afaa9d68d831f94"
+  },
+  "createdAt": {
+    "$date": "2026-07-26T01:17:25.129Z"
+  },
+  "updatedAt": {
+    "$date": "2026-08-04T02:19:09.484Z"
+  },
+  "__v": 0,
+  "newest_message_id": {
+    "$oid": "6a714c1d7e8dd133268a082a"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a7074dabf868c8059491294"
+  },
+  "user_id": {
+    "$oid": "6a057e0b304bd6e262f58be2"
+  },
+  "instructor_id": {
+    "$oid": "6a057fa784acf534256a1f5c"
+  },
+  "course_id": {
+    "$oid": "6a1e52f73d86e6de2aa61d8d"
+  },
+  "createdAt": {
+    "$date": "2026-08-03T11:00:42.791Z"
+  },
+  "updatedAt": {
+    "$date": "2026-08-03T12:01:34.397Z"
+  },
+  "__v": 0,
+  "newest_message_id": {
+    "$oid": "6a70831ef3cf25be44840ed3"
+  }
+}]

@@ -124,13 +124,14 @@ const LessonDetail = () => {
   useEffect(() => {
     const index = lessons?.findIndex((value) => value?._id == id);
     if (
-      index < lessons?.length &&
+      index < lessons?.length - 1 &&
       lessonProgresses?.some(
         (value) =>
           value?.lesson_id?._id == lessons[index]?._id && value?.is_completed
       )
-    )
-      navigate(`/course/${courseId}/lesson/${lessons[index + 1]._id}`);
+    ) {
+      navigate(`/course/${courseId}/lesson/${lessons[index + 1]?._id}`);
+    }
   }, [courseId, id, lessonProgresses, lessons, navigate]);
   const createLessonProgress = async () => {
     if (!loading && !isAdmin) {
@@ -275,7 +276,7 @@ const LessonDetail = () => {
           </ul>
         </div>
       </div>
-      <Footer />
+      {me?.role_id?.role === "user" && <Footer />}
     </>
   );
 };

@@ -1,0 +1,5984 @@
+[{
+  "_id": {
+    "$oid": "6a1a62528c3c2baf42f6c1ba"
+  },
+  "question_id": {
+    "$oid": "6a1a62528c3c2baf42f6c1b7"
+  },
+  "answer_content": "Thiết kế mạng",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-05-30T04:06:42.354Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:01:42.813Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a1a62528c3c2baf42f6c1bd"
+  },
+  "question_id": {
+    "$oid": "6a1a62528c3c2baf42f6c1b7"
+  },
+  "answer_content": "Xây dựng giao diện người dùng (UI)",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-05-30T04:06:42.354Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:01:42.813Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a1a62528c3c2baf42f6c1be"
+  },
+  "question_id": {
+    "$oid": "6a1a62528c3c2baf42f6c1b8"
+  },
+  "answer_content": "Một ngôn ngữ lập trình mới",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-05-30T04:06:42.357Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:01:42.811Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a1a62528c3c2baf42f6c1bf"
+  },
+  "question_id": {
+    "$oid": "6a1a62528c3c2baf42f6c1b8"
+  },
+  "answer_content": "Cú pháp mở rộng của JavaScript để mô tả giao diện",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-05-30T04:06:42.357Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:01:42.811Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a1a62528c3c2baf42f6c1c0"
+  },
+  "question_id": {
+    "$oid": "6a1a62528c3c2baf42f6c1b8"
+  },
+  "answer_content": "Một thư viện CSS",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-05-30T04:06:42.357Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:01:42.811Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a1a62528c3c2baf42f6c1c1"
+  },
+  "question_id": {
+    "$oid": "6a1a62528c3c2baf42f6c1b8"
+  },
+  "answer_content": "Một framework backend",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-05-30T04:06:42.357Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:01:42.811Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a1a62528c3c2baf42f6c1c2"
+  },
+  "question_id": {
+    "$oid": "6a1a62528c3c2baf42f6c1b9"
+  },
+  "answer_content": "useEffect()",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-05-30T04:06:42.360Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:01:42.814Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a1a62528c3c2baf42f6c1c3"
+  },
+  "question_id": {
+    "$oid": "6a1a62528c3c2baf42f6c1b9"
+  },
+  "answer_content": "useState()",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-05-30T04:06:42.360Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:01:42.815Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a1a62528c3c2baf42f6c1c4"
+  },
+  "question_id": {
+    "$oid": "6a1a62528c3c2baf42f6c1b9"
+  },
+  "answer_content": "useMemo()",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-05-30T04:06:42.360Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:01:42.815Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a1a62528c3c2baf42f6c1c5"
+  },
+  "question_id": {
+    "$oid": "6a1a62528c3c2baf42f6c1b9"
+  },
+  "answer_content": "useRef()",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-05-30T04:06:42.360Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:01:42.815Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a1a62528c3c2baf42f6c1bb"
+  },
+  "question_id": {
+    "$oid": "6a1a62528c3c2baf42f6c1b7"
+  },
+  "answer_content": "Quản lý máy chủ",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-05-30T04:06:42.354Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:01:42.813Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a1a62528c3c2baf42f6c1bc"
+  },
+  "question_id": {
+    "$oid": "6a1a62528c3c2baf42f6c1b7"
+  },
+  "answer_content": "Xây dựng cơ sở dữ liệu",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-05-30T04:06:42.354Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:01:42.813Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a1ae9f3d55e82e7e96de6d7"
+  },
+  "question_id": {
+    "$oid": "6a1ae9f3d55e82e7e96de6d5"
+  },
+  "answer_content": "HyperText Markup Language",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-05-30T13:45:23.125Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:10:04.895Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a1ae9f3d55e82e7e96de6d6"
+  },
+  "question_id": {
+    "$oid": "6a1ae9f3d55e82e7e96de6d5"
+  },
+  "answer_content": "HighText Machine Language",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-05-30T13:45:23.125Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:10:04.895Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a1ae9f3d55e82e7e96de6d8"
+  },
+  "question_id": {
+    "$oid": "6a1ae9f3d55e82e7e96de6d5"
+  },
+  "answer_content": "HyperText Markdown Language",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-05-30T13:45:23.125Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:10:04.895Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a1ae9f3d55e82e7e96de6d9"
+  },
+  "question_id": {
+    "$oid": "6a1ae9f3d55e82e7e96de6d5"
+  },
+  "answer_content": "Hyper Transfer Markup Language",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-05-30T13:45:23.125Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:10:04.895Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a23b3812a1a4fe30e0e74f0"
+  },
+  "question_id": {
+    "$oid": "6a23b3812a1a4fe30e0e74ef"
+  },
+  "answer_content": "Một framework backend.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-06T05:43:29.615Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:39:32.288Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a23b3812a1a4fe30e0e74f1"
+  },
+  "question_id": {
+    "$oid": "6a23b3812a1a4fe30e0e74ef"
+  },
+  "answer_content": "Một thư viện CSS.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-06T05:43:29.615Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:39:32.288Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a23b3812a1a4fe30e0e74f2"
+  },
+  "question_id": {
+    "$oid": "6a23b3812a1a4fe30e0e74ef"
+  },
+  "answer_content": "Một framework JavaScript dùng để xây dựng giao diện người dùng.",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-06T05:43:29.615Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:39:32.288Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a23b3812a1a4fe30e0e74f3"
+  },
+  "question_id": {
+    "$oid": "6a23b3812a1a4fe30e0e74ef"
+  },
+  "answer_content": "Một hệ quản trị cơ sở dữ liệu.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-06T05:43:29.615Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:39:32.288Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a23b3c82a1a4fe30e0e74f7"
+  },
+  "question_id": {
+    "$oid": "6a23b3c82a1a4fe30e0e74f5"
+  },
+  "answer_content": "Creative Style Sheets",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-06T05:44:40.929Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:29:32.600Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a23b3c82a1a4fe30e0e74f6"
+  },
+  "question_id": {
+    "$oid": "6a23b3c82a1a4fe30e0e74f5"
+  },
+  "answer_content": "Cascading Style Sheets",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-06T05:44:40.929Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:29:32.600Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a23b3c82a1a4fe30e0e74f8"
+  },
+  "question_id": {
+    "$oid": "6a23b3c82a1a4fe30e0e74f5"
+  },
+  "answer_content": "Computer Style Sheets",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-06T05:44:40.929Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:29:32.600Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a23b3c82a1a4fe30e0e74f9"
+  },
+  "question_id": {
+    "$oid": "6a23b3c82a1a4fe30e0e74f5"
+  },
+  "answer_content": "Colorful Style Sheets",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-06T05:44:40.929Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:29:32.600Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a29fe3838c8d7f198a9d913"
+  },
+  "question_id": {
+    "$oid": "6a29fe3838c8d7f198a9d911"
+  },
+  "answer_content": "Một thư viện JavaScript dùng để xây dựng giao diện.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-11T00:15:52.170Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:20:34.584Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a29fe3838c8d7f198a9d914"
+  },
+  "question_id": {
+    "$oid": "6a29fe3838c8d7f198a9d911"
+  },
+  "answer_content": "Một framework phát triển ứng dụng web do Google phát triển.",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-11T00:15:52.170Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:20:34.584Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a29fe3838c8d7f198a9d915"
+  },
+  "question_id": {
+    "$oid": "6a29fe3838c8d7f198a9d911"
+  },
+  "answer_content": "Một hệ quản trị cơ sở dữ liệu.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-11T00:15:52.170Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:20:34.584Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a29fe3838c8d7f198a9d912"
+  },
+  "question_id": {
+    "$oid": "6a29fe3838c8d7f198a9d911"
+  },
+  "answer_content": "Một ngôn ngữ lập trình.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-11T00:15:52.170Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:20:34.584Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a2b784d0c83ac9d5d80135f"
+  },
+  "question_id": {
+    "$oid": "6a2b784d0c83ac9d5d80135b"
+  },
+  "answer_content": "3",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-12T03:09:01.566Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-12T03:09:01.566Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a2b784d0c83ac9d5d80135e"
+  },
+  "question_id": {
+    "$oid": "6a2b784d0c83ac9d5d80135b"
+  },
+  "answer_content": "2",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-12T03:09:01.566Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-12T03:09:01.566Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a2b784d0c83ac9d5d80135c"
+  },
+  "question_id": {
+    "$oid": "6a2b784d0c83ac9d5d80135b"
+  },
+  "answer_content": "8",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-12T03:09:01.565Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-12T03:09:01.565Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a2b784d0c83ac9d5d80135d"
+  },
+  "question_id": {
+    "$oid": "6a2b784d0c83ac9d5d80135b"
+  },
+  "answer_content": "7",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-12T03:09:01.565Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-12T03:09:01.565Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a35d9d056b873670b14e839"
+  },
+  "question_id": {
+    "$oid": "6a35d9d056b873670b14e836"
+  },
+  "answer_content": "state",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-20T00:07:44.988Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:01:42.819Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a35d9d056b873670b14e83a"
+  },
+  "question_id": {
+    "$oid": "6a35d9d056b873670b14e836"
+  },
+  "answer_content": "props",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-20T00:07:44.988Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:01:42.819Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a35d9d056b873670b14e838"
+  },
+  "question_id": {
+    "$oid": "6a35d9d056b873670b14e836"
+  },
+  "answer_content": "ref",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-20T00:07:44.988Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:01:42.819Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a35d9d056b873670b14e83b"
+  },
+  "question_id": {
+    "$oid": "6a35d9d056b873670b14e836"
+  },
+  "answer_content": "key",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-20T00:07:44.988Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:01:42.819Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a35d9d056b873670b14e83e"
+  },
+  "question_id": {
+    "$oid": "6a35d9d056b873670b14e837"
+  },
+  "answer_content": "id",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-20T00:07:44.991Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:01:42.809Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a35d9d056b873670b14e83c"
+  },
+  "question_id": {
+    "$oid": "6a35d9d056b873670b14e837"
+  },
+  "answer_content": "value",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-20T00:07:44.991Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:01:42.809Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a35d9d056b873670b14e83d"
+  },
+  "question_id": {
+    "$oid": "6a35d9d056b873670b14e837"
+  },
+  "answer_content": "key",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-20T00:07:44.991Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:01:42.809Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a35d9d056b873670b14e83f"
+  },
+  "question_id": {
+    "$oid": "6a35d9d056b873670b14e837"
+  },
+  "answer_content": "name",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-20T00:07:44.991Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:01:42.809Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a35d9d056b873670b14e840"
+  },
+  "question_id": {
+    "$oid": "6a35d9d056b873670b14e835"
+  },
+  "answer_content": "Quản lý CSS",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-20T00:07:44.994Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:01:42.816Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a35d9d056b873670b14e841"
+  },
+  "question_id": {
+    "$oid": "6a35d9d056b873670b14e835"
+  },
+  "answer_content": "Xử lý các side effect như gọi API, lắng nghe sự kiện",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-20T00:07:44.994Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:01:42.816Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a35d9d056b873670b14e842"
+  },
+  "question_id": {
+    "$oid": "6a35d9d056b873670b14e835"
+  },
+  "answer_content": "Tạo Component",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-20T00:07:44.994Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:01:42.816Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a35d9d056b873670b14e843"
+  },
+  "question_id": {
+    "$oid": "6a35d9d056b873670b14e835"
+  },
+  "answer_content": "Render JSX",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-20T00:07:44.994Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:01:42.816Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4b26d70d7913e0e9e676"
+  },
+  "question_id": {
+    "$oid": "6a3f4b26d70d7913e0e9e673"
+  },
+  "answer_content": "Để giảm số lần thao tác trực tiếp với DOM thật, từ đó cải thiện hiệu năng.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:01:42.852Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:01:42.852Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4b26d70d7913e0e9e677"
+  },
+  "question_id": {
+    "$oid": "6a3f4b26d70d7913e0e9e673"
+  },
+  "answer_content": "Để JavaScript chạy nhanh hơn.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:01:42.852Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:01:42.852Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4b26d70d7913e0e9e675"
+  },
+  "question_id": {
+    "$oid": "6a3f4b26d70d7913e0e9e673"
+  },
+  "answer_content": "Để thay thế hoàn toàn DOM thật.",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T04:01:42.852Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:01:42.852Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4b26d70d7913e0e9e678"
+  },
+  "question_id": {
+    "$oid": "6a3f4b26d70d7913e0e9e673"
+  },
+  "answer_content": "Để không cần HTML nữa.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:01:42.852Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:01:42.852Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4b26d70d7913e0e9e679"
+  },
+  "question_id": {
+    "$oid": "6a3f4b26d70d7913e0e9e672"
+  },
+  "answer_content": "Cả hai đều có thể được thay đổi trực tiếp trong component nhận chúng.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:01:42.855Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:01:42.855Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4b26d70d7913e0e9e67b"
+  },
+  "question_id": {
+    "$oid": "6a3f4b26d70d7913e0e9e672"
+  },
+  "answer_content": "state chỉ dùng trong Class Component.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:01:42.855Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:01:42.855Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4b26d70d7913e0e9e67a"
+  },
+  "question_id": {
+    "$oid": "6a3f4b26d70d7913e0e9e672"
+  },
+  "answer_content": "props được truyền từ component cha, còn state được quản lý bên trong component.",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T04:01:42.855Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:01:42.855Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4b26d70d7913e0e9e67c"
+  },
+  "question_id": {
+    "$oid": "6a3f4b26d70d7913e0e9e672"
+  },
+  "answer_content": "props chỉ dùng trong Functional Component.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:01:42.855Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:01:42.855Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4b26d70d7913e0e9e680"
+  },
+  "question_id": {
+    "$oid": "6a3f4b26d70d7913e0e9e671"
+  },
+  "answer_content": "useReducer",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:01:42.857Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:01:42.857Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4b26d70d7913e0e9e67d"
+  },
+  "question_id": {
+    "$oid": "6a3f4b26d70d7913e0e9e671"
+  },
+  "answer_content": "useMemo",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:01:42.857Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:01:42.857Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4b26d70d7913e0e9e67f"
+  },
+  "question_id": {
+    "$oid": "6a3f4b26d70d7913e0e9e671"
+  },
+  "answer_content": "useRef",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T04:01:42.857Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:01:42.857Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4b26d70d7913e0e9e67e"
+  },
+  "question_id": {
+    "$oid": "6a3f4b26d70d7913e0e9e671"
+  },
+  "answer_content": "useContext",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:01:42.857Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:01:42.857Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4b26d70d7913e0e9e681"
+  },
+  "question_id": {
+    "$oid": "6a3f4b26d70d7913e0e9e674"
+  },
+  "answer_content": "Vì React sẽ báo lỗi ngay lập tức.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:01:42.860Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:01:42.860Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4b26d70d7913e0e9e683"
+  },
+  "question_id": {
+    "$oid": "6a3f4b26d70d7913e0e9e674"
+  },
+  "answer_content": "Vì JavaScript không cho phép thay đổi object.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:01:42.860Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:01:42.860Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4b26d70d7913e0e9e682"
+  },
+  "question_id": {
+    "$oid": "6a3f4b26d70d7913e0e9e674"
+  },
+  "answer_content": "Vì React có thể không nhận ra state đã thay đổi, dẫn đến component không được cập nhật đúng.",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T04:01:42.860Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:01:42.860Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4b26d70d7913e0e9e684"
+  },
+  "question_id": {
+    "$oid": "6a3f4b26d70d7913e0e9e674"
+  },
+  "answer_content": "Vì state chỉ được phép đọc.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:01:42.860Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:01:42.860Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e68f"
+  },
+  "question_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e685"
+  },
+  "answer_content": "Tạo cấu trúc và nội dung của trang web",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T04:10:04.903Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:10:04.903Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e691"
+  },
+  "question_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e685"
+  },
+  "answer_content": "Kết nối cơ sở dữ liệu",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:10:04.903Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:10:04.903Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e68e"
+  },
+  "question_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e685"
+  },
+  "answer_content": "Thiết kế giao diện bằng CSS",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:10:04.903Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:10:04.903Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e690"
+  },
+  "question_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e685"
+  },
+  "answer_content": "Xử lý logic nghiệp vụ",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:10:04.903Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:10:04.903Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e692"
+  },
+  "question_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e687"
+  },
+  "answer_content": "Giúp trang web tải nhanh hơn.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:10:04.905Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:10:04.905Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e693"
+  },
+  "question_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e687"
+  },
+  "answer_content": "Giúp mã nguồn dễ đọc hơn, hỗ trợ SEO và công nghệ hỗ trợ người dùng.",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T04:10:04.905Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:10:04.905Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e694"
+  },
+  "question_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e687"
+  },
+  "answer_content": "Giảm kích thước tệp HTML.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:10:04.905Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:10:04.905Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e695"
+  },
+  "question_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e687"
+  },
+  "answer_content": "Thay thế hoàn toàn CSS",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:10:04.905Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:10:04.905Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e698"
+  },
+  "question_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e688"
+  },
+  "answer_content": "<article>",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:10:04.907Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:10:04.907Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e696"
+  },
+  "question_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e688"
+  },
+  "answer_content": "<footer>",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:10:04.907Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:10:04.907Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e697"
+  },
+  "question_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e688"
+  },
+  "answer_content": "<nav>",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T04:10:04.907Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:10:04.907Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e699"
+  },
+  "question_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e688"
+  },
+  "answer_content": "<main>",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:10:04.907Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:10:04.907Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e69b"
+  },
+  "question_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e686"
+  },
+  "answer_content": "<span>",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:10:04.909Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:10:04.909Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e69c"
+  },
+  "question_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e686"
+  },
+  "answer_content": "<section>",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T04:10:04.909Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:10:04.909Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e69a"
+  },
+  "question_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e686"
+  },
+  "answer_content": "<div>",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:10:04.909Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:10:04.909Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e69d"
+  },
+  "question_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e686"
+  },
+  "answer_content": "<font>",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:10:04.909Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:10:04.909Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e69e"
+  },
+  "question_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e689"
+  },
+  "answer_content": "<header>",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:10:04.911Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:10:04.911Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e6a1"
+  },
+  "question_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e689"
+  },
+  "answer_content": "<nav>",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:10:04.911Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:10:04.911Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e6a0"
+  },
+  "question_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e689"
+  },
+  "answer_content": "<main>",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T04:10:04.911Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:10:04.911Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e69f"
+  },
+  "question_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e689"
+  },
+  "answer_content": "<aside>",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:10:04.911Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:10:04.911Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e6a3"
+  },
+  "question_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e68a"
+  },
+  "answer_content": "Cung cấp văn bản thay thế khi ảnh không hiển thị và hỗ trợ trình đọc màn hình",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T04:10:04.913Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:10:04.913Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e6a2"
+  },
+  "question_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e68a"
+  },
+  "answer_content": "Thay đổi kích thước ảnh.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:10:04.913Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:10:04.913Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e6a4"
+  },
+  "question_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e68a"
+  },
+  "answer_content": "Tăng chất lượng ảnh.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:10:04.913Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:10:04.913Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e6a5"
+  },
+  "question_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e68a"
+  },
+  "answer_content": "Thêm hiệu ứng cho ảnh.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:10:04.913Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:10:04.913Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e6a7"
+  },
+  "question_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e68b"
+  },
+  "answer_content": "Chỉ sử dụng Java Applet.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:10:04.915Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:10:04.915Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e6a8"
+  },
+  "question_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e68b"
+  },
+  "answer_content": "Các phần tử tích hợp sẵn như audio và video.",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T04:10:04.915Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:10:04.915Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e6a6"
+  },
+  "question_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e68b"
+  },
+  "answer_content": "Chỉ sử dụng Flash.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:10:04.915Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:10:04.915Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e6a9"
+  },
+  "question_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e68b"
+  },
+  "answer_content": "Chỉ sử dụng plugin của trình duyệt.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:10:04.915Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:10:04.915Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e6aa"
+  },
+  "question_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e68d"
+  },
+  "answer_content": "Bổ sung nhiều phần tử ngữ nghĩa và hỗ trợ đa phương tiện tốt hơn.",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T04:10:04.916Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:10:04.916Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e6ad"
+  },
+  "question_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e68d"
+  },
+  "answer_content": "Chỉ hoạt động trên trình duyệt mới nhất.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:10:04.916Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:10:04.916Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e6ae"
+  },
+  "question_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e68c"
+  },
+  "answer_content": "Xác định tài liệu sử dụng chuẩn HTML5 để trình duyệt hiển thị đúng.",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T04:10:04.918Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:10:04.918Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e6af"
+  },
+  "question_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e68c"
+  },
+  "answer_content": "Tạo tiêu đề cho trang web.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:10:04.918Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:10:04.918Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e6b0"
+  },
+  "question_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e68c"
+  },
+  "answer_content": "Kết nối tệp CSS.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:10:04.918Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:10:04.918Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e6b1"
+  },
+  "question_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e68c"
+  },
+  "answer_content": "Khai báo bảng mã UTF-8.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:10:04.918Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:10:04.918Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e6ab"
+  },
+  "question_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e68d"
+  },
+  "answer_content": "Không cần CSS để tạo giao diện.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:10:04.916Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:10:04.916Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e6ac"
+  },
+  "question_id": {
+    "$oid": "6a3f4d1cd70d7913e0e9e68d"
+  },
+  "answer_content": "Không cần JavaScript để tạo ứng dụng web.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:10:04.916Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:10:04.916Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6bd"
+  },
+  "question_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6b2"
+  },
+  "answer_content": "TypeScript",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T04:20:34.591Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:20:34.591Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6bb"
+  },
+  "question_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6b2"
+  },
+  "answer_content": "Java",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:20:34.591Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:20:34.591Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6be"
+  },
+  "question_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6b2"
+  },
+  "answer_content": "PHP",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:20:34.591Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:20:34.591Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6bc"
+  },
+  "question_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6b2"
+  },
+  "answer_content": "Python",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:20:34.591Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:20:34.591Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6c2"
+  },
+  "question_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6b4"
+  },
+  "answer_content": "Thiết kế giao diện.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:20:34.593Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:20:34.593Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6c1"
+  },
+  "question_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6b4"
+  },
+  "answer_content": "Biên dịch mã C++.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:20:34.593Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:20:34.593Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6c0"
+  },
+  "question_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6b4"
+  },
+  "answer_content": "Tạo, chạy và quản lý dự án Angular thông qua dòng lệnh.",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T04:20:34.593Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:20:34.593Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6bf"
+  },
+  "question_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6b4"
+  },
+  "answer_content": "Quản lý cơ sở dữ liệu.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:20:34.593Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:20:34.593Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6c4"
+  },
+  "question_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6b3"
+  },
+  "answer_content": "Service",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:20:34.594Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:20:34.594Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6c5"
+  },
+  "question_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6b3"
+  },
+  "answer_content": "Component",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T04:20:34.594Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:20:34.594Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6c6"
+  },
+  "question_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6b3"
+  },
+  "answer_content": "Directive",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:20:34.594Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:20:34.594Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6c3"
+  },
+  "question_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6b3"
+  },
+  "answer_content": "Module",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:20:34.594Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:20:34.594Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6c8"
+  },
+  "question_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6b8"
+  },
+  "answer_content": "Điều hướng giữa các trang hoặc component trong ứng dụng.",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T04:20:34.597Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:20:34.597Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6c9"
+  },
+  "question_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6b8"
+  },
+  "answer_content": "Xử lý biểu mẫu.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:20:34.597Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:20:34.597Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6ca"
+  },
+  "question_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6b8"
+  },
+  "answer_content": "Quản lý CSS.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:20:34.597Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:20:34.597Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6c7"
+  },
+  "question_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6b8"
+  },
+  "answer_content": "Kết nối cơ sở dữ liệu.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:20:34.597Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:20:34.597Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6cc"
+  },
+  "question_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6b5"
+  },
+  "answer_content": "Chứa logic nghiệp vụ và chia sẻ dữ liệu giữa các component.",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T04:20:34.599Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:20:34.599Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6ce"
+  },
+  "question_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6b5"
+  },
+  "answer_content": "Tạo route cho ứng dụng.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:20:34.599Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:20:34.599Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6cd"
+  },
+  "question_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6b5"
+  },
+  "answer_content": "Định nghĩa CSS.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:20:34.599Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:20:34.599Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6cb"
+  },
+  "question_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6b5"
+  },
+  "answer_content": "Định nghĩa giao diện người dùng.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:20:34.599Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:20:34.599Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6d1"
+  },
+  "question_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6ba"
+  },
+  "answer_content": "Không cần HTML và CSS.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:20:34.600Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:20:34.600Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6cf"
+  },
+  "question_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6ba"
+  },
+  "answer_content": "Cung cấp nhiều tính năng tích hợp sẵn như Router, Form, Dependency Injection và HTTP Client.",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T04:20:34.600Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:20:34.600Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6d2"
+  },
+  "question_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6ba"
+  },
+  "answer_content": "Chỉ hoạt động trên Windows.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:20:34.600Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:20:34.600Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6d0"
+  },
+  "question_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6ba"
+  },
+  "answer_content": "Không cần cài đặt bất kỳ công cụ nào.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:20:34.600Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:20:34.600Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6d3"
+  },
+  "question_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6b9"
+  },
+  "answer_content": "Angular là framework hoàn chỉnh, còn React chủ yếu là thư viện xây dựng giao diện.",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T04:20:34.603Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:20:34.603Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6d4"
+  },
+  "question_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6b9"
+  },
+  "answer_content": "Angular không hỗ trợ TypeScript.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:20:34.603Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:20:34.603Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6d5"
+  },
+  "question_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6b9"
+  },
+  "answer_content": "React do Google phát triển, Angular do Meta phát triển.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:20:34.603Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:20:34.603Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6d6"
+  },
+  "question_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6b9"
+  },
+  "answer_content": "Angular chỉ dùng để phát triển ứng dụng di động.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:20:34.603Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:20:34.603Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6d9"
+  },
+  "question_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6b7"
+  },
+  "answer_content": "Tăng tốc độ kết nối Internet.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:20:34.605Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:20:34.605Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6d7"
+  },
+  "question_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6b7"
+  },
+  "answer_content": "Giảm kích thước tệp HTML.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:20:34.605Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:20:34.605Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6da"
+  },
+  "question_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6b7"
+  },
+  "answer_content": "Thay thế hoàn toàn Component.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:20:34.605Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:20:34.605Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6d8"
+  },
+  "question_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6b7"
+  },
+  "answer_content": "Giúp quản lý và tái sử dụng các dependency, tăng tính linh hoạt và dễ kiểm thử.",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T04:20:34.605Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:20:34.605Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6dc"
+  },
+  "question_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6b6"
+  },
+  "answer_content": "Event Binding",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:20:34.607Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:20:34.607Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6db"
+  },
+  "question_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6b6"
+  },
+  "answer_content": "Dependency Injection",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:20:34.607Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:20:34.607Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6de"
+  },
+  "question_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6b6"
+  },
+  "answer_content": "Routing",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:20:34.607Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:20:34.607Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6dd"
+  },
+  "question_id": {
+    "$oid": "6a3f4f92d70d7913e0e9e6b6"
+  },
+  "answer_content": "Property Binding kết hợp với @Input",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T04:20:34.607Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:20:34.607Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6e9"
+  },
+  "question_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6df"
+  },
+  "answer_content": "Thiết kế giao diện và định dạng hiển thị cho trang web.",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T04:29:32.607Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:29:32.607Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6ea"
+  },
+  "question_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6df"
+  },
+  "answer_content": "Kết nối cơ sở dữ liệu.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:29:32.607Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:29:32.607Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6e8"
+  },
+  "question_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6df"
+  },
+  "answer_content": "Xử lý logic của ứng dụng.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:29:32.607Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:29:32.607Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6eb"
+  },
+  "question_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6df"
+  },
+  "answer_content": "Tạo cấu trúc của trang web.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:29:32.607Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:29:32.607Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6ed"
+  },
+  "question_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6e1"
+  },
+  "answer_content": "Margin, Border, Padding và Content.",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T04:29:32.609Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:29:32.609Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6ee"
+  },
+  "question_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6e1"
+  },
+  "answer_content": "Header, Main, Footer.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:29:32.609Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:29:32.609Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6ec"
+  },
+  "question_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6e1"
+  },
+  "answer_content": "Width, Height, Color, Font.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:29:32.609Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:29:32.609Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6ef"
+  },
+  "question_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6e1"
+  },
+  "answer_content": "Position, Display, Float.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:29:32.609Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:29:32.609Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6f1"
+  },
+  "question_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6e0"
+  },
+  "answer_content": "Thay thế hoàn toàn HTML.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:29:32.611Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:29:32.611Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6f0"
+  },
+  "question_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6e0"
+  },
+  "answer_content": "Hỗ trợ Animation, Transition và Flexbox.",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T04:29:32.611Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:29:32.611Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6f2"
+  },
+  "question_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6e0"
+  },
+  "answer_content": "Không cần JavaScript.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:29:32.611Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:29:32.611Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6f3"
+  },
+  "question_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6e0"
+  },
+  "answer_content": "Chỉ hoạt động trên thiết bị di động.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:29:32.611Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:29:32.611Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6f6"
+  },
+  "question_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6e2"
+  },
+  "answer_content": "display: flex",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:29:32.612Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:29:32.612Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6f7"
+  },
+  "question_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6e2"
+  },
+  "answer_content": "display: grid",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:29:32.612Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:29:32.612Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6f4"
+  },
+  "question_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6e2"
+  },
+  "answer_content": "display: block",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T04:29:32.612Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:29:32.612Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6f5"
+  },
+  "question_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6e2"
+  },
+  "answer_content": "display: inline",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:29:32.612Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:29:32.612Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6f9"
+  },
+  "question_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6e3"
+  },
+  "answer_content": "Tạo bố cục hai chiều theo hàng và cột.",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T04:29:32.614Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:29:32.614Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6f8"
+  },
+  "question_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6e3"
+  },
+  "answer_content": "Tạo hiệu ứng chuyển động.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:29:32.614Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:29:32.614Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6fa"
+  },
+  "question_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6e3"
+  },
+  "answer_content": "Thay đổi màu chữ.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:29:32.614Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:29:32.614Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6fb"
+  },
+  "question_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6e3"
+  },
+  "answer_content": "Quản lý font chữ.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:29:32.614Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:29:32.614Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6fc"
+  },
+  "question_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6e7"
+  },
+  "answer_content": "Tách phần trình bày khỏi nội dung, giúp mã nguồn dễ bảo trì và tái sử dụng.",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T04:29:32.615Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:29:32.615Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6fe"
+  },
+  "question_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6e7"
+  },
+  "answer_content": "Làm giảm dung lượng cơ sở dữ liệu.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:29:32.616Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:29:32.616Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6fd"
+  },
+  "question_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6e7"
+  },
+  "answer_content": "Thay thế hoàn toàn JavaScript.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:29:32.615Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:29:32.615Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6ff"
+  },
+  "question_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6e7"
+  },
+  "answer_content": "Không cần HTML để xây dựng giao diện.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:29:32.616Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:29:32.616Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f51acd70d7913e0e9e701"
+  },
+  "question_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6e5"
+  },
+  "answer_content": "Animation chỉ thay đổi màu sắc.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:29:32.617Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:29:32.617Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f51acd70d7913e0e9e703"
+  },
+  "question_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6e5"
+  },
+  "answer_content": "Hai khái niệm hoàn toàn giống nhau.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:29:32.617Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:29:32.617Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f51acd70d7913e0e9e702"
+  },
+  "question_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6e5"
+  },
+  "answer_content": "Transition mạnh hơn Animation.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:29:32.617Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:29:32.617Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f51acd70d7913e0e9e700"
+  },
+  "question_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6e5"
+  },
+  "answer_content": "Animation có thể chạy nhiều bước và tự động lặp lại, còn Transition chỉ xảy ra khi có sự thay đổi trạng thái.",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T04:29:32.617Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:29:32.617Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f51acd70d7913e0e9e706"
+  },
+  "question_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6e4"
+  },
+  "answer_content": "Tăng tốc độ tải trang.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:29:32.620Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:29:32.620Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f51acd70d7913e0e9e707"
+  },
+  "question_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6e4"
+  },
+  "answer_content": "Tạo cơ sở dữ liệu.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:29:32.620Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:29:32.620Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f51acd70d7913e0e9e704"
+  },
+  "question_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6e4"
+  },
+  "answer_content": "Thay đổi cấu trúc HTML.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:29:32.620Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:29:32.620Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f51acd70d7913e0e9e705"
+  },
+  "question_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6e4"
+  },
+  "answer_content": "Tạo hiệu ứng chuyển đổi mượt mà khi giá trị của thuộc tính CSS thay đổi.",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T04:29:32.620Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:29:32.620Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f51acd70d7913e0e9e70a"
+  },
+  "question_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6e6"
+  },
+  "answer_content": "Thiết kế chỉ dành cho máy tính.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:29:32.621Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:29:32.621Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f51acd70d7913e0e9e708"
+  },
+  "question_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6e6"
+  },
+  "answer_content": "Thiết kế trang web chỉ dành cho điện thoại.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:29:32.621Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:29:32.621Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f51acd70d7913e0e9e709"
+  },
+  "question_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6e6"
+  },
+  "answer_content": "Thiết kế giúp giao diện thích ứng với nhiều kích thước màn hình khác nhau.",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T04:29:32.621Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:29:32.621Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f51acd70d7913e0e9e70b"
+  },
+  "question_id": {
+    "$oid": "6a3f51acd70d7913e0e9e6e6"
+  },
+  "answer_content": "Thiết kế không sử dụng CSS.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:29:32.621Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:29:32.621Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f5404d70d7913e0e9e715"
+  },
+  "question_id": {
+    "$oid": "6a3f5404d70d7913e0e9e713"
+  },
+  "answer_content": "Vue là framework đầy đủ hơn Angular.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:39:32.294Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:39:32.294Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f5404d70d7913e0e9e718"
+  },
+  "question_id": {
+    "$oid": "6a3f5404d70d7913e0e9e713"
+  },
+  "answer_content": "Vue không hỗ trợ component.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:39:32.294Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:39:32.294Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f5404d70d7913e0e9e717"
+  },
+  "question_id": {
+    "$oid": "6a3f5404d70d7913e0e9e713"
+  },
+  "answer_content": "Vue chỉ dùng để phát triển ứng dụng di động.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:39:32.294Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:39:32.294Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f5404d70d7913e0e9e716"
+  },
+  "question_id": {
+    "$oid": "6a3f5404d70d7913e0e9e713"
+  },
+  "answer_content": "Vue có độ phức tạp thấp hơn và dễ tiếp cận hơn đối với người mới học.",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T04:39:32.294Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:39:32.294Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f5404d70d7913e0e9e71b"
+  },
+  "question_id": {
+    "$oid": "6a3f5404d70d7913e0e9e711"
+  },
+  "answer_content": "Virtual Machine.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:39:32.296Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:39:32.296Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f5404d70d7913e0e9e719"
+  },
+  "question_id": {
+    "$oid": "6a3f5404d70d7913e0e9e711"
+  },
+  "answer_content": "Two-way Data Binding và hệ thống Reactive.",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T04:39:32.296Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:39:32.296Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f5404d70d7913e0e9e71a"
+  },
+  "question_id": {
+    "$oid": "6a3f5404d70d7913e0e9e711"
+  },
+  "answer_content": "Dependency Injection.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:39:32.296Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:39:32.296Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f5404d70d7913e0e9e71c"
+  },
+  "question_id": {
+    "$oid": "6a3f5404d70d7913e0e9e711"
+  },
+  "answer_content": "Static Rendering.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:39:32.296Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:39:32.296Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f5404d70d7913e0e9e71d"
+  },
+  "question_id": {
+    "$oid": "6a3f5404d70d7913e0e9e70e"
+  },
+  "answer_content": "Quản lý cơ sở dữ liệu.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:39:32.298Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:39:32.298Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f5404d70d7913e0e9e71e"
+  },
+  "question_id": {
+    "$oid": "6a3f5404d70d7913e0e9e70e"
+  },
+  "answer_content": "Điều hướng giữa các trang hoặc component trong ứng dụng Vue.",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T04:39:32.298Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:39:32.298Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f5404d70d7913e0e9e71f"
+  },
+  "question_id": {
+    "$oid": "6a3f5404d70d7913e0e9e70e"
+  },
+  "answer_content": "Quản lý CSS.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:39:32.298Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:39:32.298Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f5404d70d7913e0e9e720"
+  },
+  "question_id": {
+    "$oid": "6a3f5404d70d7913e0e9e70e"
+  },
+  "answer_content": "Biên dịch mã nguồn.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:39:32.298Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:39:32.298Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f5404d70d7913e0e9e721"
+  },
+  "question_id": {
+    "$oid": "6a3f5404d70d7913e0e9e70f"
+  },
+  "answer_content": "Lưu trữ trạng thái toàn cục.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:39:32.300Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:39:32.300Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f5404d70d7913e0e9e724"
+  },
+  "question_id": {
+    "$oid": "6a3f5404d70d7913e0e9e70f"
+  },
+  "answer_content": "Định nghĩa CSS.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:39:32.300Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:39:32.300Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f5404d70d7913e0e9e723"
+  },
+  "question_id": {
+    "$oid": "6a3f5404d70d7913e0e9e70f"
+  },
+  "answer_content": "Gọi API.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:39:32.300Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:39:32.300Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f5404d70d7913e0e9e722"
+  },
+  "question_id": {
+    "$oid": "6a3f5404d70d7913e0e9e70f"
+  },
+  "answer_content": "Truyền dữ liệu từ component cha sang component con.",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T04:39:32.300Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:39:32.300Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f5404d70d7913e0e9e727"
+  },
+  "question_id": {
+    "$oid": "6a3f5404d70d7913e0e9e70c"
+  },
+  "answer_content": "C#",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:39:32.301Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:39:32.301Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f5404d70d7913e0e9e725"
+  },
+  "question_id": {
+    "$oid": "6a3f5404d70d7913e0e9e70c"
+  },
+  "answer_content": "Java",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:39:32.301Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:39:32.301Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f5404d70d7913e0e9e726"
+  },
+  "question_id": {
+    "$oid": "6a3f5404d70d7913e0e9e70c"
+  },
+  "answer_content": "JavaScript",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T04:39:32.301Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:39:32.301Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f5404d70d7913e0e9e728"
+  },
+  "question_id": {
+    "$oid": "6a3f5404d70d7913e0e9e70c"
+  },
+  "answer_content": "Python",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:39:32.301Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:39:32.301Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f5404d70d7913e0e9e729"
+  },
+  "question_id": {
+    "$oid": "6a3f5404d70d7913e0e9e712"
+  },
+  "answer_content": "Quản lý trạng thái (state) của ứng dụng.",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T04:39:32.303Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:39:32.303Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f5404d70d7913e0e9e72a"
+  },
+  "question_id": {
+    "$oid": "6a3f5404d70d7913e0e9e712"
+  },
+  "answer_content": "Tạo hiệu ứng CSS.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:39:32.303Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:39:32.303Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f5404d70d7913e0e9e72b"
+  },
+  "question_id": {
+    "$oid": "6a3f5404d70d7913e0e9e712"
+  },
+  "answer_content": "Quản lý cơ sở dữ liệu.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:39:32.303Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:39:32.303Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f5404d70d7913e0e9e72c"
+  },
+  "question_id": {
+    "$oid": "6a3f5404d70d7913e0e9e712"
+  },
+  "answer_content": "Biên dịch mã nguồn.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:39:32.304Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:39:32.304Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f5404d70d7913e0e9e72f"
+  },
+  "question_id": {
+    "$oid": "6a3f5404d70d7913e0e9e70d"
+  },
+  "answer_content": "Component",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T04:39:32.305Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:39:32.305Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f5404d70d7913e0e9e72d"
+  },
+  "question_id": {
+    "$oid": "6a3f5404d70d7913e0e9e70d"
+  },
+  "answer_content": "Service",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:39:32.305Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:39:32.305Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f5404d70d7913e0e9e72e"
+  },
+  "question_id": {
+    "$oid": "6a3f5404d70d7913e0e9e70d"
+  },
+  "answer_content": "Module",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:39:32.305Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:39:32.305Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f5404d70d7913e0e9e730"
+  },
+  "question_id": {
+    "$oid": "6a3f5404d70d7913e0e9e70d"
+  },
+  "answer_content": "Directive",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:39:32.305Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:39:32.305Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f5404d70d7913e0e9e731"
+  },
+  "question_id": {
+    "$oid": "6a3f5404d70d7913e0e9e714"
+  },
+  "answer_content": "Cú pháp đơn giản, hiệu năng tốt và hỗ trợ phát triển giao diện theo component.",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T04:39:32.306Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:39:32.306Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f5404d70d7913e0e9e734"
+  },
+  "question_id": {
+    "$oid": "6a3f5404d70d7913e0e9e714"
+  },
+  "answer_content": "Không hỗ trợ Single Page Application (SPA).",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:39:32.307Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:39:32.307Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f5404d70d7913e0e9e733"
+  },
+  "question_id": {
+    "$oid": "6a3f5404d70d7913e0e9e714"
+  },
+  "answer_content": "Chỉ hoạt động trên Chrome.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:39:32.306Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:39:32.306Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f5404d70d7913e0e9e732"
+  },
+  "question_id": {
+    "$oid": "6a3f5404d70d7913e0e9e714"
+  },
+  "answer_content": "Không cần HTML và CSS.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:39:32.306Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:39:32.306Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f5404d70d7913e0e9e735"
+  },
+  "question_id": {
+    "$oid": "6a3f5404d70d7913e0e9e710"
+  },
+  "answer_content": "Chỉ hỗ trợ phát triển ứng dụng di động.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:39:32.308Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:39:32.308Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f5404d70d7913e0e9e737"
+  },
+  "question_id": {
+    "$oid": "6a3f5404d70d7913e0e9e710"
+  },
+  "answer_content": "Chỉ hoạt động với TypeScript.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:39:32.308Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:39:32.308Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f5404d70d7913e0e9e738"
+  },
+  "question_id": {
+    "$oid": "6a3f5404d70d7913e0e9e710"
+  },
+  "answer_content": "Bắt buộc sử dụng Redux.",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T04:39:32.308Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:39:32.308Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3f5404d70d7913e0e9e736"
+  },
+  "question_id": {
+    "$oid": "6a3f5404d70d7913e0e9e710"
+  },
+  "answer_content": "Nhẹ, dễ học và dễ tích hợp vào các dự án hiện có.",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T04:39:32.308Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:39:32.308Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fa9d9d4edede491df54a4"
+  },
+  "question_id": {
+    "$oid": "6a3fa9d9d4edede491df549c"
+  },
+  "answer_content": "Stack",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T10:45:45.450Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T10:45:45.450Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fa9d9d4edede491df54a5"
+  },
+  "question_id": {
+    "$oid": "6a3fa9d9d4edede491df549c"
+  },
+  "answer_content": "Column",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T10:45:45.450Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T10:45:45.450Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fa9d9d4edede491df54a6"
+  },
+  "question_id": {
+    "$oid": "6a3fa9d9d4edede491df549c"
+  },
+  "answer_content": "ListTile",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T10:45:45.450Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T10:45:45.450Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fa9d9d4edede491df54a7"
+  },
+  "question_id": {
+    "$oid": "6a3fa9d9d4edede491df549e"
+  },
+  "answer_content": "final",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T10:45:45.452Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T10:45:45.452Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fa9d9d4edede491df54a3"
+  },
+  "question_id": {
+    "$oid": "6a3fa9d9d4edede491df549c"
+  },
+  "answer_content": "Row",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T10:45:45.450Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T10:45:45.450Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fa9d9d4edede491df54a9"
+  },
+  "question_id": {
+    "$oid": "6a3fa9d9d4edede491df549e"
+  },
+  "answer_content": "const",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T10:45:45.452Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T10:45:45.452Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fa9d9d4edede491df54aa"
+  },
+  "question_id": {
+    "$oid": "6a3fa9d9d4edede491df549e"
+  },
+  "answer_content": "immutable",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T10:45:45.452Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T10:45:45.452Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fa9d9d4edede491df54a8"
+  },
+  "question_id": {
+    "$oid": "6a3fa9d9d4edede491df549e"
+  },
+  "answer_content": "static",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T10:45:45.452Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T10:45:45.452Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fa9d9d4edede491df54b0"
+  },
+  "question_id": {
+    "$oid": "6a3fa9d9d4edede491df549d"
+  },
+  "answer_content": "Row",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T10:45:45.457Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T10:45:45.457Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fa9d9d4edede491df54b5"
+  },
+  "question_id": {
+    "$oid": "6a3fa9d9d4edede491df549b"
+  },
+  "answer_content": "Activity",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T10:45:45.459Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T10:45:45.459Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fa9d9d4edede491df54b3"
+  },
+  "question_id": {
+    "$oid": "6a3fa9d9d4edede491df549b"
+  },
+  "answer_content": "Component",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T10:45:45.459Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T10:45:45.459Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fa9d9d4edede491df54b7"
+  },
+  "question_id": {
+    "$oid": "6a3fa9d9d4edede491df54a1"
+  },
+  "answer_content": "ListView.builder",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T10:45:45.461Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T10:45:45.461Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fa9d9d4edede491df54ab"
+  },
+  "question_id": {
+    "$oid": "6a3fa9d9d4edede491df54a2"
+  },
+  "answer_content": "flutter create",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T10:45:45.454Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T10:45:45.454Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fa9d9d4edede491df54b2"
+  },
+  "question_id": {
+    "$oid": "6a3fa9d9d4edede491df549d"
+  },
+  "answer_content": "Center",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T10:45:45.457Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T10:45:45.457Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fa9d9d4edede491df54ae"
+  },
+  "question_id": {
+    "$oid": "6a3fa9d9d4edede491df54a2"
+  },
+  "answer_content": "flutter install",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T10:45:45.454Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T10:45:45.454Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fa9d9d4edede491df54ac"
+  },
+  "question_id": {
+    "$oid": "6a3fa9d9d4edede491df54a2"
+  },
+  "answer_content": "flutter build",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T10:45:45.454Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T10:45:45.454Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fa9d9d4edede491df54af"
+  },
+  "question_id": {
+    "$oid": "6a3fa9d9d4edede491df549d"
+  },
+  "answer_content": "Column",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T10:45:45.457Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T10:45:45.457Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fa9d9d4edede491df54b6"
+  },
+  "question_id": {
+    "$oid": "6a3fa9d9d4edede491df549b"
+  },
+  "answer_content": "Fragment",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T10:45:45.459Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T10:45:45.459Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fa9d9d4edede491df54b8"
+  },
+  "question_id": {
+    "$oid": "6a3fa9d9d4edede491df54a1"
+  },
+  "answer_content": "Column",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T10:45:45.461Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T10:45:45.461Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fa9d9d4edede491df54b4"
+  },
+  "question_id": {
+    "$oid": "6a3fa9d9d4edede491df549b"
+  },
+  "answer_content": "Widget",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T10:45:45.459Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T10:45:45.459Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fa9d9d4edede491df54b1"
+  },
+  "question_id": {
+    "$oid": "6a3fa9d9d4edede491df549d"
+  },
+  "answer_content": "Container",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T10:45:45.457Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T10:45:45.457Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fa9d9d4edede491df54ad"
+  },
+  "question_id": {
+    "$oid": "6a3fa9d9d4edede491df54a2"
+  },
+  "answer_content": "flutter run",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T10:45:45.454Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T10:45:45.454Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fa9d9d4edede491df54bb"
+  },
+  "question_id": {
+    "$oid": "6a3fa9d9d4edede491df54a0"
+  },
+  "answer_content": "refresh()",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T10:45:45.462Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T10:45:45.462Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fa9d9d4edede491df54bc"
+  },
+  "question_id": {
+    "$oid": "6a3fa9d9d4edede491df54a0"
+  },
+  "answer_content": "rebuild()",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T10:45:45.462Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T10:45:45.462Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fa9d9d4edede491df54bd"
+  },
+  "question_id": {
+    "$oid": "6a3fa9d9d4edede491df54a0"
+  },
+  "answer_content": "update()",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T10:45:45.462Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T10:45:45.462Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fa9d9d4edede491df54be"
+  },
+  "question_id": {
+    "$oid": "6a3fa9d9d4edede491df54a0"
+  },
+  "answer_content": "setState()",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T10:45:45.462Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T10:45:45.462Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fa9d9d4edede491df54bf"
+  },
+  "question_id": {
+    "$oid": "6a3fa9d9d4edede491df549a"
+  },
+  "answer_content": "Java",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T10:45:45.465Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T10:45:45.465Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fa9d9d4edede491df54c0"
+  },
+  "question_id": {
+    "$oid": "6a3fa9d9d4edede491df549a"
+  },
+  "answer_content": "Kotlin",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T10:45:45.465Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T10:45:45.465Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fa9d9d4edede491df54c1"
+  },
+  "question_id": {
+    "$oid": "6a3fa9d9d4edede491df549a"
+  },
+  "answer_content": "Swift",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T10:45:45.465Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T10:45:45.465Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fa9d9d4edede491df54c2"
+  },
+  "question_id": {
+    "$oid": "6a3fa9d9d4edede491df549a"
+  },
+  "answer_content": "Dart",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T10:45:45.465Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T10:45:45.465Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fa9d9d4edede491df54c3"
+  },
+  "question_id": {
+    "$oid": "6a3fa9d9d4edede491df549f"
+  },
+  "answer_content": "dispose()",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T10:45:45.466Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T10:45:45.466Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fa9d9d4edede491df54c4"
+  },
+  "question_id": {
+    "$oid": "6a3fa9d9d4edede491df549f"
+  },
+  "answer_content": "build()",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T10:45:45.466Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T10:45:45.466Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fa9d9d4edede491df54c5"
+  },
+  "question_id": {
+    "$oid": "6a3fa9d9d4edede491df549f"
+  },
+  "answer_content": "initState()",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T10:45:45.466Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T10:45:45.466Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fa9d9d4edede491df54c6"
+  },
+  "question_id": {
+    "$oid": "6a3fa9d9d4edede491df549f"
+  },
+  "answer_content": "didUpdateWidget()",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T10:45:45.466Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T10:45:45.466Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fa9d9d4edede491df54c7"
+  },
+  "question_id": {
+    "$oid": "6a3fa9d9d4edede491df5499"
+  },
+  "answer_content": "Microsoft",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T10:45:45.468Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T10:45:45.468Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fa9d9d4edede491df54c8"
+  },
+  "question_id": {
+    "$oid": "6a3fa9d9d4edede491df5499"
+  },
+  "answer_content": "Apple",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T10:45:45.468Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T10:45:45.468Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fa9d9d4edede491df54c9"
+  },
+  "question_id": {
+    "$oid": "6a3fa9d9d4edede491df5499"
+  },
+  "answer_content": "Google",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T10:45:45.468Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T10:45:45.468Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fa9d9d4edede491df54ca"
+  },
+  "question_id": {
+    "$oid": "6a3fa9d9d4edede491df5499"
+  },
+  "answer_content": "Meta",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T10:45:45.468Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T10:45:45.468Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fa9d9d4edede491df54b9"
+  },
+  "question_id": {
+    "$oid": "6a3fa9d9d4edede491df54a1"
+  },
+  "answer_content": "Wrap",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T10:45:45.461Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T10:45:45.461Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fa9d9d4edede491df54ba"
+  },
+  "question_id": {
+    "$oid": "6a3fa9d9d4edede491df54a1"
+  },
+  "answer_content": "GridTile",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T10:45:45.461Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T10:45:45.461Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fc896d4edede491df54e7"
+  },
+  "question_id": {
+    "$oid": "6a3fc896d4edede491df54dc"
+  },
+  "answer_content": "TextBox",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T12:56:54.634Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T12:56:54.634Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fc896d4edede491df54e9"
+  },
+  "question_id": {
+    "$oid": "6a3fc896d4edede491df54dc"
+  },
+  "answer_content": "PictureBox",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T12:56:54.634Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T12:56:54.634Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fc896d4edede491df54e8"
+  },
+  "question_id": {
+    "$oid": "6a3fc896d4edede491df54dc"
+  },
+  "answer_content": "Button",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T12:56:54.634Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T12:56:54.634Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fc896d4edede491df54e6"
+  },
+  "question_id": {
+    "$oid": "6a3fc896d4edede491df54dc"
+  },
+  "answer_content": "Label",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T12:56:54.634Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T12:56:54.634Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fc896d4edede491df54eb"
+  },
+  "question_id": {
+    "$oid": "6a3fc896d4edede491df54dd"
+  },
+  "answer_content": "TextChanged",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T12:56:54.636Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T12:56:54.636Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fc896d4edede491df54ea"
+  },
+  "question_id": {
+    "$oid": "6a3fc896d4edede491df54dd"
+  },
+  "answer_content": "Load",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T12:56:54.636Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T12:56:54.636Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fc896d4edede491df54ec"
+  },
+  "question_id": {
+    "$oid": "6a3fc896d4edede491df54dd"
+  },
+  "answer_content": "Click",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T12:56:54.636Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T12:56:54.636Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fc896d4edede491df54ed"
+  },
+  "question_id": {
+    "$oid": "6a3fc896d4edede491df54dd"
+  },
+  "answer_content": "Paint",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T12:56:54.636Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T12:56:54.636Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fc896d4edede491df54ef"
+  },
+  "question_id": {
+    "$oid": "6a3fc896d4edede491df54e0"
+  },
+  "answer_content": "Load",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T12:56:54.638Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T12:56:54.638Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fc896d4edede491df54ee"
+  },
+  "question_id": {
+    "$oid": "6a3fc896d4edede491df54e0"
+  },
+  "answer_content": "Click",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T12:56:54.638Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T12:56:54.638Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fc896d4edede491df54f0"
+  },
+  "question_id": {
+    "$oid": "6a3fc896d4edede491df54e0"
+  },
+  "answer_content": "Closing",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T12:56:54.638Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T12:56:54.638Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fc896d4edede491df54f1"
+  },
+  "question_id": {
+    "$oid": "6a3fc896d4edede491df54e0"
+  },
+  "answer_content": "Resize",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T12:56:54.638Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T12:56:54.638Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fc896d4edede491df54f4"
+  },
+  "question_id": {
+    "$oid": "6a3fc896d4edede491df54e1"
+  },
+  "answer_content": "Text",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T12:56:54.639Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T12:56:54.639Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fc896d4edede491df54f3"
+  },
+  "question_id": {
+    "$oid": "6a3fc896d4edede491df54e1"
+  },
+  "answer_content": "Caption",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T12:56:54.639Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T12:56:54.639Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fc896d4edede491df54f2"
+  },
+  "question_id": {
+    "$oid": "6a3fc896d4edede491df54e1"
+  },
+  "answer_content": "Value",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T12:56:54.639Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T12:56:54.639Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fc896d4edede491df54f5"
+  },
+  "question_id": {
+    "$oid": "6a3fc896d4edede491df54e1"
+  },
+  "answer_content": "Name",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T12:56:54.640Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T12:56:54.640Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fc896d4edede491df54f6"
+  },
+  "question_id": {
+    "$oid": "6a3fc896d4edede491df54e4"
+  },
+  "answer_content": "SqlConnection",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T12:56:54.642Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T12:56:54.642Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fc896d4edede491df54f8"
+  },
+  "question_id": {
+    "$oid": "6a3fc896d4edede491df54e4"
+  },
+  "answer_content": "HttpClient",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T12:56:54.642Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T12:56:54.642Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fc896d4edede491df54f7"
+  },
+  "question_id": {
+    "$oid": "6a3fc896d4edede491df54e4"
+  },
+  "answer_content": "FileStream",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T12:56:54.642Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T12:56:54.642Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fc896d4edede491df54f9"
+  },
+  "question_id": {
+    "$oid": "6a3fc896d4edede491df54e4"
+  },
+  "answer_content": "StreamReader",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T12:56:54.642Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T12:56:54.642Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fc896d4edede491df54fb"
+  },
+  "question_id": {
+    "$oid": "6a3fc896d4edede491df54e2"
+  },
+  "answer_content": "Dispose()",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T12:56:54.643Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T12:56:54.643Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fc896d4edede491df54fa"
+  },
+  "question_id": {
+    "$oid": "6a3fc896d4edede491df54e2"
+  },
+  "answer_content": "Close()",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T12:56:54.643Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T12:56:54.643Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fc896d4edede491df54fc"
+  },
+  "question_id": {
+    "$oid": "6a3fc896d4edede491df54e2"
+  },
+  "answer_content": "Show()",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T12:56:54.643Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T12:56:54.643Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fc896d4edede491df54fd"
+  },
+  "question_id": {
+    "$oid": "6a3fc896d4edede491df54e2"
+  },
+  "answer_content": "Hide()",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T12:56:54.643Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T12:56:54.643Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fc896d4edede491df5500"
+  },
+  "question_id": {
+    "$oid": "6a3fc896d4edede491df54df"
+  },
+  "answer_content": "TreeView",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T12:56:54.645Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T12:56:54.645Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fc896d4edede491df54ff"
+  },
+  "question_id": {
+    "$oid": "6a3fc896d4edede491df54df"
+  },
+  "answer_content": "DataGridView",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T12:56:54.645Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T12:56:54.645Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fc896d4edede491df54fe"
+  },
+  "question_id": {
+    "$oid": "6a3fc896d4edede491df54df"
+  },
+  "answer_content": "ListBox",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T12:56:54.645Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T12:56:54.645Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fc896d4edede491df5501"
+  },
+  "question_id": {
+    "$oid": "6a3fc896d4edede491df54df"
+  },
+  "answer_content": "ComboBox",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T12:56:54.645Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T12:56:54.645Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fc896d4edede491df5502"
+  },
+  "question_id": {
+    "$oid": "6a3fc896d4edede491df54de"
+  },
+  "answer_content": "Console.WriteLine()",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T12:56:54.647Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T12:56:54.647Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fc896d4edede491df5504"
+  },
+  "question_id": {
+    "$oid": "6a3fc896d4edede491df54de"
+  },
+  "answer_content": "Dialog.Show()",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T12:56:54.648Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T12:56:54.648Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fc896d4edede491df5503"
+  },
+  "question_id": {
+    "$oid": "6a3fc896d4edede491df54de"
+  },
+  "answer_content": "MessageBox.Show()",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T12:56:54.648Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T12:56:54.648Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fc896d4edede491df5505"
+  },
+  "question_id": {
+    "$oid": "6a3fc896d4edede491df54de"
+  },
+  "answer_content": "Form.Show()",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T12:56:54.648Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T12:56:54.648Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fc896d4edede491df5509"
+  },
+  "question_id": {
+    "$oid": "6a3fc896d4edede491df54e3"
+  },
+  "answer_content": "RichTextBox",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T12:56:54.649Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T12:56:54.649Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fc896d4edede491df5506"
+  },
+  "question_id": {
+    "$oid": "6a3fc896d4edede491df54e3"
+  },
+  "answer_content": "ListView",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T12:56:54.649Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T12:56:54.649Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fc896d4edede491df5507"
+  },
+  "question_id": {
+    "$oid": "6a3fc896d4edede491df54e3"
+  },
+  "answer_content": "ComboBox",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T12:56:54.649Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T12:56:54.649Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fc896d4edede491df5508"
+  },
+  "question_id": {
+    "$oid": "6a3fc896d4edede491df54e3"
+  },
+  "answer_content": "CheckedListBox",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T12:56:54.649Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T12:56:54.649Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fc896d4edede491df550a"
+  },
+  "question_id": {
+    "$oid": "6a3fc896d4edede491df54e5"
+  },
+  "answer_content": "PasswordChar",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T12:56:54.651Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T12:56:54.651Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fc896d4edede491df550b"
+  },
+  "question_id": {
+    "$oid": "6a3fc896d4edede491df54e5"
+  },
+  "answer_content": "Multiline",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T12:56:54.651Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T12:56:54.651Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fc896d4edede491df550d"
+  },
+  "question_id": {
+    "$oid": "6a3fc896d4edede491df54e5"
+  },
+  "answer_content": "MaxLength",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T12:56:54.651Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T12:56:54.651Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fc896d4edede491df550c"
+  },
+  "question_id": {
+    "$oid": "6a3fc896d4edede491df54e5"
+  },
+  "answer_content": "ReadOnly",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T12:56:54.651Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T12:56:54.651Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fcdf4d4edede491df5526"
+  },
+  "question_id": {
+    "$oid": "6a3fcdf4d4edede491df551c"
+  },
+  "answer_content": "Google",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T13:19:48.467Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T13:19:48.467Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fcdf4d4edede491df5528"
+  },
+  "question_id": {
+    "$oid": "6a3fcdf4d4edede491df551c"
+  },
+  "answer_content": "JetBrains",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T13:19:48.467Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T13:19:48.467Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fcdf4d4edede491df5527"
+  },
+  "question_id": {
+    "$oid": "6a3fcdf4d4edede491df551c"
+  },
+  "answer_content": "Microsoft",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T13:19:48.467Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T13:19:48.467Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fcdf4d4edede491df5529"
+  },
+  "question_id": {
+    "$oid": "6a3fcdf4d4edede491df551c"
+  },
+  "answer_content": "Oracle",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T13:19:48.467Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T13:19:48.467Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fcdf4d4edede491df552a"
+  },
+  "question_id": {
+    "$oid": "6a3fcdf4d4edede491df551e"
+  },
+  "answer_content": "String",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T13:19:48.468Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T13:19:48.468Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fcdf4d4edede491df552b"
+  },
+  "question_id": {
+    "$oid": "6a3fcdf4d4edede491df551e"
+  },
+  "answer_content": "Int",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T13:19:48.468Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T13:19:48.468Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fcdf4d4edede491df552c"
+  },
+  "question_id": {
+    "$oid": "6a3fcdf4d4edede491df551e"
+  },
+  "answer_content": "Boolean",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T13:19:48.468Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T13:19:48.468Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fcdf4d4edede491df552d"
+  },
+  "question_id": {
+    "$oid": "6a3fcdf4d4edede491df551e"
+  },
+  "answer_content": "Double",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T13:19:48.468Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T13:19:48.468Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fcdf4d4edede491df552e"
+  },
+  "question_id": {
+    "$oid": "6a3fcdf4d4edede491df551d"
+  },
+  "answer_content": "var",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T13:19:48.470Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T13:19:48.470Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fcdf4d4edede491df552f"
+  },
+  "question_id": {
+    "$oid": "6a3fcdf4d4edede491df551d"
+  },
+  "answer_content": "val",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T13:19:48.470Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T13:19:48.470Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fcdf4d4edede491df5531"
+  },
+  "question_id": {
+    "$oid": "6a3fcdf4d4edede491df551d"
+  },
+  "answer_content": "const",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T13:19:48.470Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T13:19:48.470Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fcdf4d4edede491df5530"
+  },
+  "question_id": {
+    "$oid": "6a3fcdf4d4edede491df551d"
+  },
+  "answer_content": "let",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T13:19:48.470Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T13:19:48.470Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fcdf4d4edede491df5533"
+  },
+  "question_id": {
+    "$oid": "6a3fcdf4d4edede491df5521"
+  },
+  "answer_content": "Array",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T13:19:48.472Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T13:19:48.472Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fcdf4d4edede491df5532"
+  },
+  "question_id": {
+    "$oid": "6a3fcdf4d4edede491df5521"
+  },
+  "answer_content": "List",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T13:19:48.472Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T13:19:48.472Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fcdf4d4edede491df5534"
+  },
+  "question_id": {
+    "$oid": "6a3fcdf4d4edede491df5521"
+  },
+  "answer_content": "Set",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T13:19:48.472Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T13:19:48.472Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fcdf4d4edede491df5535"
+  },
+  "question_id": {
+    "$oid": "6a3fcdf4d4edede491df5521"
+  },
+  "answer_content": "MutableList",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T13:19:48.472Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T13:19:48.472Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fcdf4d4edede491df5536"
+  },
+  "question_id": {
+    "$oid": "6a3fcdf4d4edede491df551f"
+  },
+  "answer_content": "!!",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T13:19:48.473Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T13:19:48.473Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fcdf4d4edede491df5538"
+  },
+  "question_id": {
+    "$oid": "6a3fcdf4d4edede491df551f"
+  },
+  "answer_content": "::",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T13:19:48.473Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T13:19:48.473Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fcdf4d4edede491df5537"
+  },
+  "question_id": {
+    "$oid": "6a3fcdf4d4edede491df551f"
+  },
+  "answer_content": "?.",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T13:19:48.473Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T13:19:48.473Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fcdf4d4edede491df5539"
+  },
+  "question_id": {
+    "$oid": "6a3fcdf4d4edede491df551f"
+  },
+  "answer_content": "->",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T13:19:48.473Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T13:19:48.473Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fcdf4d4edede491df553a"
+  },
+  "question_id": {
+    "$oid": "6a3fcdf4d4edede491df5520"
+  },
+  "answer_content": "object",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T13:19:48.474Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T13:19:48.474Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fcdf4d4edede491df553b"
+  },
+  "question_id": {
+    "$oid": "6a3fcdf4d4edede491df5520"
+  },
+  "answer_content": "class",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T13:19:48.474Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T13:19:48.474Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fcdf4d4edede491df553d"
+  },
+  "question_id": {
+    "$oid": "6a3fcdf4d4edede491df5520"
+  },
+  "answer_content": "packet",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T13:19:48.475Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T13:19:48.475Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fcdf4d4edede491df553c"
+  },
+  "question_id": {
+    "$oid": "6a3fcdf4d4edede491df5520"
+  },
+  "answer_content": "interface",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T13:19:48.475Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T13:19:48.475Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fcdf4d4edede491df5541"
+  },
+  "question_id": {
+    "$oid": "6a3fcdf4d4edede491df5522"
+  },
+  "answer_content": "Enum Class",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T13:19:48.476Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T13:19:48.476Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fcdf4d4edede491df553e"
+  },
+  "question_id": {
+    "$oid": "6a3fcdf4d4edede491df5522"
+  },
+  "answer_content": "Data Class",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T13:19:48.476Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T13:19:48.476Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fcdf4d4edede491df553f"
+  },
+  "question_id": {
+    "$oid": "6a3fcdf4d4edede491df5522"
+  },
+  "answer_content": "Abstract Class",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T13:19:48.476Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T13:19:48.476Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fcdf4d4edede491df5540"
+  },
+  "question_id": {
+    "$oid": "6a3fcdf4d4edede491df5522"
+  },
+  "answer_content": "Interface",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T13:19:48.476Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T13:19:48.476Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fcdf4d4edede491df5542"
+  },
+  "question_id": {
+    "$oid": "6a3fcdf4d4edede491df5525"
+  },
+  "answer_content": "Eclipse",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T13:19:48.479Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T13:19:48.479Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fcdf4d4edede491df5543"
+  },
+  "question_id": {
+    "$oid": "6a3fcdf4d4edede491df5525"
+  },
+  "answer_content": "NetBeans",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T13:19:48.479Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T13:19:48.479Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fcdf4d4edede491df5545"
+  },
+  "question_id": {
+    "$oid": "6a3fcdf4d4edede491df5525"
+  },
+  "answer_content": "Code::Blocks",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T13:19:48.479Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T13:19:48.479Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fcdf4d4edede491df5544"
+  },
+  "question_id": {
+    "$oid": "6a3fcdf4d4edede491df5525"
+  },
+  "answer_content": "IntelliJ IDEA",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T13:19:48.479Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T13:19:48.479Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fcdf4d4edede491df5546"
+  },
+  "question_id": {
+    "$oid": "6a3fcdf4d4edede491df5523"
+  },
+  "answer_content": "Thiết kế giao diện",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T13:19:48.480Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T13:19:48.480Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fcdf4d4edede491df5548"
+  },
+  "question_id": {
+    "$oid": "6a3fcdf4d4edede491df5523"
+  },
+  "answer_content": "Kết nối cơ sở dữ liệu",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T13:19:48.480Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T13:19:48.480Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fcdf4d4edede491df5549"
+  },
+  "question_id": {
+    "$oid": "6a3fcdf4d4edede491df5523"
+  },
+  "answer_content": "Quản lý bộ nhớ",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T13:19:48.480Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T13:19:48.480Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fcdf4d4edede491df5547"
+  },
+  "question_id": {
+    "$oid": "6a3fcdf4d4edede491df5523"
+  },
+  "answer_content": "Xử lý bất đồng bộ",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T13:19:48.480Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T13:19:48.480Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fcdf4d4edede491df554a"
+  },
+  "question_id": {
+    "$oid": "6a3fcdf4d4edede491df5524"
+  },
+  "answer_content": "if",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T13:19:48.482Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T13:19:48.482Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fcdf4d4edede491df554d"
+  },
+  "question_id": {
+    "$oid": "6a3fcdf4d4edede491df5524"
+  },
+  "answer_content": "when",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T13:19:48.482Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T13:19:48.482Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fcdf4d4edede491df554b"
+  },
+  "question_id": {
+    "$oid": "6a3fcdf4d4edede491df5524"
+  },
+  "answer_content": "switch",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-06-27T13:19:48.482Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T13:19:48.482Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fcdf4d4edede491df554c"
+  },
+  "question_id": {
+    "$oid": "6a3fcdf4d4edede491df5524"
+  },
+  "answer_content": "try",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-06-27T13:19:48.482Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T13:19:48.482Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a6ab6d71614841ed2ab695d"
+  },
+  "question_id": {
+    "$oid": "6a6ab6d71614841ed2ab695a"
+  },
+  "answer_content": "6",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-07-30T02:28:39.372Z"
+  },
+  "updatedAt": {
+    "$date": "2026-07-30T02:32:10.087Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a6ab6d71614841ed2ab695b"
+  },
+  "question_id": {
+    "$oid": "6a6ab6d71614841ed2ab695a"
+  },
+  "answer_content": "2",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-07-30T02:28:39.372Z"
+  },
+  "updatedAt": {
+    "$date": "2026-07-30T02:32:10.087Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a6ab6d71614841ed2ab695c"
+  },
+  "question_id": {
+    "$oid": "6a6ab6d71614841ed2ab695a"
+  },
+  "answer_content": "5",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-07-30T02:28:39.372Z"
+  },
+  "updatedAt": {
+    "$date": "2026-07-30T02:32:10.087Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a6ab6d71614841ed2ab695e"
+  },
+  "question_id": {
+    "$oid": "6a6ab6d71614841ed2ab695a"
+  },
+  "answer_content": "8",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-07-30T02:28:39.372Z"
+  },
+  "updatedAt": {
+    "$date": "2026-07-30T02:32:10.087Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a708039b532afc07c9cc159"
+  },
+  "question_id": {
+    "$oid": "6a708039b532afc07c9cc156"
+  },
+  "answer_content": "4",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-08-03T11:49:13.903Z"
+  },
+  "updatedAt": {
+    "$date": "2026-08-03T11:51:27.873Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a708039b532afc07c9cc158"
+  },
+  "question_id": {
+    "$oid": "6a708039b532afc07c9cc156"
+  },
+  "answer_content": "8",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-08-03T11:49:13.903Z"
+  },
+  "updatedAt": {
+    "$date": "2026-08-03T11:51:27.873Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a708039b532afc07c9cc15a"
+  },
+  "question_id": {
+    "$oid": "6a708039b532afc07c9cc156"
+  },
+  "answer_content": "6",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-08-03T11:49:13.903Z"
+  },
+  "updatedAt": {
+    "$date": "2026-08-03T11:51:27.873Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a708039b532afc07c9cc157"
+  },
+  "question_id": {
+    "$oid": "6a708039b532afc07c9cc156"
+  },
+  "answer_content": "2",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-08-03T11:49:13.903Z"
+  },
+  "updatedAt": {
+    "$date": "2026-08-03T11:51:27.873Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a7080a0b532afc07c9cc15e"
+  },
+  "question_id": {
+    "$oid": "6a7080a0b532afc07c9cc15c"
+  },
+  "answer_content": "9",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-08-03T11:50:56.060Z"
+  },
+  "updatedAt": {
+    "$date": "2026-08-03T11:51:27.875Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a7080a0b532afc07c9cc15f"
+  },
+  "question_id": {
+    "$oid": "6a7080a0b532afc07c9cc15c"
+  },
+  "answer_content": "4",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-08-03T11:50:56.060Z"
+  },
+  "updatedAt": {
+    "$date": "2026-08-03T11:51:27.875Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a7080a0b532afc07c9cc15d"
+  },
+  "question_id": {
+    "$oid": "6a7080a0b532afc07c9cc15c"
+  },
+  "answer_content": "8",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-08-03T11:50:56.060Z"
+  },
+  "updatedAt": {
+    "$date": "2026-08-03T11:51:27.875Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a7080a0b532afc07c9cc160"
+  },
+  "question_id": {
+    "$oid": "6a7080a0b532afc07c9cc15c"
+  },
+  "answer_content": "6",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-08-03T11:50:56.060Z"
+  },
+  "updatedAt": {
+    "$date": "2026-08-03T11:51:27.875Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a713cbd7e8dd133268a0810"
+  },
+  "question_id": {
+    "$oid": "6a713cbd7e8dd133268a080b"
+  },
+  "answer_content": "8",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-08-04T01:13:33.886Z"
+  },
+  "updatedAt": {
+    "$date": "2026-08-04T01:13:49.754Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a713cbd7e8dd133268a080e"
+  },
+  "question_id": {
+    "$oid": "6a713cbd7e8dd133268a080b"
+  },
+  "answer_content": "2",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-08-04T01:13:33.886Z"
+  },
+  "updatedAt": {
+    "$date": "2026-08-04T01:13:49.754Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a713cbd7e8dd133268a0811"
+  },
+  "question_id": {
+    "$oid": "6a713cbd7e8dd133268a080b"
+  },
+  "answer_content": "6",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-08-04T01:13:33.886Z"
+  },
+  "updatedAt": {
+    "$date": "2026-08-04T01:13:49.754Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a713cbd7e8dd133268a0815"
+  },
+  "question_id": {
+    "$oid": "6a713cbd7e8dd133268a080d"
+  },
+  "answer_content": "6",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-08-04T01:13:33.890Z"
+  },
+  "updatedAt": {
+    "$date": "2026-08-04T01:13:49.756Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a713cbd7e8dd133268a0813"
+  },
+  "question_id": {
+    "$oid": "6a713cbd7e8dd133268a080d"
+  },
+  "answer_content": "4",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-08-04T01:13:33.890Z"
+  },
+  "updatedAt": {
+    "$date": "2026-08-04T01:13:49.756Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a713cbd7e8dd133268a0812"
+  },
+  "question_id": {
+    "$oid": "6a713cbd7e8dd133268a080d"
+  },
+  "answer_content": "5",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-08-04T01:13:33.890Z"
+  },
+  "updatedAt": {
+    "$date": "2026-08-04T01:13:49.756Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a713cbd7e8dd133268a0814"
+  },
+  "question_id": {
+    "$oid": "6a713cbd7e8dd133268a080d"
+  },
+  "answer_content": "8",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-08-04T01:13:33.890Z"
+  },
+  "updatedAt": {
+    "$date": "2026-08-04T01:13:49.756Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a713cbd7e8dd133268a080f"
+  },
+  "question_id": {
+    "$oid": "6a713cbd7e8dd133268a080b"
+  },
+  "answer_content": "4",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-08-04T01:13:33.886Z"
+  },
+  "updatedAt": {
+    "$date": "2026-08-04T01:13:49.754Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a7164ab51aa1e8fe649ae22"
+  },
+  "question_id": {
+    "$oid": "6a7164ab51aa1e8fe649ae20"
+  },
+  "answer_content": "6",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-08-04T04:03:55.248Z"
+  },
+  "updatedAt": {
+    "$date": "2026-08-04T04:03:55.248Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a7164ab51aa1e8fe649ae23"
+  },
+  "question_id": {
+    "$oid": "6a7164ab51aa1e8fe649ae20"
+  },
+  "answer_content": "4",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-08-04T04:03:55.248Z"
+  },
+  "updatedAt": {
+    "$date": "2026-08-04T04:03:55.248Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a7164ab51aa1e8fe649ae24"
+  },
+  "question_id": {
+    "$oid": "6a7164ab51aa1e8fe649ae20"
+  },
+  "answer_content": "3",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-08-04T04:03:55.248Z"
+  },
+  "updatedAt": {
+    "$date": "2026-08-04T04:03:55.248Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a7164ab51aa1e8fe649ae25"
+  },
+  "question_id": {
+    "$oid": "6a7164ab51aa1e8fe649ae20"
+  },
+  "answer_content": "2",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-08-04T04:03:55.248Z"
+  },
+  "updatedAt": {
+    "$date": "2026-08-04T04:03:55.248Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a7164ab51aa1e8fe649ae27"
+  },
+  "question_id": {
+    "$oid": "6a7164ab51aa1e8fe649ae21"
+  },
+  "answer_content": "6",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-08-04T04:03:55.254Z"
+  },
+  "updatedAt": {
+    "$date": "2026-08-04T04:03:55.254Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a7164ab51aa1e8fe649ae26"
+  },
+  "question_id": {
+    "$oid": "6a7164ab51aa1e8fe649ae21"
+  },
+  "answer_content": "3",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-08-04T04:03:55.254Z"
+  },
+  "updatedAt": {
+    "$date": "2026-08-04T04:03:55.254Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a7164ab51aa1e8fe649ae28"
+  },
+  "question_id": {
+    "$oid": "6a7164ab51aa1e8fe649ae21"
+  },
+  "answer_content": "4",
+  "is_correct": true,
+  "createdAt": {
+    "$date": "2026-08-04T04:03:55.254Z"
+  },
+  "updatedAt": {
+    "$date": "2026-08-04T04:03:55.254Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a7164ab51aa1e8fe649ae29"
+  },
+  "question_id": {
+    "$oid": "6a7164ab51aa1e8fe649ae21"
+  },
+  "answer_content": "7",
+  "is_correct": false,
+  "createdAt": {
+    "$date": "2026-08-04T04:03:55.254Z"
+  },
+  "updatedAt": {
+    "$date": "2026-08-04T04:03:55.254Z"
+  },
+  "__v": 0
+}]

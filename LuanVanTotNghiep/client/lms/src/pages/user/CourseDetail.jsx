@@ -51,6 +51,10 @@ const CourseDetail = () => {
   const enrolledCourse = enrollments?.arrayEnrollment?.find(
     (value) => value?.item?.course_id?._id == id
   );
+  const completedCourse = enrolledCourse?.item?.progress_percent == 100;
+  const accessedTest =
+    enrolledCourse?.item?.total_lessons ===
+    enrolledCourse?.item?.completed_lessons;
   const numberAccessLesson =
     enrolledCourse?.item?.access_level == "LIMITED"
       ? (course?.lessons?.length * 50) / 100
@@ -98,8 +102,8 @@ const CourseDetail = () => {
       )}`;
     if (second >= 3600)
       return `${Math.floor(second / 3600)}:${String(
-        Math.floor((second % 3600) / 60).padStart(2, "0")
-      )}:${(second % 3600) % 60}`;
+        Math.floor((second % 3600) / 60)
+      ).padStart(2, "0")}:${(second % 3600) % 60}`;
   };
 
   useEffect(() => {
@@ -241,12 +245,13 @@ const CourseDetail = () => {
     if (!me) {
       toast.warning("Vui lòng đăng nhập để thực hiện đánh giá!");
       return;
-    }
-    if (!enrolledCourse) {
+    } else if (!enrolledCourse) {
       toast.warning("Bạn chưa sỡ hữu khóa học, không thể đánh giá!");
       return;
-    }
-    if (idx == -1) {
+    } else if (!completedCourse) {
+      toast.warning("Bạn chưa hoàn thành khóa học, không thể đánh giá!");
+      return;
+    } else if (idx == -1) {
       toast.warning("Vui lòng chọn số sao để đánh giá!");
       return;
     }
@@ -669,6 +674,7 @@ const CourseDetail = () => {
             </ul>
           </div>
           {test &&
+            accessedTest &&
             (enrolledCourse?.item?.access_level === "UNLIMITED" || isAdmin) && (
               <div className="p-6 rounded-[16px] mt-10 bg-surface-white border border-gray-300">
                 <div className="flex justify-between items-center">

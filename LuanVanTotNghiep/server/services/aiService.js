@@ -14,8 +14,13 @@ export class AiService {
         entities: [],
       },
       SEARCH_COURSE: {
-        description: "Tìm kiếm khóa học theo tên, danh mục, hoặc giảng viên",
-        entities: ["courseName", "categoryName", "instructorName"],
+        description: "Tìm kiếm khóa học theo điều kiện",
+        entities: [
+          "courseName",
+          { categoryName: ["web", "mobile", "window"] },
+          "instructorName",
+          { level: ["Cơ bản", "Trung bình", "Nâng cao"] },
+        ],
       },
       LEARNING_PROGRESS: {
         description: "Xem tiến độ học tập",
@@ -52,6 +57,7 @@ export class AiService {
         const courseName = interaction?.entities?.courseName;
         const categoryName = interaction?.entities?.categoryName;
         const instructorName = interaction?.entities?.instructorName;
+        const level = interaction?.entities?.level;
         let query = {};
         if (courseName)
           query.course_name = { $regex: courseName, $options: "i" };
@@ -74,6 +80,9 @@ export class AiService {
             full_name: { $regex: instructorName, $options: "i" },
           });
           query.user_id = instructor?._id;
+        }
+        if (level) {
+          query.level = level;
         }
         const courses = await courseEntity
           .find({

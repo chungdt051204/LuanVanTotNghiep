@@ -1,0 +1,220 @@
+[{
+  "_id": {
+    "$oid": "6a27a7d599f6f7e9b0bf5448"
+  },
+  "user_id": {
+    "$oid": "6a0581183b01101c7fa9235f"
+  },
+  "lesson_id": {
+    "$oid": "6a142baf0062d2d0621f427c"
+  },
+  "current_time": 598,
+  "is_completed": true,
+  "createdAt": {
+    "$date": "2026-06-09T05:42:45.000Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-09T05:43:18.103Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a27a81099f6f7e9b0bf5449"
+  },
+  "user_id": {
+    "$oid": "6a0581183b01101c7fa9235f"
+  },
+  "lesson_id": {
+    "$oid": "6a142baf0062d2d0621f427d"
+  },
+  "current_time": 665,
+  "is_completed": true,
+  "createdAt": {
+    "$date": "2026-06-09T05:43:44.096Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-09T05:44:32.619Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a27a85599f6f7e9b0bf544a"
+  },
+  "user_id": {
+    "$oid": "6a0581183b01101c7fa9235f"
+  },
+  "lesson_id": {
+    "$oid": "6a142baf0062d2d0621f427e"
+  },
+  "current_time": 1370,
+  "is_completed": true,
+  "createdAt": {
+    "$date": "2026-06-09T05:44:53.934Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-09T05:46:15.886Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a27a9f699f6f7e9b0bf5455"
+  },
+  "user_id": {
+    "$oid": "6a0581183b01101c7fa9235f"
+  },
+  "lesson_id": {
+    "$oid": "6a202d7d8f6b9a657b98df47"
+  },
+  "current_time": 141,
+  "is_completed": false,
+  "createdAt": {
+    "$date": "2026-06-09T05:51:50.652Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-09T05:54:14.107Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a2b73460c83ac9d5d801356"
+  },
+  "user_id": {
+    "$oid": "6a29f581a0021c2b915c401e"
+  },
+  "lesson_id": {
+    "$oid": "6a16328c1cbdb9d6896d6106"
+  },
+  "current_time": 431,
+  "is_completed": true,
+  "createdAt": {
+    "$date": "2026-06-12T02:47:34.782Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-12T02:49:45.299Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a2b73d10c83ac9d5d801357"
+  },
+  "user_id": {
+    "$oid": "6a29f581a0021c2b915c401e"
+  },
+  "lesson_id": {
+    "$oid": "6a16328c1cbdb9d6896d6107"
+  },
+  "current_time": 8,
+  "is_completed": false,
+  "createdAt": {
+    "$date": "2026-06-12T02:49:53.814Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-12T02:50:19.864Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a2ba503f6629d4753068953"
+  },
+  "user_id": {
+    "$oid": "6a29f581a0021c2b915c401e"
+  },
+  "lesson_id": {
+    "$oid": "6a202b408f6b9a657b98df3d"
+  },
+  "current_time": 1140,
+  "is_completed": true,
+  "createdAt": {
+    "$date": "2026-06-12T06:19:47.162Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-12T06:22:38.863Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a2ba5bff6629d4753068954"
+  },
+  "user_id": {
+    "$oid": "6a29f581a0021c2b915c401e"
+  },
+  "lesson_id": {
+    "$oid": "6a202b408f6b9a657b98df3e"
+  },
+  "current_time": 660,
+  "is_completed": true,
+  "createdAt": {
+    "$date": "2026-06-12T06:22:55.566Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-12T07:30:36.557Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a64a5d4d8331fcc0d878ef9"
+  },
+  "user_id": {
+    "$oid": "6a29f581a0021c2b915c401e"
+  },
+  "lesson_id": {
+    "$oid": "6a202b408f6b9a657b98df3f"
+  },
+  "current_time": 16,
+  "is_completed": false,
+  "createdAt": {
+    "$date": "2026-07-25T12:02:28.469Z"
+  },
+  "updatedAt": {
+    "$date": "2026-07-25T12:02:49.986Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a655fe74fa099933cdadc8c"
+  },
+  "user_id": {
+    "$oid": "6a057e0b304bd6e262f58be2"
+  },
+  "lesson_id": {
+    "$oid": "6a202d7d8f6b9a657b98df47"
+  },
+  "current_time": 452,
+  "is_completed": true,
+  "createdAt": {
+    "$date": "2026-07-26T01:16:23.892Z"
+  },
+  "updatedAt": {
+    "$date": "2026-08-03T10:55:19.443Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a70739bbf868c805949128f"
+  },
+  "user_id": {
+    "$oid": "6a057e0b304bd6e262f58be2"
+  },
+  "lesson_id": {
+    "$oid": "6a202d7d8f6b9a657b98df48"
+  },
+  "current_time": 80,
+  "is_completed": false,
+  "createdAt": {
+    "$date": "2026-08-03T10:55:23.582Z"
+  },
+  "updatedAt": {
+    "$date": "2026-08-04T03:14:27.999Z"
+  },
+  "__v": 0
+}]

@@ -11,7 +11,9 @@ import {
 } from "../../stores/features/notificationSlice";
 import { LuInbox } from "react-icons/lu";
 import { AnimatePresence, motion } from "framer-motion";
-import Footer from "../../components/Footer";
+import { BsClipboard2Check } from "react-icons/bs";
+import { FaRegComment } from "react-icons/fa";
+import { FiUser } from "react-icons/fi";
 
 const Notifications = () => {
   const navigate = useNavigate();
@@ -150,14 +152,20 @@ const Notifications = () => {
                     }`}
                   >
                     <div className="flex gap-x-4 items-start">
-                      <div className="p-2 shadow-md rounded-[8px]">
+                      <div className="p-2 shadow-md rounded-[8px] text-headline-md text-brand-blue">
                         {value.type == "PAYMENT" ? (
-                          <LuDollarSign className="text-headline-md text-purple-500" />
+                          <LuDollarSign />
+                        ) : value.type == "ENROLLMENT" ? (
+                          <BsClipboard2Check />
+                        ) : value.type == "COMMENT" ? (
+                          <FaRegComment />
+                        ) : value.type == "ACCOUNT" ? (
+                          <FiUser />
                         ) : (
-                          <IoBookOutline className="text-headline-md text-brand-blue" />
+                          <IoBookOutline />
                         )}
                       </div>
-                      <div className="flex flex-col gap-y-2">
+                      <div className="flex flex-col gap-y-2 w-[90%]">
                         <p className="text-headline-sm text-surface-nav font-medium">
                           {value.title}
                         </p>

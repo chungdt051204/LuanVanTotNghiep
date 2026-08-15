@@ -49,9 +49,10 @@ export const courseService = {
     );
     return response;
   },
-  approveOrRejectCourse: async ({ courseId, status }) => {
+  approveOrRejectCourse: async ({ courseId, status, data }) => {
     const response = await axiosClient.put(
-      `/admin/course/${courseId}/status?status=${status}`
+      `/admin/course/${courseId}/status?status=${status}`,
+      data
     );
     return response;
   },

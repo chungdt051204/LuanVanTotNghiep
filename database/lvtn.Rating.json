@@ -1,0 +1,231 @@
+[{
+  "_id": {
+    "$oid": "6a3b658e90bba8e77525df2e"
+  },
+  "user_id": {
+    "$oid": "6a0581183b01101c7fa9235f"
+  },
+  "course_id": {
+    "$oid": "6a1d850c9afaa9d68d831f94"
+  },
+  "rating_star": 4,
+  "comment": "Khóa học rất hay",
+  "status": true,
+  "createdAt": {
+    "$date": "2026-06-24T05:05:18.533Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-24T05:05:18.533Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3b65b390bba8e77525df2f"
+  },
+  "user_id": {
+    "$oid": "6a151d1be9acd59370a1eb2d"
+  },
+  "course_id": {
+    "$oid": "6a1d850c9afaa9d68d831f94"
+  },
+  "rating_star": 5,
+  "comment": "Bài giảng rất dễ hiểu",
+  "status": true,
+  "createdAt": {
+    "$date": "2026-06-24T05:05:55.176Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-30T05:37:39.755Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3b660690bba8e77525df30"
+  },
+  "user_id": {
+    "$oid": "6a29f581a0021c2b915c401e"
+  },
+  "course_id": {
+    "$oid": "6a1d850c9afaa9d68d831f94"
+  },
+  "rating_star": 4,
+  "comment": "Khóa học rất hay và chi tiết. Giảng viên giải thích rất rõ ràng và dễ hiểu. Tôi đã học được rất nhiều!",
+  "status": true,
+  "createdAt": {
+    "$date": "2026-06-24T05:07:18.855Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-30T05:36:28.400Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3bd845b092cf352ee10724"
+  },
+  "user_id": {
+    "$oid": "6a057e0b304bd6e262f58be2"
+  },
+  "course_id": {
+    "$oid": "6a1d850c9afaa9d68d831f94"
+  },
+  "rating_star": 1,
+  "comment": "Khóa học rất tệ",
+  "status": false,
+  "createdAt": {
+    "$date": "2026-06-24T13:14:45.093Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-30T05:37:42.340Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a41003f5ac2b3fe7ae9ff0f"
+  },
+  "user_id": {
+    "$oid": "6a151d1be9acd59370a1eb2d"
+  },
+  "course_id": {
+    "$oid": "6a1a60c2e8ae79b7ec50e3f5"
+  },
+  "rating_star": 4,
+  "comment": "khóa học rất hay",
+  "status": true,
+  "createdAt": {
+    "$date": "2026-06-28T11:06:39.252Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-28T11:06:39.252Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a4104a75ac2b3fe7ae9ff10"
+  },
+  "user_id": {
+    "$oid": "6a151d1be9acd59370a1eb2d"
+  },
+  "course_id": {
+    "$oid": "6a1e52f73d86e6de2aa61d8d"
+  },
+  "rating_star": 5,
+  "comment": "Khóa học rất hay",
+  "status": true,
+  "createdAt": {
+    "$date": "2026-06-28T11:25:27.592Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-30T05:34:08.320Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a49a79c3bebd204ee003d89"
+  },
+  "user_id": {
+    "$oid": "6a29f581a0021c2b915c401e"
+  },
+  "course_id": {
+    "$oid": "6a1a60c2e8ae79b7ec50e3f5"
+  },
+  "rating_star": 5,
+  "comment": "Bài giảng rất dễ hiểu",
+  "status": true,
+  "createdAt": {
+    "$date": "2026-07-05T00:38:52.820Z"
+  },
+  "updatedAt": {
+    "$date": "2026-07-05T00:38:52.820Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a55b0b0af03b696030c1a51"
+  },
+  "user_id": {
+    "$oid": "6a151d1be9acd59370a1eb2d"
+  },
+  "course_id": {
+    "$oid": "6a3fcc98d4edede491df550e"
+  },
+  "rating_star": 2,
+  "comment": "Khóa học bình thường",
+  "status": true,
+  "createdAt": {
+    "$date": "2026-07-14T03:44:48.323Z"
+  },
+  "updatedAt": {
+    "$date": "2026-07-14T03:44:48.323Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a5828e12d7f6b47a4916b46"
+  },
+  "user_id": {
+    "$oid": "6a29f581a0021c2b915c401e"
+  },
+  "course_id": {
+    "$oid": "6a3fcc98d4edede491df550e"
+  },
+  "rating_star": 3,
+  "comment": "Khóa học tạm ổn",
+  "status": false,
+  "createdAt": {
+    "$date": "2026-07-16T00:42:09.962Z"
+  },
+  "updatedAt": {
+    "$date": "2026-08-03T12:10:03.543Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a5833626f5dc80be9c99c94"
+  },
+  "user_id": {
+    "$oid": "6a29f581a0021c2b915c401e"
+  },
+  "course_id": {
+    "$oid": "6a3fc6edd4edede491df54cb"
+  },
+  "rating_star": 3,
+  "comment": "Khóa học tạm ổn",
+  "status": true,
+  "createdAt": {
+    "$date": "2026-07-16T01:26:58.333Z"
+  },
+  "updatedAt": {
+    "$date": "2026-07-16T01:26:58.333Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a7074c4bf868c8059491293"
+  },
+  "user_id": {
+    "$oid": "6a057e0b304bd6e262f58be2"
+  },
+  "course_id": {
+    "$oid": "6a1e52f73d86e6de2aa61d8d"
+  },
+  "rating_star": 4,
+  "comment": "Khóa học tuyệt vời",
+  "status": true,
+  "createdAt": {
+    "$date": "2026-08-03T11:00:20.796Z"
+  },
+  "updatedAt": {
+    "$date": "2026-08-03T11:00:20.796Z"
+  },
+  "__v": 0
+}]

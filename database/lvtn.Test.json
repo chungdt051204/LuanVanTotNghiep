@@ -1,0 +1,190 @@
+[{
+  "_id": {
+    "$oid": "6a1a62528c3c2baf42f6c1b6"
+  },
+  "course_id": {
+    "$oid": "6a1a60c2e8ae79b7ec50e3f5"
+  },
+  "test_name": "ReactJS ôn tập",
+  "duration_minutes": 30,
+  "pass_score": 70,
+  "createdAt": {
+    "$date": "2026-05-30T04:06:42.341Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:01:46.263Z"
+  },
+  "__v": 0,
+  "is_active": true
+},
+{
+  "_id": {
+    "$oid": "6a1ae9f3d55e82e7e96de6d4"
+  },
+  "course_id": {
+    "$oid": "6a13f077cb6fde913388ae4c"
+  },
+  "test_name": "HTML5 ôn tập",
+  "duration_minutes": 15,
+  "pass_score": 60,
+  "createdAt": {
+    "$date": "2026-05-30T13:45:23.103Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:10:07.959Z"
+  },
+  "__v": 0,
+  "is_active": true
+},
+{
+  "_id": {
+    "$oid": "6a23aa59e596b14cc135765b"
+  },
+  "course_id": {
+    "$oid": "6a1d850c9afaa9d68d831f94"
+  },
+  "test_name": "Angular ôn tập",
+  "duration_minutes": 20,
+  "pass_score": 80,
+  "createdAt": {
+    "$date": "2026-06-06T05:04:25.051Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:20:37.460Z"
+  },
+  "__v": 0,
+  "is_active": true
+},
+{
+  "_id": {
+    "$oid": "6a23b3812a1a4fe30e0e74ee"
+  },
+  "course_id": {
+    "$oid": "6a1e52f73d86e6de2aa61d8d"
+  },
+  "test_name": "VueJS ôn tập",
+  "duration_minutes": 45,
+  "pass_score": 60,
+  "createdAt": {
+    "$date": "2026-06-06T05:43:29.605Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:39:35.409Z"
+  },
+  "__v": 0,
+  "is_active": true
+},
+{
+  "_id": {
+    "$oid": "6a23b3c82a1a4fe30e0e74f4"
+  },
+  "course_id": {
+    "$oid": "6a16328c1cbdb9d6896d6105"
+  },
+  "test_name": "CSS3 ôn tập",
+  "duration_minutes": 15,
+  "pass_score": 90,
+  "createdAt": {
+    "$date": "2026-06-06T05:44:40.925Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T04:29:35.365Z"
+  },
+  "__v": 0,
+  "is_active": true
+},
+{
+  "_id": {
+    "$oid": "6a3fa9d9d4edede491df5498"
+  },
+  "course_id": {
+    "$oid": "6a27e6fa945a97604ca6381b"
+  },
+  "test_name": "Flutter ôn tập",
+  "duration_minutes": 45,
+  "pass_score": 60,
+  "is_active": true,
+  "createdAt": {
+    "$date": "2026-06-27T10:45:45.413Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T10:45:55.226Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fc896d4edede491df54db"
+  },
+  "course_id": {
+    "$oid": "6a3fc6edd4edede491df54cb"
+  },
+  "test_name": "Winform C#",
+  "duration_minutes": 45,
+  "pass_score": 60,
+  "is_active": true,
+  "createdAt": {
+    "$date": "2026-06-27T12:56:54.628Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T12:56:57.620Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a3fcdf4d4edede491df551b"
+  },
+  "course_id": {
+    "$oid": "6a3fcc98d4edede491df550e"
+  },
+  "test_name": "Kotlin ôn tập",
+  "duration_minutes": 30,
+  "pass_score": 70,
+  "is_active": true,
+  "createdAt": {
+    "$date": "2026-06-27T13:19:48.461Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-27T13:19:52.257Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a6ab68b1614841ed2ab6959"
+  },
+  "course_id": {
+    "$oid": "6a27ea05945a97604ca6381f"
+  },
+  "test_name": "Spring Boot ôn tập",
+  "duration_minutes": 30,
+  "pass_score": 60,
+  "is_active": true,
+  "createdAt": {
+    "$date": "2026-07-30T02:27:23.018Z"
+  },
+  "updatedAt": {
+    "$date": "2026-07-30T02:32:14.112Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a7164ab51aa1e8fe649ae1f"
+  },
+  "course_id": {
+    "$oid": "6a2b77ca0c83ac9d5d801358"
+  },
+  "test_name": "Java ôn tập",
+  "duration_minutes": 30,
+  "pass_score": 70,
+  "is_active": true,
+  "createdAt": {
+    "$date": "2026-08-04T04:03:55.220Z"
+  },
+  "updatedAt": {
+    "$date": "2026-08-04T04:03:58.809Z"
+  },
+  "__v": 0
+}]

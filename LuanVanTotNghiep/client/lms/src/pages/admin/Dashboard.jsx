@@ -212,7 +212,7 @@ const AdminDashboard = () => {
               <p className="text-title-lg text-surface-nav font-medium px-6">
                 Top các khóa học có doanh thu cao nhất
               </p>
-              {statistics?.top5BestSellerCourses?.length == 0 ? (
+              {statistics?.top5HighestRevenueCourses?.length == 0 ? (
                 <div className="flex flex-col items-center gap-y-2 text-title-sm text-nav-muted w-[95%] mt-6">
                   <LuInbox className="text-display-md text-gray-300" />
                   <p>Chưa có dữ liệu</p>
@@ -276,7 +276,7 @@ const AdminDashboard = () => {
               <p className="text-title-lg text-surface-nav font-medium px-6">
                 Top các khóa học được đánh giá cao nhất
               </p>
-              {statistics?.top5BestSellerCourses?.length == 0 ? (
+              {statistics?.top5HighestRatingCourses?.length == 0 ? (
                 <div className="flex flex-col items-center gap-y-2 text-title-sm text-nav-muted w-[95%] mt-6">
                   <LuInbox className="text-display-md text-gray-300" />
                   <p>Chưa có dữ liệu</p>

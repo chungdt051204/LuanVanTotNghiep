@@ -104,7 +104,7 @@ const InstructorDashboard = () => {
                 Lợi nhuận thu được (80%)
               </p>
               <p className="text-headline-sm text-surface-nav font-bold">
-                {format.formatPrice({ price: statistics?.myProfit })}đ
+                {format.formatPrice({ price: statistics?.myProfit || 0 })}đ
               </p>
               <p className="text-title-sm text-nav-muted">Lợi nhuận</p>
             </div>
