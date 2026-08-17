@@ -17,6 +17,7 @@ const LessonDetail = () => {
   const dispatch = useDispatch();
   const { item: me, isLoading: loading } = useSelector((state) => state.me);
   const isAdmin = me?.role_id?.role === "admin";
+  const isInstructor = me?.role_id?.role === "instructor";
   const { items: enrollments, isLoading } = useSelector(
     (state) => state.enrollments
   );
@@ -50,13 +51,13 @@ const LessonDetail = () => {
     console.log(numberAccessLesson);
   }, [numberAccessLesson]);
   useEffect(() => {
-    if (!enrolledCourse && !isLoading && !isAdmin) {
+    if (!enrolledCourse && !isLoading && !isAdmin && !isInstructor) {
       navigate("/");
       return;
     }
-  }, [enrolledCourse, navigate, isLoading, isAdmin]);
+  }, [enrolledCourse, navigate, isLoading, isAdmin, isInstructor]);
   useEffect(() => {
-    if (!loading && !isAdmin) {
+    if (!loading && !isAdmin && !isInstructor) {
       const getEnrollmentsByUser = async () => {
         try {
           const result = await enrollmentService.getEnrollmentsByUser({
@@ -86,7 +87,7 @@ const LessonDetail = () => {
       };
       getLessonsByCourse();
     }
-  }, [courseId, dispatch, isAdmin, loading]);
+  }, [courseId, dispatch, isAdmin, isInstructor, loading]);
   useEffect(() => {
     const getLessonById = async () => {
       try {
@@ -105,7 +106,7 @@ const LessonDetail = () => {
     getLessonById();
   }, [courseId, id]);
   useEffect(() => {
-    if (!loading && !isAdmin) {
+    if (!loading && !isAdmin && !isInstructor) {
       const getLessonProgressesByUser = async () => {
         try {
           const result =
@@ -120,7 +121,7 @@ const LessonDetail = () => {
       };
       getLessonProgressesByUser();
     }
-  }, [isAdmin, loading]);
+  }, [isAdmin, isInstructor, loading]);
   useEffect(() => {
     const index = lessons?.findIndex((value) => value?._id == id);
     if (
@@ -134,7 +135,7 @@ const LessonDetail = () => {
     }
   }, [courseId, id, lessonProgresses, lessons, navigate]);
   const createLessonProgress = async () => {
-    if (!loading && !isAdmin) {
+    if (!loading && !isAdmin && !isInstructor) {
       if (!lessonProgresses?.some((value) => value.lesson_id._id == id)) {
         try {
           const result = await lessonProgressService.createLessonProgress({
@@ -152,7 +153,7 @@ const LessonDetail = () => {
     }
   };
   const updateLessonProgress = async () => {
-    if (!loading && !isAdmin) {
+    if (!loading && !isAdmin && !isInstructor) {
       const currentTime = playerRef?.current?.currentTime;
       if (currentTime) {
         try {
@@ -183,14 +184,17 @@ const LessonDetail = () => {
         <div className="flex flex-col gap-y-2 w-[60%]">
           <div className="h-[450px] bg-surface-nav py-8 px-10">
             <ReactPlayer
-              onStart={() => (playerRef.current.currentTime = currentTime)}
+              onStart={() => {
+                if (!isAdmin && !isInstructor)
+                  playerRef.current.currentTime = currentTime;
+              }}
               onPlay={createLessonProgress}
               onProgress={updateLessonProgress}
               ref={playerRef}
               width={680}
               height={400}
               src={lesson?.video_url || null}
-              controls={isAdmin}
+              controls={isAdmin || isInstructor}
             />
           </div>
           <div className="flex gap-x-2 px-10 text-surface-nav">

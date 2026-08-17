@@ -51,8 +51,7 @@ const MyProfile = () => {
     errorDegreeCertificate: "",
   });
   const [refresh, setRefresh] = useState(0);
-
-  const handlePreview = ({ e, field, errorField }) => {
+  const handleValidateFile = ({ e, errorField }) => {
     const allowedTypes = ["jpg", "png", "jpeg"];
     const image = e.target.files[0];
     const type = image?.name?.split(".")[1];
@@ -61,20 +60,21 @@ const MyProfile = () => {
         ...prev,
         [errorField]: "Định dạng ảnh không hợp lệ!",
       }));
-      setPreview((prev) => ({ ...prev, [field]: avatarPreview }));
-      return;
+      return false;
     } else if (image?.size > 300000) {
       setErrorImage((prev) => ({
         ...prev,
         [errorField]: "Kích thước ảnh tối đa 300KB!",
       }));
-      setPreview((prev) => ({ ...prev, [field]: avatarPreview }));
-      return;
-    } else {
-      const previewUrl = URL.createObjectURL(image);
-      setPreview((prev) => ({ ...prev, [field]: previewUrl }));
-      setErrorImage((prev) => ({ ...prev, [errorField]: "" }));
+      return false;
     }
+    return true;
+  };
+  const handlePreview = ({ e, field, errorField }) => {
+    const image = e.target.files[0];
+    const previewUrl = URL.createObjectURL(image);
+    setPreview((prev) => ({ ...prev, [field]: previewUrl }));
+    setErrorImage((prev) => ({ ...prev, [errorField]: "" }));
   };
   useEffect(() => {
     if (!sessionStorage.getItem("token")) {
@@ -246,15 +246,17 @@ const MyProfile = () => {
               </label>
               <input
                 onChange={(e) => {
-                  setAccountInfo((prev) => ({
-                    ...prev,
-                    avatar: e.target.files[0],
-                  }));
-                  handlePreview({
-                    e,
-                    field: "avatarPreview",
-                    errorField: "errorAvatar",
-                  });
+                  if (handleValidateFile({ e, errorField: "errorAvatar" })) {
+                    setAccountInfo((prev) => ({
+                      ...prev,
+                      avatar: e.target.files[0],
+                    }));
+                    handlePreview({
+                      e,
+                      field: "avatarPreview",
+                      errorField: "errorAvatar",
+                    });
+                  }
                 }}
                 id="avatar"
                 className="hidden"
@@ -513,12 +515,19 @@ const MyProfile = () => {
                               </label>
                               <input
                                 onChange={(e) => {
-                                  setFrontIdCard(e.target.files[0]);
-                                  handlePreview({
-                                    e,
-                                    field: "frontIdCardPreview",
-                                    errorField: "errorFrontIdCard",
-                                  });
+                                  if (
+                                    handleValidateFile({
+                                      e,
+                                      errorField: "errorFrontIdCard",
+                                    })
+                                  ) {
+                                    setFrontIdCard(e.target.files[0]);
+                                    handlePreview({
+                                      e,
+                                      field: "frontIdCardPreview",
+                                      errorField: "errorFrontIdCard",
+                                    });
+                                  }
                                 }}
                                 id="frontIdCard"
                                 className="hidden"
@@ -540,12 +549,19 @@ const MyProfile = () => {
                           </label>
                           <input
                             onChange={(e) => {
-                              setFrontIdCard(e.target.files[0]);
-                              handlePreview({
-                                e,
-                                field: "frontIdCardPreview",
-                                errorField: "errorFrontIdCard",
-                              });
+                              if (
+                                handleValidateFile({
+                                  e,
+                                  errorField: "errorFrontIdCard",
+                                })
+                              ) {
+                                setFrontIdCard(e.target.files[0]);
+                                handlePreview({
+                                  e,
+                                  field: "frontIdCardPreview",
+                                  errorField: "errorFrontIdCard",
+                                });
+                              }
                             }}
                             disabled={
                               me?.verified_status == "PENDING" ||
@@ -581,12 +597,19 @@ const MyProfile = () => {
                               </label>
                               <input
                                 onChange={(e) => {
-                                  setBackIdCard(e.target.files[0]);
-                                  handlePreview({
-                                    e,
-                                    field: "backIdCardPreview",
-                                    errorField: "errorBackIdCard",
-                                  });
+                                  if (
+                                    handleValidateFile({
+                                      e,
+                                      errorField: "errorBackIdCard",
+                                    })
+                                  ) {
+                                    setBackIdCard(e.target.files[0]);
+                                    handlePreview({
+                                      e,
+                                      field: "backIdCardPreview",
+                                      errorField: "errorBackIdCard",
+                                    });
+                                  }
                                 }}
                                 id="backIdCard"
                                 className="hidden"
@@ -608,12 +631,19 @@ const MyProfile = () => {
                           </label>
                           <input
                             onChange={(e) => {
-                              setBackIdCard(e.target.files[0]);
-                              handlePreview({
-                                e,
-                                field: "backIdCardPreview",
-                                errorField: "errorBackIdCard",
-                              });
+                              if (
+                                handleValidateFile({
+                                  e,
+                                  errorField: "errorBackIdCard",
+                                })
+                              ) {
+                                setBackIdCard(e.target.files[0]);
+                                handlePreview({
+                                  e,
+                                  field: "backIdCardPreview",
+                                  errorField: "errorBackIdCard",
+                                });
+                              }
                             }}
                             disabled={
                               me?.verified_status == "PENDING" ||
@@ -656,12 +686,19 @@ const MyProfile = () => {
                           </label>
                           <input
                             onChange={(e) => {
-                              setDegreeCertificate(e.target.files[0]);
-                              handlePreview({
-                                e,
-                                field: "degreeCertificatePreview",
-                                errorField: "errorDegreeCertificate",
-                              });
+                              if (
+                                handleValidateFile({
+                                  e,
+                                  errorField: "errorDegreeCertificate",
+                                })
+                              ) {
+                                setDegreeCertificate(e.target.files[0]);
+                                handlePreview({
+                                  e,
+                                  field: "degreeCertificatePreview",
+                                  errorField: "errorDegreeCertificate",
+                                });
+                              }
                             }}
                             id="degreeCertificate"
                             className="hidden"
@@ -686,12 +723,19 @@ const MyProfile = () => {
                       </label>
                       <input
                         onChange={(e) => {
-                          setDegreeCertificate(e.target.files[0]);
-                          handlePreview({
-                            e,
-                            field: "degreeCertificatePreview",
-                            errorField: "errorDegreeCertificate",
-                          });
+                          if (
+                            handleValidateFile({
+                              e,
+                              errorField: "errorDegreeCertificate",
+                            })
+                          ) {
+                            setDegreeCertificate(e.target.files[0]);
+                            handlePreview({
+                              e,
+                              field: "degreeCertificatePreview",
+                              errorField: "errorDegreeCertificate",
+                            });
+                          }
                         }}
                         disabled={
                           me?.verified_status == "PENDING" ||

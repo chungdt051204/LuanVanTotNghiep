@@ -25,6 +25,7 @@ const ChatBotAI = () => {
   const [isSended, setIsSended] = useState(false);
   const [idx, setIdx] = useState(0);
   const handleSendMessage = async () => {
+    if (!input.trim()) return;
     setIdx(2);
     setIsLoading(true);
     setIsSended(true);
@@ -386,7 +387,7 @@ const ChatBotAI = () => {
                   <div
                     onClick={handleSendMessage}
                     className={`p-2 rounded-[12px] bg-blue-500 hover:cursor-pointer ${
-                      !input ? "opacity-50" : "hover:opacity-90"
+                      !input.trim() ? "opacity-50" : "hover:opacity-90"
                     }`}
                   >
                     <FiSend className="text-headline-sm text-surface-white" />

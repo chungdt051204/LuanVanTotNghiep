@@ -36,11 +36,11 @@ const Courses = () => {
       value: "",
     },
     {
-      label: "Đánh giá cao nhất",
+      label: "Đánh giá cao đến thấp",
       value: "highest-rating",
     },
     {
-      label: "Mới nhất",
+      label: "Mới nhất đến cũ nhất",
       value: "newest",
     },
     {
@@ -73,6 +73,7 @@ const Courses = () => {
   const [category, setCategory] = useState("");
   const [option, setOption] = useState("");
   const [level, setLevel] = useState("");
+  const [error, setError] = useState("");
   useEffect(() => {
     const getApprovedCourses = async () => {
       try {
@@ -111,14 +112,18 @@ const Courses = () => {
           <div className="relative w-[65%] ">
             <div className="flex gap-x-2 items-center py-2 px-4 bg-surface-bg rounded-[8px]">
               <IoSearch
-                onClick={() =>
+                onClick={() => {
+                  if (!searchValue?.trim()) {
+                    setError("Vui lòng nhập từ khóa tìm kiếm!");
+                    return;
+                  }
                   setSearchParams((prev) => {
                     const newParams = new URLSearchParams(prev);
                     if (searchValue) newParams.set("search", searchValue);
                     else newParams.delete("search");
                     return newParams;
-                  })
-                }
+                  });
+                }}
                 className="text-headline-sm text-nav-muted font-medium"
               />
               <input
@@ -126,9 +131,15 @@ const Courses = () => {
                 value={searchValue}
                 className="w-full outline-0"
                 placeholder="Nhập tên khóa học, danh mục, giảng viên"
-                onChange={(e) => setSearchValue(e.target.value)}
+                onChange={(e) => {
+                  setSearchValue(e.target.value);
+                  setError("");
+                }}
               />
             </div>
+            {error && (
+              <span className="text-body-md text-red-500">{error}</span>
+            )}
           </div>
           <Select
             onChange={setCategory}
@@ -151,7 +162,7 @@ const Courses = () => {
             <Select
               onChange={setOption}
               defaultValue={options[0]}
-              className="w-[22%] text-title-sm text-nav-muted font-medium"
+              className="w-[25%] text-title-sm text-nav-muted font-medium"
               options={options}
             />
           </div>

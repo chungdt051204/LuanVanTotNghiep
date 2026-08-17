@@ -40,6 +40,7 @@ const CourseDetail = () => {
   const enrollments = useSelector((state) => state.enrollments.items);
   const { item: me } = useSelector((state) => state.me);
   const isAdmin = me?.role_id?.role === "admin";
+  const isInstructor = me?.role_id?.role === "instructor";
   const { id } = useParams();
   const [course, setCourse] = useState(null);
   const [ratings, setRatings] = useState([]);
@@ -170,7 +171,7 @@ const CourseDetail = () => {
   }, [myRating]);
 
   useEffect(() => {
-    if (enrolledCourse || isAdmin) {
+    if (enrolledCourse || isAdmin || isInstructor) {
       const getTestByCourse = async () => {
         try {
           const result = await testService.getTestByCourse({ courseId: id });
@@ -200,7 +201,7 @@ const CourseDetail = () => {
       };
       getConversationByParticipantsAndCourse();
     }
-  }, [enrolledCourse, id, course]);
+  }, [enrolledCourse, id, course, isAdmin, isInstructor]);
 
   const handleCreateEnrollment = async () => {
     if (!me) {
@@ -212,9 +213,9 @@ const CourseDetail = () => {
         data: { courseId: id, accessLevel: "UNLIMITED" },
       });
       console.log(result.data);
-      dispatch(createEnrollment(result.data?.result1));
       dispatch(createNotification(result.data?.result2));
       toast.success(result.message || "Đăng ký học khóa học thành công");
+      setRefresh((prev) => prev + 1);
     } catch (error) {
       const status = error.status;
       const message = error.data.message;
@@ -359,7 +360,7 @@ const CourseDetail = () => {
                 : format.formatPrice({ price: course?.item?.price })}
               đ
             </p>
-            {!enrolledCourse && !isAdmin && (
+            {!enrolledCourse && !isAdmin && !isInstructor && (
               <button
                 onClick={
                   course?.item?.is_free
@@ -387,7 +388,7 @@ const CourseDetail = () => {
             </div>
           </div>
         </div>
-        {!isAdmin && (
+        {(!isAdmin || course?.item?.status == "approved") && (
           <div className="px-28">
             <div className="flex flex-col gap-y-8 border border-gray-300 rounded-[16px] p-8 bg-surface-white">
               <p className="text-headline-md text-surface-nav font-medium">
@@ -440,64 +441,65 @@ const CourseDetail = () => {
                   })}
                 </div>
               </div>
-              <div className="flex flex-col gap-y-4 p-5 bg-gray-50 rounded-[16px]">
-                <p className="text-headline-sm text-surface-nav font-medium">
-                  Viết đánh giá của bạn
-                </p>
-                <div className="flex gap-x-2 items-start">
-                  <p className="text-title-sm text-surface-nav">Đánh giá:</p>
-                  <div className="flex flex-col gap-y-1">
-                    <div className="flex gap-x-1">
-                      {ratingStar?.map((_, i) => {
-                        return i <= idx ? (
-                          <FaStar
-                            key={i}
-                            onClick={() => {
-                              if (!myRating) setIdx(i);
-                            }}
-                            className={`text-headline-md text-yellow-300 ${
-                              myRating && "hover:cursor-not-allowed"
-                            }`}
-                          />
-                        ) : (
-                          <FaRegStar
-                            key={i}
-                            onClick={() => {
-                              if (!myRating) setIdx(i);
-                            }}
-                            className={`text-headline-md text-gray-300 ${
-                              myRating && "hover:cursor-not-allowed"
-                            }`}
-                          />
-                        );
-                      })}
+              {!isInstructor && !isAdmin && (
+                <div className="flex flex-col gap-y-4 p-5 bg-gray-50 rounded-[16px]">
+                  <p className="text-headline-sm text-surface-nav font-medium">
+                    Viết đánh giá của bạn
+                  </p>
+                  <div className="flex gap-x-2 items-start">
+                    <p className="text-title-sm text-surface-nav">Đánh giá:</p>
+                    <div className="flex flex-col gap-y-1">
+                      <div className="flex gap-x-1">
+                        {ratingStar?.map((_, i) => {
+                          return i <= idx ? (
+                            <FaStar
+                              key={i}
+                              onClick={() => {
+                                if (!myRating) setIdx(i);
+                              }}
+                              className={`text-headline-md text-yellow-300 ${
+                                myRating && "hover:cursor-not-allowed"
+                              }`}
+                            />
+                          ) : (
+                            <FaRegStar
+                              key={i}
+                              onClick={() => {
+                                if (!myRating) setIdx(i);
+                              }}
+                              className={`text-headline-md text-gray-300 ${
+                                myRating && "hover:cursor-not-allowed"
+                              }`}
+                            />
+                          );
+                        })}
+                      </div>
+                      {idx != -1 && (
+                        <p className="text-body-md text-surface-nav">
+                          ({ratingStar[idx].comment})
+                        </p>
+                      )}
                     </div>
-                    {idx != -1 && (
-                      <p className="text-body-md text-surface-nav">
-                        ({ratingStar[idx].comment})
-                      </p>
-                    )}
                   </div>
+                  <textarea
+                    onChange={(e) => setComment(e.target.value)}
+                    value={comment}
+                    disabled={myRating}
+                    className="p-4 rounded-[8px] bg-surface-bg text-title-sm text-nav-muted"
+                    placeholder="Chia sẻ của bạn về khóa học"
+                  ></textarea>
+                  <button
+                    onClick={!myRating && handleRating}
+                    className={`border ${
+                      myRating
+                        ? "hover:cursor-not-allowed"
+                        : "hover:cursor-pointer hover:text-surface-bg"
+                    } w-[15%] py-2 bg-surface-nav text-title-sm font-medium text-surface-white rounded-[8px] transition-transform duration-300`}
+                  >
+                    Gửi đánh giá
+                  </button>
                 </div>
-                <textarea
-                  onChange={(e) => setComment(e.target.value)}
-                  value={comment}
-                  disabled={myRating}
-                  className="p-4 rounded-[8px] bg-surface-bg text-title-sm text-nav-muted"
-                  placeholder="Chia sẻ của bạn về khóa học"
-                ></textarea>
-                <button
-                  onClick={!myRating && handleRating}
-                  className={`border ${
-                    myRating
-                      ? "hover:cursor-not-allowed"
-                      : "hover:cursor-pointer hover:text-surface-bg"
-                  } w-[15%] py-2 bg-surface-nav text-title-sm font-medium text-surface-white rounded-[8px] transition-transform duration-300`}
-                >
-                  Gửi đánh giá
-                </button>
-              </div>
-
+              )}
               <div className="flex flex-col gap-y-6">
                 <p className="text-title-lg text-surface-nav font-medium">
                   Tất cả đánh giá
@@ -518,7 +520,9 @@ const CourseDetail = () => {
                                 {value?.user_id?.full_name}
                               </p>
                               <p className="text-title-sm text-nav-muted">
-                                {format.formatDate({ date: value?.createdAt })}
+                                {format.formatDate({
+                                  date: value?.createdAt,
+                                })}
                               </p>
                             </div>
                             <div className="flex gap-x-1">
@@ -609,6 +613,7 @@ const CourseDetail = () => {
                 const accessLesson =
                   (enrolledCourse && value.order == 1) ||
                   isAdmin ||
+                  isInstructor ||
                   (prevLesson &&
                     lessonProgresses?.some(
                       (item) =>
@@ -618,7 +623,7 @@ const CourseDetail = () => {
                 return (
                   <li
                     onClick={() => {
-                      if (isAdmin)
+                      if (isAdmin || isInstructor)
                         navigate(`/course/${id}/lesson/${value._id}`);
                       else {
                         if (!enrolledCourse) {
@@ -675,7 +680,9 @@ const CourseDetail = () => {
           </div>
           {test &&
             accessedTest &&
-            (enrolledCourse?.item?.access_level === "UNLIMITED" || isAdmin) && (
+            (enrolledCourse?.item?.access_level === "UNLIMITED" ||
+              isAdmin ||
+              isInstructor) && (
               <div className="p-6 rounded-[16px] mt-10 bg-surface-white border border-gray-300">
                 <div className="flex justify-between items-center">
                   <p className="text-headline-md text-surface-nav font-medium">
@@ -721,7 +728,7 @@ const CourseDetail = () => {
             )}
         </div>
       </div>
-      {!isAdmin && <Footer />}
+      {me?.role_id?.role == "user" && <Footer />}
     </>
   );
 };

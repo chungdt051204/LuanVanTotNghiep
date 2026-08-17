@@ -110,22 +110,25 @@ const InstructorDashboard = () => {
             </div>
           </div>
         </div>
-        <div className="p-5 border border-gray-200 rounded-[16px]">
-          <MultiAxisLineChart
-            text="Biểu đồ thống kê tổng doanh thu (100%) và lợi nhuận thu được (80%)"
-            labels={days}
-            label1="Tổng doanh thu (100%)"
-            data1={revenues}
-            label2="Lợi nhuận thu được (80%)"
-            data2={profits}
-          />
-          <BarChart
-            text="Biểu đồ thống kê doanh thu từng khóa học (100%)"
-            labels={courseNames}
-            label1="Tổng doanh thu (100%)"
-            data1={courseRevenues}
-          />
-        </div>
+        {(statistics?.monthlyRevenueAndProfit?.length > 0 ||
+          statistics?.courseRevenueStats?.length > 0) && (
+          <div className="p-5 border border-gray-200 rounded-[16px]">
+            <MultiAxisLineChart
+              text="Biểu đồ thống kê tổng doanh thu (100%) và lợi nhuận thu được (80%) trong tháng"
+              labels={days}
+              label1="Tổng doanh thu (100%)"
+              data1={revenues}
+              label2="Lợi nhuận thu được (80%)"
+              data2={profits}
+            />
+            <BarChart
+              text="Biểu đồ thống kê doanh thu từng khóa học (100%)"
+              labels={courseNames}
+              label1="Tổng doanh thu (100%)"
+              data1={courseRevenues}
+            />
+          </div>
+        )}
         <div className="flex flex-col gap-y-6">
           <div className="flex flex-col gap-y-4 border py-6 border-gray-200 rounded-[16px] mt-6">
             <p className="text-title-lg text-surface-nav font-medium px-6">

@@ -46,7 +46,7 @@ const Students = () => {
           ) : students?.items?.length == 0 ? (
             <div className="flex flex-col items-center gap-y-2 text-title-sm text-nav-muted w-[95%] mt-6">
               <LuInbox className="text-display-md text-gray-300" />
-              <p>Chưa có người dùng nào</p>
+              <p>Chưa có học viên nào</p>
             </div>
           ) : (
             <table className="border-separate border-spacing-0 overflow-hidden border-1 border-surface-bg rounded-[16px] mt-6">

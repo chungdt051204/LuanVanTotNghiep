@@ -17,6 +17,7 @@ const TestDetail = () => {
   const navigate = useNavigate();
   const { item: me, isLoading } = useSelector((state) => state.me);
   const isAdmin = me?.role_id?.role === "admin";
+  const isInstructor = me?.role_id?.role === "instructor";
   const { courseId } = useParams();
   const { id } = useParams();
   const [test, setTest] = useState(null);
@@ -107,9 +108,9 @@ const TestDetail = () => {
     }, 1000);
   };
   const handleSubmit = async () => {
-    if (!isLoading && isAdmin) {
+    if (!isLoading && (isAdmin || isInstructor)) {
       toast.warning(
-        "Quản trị viên chỉ được test chức năng, không được nộp bài!"
+        "Giảng viên và quản trị viên chỉ được test chức năng, không được nộp bài!"
       );
       return;
     }

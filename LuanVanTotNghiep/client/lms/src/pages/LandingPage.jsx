@@ -88,7 +88,10 @@ const LandingPage = () => {
                 học đa dạng
               </p>
               <div className="flex justify-between">
-                <button className="flex justify-between gap-x-4 items-center py-2 px-4 rounded-[8px] bg-surface-white text-brand-blue text-title-lg font-medium transition-transform duration-300 hover:bg-surface-bg hover:cursor-pointer">
+                <button
+                  onClick={() => navigate("/courses")}
+                  className="flex justify-between gap-x-4 items-center py-2 px-4 rounded-[8px] bg-surface-white text-brand-blue text-title-lg font-medium transition-transform duration-300 hover:bg-surface-bg hover:cursor-pointer"
+                >
                   Khám phá khóa học
                   <FaArrowRight />
                 </button>
@@ -167,6 +170,13 @@ const LandingPage = () => {
               ];
               return (
                 <div
+                  onClick={() =>
+                    navigate(
+                      `/courses?search=${encodeURIComponent(
+                        value.item.category_name
+                      )}`
+                    )
+                  }
                   key={index}
                   className="flex flex-col gap-y-4 w-[32%] border border-surface-bg rounded-[16px] bg-surface-white py-8 text-center transition-shadow duration-300 hover:shadow-lg hover:cursor-pointer"
                 >

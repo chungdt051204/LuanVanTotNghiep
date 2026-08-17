@@ -44,7 +44,6 @@ const Orders = () => {
   ];
   const [status, setStatus] = useState("");
   const [idx, setIdx] = useState(0);
-
   useEffect(() => {
     const getOrdersByUser = async () => {
       try {

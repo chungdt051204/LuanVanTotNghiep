@@ -110,7 +110,7 @@ export const Navbar = () => {
     const getApprovedCourses = async () => {
       try {
         const params = new URLSearchParams(searchParams);
-        if (searchValue) params.append("search", searchValue);
+        if (searchValue.trim()) params.append("search", searchValue);
         const result = await courseService.getApprovedCourses({
           params: params.toString(),
         });

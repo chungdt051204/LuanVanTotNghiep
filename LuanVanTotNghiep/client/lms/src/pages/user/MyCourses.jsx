@@ -198,9 +198,11 @@ const MyCourses = () => {
             })
           )}
         </div>
-        <div className="mt-6">
-          <PaginationButton totalPages={enrollments?.totalPages} />
-        </div>
+        {enrollments?.totalPages > 1 && (
+          <div className="mt-6">
+            <PaginationButton totalPages={enrollments?.totalPages} />
+          </div>
+        )}
       </div>
       <Footer />
     </>

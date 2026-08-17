@@ -196,7 +196,7 @@ export class UserService {
     const coursesIds = courses?.map((value) => {
       return value._id;
     });
-    const totalEnrollments = await enrollmentEntity.countDocuments({
+    const totalEnrollments = await enrollmentEntity.find({
       user_id: student._id,
       course_id: { $in: coursesIds },
     });

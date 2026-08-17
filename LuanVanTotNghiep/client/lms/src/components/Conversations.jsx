@@ -124,13 +124,6 @@ const Conversations = ({ me }) => {
           </div>
           {isDropdown && (
             <div className="z-10">
-              <div className="flex justify-between items-center text-surface-nav bg-gray-50 border-b border-b-gray-100 h-[55px] p-3">
-                <input
-                  className="px-4 py-1 rounded-[8px] bg-surface-white outline-blue-500 w-full"
-                  type="text"
-                  placeholder="Tìm cuộc hội thoại"
-                />
-              </div>
               <div className="h-[350px] scroll-auto overflow-y-auto bg-surface-white rounded-[16px]">
                 {conversations?.arrayConversation?.map((value) => {
                   return (

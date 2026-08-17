@@ -25,10 +25,10 @@ const StudentDetail = () => {
   const [comment, setComment] = useState("");
   const getAverageProgress = () => {
     let sum = 0;
-    studentInfo?.arrayEnrollment?.forEach((value) => {
-      sum = sum + value?.item?.progress_percent;
+    studentInfo?.totalEnrollments?.forEach((value) => {
+      sum = sum + value?.progress_percent;
     });
-    return Math.floor(sum / studentInfo?.totalEnrollments);
+    return Math.floor(sum / studentInfo?.totalEnrollments?.length);
   };
   useEffect(() => {
     if (id) {
@@ -110,15 +110,15 @@ const StudentDetail = () => {
           <div className="flex justify-between px-10">
             <div className="flex flex-col gap-y-1">
               <p className="text-center text-headline-md text-surface-nav font-bold">
-                {studentInfo?.totalEnrollments}
+                {studentInfo?.totalEnrollments?.length}
               </p>
               <p className="text-body-md text-nav-muted">Khóa học đã đăng ký</p>
             </div>
             <div className="flex flex-col gap-y-1">
               <p className="text-center text-headline-md text-green-600 font-bold">
                 {
-                  studentInfo?.arrayEnrollment?.filter(
-                    (value) => value?.item?.progress_percent == 100
+                  studentInfo?.totalEnrollments?.filter(
+                    (value) => value?.progress_percent == 100
                   )?.length
                 }
               </p>

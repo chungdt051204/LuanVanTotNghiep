@@ -20,6 +20,8 @@ export class AiService {
           { categoryName: ["web", "mobile", "window"] },
           "instructorName",
           { level: ["Cơ bản", "Trung bình", "Nâng cao"] },
+          { price: ["cheap", "expensive"] },
+          { rating: ["high", "low", "nổi bật", "đánh giá kém"] },
         ],
       },
       LEARNING_PROGRESS: {
@@ -58,6 +60,8 @@ export class AiService {
         const categoryName = interaction?.entities?.categoryName;
         const instructorName = interaction?.entities?.instructorName;
         const level = interaction?.entities?.level;
+        const price = interaction?.entities?.price;
+        const rating = interaction?.entities?.rating;
         let query = {};
         if (courseName)
           query.course_name = { $regex: courseName, $options: "i" };
@@ -83,6 +87,16 @@ export class AiService {
         }
         if (level) {
           query.level = level;
+        }
+        if (price) {
+          if (price == "cheap") query.price = { $lte: 300000 };
+          else query.price = { $gte: 300000 };
+        }
+        if (rating) {
+          if (rating == "high" || rating == "nổi bật")
+            query.rating_star = { $gte: 4.5 };
+          else if (rating == "low" || rating == "đánh giá kém")
+            query.rating_star = { $lte: 2 };
         }
         const courses = await courseEntity
           .find({

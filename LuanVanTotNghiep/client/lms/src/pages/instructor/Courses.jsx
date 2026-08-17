@@ -17,6 +17,7 @@ import PaginationButton from "../../components/PaginationButton";
 import { FaStar } from "react-icons/fa";
 import { IoWarningOutline } from "react-icons/io5";
 import ConfirmDialog from "../../components/ConfirmDialog";
+import { IoEyeOutline } from "react-icons/io5";
 
 const InstructorCourses = () => {
   const navigate = useNavigate();
@@ -302,7 +303,7 @@ const InstructorCourses = () => {
                               </div>
                             )}
                           </div>
-                          {value.course?.status !== "approved" &&
+                          {value.course?.status !== "approved" ? (
                             value.course?.is_visible && (
                               <button
                                 onClick={() => {
@@ -345,7 +346,14 @@ const InstructorCourses = () => {
                                   ? "Đăng tải"
                                   : "Đăng tải lại"}
                               </button>
-                            )}
+                            )
+                          ) : (
+                            <IoEyeOutline
+                              onClick={() =>
+                                navigate(`/course/${value?.course._id}`)
+                              }
+                            />
+                          )}
                         </td>
                       </tr>
                     );

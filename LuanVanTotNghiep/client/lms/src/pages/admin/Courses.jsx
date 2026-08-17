@@ -219,7 +219,7 @@ const AdminCourses = () => {
                             {value?.course.status}
                           </p>
                         </td>
-                        <td className="flex justify-end items-center w-[20%] pe-2">
+                        <td className="flex justify-end gap-x-2 items-center w-[20%] pe-2">
                           {value?.course.status === "pending" && (
                             <div className="flex items-center gap-x-2">
                               <button
@@ -257,13 +257,13 @@ const AdminCourses = () => {
                               >
                                 Từ chối
                               </button>
-                              <IoEyeOutline
-                                onClick={() =>
-                                  navigate(`/course/${value?.course._id}`)
-                                }
-                              />
                             </div>
                           )}
+                          <IoEyeOutline
+                            onClick={() =>
+                              navigate(`/course/${value?.course._id}`)
+                            }
+                          />
                         </td>
                       </tr>
                     );

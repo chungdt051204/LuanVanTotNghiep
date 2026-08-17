@@ -452,7 +452,10 @@ const InstructorDetail = () => {
                     Tổng lợi nhuận thu được
                   </p>
                   <p className="text-headline-sm text-surface-nav font-bold">
-                    {format.formatPrice({ price: instructor?.item?.balance })}đ
+                    {instructor?.item?.balance > 0
+                      ? format.formatPrice({ price: instructor?.item?.balance })
+                      : 0}
+                    đ
                   </p>
                   <p className="text-title-sm text-nav-muted">Lợi nhuận</p>
                 </div>

@@ -136,7 +136,7 @@ const AdminDashboard = () => {
         </div>
         <div className="flex flex-col gap-y-6 p-5 border border-gray-200 rounded-[16px]">
           <MultiAxisLineChart
-            text="Biểu đồ thống kê tổng doanh thu (100%) và lợi nhuận thu được (20%)"
+            text="Biểu đồ thống kê tổng doanh thu (100%) và lợi nhuận thu được (20%) trong tháng"
             labels={days}
             label1="Tổng doanh thu (100%)"
             data1={revenues}

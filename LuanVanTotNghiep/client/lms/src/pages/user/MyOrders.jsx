@@ -15,7 +15,7 @@ import PaginationButton from "../../components/PaginationButton";
 import Footer from "../../components/Footer";
 const MyOrders = () => {
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const orderStatus = searchParams.get("status");
   const { item: me, isLoading: loading } = useSelector((state) => state.me);
   const [isLoading, setIsLoading] = useState(true);
@@ -123,6 +123,7 @@ const MyOrders = () => {
                 onClick={() => {
                   setIdx(index);
                   setStatus(value.status);
+                  setSearchParams("");
                 }}
                 key={index}
               >

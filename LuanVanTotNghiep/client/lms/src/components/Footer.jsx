@@ -1,6 +1,8 @@
 import { FaArrowUp } from "react-icons/fa";
 import { FaArrowRight } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 const Footer = () => {
+  const navigate = useNavigate();
   return (
     <>
       <div className="flex flex-col gap-y-8 p-16 bg-auth">
@@ -21,7 +23,10 @@ const Footer = () => {
             của họ
           </p>
         </div>
-        <button className="flex justify-between gap-x-4 items-center w-[25%] mx-auto py-2 px-4 rounded-[8px] bg-surface-white text-brand-blue text-title-lg font-medium transition-transform duration-300 hover:bg-surface-bg hover:cursor-pointer">
+        <button
+          onClick={() => navigate("/courses")}
+          className="flex justify-between gap-x-4 items-center w-[25%] mx-auto py-2 px-4 rounded-[8px] bg-surface-white text-brand-blue text-title-lg font-medium transition-transform duration-300 hover:bg-surface-bg hover:cursor-pointer"
+        >
           Khám phá khóa học
           <FaArrowRight />
         </button>

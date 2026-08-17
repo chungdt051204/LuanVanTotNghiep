@@ -8,6 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { FaPlus } from "react-icons/fa6";
 import ReactPlayer from "react-player";
 import axios from "axios";
+import { IoCloudUploadOutline } from "react-icons/io5";
 
 const CourseEditor = () => {
   const navigate = useNavigate();
@@ -24,8 +25,10 @@ const CourseEditor = () => {
     thumbnail: null,
     price: "",
   });
-  const [imagePreview, setImagePreview] = useState(null);
-  const [thumbnailPreview, setThumbnailPreview] = useState(null);
+  const [preview, setPreview] = useState({
+    imagePreview: null,
+    thumbnailPreview: null,
+  });
   const [requirements, setRequirements] = useState([]);
   const [objectives, setObjectives] = useState([]);
   const [requirementContent, setRequirementContent] = useState("");
@@ -45,7 +48,8 @@ const CourseEditor = () => {
     errorDescription: "",
     errorCategory: "",
     errorLevel: "",
-    errorFile: "",
+    errorImage: "",
+    errorThumbnail: "",
     errorRequirement: "",
     errorObjective: "",
     errorPrice: "",
@@ -58,21 +62,46 @@ const CourseEditor = () => {
     },
   ]);
 
-  const handlePreview = ({ e, setPreview }) => {
+  // const handlePreview = ({ e, setPreview }) => {
+  //   const allowedTypes = ["jpg", "png", "jpeg"];
+  //   const image = e.target.files[0];
+  //   const type = image?.name?.split(".")[1];
+  //   if (!allowedTypes.includes(type)) {
+  //     setError((prev) => ({
+  //       ...prev,
+  //       errorFile: "Định dạng ảnh không hợp lệ!",
+  //     }));
+  //     return;
+  //   } else {
+  //     const previewUrl = URL.createObjectURL(image);
+  //     setPreview(previewUrl);
+  //     setError((prev) => ({ ...prev, errorFile: "" }));
+  //   }
+  // };
+  const handleValidateFile = ({ e, errorField }) => {
     const allowedTypes = ["jpg", "png", "jpeg"];
     const image = e.target.files[0];
     const type = image?.name?.split(".")[1];
     if (!allowedTypes.includes(type)) {
       setError((prev) => ({
         ...prev,
-        errorFile: "Định dạng ảnh không hợp lệ!",
+        [errorField]: "Định dạng ảnh không hợp lệ!",
       }));
-      return;
-    } else {
-      const previewUrl = URL.createObjectURL(image);
-      setPreview(previewUrl);
-      setError((prev) => ({ ...prev, errorFile: "" }));
+      return false;
+    } else if (image?.size > 300000) {
+      setError((prev) => ({
+        ...prev,
+        [errorField]: "Kích thước ảnh tối đa 300KB!",
+      }));
+      return false;
     }
+    return true;
+  };
+  const handlePreview = ({ e, field, errorField }) => {
+    const image = e.target.files[0];
+    const previewUrl = URL.createObjectURL(image);
+    setPreview((prev) => ({ ...prev, [field]: previewUrl }));
+    setError((prev) => ({ ...prev, [errorField]: "" }));
   };
 
   // Hàm lấy ID video Youtube
@@ -449,49 +478,107 @@ const CourseEditor = () => {
               >
                 Ảnh khóa học *
               </label>
-              <input
-                onChange={(e) => {
-                  setCourseInfo((prev) => ({
-                    ...prev,
-                    image: e.target.files[0],
-                  }));
-                  handlePreview({ e, setPreview: setImagePreview });
-                }}
-                type="file"
-                accept="image/*"
-              />
-              {(imagePreview || courseInfo.image) && (
-                <img
-                  src={imagePreview || courseInfo.image}
-                  className="w-[80px] h-[80px]"
-                />
-              )}
+              <div className="flex flex-col gap-y-2 w-[45%]">
+                {preview.imagePreview || courseInfo.image ? (
+                  <div className="relative">
+                    <img
+                      className="rounded-[16px] opacity-80 w-[150px]"
+                      src={preview.imagePreview || courseInfo.image}
+                      alt=""
+                    />
+                  </div>
+                ) : (
+                  <div className="border-2 border-gray-300 border-dashed p-4 rounded-[8px]">
+                    <label htmlFor="imagePreview" className="text-body-md">
+                      <div className="flex gap-x-2 items-center text-brand-blue">
+                        <IoCloudUploadOutline />
+                        <p>Nhấp để chọn ảnh</p>
+                      </div>
+                      <p className="text-nav-muted">
+                        Định dạng: JPG, PNG, JPEG
+                      </p>
+                    </label>
+                    <input
+                      onChange={(e) => {
+                        if (
+                          handleValidateFile({ e, errorField: "errorImage" })
+                        ) {
+                          setCourseInfo((prev) => ({
+                            ...prev,
+                            image: e.target.files[0],
+                          }));
+                          handlePreview({
+                            e,
+                            field: "imagePreview",
+                            errorField: "errorImage",
+                          });
+                        }
+                      }}
+                      id="imagePreview"
+                      type="file"
+                      className="hidden"
+                    />
+                  </div>
+                )}
+                <span className="text-body-md text-red-500 font-medium">
+                  {error.errorImage}
+                </span>
+              </div>
               <label
                 className="text-surface-nav text-body-lg font-medium"
                 htmlFor="thumbnail"
               >
                 Ảnh bìa *
               </label>
-              <input
-                onChange={(e) => {
-                  setCourseInfo((prev) => ({
-                    ...prev,
-                    thumbnail: e.target.files[0],
-                  }));
-                  handlePreview({ e, setPreview: setThumbnailPreview });
-                }}
-                type="file"
-                accept="image/*"
-              />
-              {(thumbnailPreview || courseInfo.thumbnail) && (
-                <img
-                  src={thumbnailPreview || courseInfo.thumbnail}
-                  className="w-[150px] h-[100px]"
-                />
-              )}
-              <span className="text-body-md text-red-500">
-                {error.errorFile}
-              </span>
+              <div className="flex flex-col gap-y-2 w-[45%]">
+                {preview.thumbnailPreview || courseInfo.thumbnail ? (
+                  <div className="relative">
+                    <img
+                      className="rounded-[16px] opacity-80 w-[200px]"
+                      src={preview.thumbnailPreview || courseInfo.thumbnail}
+                      alt=""
+                    />
+                  </div>
+                ) : (
+                  <div className="border-2 border-gray-300 border-dashed p-4 rounded-[8px]">
+                    <label htmlFor="thumbnailPreview" className="text-body-md">
+                      <div className="flex gap-x-2 items-center text-brand-blue">
+                        <IoCloudUploadOutline />
+                        <p>Nhấp để chọn ảnh</p>
+                      </div>
+                      <p className="text-nav-muted">
+                        Định dạng: JPG, PNG, JPEG
+                      </p>
+                    </label>
+                    <input
+                      onChange={(e) => {
+                        if (
+                          handleValidateFile({
+                            e,
+                            errorField: "errorThumbnail",
+                          })
+                        ) {
+                          setCourseInfo((prev) => ({
+                            ...prev,
+                            thumbnail: e.target.files[0],
+                          }));
+                          handlePreview({
+                            e,
+                            field: "thumbnailPreview",
+                            errorField: "errorThumbnail",
+                          });
+                        }
+                      }}
+                      id="thumbnailPreview"
+                      type="file"
+                      className="hidden"
+                    />
+                  </div>
+                )}
+                <span className="text-body-md text-red-500 font-medium">
+                  {error.errorThumbnail}
+                </span>
+              </div>
             </div>
           </div>
           {/* Yêu cầu & kết quả đạt được */}
