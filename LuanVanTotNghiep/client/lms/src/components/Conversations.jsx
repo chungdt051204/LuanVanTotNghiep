@@ -6,6 +6,7 @@ import { conversationService } from "../services/conversationService";
 import ConversationDetail from "./ConversationDetail";
 import { FaFacebookMessenger } from "react-icons/fa";
 import { socket } from "../../socket";
+import { LuInbox } from "react-icons/lu";
 const Conversations = ({ me }) => {
   const { items: roles } = useSelector((state) => state.roles);
   const [conversations, setConversations] = useState([]);
@@ -31,7 +32,7 @@ const Conversations = ({ me }) => {
   };
   const getTime = ({ time }) => {
     const secondsDifference = Math.floor((new Date() - new Date(time)) / 1000);
-    if (secondsDifference < 60) return `${secondsDifference} giây trước`;
+    if (secondsDifference < 60) return "Vừa xong";
     else if (secondsDifference < 3600)
       return `${Math.floor(secondsDifference / 60)} phút trước`;
     else if (secondsDifference < 86400)
@@ -40,9 +41,6 @@ const Conversations = ({ me }) => {
       return `${Math.floor(secondsDifference / 86400)} ngày trước`;
     return `${Math.floor(secondsDifference / 2592000)} tháng trước`;
   };
-  useEffect(() => {
-    if (me) socket.emit("join-instructor", me?._id);
-  }, [me]);
   useEffect(() => {
     socket.on("new-message", (data) => {
       setRefresh((prev) => prev + 1);
@@ -125,69 +123,76 @@ const Conversations = ({ me }) => {
           {isDropdown && (
             <div className="z-10">
               <div className="h-[350px] scroll-auto overflow-y-auto bg-surface-white rounded-[16px]">
-                {conversations?.arrayConversation?.map((value) => {
-                  return (
-                    <div
-                      onClick={() =>
-                        handleSelectedConversation({
-                          conversationId: value?.item?._id,
-                        })
-                      }
-                      key={value?.item?._id}
-                      className="flex justify-between p-3 items-center transition-transform duration-300 hover:bg-gray-50 hover:cursor-pointer"
-                    >
-                      <div className="flex gap-x-4">
-                        <div className="relative">
-                          <img
-                            className="w-[40px] h-[40px] rounded-[1000px] object-cover"
-                            src={value?.item?.user_id?.avatar}
-                            alt=""
-                          />
-                          {value?.unreadMessages > 0 && (
-                            <div className="absolute bottom-12 left-7 bg-blue-500 w-[20px] h-[20px] rounded-[1000px] text-center text-surface-white text-body-md">
-                              {value?.unreadMessages}
-                            </div>
-                          )}
-                        </div>
-                        <div className="flex flex-col font-medium">
-                          <p className="text-title-sm text-surface-nav">
-                            {value?.item?.user_id?.full_name}
-                          </p>
-                          <p
-                            className={`text-body-md ${
-                              !value?.item?.newest_message_id?.is_read &&
-                              getRole({
+                {conversations?.arrayConversation?.length > 0 ? (
+                  conversations?.arrayConversation?.map((value) => {
+                    return (
+                      <div
+                        onClick={() =>
+                          handleSelectedConversation({
+                            conversationId: value?.item?._id,
+                          })
+                        }
+                        key={value?.item?._id}
+                        className="flex justify-between p-3 items-center transition-transform duration-300 hover:bg-gray-50 hover:cursor-pointer"
+                      >
+                        <div className="flex gap-x-4">
+                          <div className="relative">
+                            <img
+                              className="w-[40px] h-[40px] rounded-[1000px] object-cover"
+                              src={value?.item?.user_id?.avatar}
+                              alt=""
+                            />
+                            {value?.unreadMessages > 0 && (
+                              <div className="absolute bottom-12 left-7 bg-blue-500 w-[20px] h-[20px] rounded-[1000px] text-center text-surface-white text-body-md">
+                                {value?.unreadMessages}
+                              </div>
+                            )}
+                          </div>
+                          <div className="flex flex-col font-medium">
+                            <p className="text-title-sm text-surface-nav">
+                              {value?.item?.user_id?.full_name}
+                            </p>
+                            <p
+                              className={`text-body-md ${
+                                !value?.item?.newest_message_id?.is_read &&
+                                getRole({
+                                  roleId:
+                                    value?.item?.newest_message_id?.sender_id
+                                      ?.role_id,
+                                }) == "user"
+                                  ? "text-surface-nav"
+                                  : "text-nav-muted"
+                              }`}
+                            >
+                              {getRole({
                                 roleId:
                                   value?.item?.newest_message_id?.sender_id
                                     ?.role_id,
-                              }) == "user"
-                                ? "text-surface-nav"
-                                : "text-nav-muted"
-                            }`}
-                          >
-                            {getRole({
-                              roleId:
-                                value?.item?.newest_message_id?.sender_id
-                                  ?.role_id,
-                            }) == "instructor"
-                              ? "Bạn:" +
-                                " " +
-                                value?.item?.newest_message_id?.message
-                              : value?.item?.newest_message_id?.message}
-                          </p>
-                          <p className="text-body-md text-brand-blue">
-                            {value?.item?.course_id?.course_name}
-                          </p>
+                              }) == "instructor"
+                                ? "Bạn:" +
+                                  " " +
+                                  value?.item?.newest_message_id?.message
+                                : value?.item?.newest_message_id?.message}
+                            </p>
+                            <p className="text-body-md text-brand-blue">
+                              {value?.item?.course_id?.course_name}
+                            </p>
+                          </div>
                         </div>
+                        <p className="text-body-md text-nav-muted">
+                          {getTime({
+                            time: value?.item?.newest_message_id?.createdAt,
+                          })}
+                        </p>
                       </div>
-                      <p className="text-body-md text-nav-muted">
-                        {getTime({
-                          time: value?.item?.newest_message_id?.createdAt,
-                        })}
-                      </p>
-                    </div>
-                  );
-                })}
+                    );
+                  })
+                ) : (
+                  <div className="flex flex-col items-center gap-y-2 text-title-sm text-nav-muted mt-6">
+                    <LuInbox className="text-display-md text-gray-300" />
+                    <p>Chưa có cuộc hội thoại nào</p>
+                  </div>
+                )}
               </div>
             </div>
           )}

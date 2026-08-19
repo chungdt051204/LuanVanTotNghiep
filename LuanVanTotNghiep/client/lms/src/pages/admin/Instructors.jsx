@@ -9,6 +9,7 @@ import { LuInbox } from "react-icons/lu";
 import { toast } from "react-toastify";
 import PaginationButton from "../../components/PaginationButton";
 import ConfirmDialog from "../../components/ConfirmDialog";
+import { socket } from "../../../socket";
 
 const Instructors = () => {
   const navigate = useNavigate();
@@ -43,6 +44,11 @@ const Instructors = () => {
   const [reason, setReason] = useState("");
   const verifiedStatus = isApproved ? "VERIFIED" : "REJECTED";
   const rejectDialog = useRef();
+  useEffect(() => {
+    socket.on("account-review", () => {
+      setRefresh((prev) => prev + 1);
+    });
+  }, []);
   useEffect(() => {
     const getInstructors = async () => {
       try {

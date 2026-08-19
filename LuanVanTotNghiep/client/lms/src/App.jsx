@@ -54,18 +54,34 @@ export const api = "http://localhost:3000";
 function App() {
   const navigate = useNavigate();
   const isLogin = useSelector((state) => state.auth.isLogin);
-  const { item: me, isLoading } = useSelector((state) => state.me);
+  const { item: me } = useSelector((state) => state.me);
   const dispatch = useDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
   const token = searchParams.get("token");
   const [refresh, setRefresh] = useState(0);
   useEffect(() => {
+    socket.on("change-status", () => {
+      setRefresh((prev) => prev + 1);
+      navigate("/login");
+    });
+  }, [navigate]);
+  useEffect(() => {
     socket.on("connect", () => {
       console.log("Đã kết nối");
     });
-  }, [me]);
-  useEffect(() => {
     socket.on("force-logout", () => {
+      setRefresh((prev) => prev + 1);
+    });
+    socket.on("course-review", () => {
+      setRefresh((prev) => prev + 1);
+    });
+    socket.on("course-review-result", () => {
+      setRefresh((prev) => prev + 1);
+    });
+    socket.on("account-review", () => {
+      setRefresh((prev) => prev + 1);
+    });
+    socket.on("account-review-result", () => {
       setRefresh((prev) => prev + 1);
     });
   }, []);
@@ -139,6 +155,12 @@ function App() {
       getNotifications();
     }
   }, [dispatch, isLogin, me, navigate]);
+  useEffect(() => {
+    if (me?.role_id?.role === "admin") socket.emit("join-admin", me?._id);
+    if (me?.role_id?.role === "instructor")
+      socket.emit("join-instructor", me?._id);
+  }, [me]);
+
   return (
     <>
       <Routes>

@@ -31,6 +31,7 @@ import { conversationRouter } from "./routers/conversationRouter.js";
 import { aiRouter } from "./routers/aiRouter.js";
 import { MessageService } from "./services/messageService.js";
 import { NotificationService } from "./services/notificationService.js";
+import { UserService } from "./services/userService.js";
 
 const server = createServer(app);
 export const io = new Server(server, {
@@ -70,6 +71,9 @@ io.on("connection", (socket) => {
   socket.on("join-instructor", (instructorId) => {
     socket.join(instructorId);
   });
+  socket.on("join-admin", (adminId) => {
+    socket.join(adminId);
+  });
   socket.on("join-conversation", (conversationId) => {
     socket.join(conversationId);
   });
@@ -88,6 +92,10 @@ io.on("connection", (socket) => {
     });
     io.to(data.userId).emit("new-notification", result);
   });
+  // socket.on("update-status", async (data) => {
+  //   const result = await new UserService().updateStatusUser({ userId: data });
+  //   io.to(data).emit("change-status");
+  // });
 });
 app.get("/", (req, res) => {
   return res.json("Server is running...");

@@ -18,6 +18,7 @@ import { FaStar } from "react-icons/fa";
 import { IoWarningOutline } from "react-icons/io5";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import { IoEyeOutline } from "react-icons/io5";
+import { socket } from "../../../socket";
 
 const InstructorCourses = () => {
   const navigate = useNavigate();
@@ -63,7 +64,11 @@ const InstructorCourses = () => {
   const [message, setMessage] = useState("");
   const [isUpdateStatus, setIsUpdateStatus] = useState(false);
   const confirmDialog = useRef();
-
+  useEffect(() => {
+    socket.on("course-review-result", async () => {
+      setRefresh((prev) => prev + 1);
+    });
+  }, []);
   useEffect(() => {
     const getCoursesByInstructor = async () => {
       try {

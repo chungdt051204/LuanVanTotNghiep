@@ -9,6 +9,7 @@ import testResultEntity from "../models/testResultModel.js";
 import { NotificationService } from "../services/notificationService.js";
 import bcrypt from "bcrypt";
 const saltRounds = 10;
+import { io } from "../script.js";
 
 export class UserService {
   getUserProfile = async ({ payload }) => {
@@ -27,7 +28,7 @@ export class UserService {
     const options = {
       page: params.page,
       limit: params.limit,
-      sort: { createdAt: -1 },
+      sort: { updatedAt: -1 },
     };
     let query = { role_id: instructorRole?._id };
     if (params?.status !== undefined) {
@@ -248,8 +249,9 @@ export class UserService {
       message: `${instructor?.full_name} đã gửi yêu cầu xác thực tài khoản cho bạn`,
       title: "Yêu cầu xác thực tài khoản",
       type: "ACCOUNT",
-      userId: admin?.id,
+      userId: admin?._id,
     });
+    io.to(admin?._id?.toString()).emit("account-review");
   };
   cancelRequestVerification = async ({ userId }) => {
     const instructor = await userEntity.findOne({ _id: userId });
@@ -270,8 +272,9 @@ export class UserService {
       message: `${instructor?.full_name} đã hủy yêu cầu xác thực tài khoản`,
       title: "Hủy yêu cầu xác thực tài khoản",
       type: "ACCOUNT",
-      userId: admin?.id,
+      userId: admin?._id,
     });
+    io.to(admin?._id?.toString()).emit("account-review");
   };
   approvedOrRejectedInstructor = async ({ instructorId, status, message }) => {
     const instructor = await userEntity.findOne({ _id: instructorId });
@@ -296,6 +299,7 @@ export class UserService {
       type: "ACCOUNT",
       userId: instructorId,
     });
+    io.to(instructorId).emit("account-review-result");
   };
   updateAvatar = async ({ userId, avatar }) => {
     const user = await userEntity.findOne({ _id: userId });
@@ -347,6 +351,7 @@ export class UserService {
       { status: currentStatus ? false : true },
       { returnDocument: "after" }
     );
+    io.to(userId).emit("change-status");
     return result;
   };
   updateInstructorInfo = async ({ instructorId, formData }) => {

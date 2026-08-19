@@ -10,6 +10,7 @@ import { LuInbox } from "react-icons/lu";
 import { format } from "../../../helper/format";
 import PaginationButton from "../../components/PaginationButton";
 import ConfirmDialog from "../../components/ConfirmDialog";
+import { socket } from "../../../socket";
 
 const Users = () => {
   const navigate = useNavigate();
@@ -61,7 +62,10 @@ const Users = () => {
     };
     getUsers();
   }, [refresh, searchParams, status]);
+
   const handleUpdateStatusUser = async () => {
+    // const data = user?._id;
+    // socket.emit("update-status", data);
     try {
       const result = await userService.updateStatusUser({ userId: user?._id });
       console.log(result);

@@ -11,6 +11,7 @@ import PaginationButton from "../../components/PaginationButton";
 import { IoEyeOutline } from "react-icons/io5";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import { IoBan } from "react-icons/io5";
+import { socket } from "../../../socket";
 
 const AdminCourses = () => {
   const navigate = useNavigate();
@@ -49,7 +50,11 @@ const AdminCourses = () => {
   const [isRejected, setIsRejected] = useState(false);
   const [reason, setReason] = useState("");
   const rejectDialog = useRef();
-
+  useEffect(() => {
+    socket.on("course-review", async () => {
+      setRefresh((prev) => prev + 1);
+    });
+  }, []);
   useEffect(() => {
     const getCoursesByAdmin = async () => {
       try {

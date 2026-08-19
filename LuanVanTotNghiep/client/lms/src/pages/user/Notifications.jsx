@@ -38,7 +38,7 @@ const Notifications = () => {
   });
   const getTime = ({ time }) => {
     const secondsDifference = Math.floor((new Date() - new Date(time)) / 1000);
-    if (secondsDifference < 60) return `${secondsDifference} giây trước`;
+    if (secondsDifference < 60) return "Vừa xong";
     else if (secondsDifference < 3600)
       return `${Math.floor(secondsDifference / 60)} phút trước`;
     else if (secondsDifference < 86400)

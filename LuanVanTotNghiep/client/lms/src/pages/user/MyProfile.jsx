@@ -763,7 +763,11 @@ const MyProfile = () => {
                         : undefined
                     }
                     disabled={me?.verified_status === "VERIFIED"}
-                    className="w-[40%] px-4 py-1 mt-2 rounded-[8px] bg-surface-nav text-title-lg text-surface-white transition-transform duration-300 hover:text-surface-bg hover:cursor-pointer"
+                    className={`w-[40%] px-4 py-1 mt-2 rounded-[8px] bg-surface-nav text-title-lg text-surface-white transition-transform duration-300 hover:text-surface-bg ${
+                      me?.verified_status === "VERIFIED"
+                        ? "cursor-not-allowed"
+                        : "cursor-pointer"
+                    }`}
                   >
                     {me?.verified_status === "NOT_VERIFIED"
                       ? "Gửi yêu cầu xác thực"

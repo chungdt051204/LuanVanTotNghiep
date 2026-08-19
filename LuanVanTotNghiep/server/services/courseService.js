@@ -8,6 +8,7 @@ import categoryEntity from "../models/categoryModel.js";
 import userEntity from "../models/userModel.js";
 import roleEntity from "../models/roleModel.js";
 import { NotificationService } from "../services/notificationService.js";
+import { io } from "../script.js";
 
 export class CourseService {
   addCourse = async ({ userId, formData, image_url, thumbnail_url }) => {
@@ -279,8 +280,9 @@ export class CourseService {
             ? "Yêu cầu xét duyệt khóa học"
             : "Hủy yêu cầu xét duyệt khóa học",
         type: "COURSE",
-        userId: admin?.id,
+        userId: admin?._id,
       });
+      io.to(admin?._id?.toString()).emit("course-review");
       return { course: result, numberEnrollment };
     } else {
       const error = new Error(
@@ -333,6 +335,7 @@ export class CourseService {
         type: "COURSE",
         userId: course?.user_id?._id,
       });
+      io.to(course?.user_id?._id?.toString()).emit("course-review-result");
       return { course: result, numberEnrollment };
     } else {
       const error = new Error("không thể thay đổi trạng thái của khóa học!");

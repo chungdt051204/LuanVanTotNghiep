@@ -27,9 +27,11 @@ const AdminDashboard = () => {
     ?.map((value) => {
       return value?.full_name;
     });
-  const instructorProfits = statistics?.instructors?.map((value) => {
-    return value?.balance;
-  });
+  const instructorProfits = statistics?.instructors
+    ?.filter((value) => value?.balance > 0)
+    ?.map((value) => {
+      return value?.balance;
+    });
   useEffect(() => {
     const getStatisticsByAdmin = async () => {
       try {
