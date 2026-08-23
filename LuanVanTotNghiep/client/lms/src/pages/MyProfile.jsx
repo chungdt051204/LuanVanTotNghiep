@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import Navbar from "../../components/Navbar";
-import { format } from "../../../helper/format";
+import Navbar from "../components/Navbar";
+import { format } from "../../helper/format";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { IoCameraOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
-import { validateForm } from "../../../helper/validateForm";
-import { userService } from "../../services/userService";
+import { validateForm } from "../../helper/validateForm";
+import { userService } from "../services/userService";
 import { toast } from "react-toastify";
-import Footer from "../../components/Footer";
+import Footer from "../components/Footer";
 import { LuSave } from "react-icons/lu";
 import { MdLockOutline } from "react-icons/md";
 import { IoShieldCheckmarkOutline } from "react-icons/io5";

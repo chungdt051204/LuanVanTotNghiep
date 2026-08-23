@@ -2,6 +2,7 @@ import testResultEntity from "../models/testResultModel.js";
 import testEntity from "../models/testModel.js";
 import enrollmentEntity from "../models/enrollmentModel.js";
 import questionEntity from "../models/questionModel.js";
+import optionEntity from "../models/optionModel.js";
 
 export class TestResultService {
   getTestResultById = async ({ testResultId }) => {
@@ -31,13 +32,36 @@ export class TestResultService {
     return testResults || [];
   };
   createTestResult = async ({ data, userId }) => {
+    let numberAnswerCorrect = 0;
+    const test = await testEntity.findOne({ _id: data?.testId });
+    if (!test) {
+      const error = new Error("Không tìm thấy bài kiểm tra này!");
+      error.statusCode = 404;
+      throw error;
+    }
+    const questions = await questionEntity?.find({ test_id: test?._id });
+    await Promise.all(
+      questions?.map(async (value) => {
+        const selectedOption = data?.selectedOptionIds[value?._id];
+        const options = await optionEntity?.find({ question_id: value?._id });
+        if (
+          options?.some(
+            (item) => item?._id == selectedOption && item?.is_correct
+          )
+        )
+          numberAnswerCorrect = numberAnswerCorrect + 1;
+      })
+    );
+    const score = Number(
+      Math.floor((100 / questions?.length) * numberAnswerCorrect)
+    );
     const newTestResult = await testResultEntity.create({
       test_id: data.testId,
       user_id: userId,
       started_at: data.startedAt,
       submitted_at: data.submittedAt,
-      number_answer_correct: data.numberAnswerCorrect,
-      score: data.score,
+      number_answer_correct: numberAnswerCorrect,
+      score,
     });
     await newTestResult.populate("test_id");
     if (newTestResult.score >= newTestResult?.test_id?.pass_score) {

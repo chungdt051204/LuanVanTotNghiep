@@ -92,10 +92,6 @@ io.on("connection", (socket) => {
     });
     io.to(data.userId).emit("new-notification", result);
   });
-  // socket.on("update-status", async (data) => {
-  //   const result = await new UserService().updateStatusUser({ userId: data });
-  //   io.to(data).emit("change-status");
-  // });
 });
 app.get("/", (req, res) => {
   return res.json("Server is running...");

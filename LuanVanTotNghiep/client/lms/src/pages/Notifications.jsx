@@ -3,12 +3,12 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { LuDollarSign } from "react-icons/lu";
 import { IoBookOutline } from "react-icons/io5";
-import Navbar from "../../components/Navbar";
-import { notificationService } from "../../services/notificationService";
+import Navbar from "../components/Navbar";
+import { notificationService } from "../services/notificationService";
 import {
   deleteReadNotification,
   setNotifications,
-} from "../../stores/features/notificationSlice";
+} from "../stores/features/notificationSlice";
 import { LuInbox } from "react-icons/lu";
 import { AnimatePresence, motion } from "framer-motion";
 import { BsClipboard2Check } from "react-icons/bs";

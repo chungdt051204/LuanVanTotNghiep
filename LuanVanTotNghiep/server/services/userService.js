@@ -15,7 +15,8 @@ export class UserService {
   getUserProfile = async ({ payload }) => {
     const me = await userEntity
       .findOne({ _id: payload.sub })
-      .populate("role_id");
+      .populate("role_id")
+      .select("-password"); //Thêm dấu - đằng trước là lấy tất cả thuộc tính khác ngoại trừ thuộc tính này
     if (!me) {
       const error = new Error("Tài khoản không tồn tại hoặc đã bị xóa");
       error.statusCode = 404;

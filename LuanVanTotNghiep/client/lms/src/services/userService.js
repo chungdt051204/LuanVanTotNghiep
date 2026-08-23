@@ -2,9 +2,8 @@ import { axiosClient } from "./axiosClient";
 
 export const userService = {
   getMe: async () => {
-    const result = await axiosClient.get("/me");
-    console.log(result);
-    return result;
+    const response = await axiosClient.get("/me");
+    return response;
   },
   getInstructors: async ({ params }) => {
     const response = await axiosClient.get(`/admin/instructors?${params}`);

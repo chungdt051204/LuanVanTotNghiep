@@ -70,6 +70,11 @@ export class AuthService {
       error.statusCode = 401;
       throw error;
     }
+    if (!existingUser?.status) {
+      const error = new Error("Tài khoản này đã bị vô hiệu hóa!");
+      error.statusCode = 403;
+      throw error;
+    }
     const token = this.generateToken({ data: existingUser })?.token;
     await userEntity.updateOne(
       { _id: existingUser?._id },

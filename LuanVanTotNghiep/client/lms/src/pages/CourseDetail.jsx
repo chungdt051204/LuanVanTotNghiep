@@ -1,38 +1,35 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { courseService } from "../../services/courseService";
-import Navbar from "../../components/Navbar";
+import { courseService } from "../services/courseService";
+import Navbar from "../components/Navbar";
 import { FaStar } from "react-icons/fa";
 import { RxPeople } from "react-icons/rx";
 import { IoBookOutline } from "react-icons/io5";
 import { IoPlayCircleOutline } from "react-icons/io5";
 import { FaCheck } from "react-icons/fa6";
 import { IoIosLock } from "react-icons/io";
-import { enrollmentService } from "../../services/enrollmentService";
+import { enrollmentService } from "../services/enrollmentService";
 import { toast } from "react-toastify";
-import {
-  createEnrollment,
-  setEnrollments,
-} from "../../stores/features/enrollmentSlice";
-import { createNotification } from "../../stores/features/notificationSlice";
-import { lessonProgressService } from "../../services/lessonProgressService";
-import { cartService } from "../../services/cartService";
-import { testService } from "../../services/testService";
-import { addToCart } from "../../stores/features/cartSlice";
+import { setEnrollments } from "../stores/features/enrollmentSlice";
+import { createNotification } from "../stores/features/notificationSlice";
+import { lessonProgressService } from "../services/lessonProgressService";
+import { cartService } from "../services/cartService";
+import { testService } from "../services/testService";
+import { addToCart } from "../stores/features/cartSlice";
 import { FiFileText } from "react-icons/fi";
 import { LuTimer } from "react-icons/lu";
 import { FiTarget } from "react-icons/fi";
 import { FaAngleRight } from "react-icons/fa6";
-import { format } from "../../../helper/format";
+import { format } from "../../helper/format";
 import { FaRegStar } from "react-icons/fa";
-import { ratingService } from "../../services/ratingService";
+import { ratingService } from "../services/ratingService";
 import { Progress } from "antd";
 import { LuInbox } from "react-icons/lu";
-import { conversationService } from "../../services/conversationService";
+import { conversationService } from "../services/conversationService";
 import { FiMessageCircle } from "react-icons/fi";
-import ConversationDetail from "../../components/ConversationDetail";
-import Footer from "../../components/Footer";
+import ConversationDetail from "../components/ConversationDetail";
+import Footer from "../components/Footer";
 
 const CourseDetail = () => {
   const navigate = useNavigate();

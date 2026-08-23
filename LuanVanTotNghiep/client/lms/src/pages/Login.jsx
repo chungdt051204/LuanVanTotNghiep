@@ -30,23 +30,18 @@ const Login = () => {
     try {
       const result = await authService.Login({ data: formData });
       sessionStorage.setItem("token", result.token);
-      if (!result.data?.status) {
-        setErrorLogin("Tài khoản này đã bị vô hiệu hóa!");
-        return;
-      } else {
-        dispatch(setIsLogin(true));
-        dispatch(setMe(result.data));
-        console.log(result.data.role_id.role);
-        toast.success(result?.message || "Đăng nhập thành công");
-        socket.emit("join-user", result?.data?._id);
-        setTimeout(() => {
-          if (result.data.role_id.role === "instructor") {
-            navigate("/instructor/dashboard");
-          } else if (result.data.role_id.role === "admin")
-            navigate("/admin/dashboard");
-          else navigate("/");
-        }, 1000);
-      }
+      dispatch(setIsLogin(true));
+      dispatch(setMe(result.data));
+      console.log(result.data.role_id.role);
+      toast.success(result?.message || "Đăng nhập thành công");
+      socket.emit("join-user", result?.data?._id);
+      setTimeout(() => {
+        if (result.data.role_id.role === "instructor") {
+          navigate("/instructor/dashboard");
+        } else if (result.data.role_id.role === "admin")
+          navigate("/admin/dashboard");
+        else navigate("/");
+      }, 1000);
     } catch (error) {
       const status = error.status;
       const message = error.data.message;
@@ -54,6 +49,9 @@ const Login = () => {
         setError((prev) => ({ ...prev, errorEmail: message }));
       if (status === 401)
         setError((prev) => ({ ...prev, errorPassword: message }));
+      if (status === 403) setErrorLogin(message);
+      if (status === 429)
+        setErrorLogin("Quá nhiều lần thử! Vui lòng thử lại sau 15 phút!");
       console.log(message);
     }
   };

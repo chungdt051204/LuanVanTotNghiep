@@ -115,25 +115,11 @@ const TestDetail = () => {
       return;
     }
     setSubmitted(true);
-    let numberAnswerCorrect = 0;
-    questions?.forEach((value) => {
-      const selectedOption = selectedOptionIds[value?.question?._id];
-      if (
-        value?.options?.some(
-          (item) => item._id == selectedOption && item.is_correct
-        )
-      )
-        numberAnswerCorrect = numberAnswerCorrect + 1;
-    });
-    const score = Number(
-      Math.floor((100 / questions?.length) * numberAnswerCorrect)
-    );
     const data = {
       testId: id,
       startedAt,
       submittedAt: Date.now(),
-      numberAnswerCorrect,
-      score,
+      selectedOptionIds,
     };
     try {
       const result = await testResultService.createTestResult({ data });

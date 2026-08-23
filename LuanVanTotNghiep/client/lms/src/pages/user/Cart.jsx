@@ -27,6 +27,7 @@ const Cart = () => {
     cartItemIds?.includes(value._id)
   );
   const [paymentOptions, setPaymentOptions] = useState({});
+  const [loading, setLoading] = useState(false);
   const dialogRef = useRef();
   const getHaftPrice = ({ price }) => {
     return (price * 50) / 100;
@@ -112,6 +113,7 @@ const Cart = () => {
   };
   const handleCheckout = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const orderItems = cartItemsSelected?.map((value) => {
       return {
         courseId: value?.course_id?._id,
@@ -134,12 +136,13 @@ const Cart = () => {
     try {
       const result = await orderService.checkout({ formData });
       console.log(result.data.order_url);
-      // eslint-disable-next-line react-hooks/immutability
       window.location.href = result.data.order_url;
     } catch (error) {
       const status = error.status;
       const message = error.data.message;
       console.log(status, message);
+    } finally {
+      setLoading(false);
     }
   };
   if (isLoading) return <div className="text-center">Đang tải dữ liệu...</div>;
@@ -428,9 +431,12 @@ const Cart = () => {
             >
               Hủy
             </button>
-            <button className="flex justify-evenly items-center w-[48%] py-2 bg-surface-nav rounded-[8px] text-surface-white transition-transform duration-300 hover:text-surface-bg hover:cursor-pointer">
-              <FaCheck />
-              <p>Xác nhận thanh toán</p>
+            <button
+              disabled={loading}
+              className="flex justify-evenly items-center w-[48%] py-2 bg-surface-nav rounded-[8px] text-surface-white transition-transform duration-300 hover:text-surface-bg hover:cursor-pointer"
+            >
+              {!loading && <FaCheck />}
+              <p>{loading ? "Đang xử lý..." : "Xác nhận thanh toán"}</p>
             </button>
           </div>
         </form>
