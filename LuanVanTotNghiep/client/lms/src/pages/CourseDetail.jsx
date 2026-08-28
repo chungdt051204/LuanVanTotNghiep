@@ -281,7 +281,7 @@ const CourseDetail = () => {
               ) : (
                 <div className="flex gap-x-2 items-center">
                   <FiMessageCircle className="text-title-lg sm:text-headline-sm" />
-                  <p className="hidden sm:inline">Chat với giảng viên</p>
+                  <p>Chat với giảng viên</p>
                 </div>
               )}
             </button>

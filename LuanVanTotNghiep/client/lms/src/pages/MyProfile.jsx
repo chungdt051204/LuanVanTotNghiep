@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
-import Navbar from "../components/Navbar";
-import { format } from "../../helper/format";
-import { FaRegCalendarAlt } from "react-icons/fa";
-import { IoCameraOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { validateForm } from "../../helper/validateForm";
 import { userService } from "../services/userService";
 import { toast } from "react-toastify";
-import Footer from "../components/Footer";
+import { format } from "../../helper/format";
+import { FaRegCalendarAlt } from "react-icons/fa";
+import { IoCameraOutline } from "react-icons/io5";
 import { LuSave } from "react-icons/lu";
 import { MdLockOutline } from "react-icons/md";
 import { IoShieldCheckmarkOutline } from "react-icons/io5";
@@ -15,6 +13,8 @@ import { IoIosInformationCircleOutline } from "react-icons/io";
 import { FaRegAddressCard } from "react-icons/fa";
 import { FaGraduationCap } from "react-icons/fa";
 import { IoCloudUploadOutline } from "react-icons/io5";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 const MyProfile = () => {
   const navigate = useNavigate();
@@ -221,7 +221,7 @@ const MyProfile = () => {
   return (
     <>
       <Navbar />
-      <div className="p-24">
+      <div className="py-24 px-8 md:px-16 xl:px-24">
         <div className="flex flex-col gap-y-2 justify-between">
           <p className="text-display-sm text-surface-nav font-bold">
             Tài khoản của tôi
@@ -230,8 +230,8 @@ const MyProfile = () => {
             Quản lý thông tin cá nhân của bạn
           </p>
         </div>
-        <div className="flex justify-between items-start mt-6">
-          <div className="flex flex-col gap-y-4 w-[34%] border border-gray-300 rounded-[16px] px-5 pt-5 pb-10">
+        <div className="flex flex-col gap-y-6 lg:flex-row lg:justify-between lg:items-start mt-6">
+          <div className="flex flex-col gap-y-4 w-full lg:w-[34%] border border-gray-300 rounded-[16px] px-5 pt-5 pb-10">
             <div className="relative flex flex-col gap-y-1 text-center">
               <img
                 className="w-[180px] h-[180px] object-cover rounded-[1000px] mx-auto"
@@ -324,13 +324,13 @@ const MyProfile = () => {
               </div>
             )}
           </div>
-          <div className="flex flex-col gap-y-4 w-[64%] ">
+          <div className="flex flex-col gap-y-6 w-full lg:w-[64%] ">
             <form className="flex flex-col gap-y-4 border border-gray-300 rounded-[16px] p-5">
               <p className="text-title-lg text-surface-nav font-medium">
                 Thông tin cá nhân
               </p>
-              <div className="flex flex-wrap gap-y-2 justify-between">
-                <div className="flex flex-col gap-y-1 w-[40%]">
+              <div className="flex flex-col gap-y-2 md:flex-row md:flex-wrap md:justify-between">
+                <div className="flex flex-col gap-y-1 w-full md:w-[40%]">
                   <label
                     className="text-title-sm text-surface-nav font-medium"
                     htmlFor="fullName"
@@ -354,7 +354,7 @@ const MyProfile = () => {
                     {error.errorFullName}
                   </span>
                 </div>
-                <div className="flex flex-col gap-y-1 w-[40%]">
+                <div className="flex flex-col gap-y-1 w-full md:w-[40%]">
                   <label
                     className="text-title-sm text-surface-nav font-medium"
                     htmlFor="email"
@@ -368,7 +368,7 @@ const MyProfile = () => {
                     readOnly
                   />
                 </div>
-                <div className="flex flex-col gap-y-1 w-[40%]">
+                <div className="flex flex-col gap-y-1 w-full md:w-[40%]">
                   <label
                     className="text-title-sm text-surface-nav font-medium"
                     htmlFor="phone"
@@ -397,7 +397,7 @@ const MyProfile = () => {
                 <button
                   type="button"
                   onClick={handleUpdateProfile}
-                  className="flex justify-center w-[35%] px-2 py-1 mt-2 rounded-[8px] bg-surface-nav text-title-lg text-surface-white transition-transform duration-300 hover:text-surface-bg hover:cursor-pointer"
+                  className="flex justify-center w-full md:w-[35%] px-2 py-1 mt-2 rounded-[8px] bg-surface-nav text-title-lg text-surface-white transition-transform duration-300 hover:text-surface-bg hover:cursor-pointer"
                 >
                   <div className="flex gap-x-2 items-center">
                     <LuSave />
@@ -464,7 +464,7 @@ const MyProfile = () => {
                 <button
                   type="button"
                   onClick={handleChangePassword}
-                  className="flex justify-center w-[35%] px-2 py-1 mt-2 rounded-[8px] bg-surface-nav text-title-lg text-surface-white transition-transform duration-300 hover:text-surface-bg hover:cursor-pointer"
+                  className="flex justify-center w-full md:w-[35%] px-2 py-1 mt-2 rounded-[8px] bg-surface-nav text-title-lg text-surface-white transition-transform duration-300 hover:text-surface-bg hover:cursor-pointer"
                 >
                   <div className="flex gap-x-2 items-center">
                     <MdLockOutline />
@@ -494,8 +494,8 @@ const MyProfile = () => {
                     <FaRegAddressCard />
                     <p className="font-medium">Ảnh CCCD/CMND</p>
                   </div>
-                  <div className="flex justify-between text-title-sm font-medium">
-                    <div className="flex flex-col gap-y-2 w-[45%]">
+                  <div className="flex flex-col md:flex-row md:justify-between text-title-sm font-medium">
+                    <div className="flex flex-col gap-y-2 w-full md:w-[45%]">
                       <p>Ảnh mặt trước</p>
                       {preview.frontIdCardPreview || frontIdCard ? (
                         <div className="relative">
@@ -577,7 +577,7 @@ const MyProfile = () => {
                         {errorImage.errorFrontIdCard}
                       </span>
                     </div>
-                    <div className="flex flex-col gap-y-2 w-[45%]">
+                    <div className="flex flex-col gap-y-2 w-full md:w-[45%]">
                       <p className="text-body-lg">Ảnh mặt sau</p>
                       {preview.backIdCardPreview || backIdCard ? (
                         <div className="relative">
