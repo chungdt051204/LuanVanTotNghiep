@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { statisticsService } from "../../services/statisticsService";
+import { format } from "../../../helper/format";
 import { IoBookOutline } from "react-icons/io5";
 import { RxPeople } from "react-icons/rx";
 import { FiDollarSign } from "react-icons/fi";
-import { format } from "../../../helper/format";
-import BarChart from "../../components/BarChart";
 import { LuInbox } from "react-icons/lu";
 import { FaStar } from "react-icons/fa";
 import { BsCreditCard } from "react-icons/bs";
+import BarChart from "../../components/BarChart";
 import MultiAxisLineChart from "../../components/MultiAxisLineChart";
 
 const InstructorDashboard = () => {
@@ -51,9 +51,9 @@ const InstructorDashboard = () => {
 
   return (
     <>
-      <div className="flex flex-col w-[95%] gap-y-10 py-10">
+      <div className="flex flex-col gap-y-10 py-10 px-6 md:px-8">
         <div className="flex flex-wrap gap-4">
-          <div className="flex gap-x-4 items-center border border-gray-300 rounded-[16px] p-5 w-[32%] shadow-md">
+          <div className="flex gap-x-4 items-center border border-gray-300 rounded-[16px] p-5 w-full md:w-[48%] lg:w-[32%] shadow-md">
             <div className="bg-blue-50 rounded-[8px] p-2">
               <IoBookOutline className="text-headline-md text-blue-600" />
             </div>
@@ -67,7 +67,7 @@ const InstructorDashboard = () => {
               <p className="text-title-sm text-nav-muted">Khóa học</p>
             </div>
           </div>
-          <div className="flex gap-x-4 items-center border border-gray-300 rounded-[16px] p-5 w-[32%] shadow-md">
+          <div className="flex gap-x-4 items-center border border-gray-300 rounded-[16px] p-5 w-full md:w-[48%] lg:w-[32%] shadow-md">
             <div className="bg-green-50 rounded-[8px] p-2">
               <RxPeople className="text-headline-md text-green-600" />
             </div>
@@ -81,7 +81,7 @@ const InstructorDashboard = () => {
               <p className="text-title-sm text-nav-muted">Học viên</p>
             </div>
           </div>
-          <div className="flex gap-x-4 items-center border border-gray-300 rounded-[16px] p-5 w-[32%] shadow-md">
+          <div className="flex gap-x-4 items-center border border-gray-300 rounded-[16px] p-5 w-full md:w-[48%] lg:w-[32%] shadow-md">
             <div className="bg-red-50 rounded-[8px] p-2">
               <FiDollarSign className="text-headline-md text-red-500" />
             </div>
@@ -95,7 +95,7 @@ const InstructorDashboard = () => {
               <p className="text-title-sm text-nav-muted">Doanh thu</p>
             </div>
           </div>
-          <div className="flex gap-x-4 items-center border border-gray-300 rounded-[16px] p-5 w-[32%] shadow-md">
+          <div className="flex gap-x-4 items-center border border-gray-300 rounded-[16px] p-5 w-full md:w-[48%] lg:w-[32%] shadow-md">
             <div className="bg-red-50 rounded-[8px] p-2">
               <BsCreditCard className="text-headline-md text-orange-500" />
             </div>
