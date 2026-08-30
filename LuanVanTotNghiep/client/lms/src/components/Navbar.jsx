@@ -172,7 +172,7 @@ export const Navbar = () => {
                 <input
                   type="text"
                   value={searchValue}
-                  className="w-full outline-0 bg-transparent text-body-md"
+                  className="w-full outline-0 bg-transparent text-body-md truncate"
                   placeholder="Tìm khóa học, danh mục, giảng viên..."
                   onChange={(e) => setSearchValue(e.target.value)}
                 />

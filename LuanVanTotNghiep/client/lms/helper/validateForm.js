@@ -255,7 +255,7 @@ export const validateForm = {
     }
 
     //Kiểm tra giá
-    if (!formData.price) {
+    if (formData.price == undefined) {
       errors.errorPrice = "Vui lòng nhập giá!";
       isValid = false;
     } else if (!numberRegex.test(formData.price)) {

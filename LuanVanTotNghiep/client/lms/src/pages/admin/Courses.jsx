@@ -141,7 +141,7 @@ const AdminCourses = () => {
             ];
             return (
               <div
-                className={`flex justify-center sm:justify-start py-4 shrink-0 w-1/2 sm:w-auto hover:cursor-pointer ${
+                className={`flex justify-center sm:justify-start py-4 shrink-0 sm:w-auto hover:cursor-pointer ${
                   idx == index && borderBottomColors[index]
                 }`}
                 onClick={() => {
@@ -166,7 +166,7 @@ const AdminCourses = () => {
           {isLoading ? (
             <p>Đang tải dữ liệu...</p>
           ) : courses?.arrayCourse?.length == 0 ? (
-            <div className="flex flex-col items-center gap-y-2 text-title-sm text-nav-muted w-[95%] mt-6">
+            <div className="flex flex-col items-center gap-y-2 text-title-sm text-nav-muted mt-6">
               <LuInbox className="text-display-md text-gray-300" />
               <p>Chưa có khóa học nào</p>
             </div>
@@ -351,7 +351,7 @@ const AdminCourses = () => {
                             <span>Xem chi tiết</span>
                           </div>
                           {value?.course.status === "pending" && (
-                            <div className="flex gap-x-2">
+                            <div className="flex gap-x-2 font-medium">
                               <button
                                 onClick={() => {
                                   const courseId = value?.course?._id;

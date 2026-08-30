@@ -149,7 +149,7 @@ const Instructors = () => {
             ];
             return (
               <div
-                className={`flex justify-center sm:justify-start py-4 shrink-0 w-1/2 sm:w-auto hover:cursor-pointer ${
+                className={`flex justify-center sm:justify-start py-4 shrink-0 sm:w-auto hover:cursor-pointer ${
                   idx == index && borderBottomColors[index]
                 }`}
                 onClick={() => {
@@ -399,7 +399,7 @@ const Instructors = () => {
                             <IoEyeOutline />
                             <span>Xem chi tiết</span>
                           </div>
-                          <div className="flex gap-x-2 items-center">
+                          <div className="flex gap-x-2 items-center font-medium">
                             {value?.item?.verified_status === "PENDING" && (
                               <>
                                 <button

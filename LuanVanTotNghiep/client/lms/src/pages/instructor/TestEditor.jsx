@@ -6,8 +6,9 @@ import { courseService } from "../../services/courseService";
 import { testService } from "../../services/testService";
 import { questionService } from "../../services/questionService";
 import { updateTest } from "../../stores/features/testSlice";
-import { FaPlus } from "react-icons/fa6";
 import { toast } from "react-toastify";
+import { FaPlus } from "react-icons/fa6";
+
 const TestEditor = () => {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -197,7 +198,7 @@ const TestEditor = () => {
   };
   return (
     <>
-      <div className="py-8">
+      <div className="w-[100%] px-6 md:px-8 py-8">
         <div className="flex flex-col gap-y-1">
           <p className="text-display-sm text-surface-nav font-bold">
             {id ? "Chỉnh sửa thông tin bài kiểm tra" : "Tạo bài kiểm tra mới"}
@@ -219,7 +220,7 @@ const TestEditor = () => {
                 Thiết lập các thông tin cơ bản
               </p>
             </div>
-            <div className="flex flex-col gap-y-1">
+            <div className="flex flex-col gap-y-2">
               <label
                 className="text-body-lg text-surface-nav font-medium"
                 htmlFor="testName"
@@ -244,39 +245,41 @@ const TestEditor = () => {
                   {error.errorTestName}
                 </span>
               )}
-              <label
-                className="text-body-lg text-surface-nav font-medium"
-                htmlFor="course"
-              >
-                Khóa học
-              </label>
-              <select
-                className="p-2 bg-surface-white border-1 border-surface-bg rounded-[8px] text-nav-muted outline-none"
-                onChange={(e) => {
-                  setTestInfo((prev) => ({
-                    ...prev,
-                    courseId: e.target.value,
-                  }));
-                  setError((prev) => ({ ...prev, errorCourse: "" }));
-                }}
-                value={testInfo.courseId}
-              >
-                <option value="">Chọn khóa học</option>
-                {courses?.arrayCourse?.map((value) => {
-                  return (
-                    <option key={value.course._id} value={value.course._id}>
-                      {value.course.course_name}
-                    </option>
-                  );
-                })}
-              </select>
-              {error.errorCourse && (
-                <span className="text-body-md text-red-500">
-                  {error.errorCourse}
-                </span>
-              )}
-              <div className="flex justify-between">
-                <div className="flex flex-col gap-y-1 w-[45%]">
+              <div className="flex flex-col gap-y-2">
+                <label
+                  className="text-body-lg text-surface-nav font-medium"
+                  htmlFor="course"
+                >
+                  Khóa học
+                </label>
+                <select
+                  className="p-2 bg-surface-white border-1 border-surface-bg rounded-[8px] text-nav-muted outline-none"
+                  onChange={(e) => {
+                    setTestInfo((prev) => ({
+                      ...prev,
+                      courseId: e.target.value,
+                    }));
+                    setError((prev) => ({ ...prev, errorCourse: "" }));
+                  }}
+                  value={testInfo.courseId}
+                >
+                  <option value="">Chọn khóa học</option>
+                  {courses?.arrayCourse?.map((value) => {
+                    return (
+                      <option key={value.course._id} value={value.course._id}>
+                        {value.course.course_name}
+                      </option>
+                    );
+                  })}
+                </select>
+                {error.errorCourse && (
+                  <span className="text-body-md text-red-500">
+                    {error.errorCourse}
+                  </span>
+                )}
+              </div>
+              <div className="flex flex-col gap-y-2 md:flex-row md:justify-between">
+                <div className="flex flex-col gap-y-2 w-full md:w-[45%]">
                   <label
                     className="text-body-lg text-surface-nav font-medium"
                     htmlFor="durationMinutes"
@@ -302,7 +305,7 @@ const TestEditor = () => {
                     })}
                   </select>
                 </div>
-                <div className="flex flex-col gap-y-1 w-[45%]">
+                <div className="flex flex-col gap-y-2 w-full md:w-[45%]">
                   <label
                     className="text-body-lg text-surface-nav font-medium"
                     htmlFor="passScore"
@@ -333,7 +336,7 @@ const TestEditor = () => {
           </div>
           {/* Câu hỏi */}
           <div className="mt-5">
-            <p className="text-headline-md text-surface-nav font-medium">
+            <p className="text-headline-sm text-surface-nav font-medium">
               Câu hỏi ({questions.length})
             </p>
           </div>
@@ -368,7 +371,7 @@ const TestEditor = () => {
                       placeholder="Nhập nội dung câu hỏi"
                     />
                   </div>
-                  <div className="flex flex-col gap-y-1 text-body-lg text-surface-nav">
+                  <div className="flex flex-col gap-y-2 text-body-lg text-surface-nav">
                     <p className="font-medium">Đáp án (chọn đáp án đúng)</p>
                     <div className="flex flex-col gap-y-2 ">
                       {value.options?.map((_, idx) => {
@@ -402,7 +405,7 @@ const TestEditor = () => {
                                 setQuestions(newQuestions);
                               }}
                               key={index}
-                              className="p-2 bg-surface-bg rounded-[8px] w-full"
+                              className="p-2 bg-surface-bg rounded-[8px] w-full truncate"
                               placeholder={`Đáp án ${options[idx]}`}
                             />
                           </div>
@@ -416,7 +419,7 @@ const TestEditor = () => {
             <div className="flex justify-end px-5">
               <button
                 type="button"
-                className="w-[18%] flex items-center gap-x-4 p-2 bg-surface-nav text-surface-white text-title-lg rounded-[8px] transition-transform duration-300 hover:text-surface-bg hover:cursor-pointer"
+                className="w-full md:w-[25%] flex justify-center items-center gap-x-4 p-2 bg-surface-nav text-surface-white text-title-lg rounded-[8px] transition-transform duration-300 hover:text-surface-bg hover:cursor-pointer"
                 onClick={() =>
                   setQuestions((prev) => [
                     ...prev,

@@ -102,7 +102,7 @@ const Users = () => {
             ];
             return (
               <div
-                className={`flex justify-center sm:justify-start w-1/2 py-4 shrink-0 sm:w-auto hover:cursor-pointer ${
+                className={`flex justify-center sm:justify-start py-4 shrink-0 sm:w-auto hover:cursor-pointer ${
                   idx == index && borderBottomColors[index]
                 }`}
                 onClick={() => {
@@ -127,7 +127,7 @@ const Users = () => {
           {isLoading ? (
             <p>Đang tải dữ liệu...</p>
           ) : users?.arrayUser?.length == 0 ? (
-            <div className="flex flex-col items-center gap-y-2 text-title-sm text-nav-muted w-[95%] mt-6">
+            <div className="flex flex-col items-center gap-y-2 text-title-sm text-nav-muted mt-6">
               <LuInbox className="text-display-md text-gray-300" />
               <p>Chưa có người dùng nào</p>
             </div>
@@ -249,7 +249,7 @@ const Users = () => {
                               <p className="text-surface-nav text-title-lg font-medium break-words">
                                 {value?.item?.full_name}
                               </p>
-                              <p className="text-nav-muted text-body-md break-all">
+                              <p className="text-nav-muted text-body-lg break-all">
                                 {value?.item?.email}
                               </p>
                             </div>
@@ -266,12 +266,12 @@ const Users = () => {
                               : "Ngừng hoạt động"}
                           </span>
                         </div>
-                        <div className="grid grid-cols-2 gap-2 pt-2 border-t border-surface-bg text-body-md">
+                        <div className="grid grid-cols-2 gap-2 pt-2 border-t border-surface-bg text-body-lg">
                           <div>
                             <p className="text-nav-muted text-caption">
                               Khóa học đã mua
                             </p>
-                            <p className="font-semibold text-surface-nav text-title-sm">
+                            <p className="font-semibold text-surface-nav text-title-lg">
                               {value?.numberPurchasedCourse || 0} khóa
                             </p>
                           </div>
@@ -279,18 +279,18 @@ const Users = () => {
                             <p className="text-nav-muted text-caption">
                               Tổng chi tiêu
                             </p>
-                            <p className="font-bold text-brand-blue text-title-sm">
+                            <p className="font-bold text-brand-blue text-title-lg">
                               {format.formatPrice({ price: value?.totalSpent })}
                               đ
                             </p>
                           </div>
                         </div>
-                        <div className="flex justify-between items-center pt-2 border-t border-surface-bg">
+                        <div className="flex justify-between items-center pt-2 border-t border-surface-bg font-medium">
                           <div
                             onClick={() =>
                               navigate(`/admin/user/${value?.item?._id}`)
                             }
-                            className="flex gap-x-1 items-center text-body-lg text-brand-blue hover:cursor-pointer font-medium"
+                            className="flex gap-x-1 items-center text-body-lg text-brand-blue hover:cursor-pointer"
                           >
                             <IoEyeOutline />
                             <span>Xem chi tiết</span>
@@ -311,7 +311,7 @@ const Users = () => {
                               );
                               confirmDialog?.current?.showModal();
                             }}
-                            className={`px-3 py-1 rounded-[8px] text-body-md text-surface-white ${
+                            className={`px-3 py-1 rounded-[8px] text-body-lg text-surface-white ${
                               value?.item?.status
                                 ? "bg-red-600"
                                 : "bg-green-600"
