@@ -57,7 +57,7 @@ const Register = () => {
           {/* Header Section */}
           <div className="flex flex-col justify-between items-center w-full sm:w-[60%] lg:w-[40%] min-h-[140px] lg:h-[160px] m-auto gap-3">
             <div className="flex flex-col justify-center items-center w-[60px] h-[60px] lg:w-[70px] lg:h-[70px] bg-auth rounded-[16px]">
-              <IoBookOutline className="text-title-lg lg:text-display-md text-surface-white" />
+              <IoBookOutline className="text-display-md text-surface-white" />
             </div>
             <div className="flex flex-col items-center text-center">
               <p className="text-title-lg sm:text-headline-sm lg:text-headline-md text-surface-nav font-medium">
@@ -70,107 +70,123 @@ const Register = () => {
           </div>
           {/* Form Section */}
           <form
-            className="flex flex-col lg:justify-between h-auto lg:h-[450px] mt-[15px]"
+            className="flex flex-col gap-y-4 lg:justify-between h-auto lg:h-[450px] mt-[15px]"
             onSubmit={handleRegister}
           >
-            <label
-              className="text-body-lg font-medium text-surface-nav"
-              htmlFor="fullName"
-            >
-              Họ và tên
-            </label>
-            <input
-              className="bg-surface-bg p-2 rounded-[8px]"
-              value={formData.fullName}
-              onChange={(e) => {
-                setFormData((prev) => ({
-                  ...prev,
-                  fullName: e.target.value,
-                }));
-                setError((prev) => ({ ...prev, errorFullName: "" }));
-              }}
-              type="text"
-              placeholder="Nguyễn Văn A"
-              autoComplete="off"
-            />
-            <span className="text-body-md font-medium text-red-500 min-h-[20px]">
-              {error?.errorFullName}
-            </span>
-
-            <label
-              className="text-body-lg font-medium text-surface-nav"
-              htmlFor="email"
-            >
-              Email
-            </label>
-            <input
-              className="bg-surface-bg p-2 rounded-[8px]"
-              value={formData.email}
-              onChange={(e) => {
-                setFormData((prev) => ({ ...prev, email: e.target.value }));
-                setError((prev) => ({ ...prev, errorEmail: "" }));
-              }}
-              type="text"
-              placeholder="your@gmail.com"
-              autoComplete="off"
-            />
-            <span className="text-body-md font-medium text-red-500 min-h-[20px]">
-              {error?.errorEmail}
-            </span>
-            <label
-              className="text-body-lg font-medium text-surface-nav"
-              htmlFor="password"
-            >
-              Mật khẩu
-            </label>
-            <input
-              className="bg-surface-bg p-2 rounded-[8px] outline-nav-muted"
-              value={formData.password}
-              onChange={(e) => {
-                setFormData((prev) => ({ ...prev, password: e.target.value }));
-                setError((prev) => ({ ...prev, errorPassword: "" }));
-              }}
-              type="password"
-              autoComplete="new-password"
-            />
-            <span className="text-body-md font-medium text-red-500 min-h-[20px]">
-              {error?.errorPassword}
-            </span>
-            <label
-              className="text-body-lg font-medium text-surface-nav"
-              htmlFor="role"
-            >
-              Bạn muốn đăng ký với vai trò
-            </label>
-            <div className="flex flex-col justify-between gap-2 lg:gap-0 min-h-[100px] lg:h-[100px]">
-              {rolesDisplay?.map((value) => {
-                return (
-                  <div
-                    key={value._id}
-                    className="flex flex-wrap sm:flex-nowrap items-center p-2 border border-icon-muted rounded-[8px] cursor-pointer"
-                  >
-                    <input
-                      checked={formData.role === value.role}
-                      value={value.role}
-                      onChange={(e) =>
-                        setFormData((prev) => ({
-                          ...prev,
-                          role: e.target.value,
-                        }))
-                      }
-                      type="radio"
-                    />
-                    <p className="text-body-lg font-medium text-surface-nav ms-2">
-                      {value.role === "user" ? "Học viên" : "Giảng viên"}
-                    </p>
-                    <p className="text-body-sm sm:text-body-md font-medium text-nav-muted ms-2">
-                      {value.role === "user"
-                        ? "Tham gia và học khóa học"
-                        : "Tạo và bán khóa học"}
-                    </p>
-                  </div>
-                );
-              })}
+            <div className="flex flex-col gap-y-2">
+              <label
+                className="text-body-lg font-medium text-surface-nav"
+                htmlFor="fullName"
+              >
+                Họ và tên
+              </label>
+              <input
+                className="bg-surface-bg p-2 rounded-[8px]"
+                value={formData.fullName}
+                onChange={(e) => {
+                  setFormData((prev) => ({
+                    ...prev,
+                    fullName: e.target.value,
+                  }));
+                  setError((prev) => ({ ...prev, errorFullName: "" }));
+                }}
+                type="text"
+                placeholder="Nguyễn Văn A"
+                autoComplete="off"
+              />
+              {error?.errorFullName && (
+                <span className="text-body-md font-medium text-red-500 min-h-[20px]">
+                  {error?.errorFullName}
+                </span>
+              )}
+            </div>
+            <div className="flex flex-col gap-y-2">
+              <label
+                className="text-body-lg font-medium text-surface-nav"
+                htmlFor="email"
+              >
+                Email
+              </label>
+              <input
+                className="bg-surface-bg p-2 rounded-[8px]"
+                value={formData.email}
+                onChange={(e) => {
+                  setFormData((prev) => ({ ...prev, email: e.target.value }));
+                  setError((prev) => ({ ...prev, errorEmail: "" }));
+                }}
+                type="text"
+                placeholder="your@gmail.com"
+                autoComplete="off"
+              />
+              {error?.errorEmail && (
+                <span className="text-body-md font-medium text-red-500 min-h-[20px]">
+                  {error?.errorEmail}
+                </span>
+              )}
+            </div>
+            <div className="flex flex-col gap-y-2">
+              <label
+                className="text-body-lg font-medium text-surface-nav"
+                htmlFor="password"
+              >
+                Mật khẩu
+              </label>
+              <input
+                className="bg-surface-bg p-2 rounded-[8px] outline-nav-muted"
+                value={formData.password}
+                onChange={(e) => {
+                  setFormData((prev) => ({
+                    ...prev,
+                    password: e.target.value,
+                  }));
+                  setError((prev) => ({ ...prev, errorPassword: "" }));
+                }}
+                type="password"
+                autoComplete="new-password"
+              />
+              {error?.errorPassword && (
+                <span className="text-body-md font-medium text-red-500 min-h-[20px]">
+                  {error?.errorPassword}
+                </span>
+              )}
+            </div>
+            <div className="flex flex-col gap-y-2">
+              <label
+                className="text-body-lg font-medium text-surface-nav"
+                htmlFor="role"
+              >
+                Bạn muốn đăng ký với vai trò
+              </label>
+              <div className="flex flex-col justify-between gap-2 lg:gap-0 min-h-[100px] lg:h-[100px]">
+                {rolesDisplay?.map((value) => {
+                  return (
+                    <div
+                      key={value._id}
+                      className="flex flex-wrap sm:flex-nowrap items-center p-2 border border-icon-muted rounded-[8px] cursor-pointer"
+                    >
+                      <input
+                        checked={formData.role === value.role}
+                        value={value.role}
+                        onChange={(e) =>
+                          setFormData((prev) => ({
+                            ...prev,
+                            role: e.target.value,
+                          }))
+                        }
+                        type="radio"
+                      />
+                      <p className="text-body-lg font-medium text-surface-nav ms-2">
+                        {value.role === "user" ? "Học viên" : "Giảng viên"}
+                      </p>
+                      <p className="text-body-sm sm:text-body-md font-medium text-nav-muted ms-2">
+                        {value.role === "user"
+                          ? "Tham gia và học khóa học"
+                          : "Tạo và bán khóa học"}
+                      </p>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
             <input
               className="p-2 border rounded-[8px] mt-[15px] text-title-lg font-medium text-surface-white bg-surface-nav hover:cursor-pointer hover:text-surface-bg"

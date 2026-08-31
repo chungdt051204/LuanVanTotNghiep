@@ -60,7 +60,7 @@ const Login = () => {
           {/* Header Section */}
           <div className="flex flex-col justify-between items-center w-full sm:w-[60%] lg:w-[40%] min-h-[140px] lg:h-[160px] m-auto gap-3">
             <div className="flex flex-col justify-center items-center w-[60px] h-[60px] lg:w-[70px] lg:h-[70px] bg-auth rounded-[16px]">
-              <IoBookOutline className="text-title-lg lg:text-display-md text-surface-white" />
+              <IoBookOutline className="text-display-md text-surface-white" />
             </div>
             <div className="flex flex-col items-center text-center">
               <p className="text-title-lg sm:text-headline-sm lg:text-headline-md text-surface-nav font-medium">
@@ -73,49 +73,64 @@ const Login = () => {
           </div>
           {/* Form Section */}
           <form
-            className="flex flex-col lg:justify-between h-auto lg:h-[220px] mt-[15px]"
+            className="flex flex-col gap-y-4 lg:justify-between mt-[15px]"
             onSubmit={handleLogin}
           >
-            <label
-              className="text-body-lg font-medium text-surface-nav"
-              htmlFor="email"
-            >
-              Email
-            </label>
-            <input
-              className="bg-surface-bg p-2 rounded-[8px]"
-              value={formData.email}
-              onChange={(e) => {
-                setFormData((prev) => ({ ...prev, email: e.target.value }));
-                setError((prev) => ({ ...prev, errorEmail: "" }));
-              }}
-              type="text"
-              placeholder="your@gmail.com"
-              autoComplete="off"
-            />
-            <span className="text-body-md font-medium text-red-500 min-h-[20px]">
-              {error?.errorEmail}
-            </span>
-            <label
-              className="text-body-lg font-medium text-surface-nav"
-              htmlFor="password"
-            >
-              Mật khẩu
-            </label>
-            <input
-              className="bg-surface-bg p-2 rounded-[8px] outline-nav-muted"
-              value={formData.password}
-              onChange={(e) => {
-                setFormData((prev) => ({ ...prev, password: e.target.value }));
-                setError((prev) => ({ ...prev, errorPassword: "" }));
-              }}
-              type="password"
-              autoComplete="new-password"
-            />
-            <span className="text-body-md font-medium text-red-500 min-h-[20px]">
-              {error?.errorPassword}
-              {errorLogin}
-            </span>
+            <div className="flex flex-col gap-y-2">
+              <label
+                className="text-body-lg font-medium text-surface-nav"
+                htmlFor="email"
+              >
+                Email
+              </label>
+              <input
+                className="bg-surface-bg p-2 rounded-[8px]"
+                value={formData.email}
+                onChange={(e) => {
+                  setFormData((prev) => ({ ...prev, email: e.target.value }));
+                  setError((prev) => ({ ...prev, errorEmail: "" }));
+                }}
+                type="text"
+                placeholder="your@gmail.com"
+                autoComplete="off"
+              />
+              {error?.errorEmail && (
+                <span className="text-body-md font-medium text-red-500 min-h-[20px]">
+                  {error?.errorEmail}
+                </span>
+              )}
+            </div>
+            <div className="flex flex-col gap-y-2">
+              <label
+                className="text-body-lg font-medium text-surface-nav"
+                htmlFor="password"
+              >
+                Mật khẩu
+              </label>
+              <input
+                className="bg-surface-bg p-2 rounded-[8px] outline-nav-muted"
+                value={formData.password}
+                onChange={(e) => {
+                  setFormData((prev) => ({
+                    ...prev,
+                    password: e.target.value,
+                  }));
+                  setError((prev) => ({ ...prev, errorPassword: "" }));
+                }}
+                type="password"
+                autoComplete="new-password"
+              />
+              {error?.errorPassword && (
+                <span className="text-body-md font-medium text-red-500 min-h-[20px]">
+                  {error?.errorPassword}
+                </span>
+              )}
+              {errorLogin && (
+                <span className="text-body-md font-medium text-red-500 min-h-[20px]">
+                  {errorLogin}
+                </span>
+              )}
+            </div>
             <input
               className="p-2 border rounded-[8px] mt-[15px] text-title-lg font-medium text-surface-white bg-surface-nav hover:cursor-pointer hover:text-surface-bg"
               type="submit"

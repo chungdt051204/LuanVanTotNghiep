@@ -88,19 +88,6 @@ const CourseDetail = () => {
     courseName: course?.item?.course_name,
     messages: conversation?.messages,
   };
-
-  const secondToTime = (second) => {
-    if (second < 60) return `00:${String(second).padStart(2, "0")}`;
-    if (second >= 60 && second < 3600)
-      return `${Math.floor(second / 60)}:${String(second % 60).padStart(
-        2,
-        "0"
-      )}`;
-    if (second >= 3600)
-      return `${Math.floor(second / 3600)}:${String(
-        Math.floor((second % 3600) / 60)
-      ).padStart(2, "0")}:${(second % 3600) % 60}`;
-  };
   useEffect(() => {
     if (id) {
       const getCourseById = async () => {
@@ -667,15 +654,19 @@ const CourseDetail = () => {
                       </p>
                     </div>
                     {isCompleted ? (
-                      <FaCheck className="text-green-500" />
+                      <FaCheck className="text-green-500 shrink-0 " />
                     ) : accessLesson ? (
-                      <div className="flex gap-x-2 items-center">
-                        <p>{secondToTime(value.duration)}</p>
+                      <div className="flex gap-x-2 items-center shrink-0 ">
+                        <p>
+                          {format.formatSecondToTime({
+                            second: value.duration,
+                          })}
+                        </p>
                         <IoPlayCircleOutline className="text-headline-md text-brand-blue" />
                       </div>
                     ) : (
                       <IoIosLock
-                        className={`${
+                        className={`shrink-0 ${
                           value.order <= numberAccessLesson
                             ? "text-brand-blue"
                             : "text-surface-nav"

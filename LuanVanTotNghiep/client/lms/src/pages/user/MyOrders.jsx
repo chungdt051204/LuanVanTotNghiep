@@ -100,7 +100,7 @@ const MyOrders = () => {
           </p>
         </div>
         {/* Filter Tabs */}
-        <div className="flex mt-6 border border-gray-300 rounded-[8px] w-full xl:w-[95%] overflow-x-auto no-scrollbar scroll-smooth">
+        <div className="flex mt-6 border border-gray-300 rounded-[8px] w-full overflow-x-auto no-scrollbar scroll-smooth">
           {filterTabs?.map((value, index) => {
             const borderBottomColors = [
               "border-b-2 border-b-gray-600",
@@ -147,14 +147,14 @@ const MyOrders = () => {
               Đang tải dữ liệu...
             </p>
           ) : myOrders?.orders?.length === 0 ? (
-            <div className="flex flex-col items-center gap-y-2 text-title-sm text-nav-muted w-full xl:w-[95%] mt-6 py-12">
+            <div className="flex flex-col items-center gap-y-2 text-title-sm text-nav-muted w-full mt-6 py-12">
               <LuInbox className="text-display-md text-gray-300 text-5xl" />
               <p>Bạn chưa có đơn hàng nào</p>
             </div>
           ) : (
             <>
               <div className="hidden xl:block w-full">
-                <table className="w-[95%] border-separate border-spacing-0 overflow-hidden border border-gray-300 rounded-[16px]">
+                <table className="w-full border-separate border-spacing-0 overflow-hidden border border-gray-300 rounded-[16px]">
                   <thead>
                     <tr className="flex items-center justify-between text-surface-nav font-medium border-b border-gray-200 bg-gray-50/50">
                       <td className="w-[25%] py-3 px-4">Mã đơn hàng</td>
@@ -226,7 +226,7 @@ const MyOrders = () => {
                   </tbody>
                 </table>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 xl:hidden w-full">
+              <div className="flex flex-col gap-y-4 xl:hidden w-full">
                 {myOrders?.orders?.map((value) => (
                   <div
                     key={value._id}
@@ -235,15 +235,15 @@ const MyOrders = () => {
                   >
                     <div className="flex justify-between items-start gap-x-2 border-b border-gray-100 pb-2.5">
                       <div className="flex flex-col min-w-0">
-                        <span className="text-caption text-nav-muted">
+                        <span className="text-title-lg text-nav-muted">
                           Mã đơn hàng
                         </span>
-                        <span className="text-body-md font-semibold text-surface-nav truncate">
+                        <span className="text-body-lg font-semibold text-surface-nav">
                           #{value._id}
                         </span>
                       </div>
                       <span
-                        className={`text-caption font-medium rounded-full px-2.5 py-0.5 shrink-0 ${
+                        className={`text-title-lg font-medium rounded-full px-2.5 py-0.5 shrink-0 ${
                           value.payment_status === "PENDING"
                             ? "text-yellow-700 bg-yellow-100"
                             : value.payment_status === "PARTIAL_PAID"
@@ -262,41 +262,41 @@ const MyOrders = () => {
                           : "Thất bại"}
                       </span>
                     </div>
-                    <div className="grid grid-cols-2 gap-2 text-body-sm py-1">
+                    <div className="grid grid-cols-2 gap-2 py-1">
                       <div>
-                        <p className="text-nav-muted text-caption">
+                        <p className="text-nav-muted text-title-lg">
                           Phương thức
                         </p>
-                        <p className="font-medium text-surface-nav">
+                        <p className="font-medium text-surface-nav text-body-lg">
                           {value.payment_method}
                         </p>
                       </div>
                       <div className="text-right">
-                        <p className="text-nav-muted text-caption">Ngày tạo</p>
-                        <p className="text-surface-nav text-caption sm:text-body-sm">
+                        <p className="text-nav-muted text-title-lg">Ngày tạo</p>
+                        <p className="text-surface-nav text-body-lg">
                           {format.formatDateTime({ date: value.createdAt })}
                         </p>
                       </div>
                     </div>
-                    <div className="flex justify-between items-center bg-gray-50 p-2.5 rounded-[8px] mt-1">
+                    <div className="flex justify-between items-center p-2.5 rounded-[8px] mt-1">
                       <div className="flex flex-col">
-                        <span className="text-caption text-nav-muted">
+                        <span className="text-title-lg text-nav-muted">
                           Tổng tiền
                         </span>
-                        <span className="text-body-md font-bold text-brand-blue">
+                        <span className="text-body-lg font-bold text-brand-blue">
                           {format.formatPrice({ price: value.total_amount })}đ
                         </span>
                       </div>
                       <div className="flex flex-col text-right">
-                        <span className="text-caption text-nav-muted">
+                        <span className="text-title-lg text-nav-muted">
                           Đã thanh toán
                         </span>
-                        <span className="text-body-md font-bold text-green-600">
+                        <span className="text-body-lg font-bold text-green-600">
                           {format.formatPrice({ price: value.applied_amount })}đ
                         </span>
                       </div>
                     </div>
-                    <div className="flex justify-end items-center gap-x-1 text-caption font-medium text-brand-blue pt-1">
+                    <div className="flex justify-end items-center gap-x-1 text-body-lg font-medium text-brand-blue pt-1">
                       <span>Xem chi tiết đơn hàng</span>
                       <IoEyeOutline className="text-title-sm" />
                     </div>

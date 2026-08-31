@@ -148,7 +148,12 @@ export const Navbar = () => {
           {/* LOGO */}
           <div
             className="flex items-center cursor-pointer"
-            onClick={() => navigate("/")}
+            onClick={() => {
+              if (currentRole === "admin") navigate("/admin/dashboard");
+              else if (currentRole == "instructor")
+                navigate("/instructor/dashboard");
+              else navigate("/");
+            }}
           >
             <IoBookOutline className="w-[40px] h-[40px] lg:w-[50px] lg:h-[50px] p-2 bg-auth rounded-[8px] text-surface-white" />
             <p className="bg-auth bg-clip-text text-headline-sm lg:text-display-sm text-transparent ms-2 font-bold">

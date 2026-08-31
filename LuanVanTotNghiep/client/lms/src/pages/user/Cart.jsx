@@ -320,7 +320,7 @@ const Cart = () => {
         )}
       </div>
       <dialog
-        className="w-full md:w-[45%] h-[100vh] mx-auto mt-6 p-6 rounded-[16px]"
+        className="w-full lg:w-[45%] h-[100vh] mx-auto mt-6 p-6 rounded-[16px]"
         ref={dialogRef}
       >
         <form onSubmit={handleCheckout} className="flex flex-col gap-y-4">
@@ -428,7 +428,7 @@ const Cart = () => {
             <button
               onClick={() => dialogRef?.current?.close()}
               type="button"
-              className="w-full md:w-[48%] py-1 border border-gray-300 bg-surface-white rounded-[8px] transition-transform duration-300 hover:bg-surface-bg hover:cursor-pointer"
+              className="w-full md:w-[48%] py-2 border border-gray-300 bg-surface-white rounded-[8px] transition-transform duration-300 hover:bg-surface-bg hover:cursor-pointer"
             >
               Hủy
             </button>

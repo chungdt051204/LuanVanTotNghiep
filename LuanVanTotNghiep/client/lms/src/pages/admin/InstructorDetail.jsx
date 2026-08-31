@@ -171,7 +171,7 @@ const InstructorDetail = () => {
               </p>
             </div>
             <div className="flex flex-col gap-y-4 md:flex-row md:justify-between lg:flex-col">
-              <div className="flex gap-x-4 items-center p-2 border border-gray-300 rounded-[8px] text-nav-muted w-full md:w-[31%]">
+              <div className="flex gap-x-4 items-center p-2 border border-gray-300 rounded-[8px] text-nav-muted w-full md:w-[31%] lg:w-full">
                 <FaRegCalendarAlt className="text-title-lg" />
                 <div className="flex flex-col gap-y-2 text-title-sm">
                   <p>Ngày tham gia hệ thống</p>
@@ -180,7 +180,7 @@ const InstructorDetail = () => {
                   </p>
                 </div>
               </div>
-              <div className="flex gap-x-4 items-center p-2 border border-gray-300 rounded-[8px] text-nav-muted w-full md:w-[31%]">
+              <div className="flex gap-x-4 items-center p-2 border border-gray-300 rounded-[8px] text-nav-muted w-full md:w-[31%] lg:w-full">
                 {instructor?.item?.status ? (
                   <CiCircleCheck className="text-title-lg" />
                 ) : (
@@ -201,7 +201,7 @@ const InstructorDetail = () => {
                   </p>
                 </div>
               </div>
-              <div className="flex gap-x-4 items-center p-2 border border-gray-300 rounded-[8px] text-nav-muted w-full md:w-[31%]">
+              <div className="flex gap-x-4 items-center p-2 border border-gray-300 rounded-[8px] text-nav-muted w-full md:w-[31%] lg:w-full">
                 <GoShieldCheck className="text-title-lg" />
                 <div className="flex flex-col gap-y-2 text-title-sm">
                   <p>Trạng thái xác thực</p>
@@ -236,7 +236,7 @@ const InstructorDetail = () => {
               Thông tin cá nhân
             </p>
             <div className="flex flex-col md:flex-row md:flex-wrap gap-y-2 md:justify-between">
-              <div className="flex flex-col gap-y-1 w-full md:w-[40%]">
+              <div className="flex flex-col gap-y-2 w-full md:w-[40%]">
                 <label
                   className="text-title-sm text-surface-nav font-medium"
                   htmlFor="fullName"
@@ -250,7 +250,7 @@ const InstructorDetail = () => {
                   disabled
                 />
               </div>
-              <div className="flex flex-col gap-y-1 w-full md:w-[40%]">
+              <div className="flex flex-col gap-y-2 w-full md:w-[40%]">
                 <label
                   className="text-title-sm text-surface-nav font-medium"
                   htmlFor="email"
@@ -264,7 +264,7 @@ const InstructorDetail = () => {
                   disabled
                 />
               </div>
-              <div className="flex flex-col gap-y-1 w-full md:w-[40%]">
+              <div className="flex flex-col gap-y-2 w-full md:w-[40%]">
                 <label
                   className="text-title-sm text-surface-nav font-medium"
                   htmlFor="phone"
@@ -286,8 +286,8 @@ const InstructorDetail = () => {
                   Thông tin giảng viên
                 </p>
                 <div className="flex flex-col gap-y-2">
-                  <div className="flex justify-between">
-                    <div className="flex flex-col gap-y-1 w-[30%]">
+                  <div className="flex flex-col gap-y-2 md:flex-row md:justify-between">
+                    <div className="flex flex-col gap-y-2 w-full md:w-[30%]">
                       <label
                         className="text-title-sm text-surface-nav font-medium"
                         htmlFor="level"
@@ -318,7 +318,7 @@ const InstructorDetail = () => {
                         {error.errorLevel}
                       </span>
                     </div>
-                    <div className="flex flex-col gap-y-1 w-[65%]">
+                    <div className="flex flex-col gap-y-2 w-full md:w-[65%]">
                       <label
                         className="text-title-sm text-surface-nav font-medium"
                         htmlFor="experience"
@@ -400,7 +400,7 @@ const InstructorDetail = () => {
         </div>
         {instructor?.item?.verified_status === "VERIFIED" && (
           <div>
-            <div className="flex flex-wrap gap-4 mt-10">
+            <div className="flex flex-wrap justify-between gap-6 lg:gap-4 mt-10">
               <div className="flex gap-x-4 items-center border border-gray-300 rounded-[16px] p-5 w-full md:w-[48%] lg:w-[32%]">
                 <div className="bg-blue-50 rounded-[8px] p-2">
                   <IoBookOutline className="text-headline-md text-blue-600" />
@@ -482,7 +482,7 @@ const InstructorDetail = () => {
                 ];
                 return (
                   <div
-                    className={`flex justify-center sm:justify-start py-4 shrink-0 w-1/2 sm:w-auto hover:cursor-pointer ${
+                    className={`flex justify-center sm:justify-start py-4 shrink-0 sm:w-auto hover:cursor-pointer ${
                       idx == index && borderBottomColors[index]
                     }`}
                     onClick={() => setIdx(index)}

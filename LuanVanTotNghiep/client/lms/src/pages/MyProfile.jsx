@@ -240,7 +240,7 @@ const MyProfile = () => {
               />
               <label
                 htmlFor="avatar"
-                className="absolute p-2 top-[130px] left-[200px] rounded-[1000px] bg-surface-nav"
+                className="absolute p-2 top-[130px] left-[200px] md:left-[340px] lg:left-[200px] rounded-[1000px] bg-surface-nav"
               >
                 <IoCameraOutline className="text-headline-md text-surface-white" />
               </label>
@@ -330,7 +330,7 @@ const MyProfile = () => {
                 Thông tin cá nhân
               </p>
               <div className="flex flex-col gap-y-2 md:flex-row md:flex-wrap md:justify-between">
-                <div className="flex flex-col gap-y-1 w-full md:w-[40%]">
+                <div className="flex flex-col gap-y-2 w-full md:w-[40%]">
                   <label
                     className="text-title-sm text-surface-nav font-medium"
                     htmlFor="fullName"
@@ -354,7 +354,7 @@ const MyProfile = () => {
                     {error.errorFullName}
                   </span>
                 </div>
-                <div className="flex flex-col gap-y-1 w-full md:w-[40%]">
+                <div className="flex flex-col gap-y-2 w-full md:w-[40%]">
                   <label
                     className="text-title-sm text-surface-nav font-medium"
                     htmlFor="email"
@@ -368,7 +368,7 @@ const MyProfile = () => {
                     readOnly
                   />
                 </div>
-                <div className="flex flex-col gap-y-1 w-full md:w-[40%]">
+                <div className="flex flex-col gap-y-2 w-full md:w-[40%]">
                   <label
                     className="text-title-sm text-surface-nav font-medium"
                     htmlFor="phone"
@@ -410,7 +410,7 @@ const MyProfile = () => {
                 Đổi mật khẩu
               </p>
               <div className="flex flex-col gap-y-2">
-                <div className="flex flex-col gap-y-1">
+                <div className="flex flex-col gap-y-2">
                   <label
                     className="text-title-sm text-surface-nav font-medium"
                     htmlFor="newPassword"
@@ -434,7 +434,7 @@ const MyProfile = () => {
                     {error.errorPassword}
                   </span>
                 </div>
-                <div className="flex flex-col gap-y-1">
+                <div className="flex flex-col gap-y-2">
                   <label
                     className="text-title-sm text-surface-nav font-medium"
                     htmlFor="confirmNewPassword"
@@ -500,7 +500,7 @@ const MyProfile = () => {
                       {preview.frontIdCardPreview || frontIdCard ? (
                         <div className="relative">
                           <img
-                            className="rounded-[16px] opacity-80"
+                            className="rounded-[16px] w-full h-[180px] opacity-80"
                             src={preview.frontIdCardPreview || frontIdCard}
                             alt=""
                           />
@@ -582,7 +582,7 @@ const MyProfile = () => {
                       {preview.backIdCardPreview || backIdCard ? (
                         <div className="relative">
                           <img
-                            className="rounded-[16px] opacity-80"
+                            className="rounded-[16px] w-full h-[180px] opacity-80"
                             src={preview.backIdCardPreview || backIdCard}
                             alt=""
                           />
@@ -669,7 +669,7 @@ const MyProfile = () => {
                   {preview.degreeCertificatePreview || degreeCertificate ? (
                     <div className="relative">
                       <img
-                        className="rounded-[16px] opacity-80"
+                        className="rounded-[16px] w-full h-[350px] opacity-80"
                         src={
                           preview.degreeCertificatePreview || degreeCertificate
                         }

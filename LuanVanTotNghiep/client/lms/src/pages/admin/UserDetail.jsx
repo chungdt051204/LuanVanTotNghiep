@@ -94,8 +94,8 @@ const UserDetail = () => {
               <p className="text-title-lg text-surface-nav font-medium">
                 Thông tin cá nhân
               </p>
-              <div className="flex flex-col md:flex-row md:flex-wrap gap-y-2 md:justify-between">
-                <div className="flex flex-col gap-y-1 w-full md:w-[40%]">
+              <div className="flex flex-col md:flex-row md:flex-wrap gap-y-2 md:justify-between mt-2">
+                <div className="flex flex-col gap-y-2 w-full md:w-[40%]">
                   <label
                     className="text-title-sm text-surface-nav font-medium"
                     htmlFor="fullName"
@@ -109,7 +109,7 @@ const UserDetail = () => {
                     readOnly
                   />
                 </div>
-                <div className="flex flex-col gap-y-1  w-full md:w-[40%]">
+                <div className="flex flex-col gap-y-2 w-full md:w-[40%]">
                   <label
                     className="text-title-sm text-surface-nav font-medium"
                     htmlFor="email"
@@ -123,7 +123,7 @@ const UserDetail = () => {
                     readOnly
                   />
                 </div>
-                <div className="flex flex-col gap-y-1  w-full md:w-[40%]">
+                <div className="flex flex-col gap-y-2 w-full md:w-[40%]">
                   <label
                     className="text-title-sm text-surface-nav font-medium"
                     htmlFor="phone"
@@ -186,7 +186,7 @@ const UserDetail = () => {
         ) : (
           <>
             <div className="hidden xl:block w-full overflow-x-auto">
-              <table className="w-[95%] border-separate border-spacing-0 overflow-hidden border border-gray-300 rounded-[16px] mt-6">
+              <table className="w-full border-separate border-spacing-0 overflow-hidden border border-gray-300 rounded-[16px] mt-6">
                 <thead>
                   <tr className="flex items-center justify-between text-surface-nav font-medium border-b border-gray-200">
                     <td className="w-[30%] p-2">Khóa học</td>
@@ -295,7 +295,7 @@ const UserDetail = () => {
                           {value?.status}
                         </span>
                       </div>
-                      <div className="flex justify-between items-center pt-3 border-t border-gray-100 bg-gray-50/70 p-2.5 rounded-[12px]">
+                      <div className="flex justify-between items-center pt-3 p-2.5 rounded-[12px]">
                         <div className="flex flex-col">
                           <span className="text-caption text-nav-muted">
                             Giảng viên
