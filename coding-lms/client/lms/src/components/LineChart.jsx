@@ -30,6 +30,7 @@ const options = {
     },
   },
 };
+
 const LineChart = ({ array }) => {
   const labels = array?.map((value) => {
     return value?._id;

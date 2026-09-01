@@ -1,12 +1,13 @@
 import { useSelector } from "react-redux";
-import { IoChatbubblesOutline } from "react-icons/io5";
-import { FaAngleDown, FaAngleUp } from "react-icons/fa6";
 import { useEffect, useState } from "react";
 import { conversationService } from "../services/conversationService";
-import ConversationDetail from "./ConversationDetail";
-import { FaFacebookMessenger } from "react-icons/fa";
 import { socket } from "../../socket";
+import { IoChatbubblesOutline } from "react-icons/io5";
+import { FaAngleDown, FaAngleUp } from "react-icons/fa6";
+import { FaFacebookMessenger } from "react-icons/fa";
 import { LuInbox } from "react-icons/lu";
+import ConversationDetail from "./ConversationDetail";
+
 const Conversations = ({ me }) => {
   const { items: roles } = useSelector((state) => state.roles);
   const [conversations, setConversations] = useState([]);

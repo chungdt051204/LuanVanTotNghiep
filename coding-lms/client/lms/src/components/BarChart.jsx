@@ -16,6 +16,7 @@ ChartJS.register({
   Tooltip,
   Legend,
 });
+
 const BarChart = ({ text, labels, label1, data1 }) => {
   const options = {
     responsive: true,

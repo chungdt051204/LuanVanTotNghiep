@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
+import { format } from "../../helper/format";
 import { FaStar } from "react-icons/fa";
 import { RxPeople } from "react-icons/rx";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { LuInbox } from "react-icons/lu";
-import { format } from "../../helper/format";
 
 const ListCourses = ({ courses, isLoading }) => {
   const navigate = useNavigate();

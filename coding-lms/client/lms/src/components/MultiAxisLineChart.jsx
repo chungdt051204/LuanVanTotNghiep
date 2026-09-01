@@ -18,6 +18,7 @@ ChartJS.register(
   Tooltip,
   Legend
 );
+
 const MultiAxisLineChart = ({ text, labels, label1, data1, label2, data2 }) => {
   const options = {
     responsive: true,
