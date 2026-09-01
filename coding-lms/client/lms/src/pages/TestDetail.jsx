@@ -153,7 +153,7 @@ const TestDetail = () => {
   return (
     <>
       <Navbar />
-      <div className="bg-gray-100 py-18">
+      <div className="bg-gray-100 py-18 h-[100vh] lg:h-auto">
         <div className="flex flex-col gap-y-2 py-5 px-8 md:px-16 lg:px-24 bg-surface-white">
           <div className="flex flex-col gap-y-4 md:flex-row md:justify-between">
             <p className="text-headline-md text-surface-nav font-bold">
@@ -286,7 +286,7 @@ const TestDetail = () => {
           </div>
         </div>
       </div>
-      <Footer />
+      {me?.role_id?.role == "user" && <Footer />}
     </>
   );
 };

@@ -137,20 +137,43 @@ const AdminDashboard = () => {
           </div>
         </div>
         <div className="flex flex-col gap-y-6 p-5 border border-gray-200 rounded-[16px]">
-          <MultiAxisLineChart
-            text="Biểu đồ thống kê tổng doanh thu (100%) và lợi nhuận thu được (20%) trong tháng"
-            labels={days}
-            label1="Tổng doanh thu (100%)"
-            data1={revenues}
-            label2="Lợi nhuận thu được (20%)"
-            data2={profits}
-          />
-          <BarChart
-            text="Biểu đồ thống kê lợi nhuận thu được (80%) của từng giảng viên"
-            labels={instructorNames}
-            label1="Lợi nhuận thu được (80%)"
-            data1={instructorProfits}
-          />
+          <div className="flex flex-col gap-y-4">
+            <p className="text-title-sm text-surface-nav font-medium">
+              Biểu đồ thống kê tổng doanh thu (100%) và lợi nhuận thu được (20%)
+              trong tháng
+            </p>
+            {statistics?.profitAndRevenueStats?.length > 0 ? (
+              <MultiAxisLineChart
+                labels={days}
+                label1="Tổng doanh thu (100%)"
+                data1={revenues}
+                label2="Lợi nhuận thu được (20%)"
+                data2={profits}
+              />
+            ) : (
+              <div className="flex flex-col items-center gap-y-2 text-title-sm text-nav-muted">
+                <LuInbox className="text-display-md text-gray-300" />
+                <p>Chưa có dữ liệu</p>
+              </div>
+            )}
+          </div>
+          <div className="flex flex-col gap-y-4">
+            <p className="text-title-sm text-surface-nav font-medium">
+              Biểu đồ thống kê lợi nhuận thu được (80%) của từng giảng viên
+            </p>
+            {statistics?.instructors?.length > 0 ? (
+              <BarChart
+                labels={instructorNames}
+                label1="Lợi nhuận thu được (80%)"
+                data1={instructorProfits}
+              />
+            ) : (
+              <div className="flex flex-col items-center gap-y-2 text-title-sm text-nav-muted">
+                <LuInbox className="text-display-md text-gray-300" />
+                <p>Chưa có dữ liệu</p>
+              </div>
+            )}
+          </div>
         </div>
         <div className="flex flex-col gap-y-6">
           <div className="flex flex-col gap-y-4 border py-6 border-gray-200 rounded-[16px] mt-6">
@@ -158,7 +181,7 @@ const AdminDashboard = () => {
               Top các khóa học bán chạy nhất
             </p>
             {statistics?.top5BestSellerCourses?.length == 0 ? (
-              <div className="flex flex-col items-center gap-y-2 text-title-sm text-nav-muted w-[95%] mt-6">
+              <div className="flex flex-col items-center gap-y-2 text-title-sm text-nav-muted">
                 <LuInbox className="text-display-md text-gray-300" />
                 <p>Chưa có dữ liệu</p>
               </div>
@@ -215,7 +238,7 @@ const AdminDashboard = () => {
                 Top các khóa học có doanh thu cao nhất
               </p>
               {statistics?.top5HighestRevenueCourses?.length == 0 ? (
-                <div className="flex flex-col items-center gap-y-2 text-title-sm text-nav-muted w-[95%] mt-6">
+                <div className="flex flex-col items-center gap-y-2 text-title-sm text-nav-muted">
                   <LuInbox className="text-display-md text-gray-300" />
                   <p>Chưa có dữ liệu</p>
                 </div>
@@ -281,7 +304,7 @@ const AdminDashboard = () => {
                 Top các khóa học được đánh giá cao nhất
               </p>
               {statistics?.top5HighestRatingCourses?.length == 0 ? (
-                <div className="flex flex-col items-center gap-y-2 text-title-sm text-nav-muted w-[95%] mt-6">
+                <div className="flex flex-col items-center gap-y-2 text-title-sm text-nav-muted">
                   <LuInbox className="text-display-md text-gray-300" />
                   <p>Chưa có dữ liệu</p>
                 </div>

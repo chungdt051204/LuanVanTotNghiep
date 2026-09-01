@@ -208,7 +208,7 @@ export const Navbar = () => {
                         >
                           <div className="flex gap-x-3 sm:gap-x-4 items-center min-w-0 pr-2">
                             <img
-                              className="w-[50px] h-[55px] sm:w-[70px] sm:h-[80px] object-cover sm:object-contain rounded shrink-0"
+                              className="w-[50px] h-[55px] sm:w-[70px] sm:h-[80px] object-contain rounded shrink-0"
                               src={value?.course?.image_url}
                               alt=""
                             />
@@ -216,11 +216,11 @@ export const Navbar = () => {
                               <p className="text-body-md sm:text-title-lg text-surface-nav font-medium truncate transition-colors duration-200 hover:text-brand-blue">
                                 {value?.course?.course_name}
                               </p>
-                              <div className="flex flex-wrap gap-x-2 text-body-sm sm:text-title-sm font-medium">
-                                <p className="text-nav-muted truncate max-w-[120px] sm:max-w-none">
+                              <div className="flex flex-col gap-y-1 lg:flex-row lg:gap-x-2 text-body-sm sm:text-title-sm font-medium">
+                                <p className="text-nav-muted max-w-[120px] sm:max-w-none">
                                   {value?.course?.user_id?.full_name}
                                 </p>
-                                <p className="text-brand-blue truncate max-w-[120px] sm:max-w-none">
+                                <p className="text-brand-blue max-w-[120px] sm:max-w-none">
                                   {value?.course?.category_id?.category_name}
                                 </p>
                               </div>

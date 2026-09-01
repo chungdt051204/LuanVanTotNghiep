@@ -7,7 +7,7 @@ import { setIsLogin } from "../stores/features/authSlice";
 import { setMe } from "../stores/features/meSlice";
 import { validateForm } from "../../helper/validateForm";
 import { toast } from "react-toastify";
-import { api } from "../App";
+import { api } from "../services/axiosClient";
 import { IoBookOutline } from "react-icons/io5";
 import logo_google from "../assets/logo-google.png";
 

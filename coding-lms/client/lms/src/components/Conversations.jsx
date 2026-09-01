@@ -142,6 +142,7 @@ const Conversations = ({ me }) => {
                               className="w-[40px] h-[40px] rounded-[1000px] object-cover"
                               src={value?.item?.user_id?.avatar}
                               alt=""
+                              referrerPolicy="no-referrer"
                             />
                             {value?.unreadMessages > 0 && (
                               <div className="absolute bottom-12 left-7 bg-blue-500 w-[20px] h-[20px] rounded-[1000px] text-center text-surface-white text-body-md">

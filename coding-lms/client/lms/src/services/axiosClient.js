@@ -1,5 +1,5 @@
 import axios from "axios";
-import { api } from "../App";
+export const api = "http://localhost:3000";
 export const axiosClient = axios.create({
   baseURL: api,
   headers: {

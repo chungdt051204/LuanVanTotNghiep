@@ -110,32 +110,52 @@ const InstructorDashboard = () => {
             </div>
           </div>
         </div>
-        {(statistics?.monthlyRevenueAndProfit?.length > 0 ||
-          statistics?.courseRevenueStats?.length > 0) && (
-          <div className="p-5 border border-gray-200 rounded-[16px]">
-            <MultiAxisLineChart
-              text="Biểu đồ thống kê tổng doanh thu (100%) và lợi nhuận thu được (80%) trong tháng"
-              labels={days}
-              label1="Tổng doanh thu (100%)"
-              data1={revenues}
-              label2="Lợi nhuận thu được (80%)"
-              data2={profits}
-            />
-            <BarChart
-              text="Biểu đồ thống kê doanh thu từng khóa học (100%)"
-              labels={courseNames}
-              label1="Tổng doanh thu (100%)"
-              data1={courseRevenues}
-            />
+        <div className="flex flex-col gap-y-6 p-5 border border-gray-200 rounded-[16px]">
+          <div className="flex flex-col gap-y-4">
+            <p className="text-title-sm text-surface-nav font-medium">
+              Biểu đồ thống kê doanh thu (100%) và lợi nhuận (80%) thu được
+              trong tháng
+            </p>
+            {statistics?.monthlyRevenueAndProfit?.length > 0 ? (
+              <MultiAxisLineChart
+                labels={days}
+                label1="Tổng doanh thu (100%)"
+                data1={revenues}
+                label2="Lợi nhuận thu được (80%)"
+                data2={profits}
+              />
+            ) : (
+              <div className="flex flex-col items-center gap-y-2 text-title-sm text-nav-muted">
+                <LuInbox className="text-display-md text-gray-300" />
+                <p>Chưa có dữ liệu</p>
+              </div>
+            )}
           </div>
-        )}
+          <div className="flex flex-col gap-y-4">
+            <p className="text-title-sm text-surface-nav font-medium">
+              Biểu đồ thống kê doanh thu (100%) của từng khóa học
+            </p>
+            {statistics?.courseRevenueStats?.length > 0 ? (
+              <BarChart
+                labels={courseNames}
+                label1="Tổng doanh thu (100%)"
+                data1={courseRevenues}
+              />
+            ) : (
+              <div className="flex flex-col items-center gap-y-2 text-title-sm text-nav-muted">
+                <LuInbox className="text-display-md text-gray-300" />
+                <p>Chưa có dữ liệu</p>
+              </div>
+            )}
+          </div>
+        </div>
         <div className="flex flex-col gap-y-6">
           <div className="flex flex-col gap-y-4 border py-6 border-gray-200 rounded-[16px] mt-6">
             <p className="text-title-lg text-surface-nav font-medium px-6">
               Top các khóa học được đánh giá cao nhất
             </p>
             {statistics?.top5HighRatingCourses?.length == 0 ? (
-              <div className="flex flex-col items-center gap-y-2 text-title-sm text-nav-muted w-[95%] mt-6">
+              <div className="flex flex-col items-center gap-y-2 text-title-sm text-nav-muted">
                 <LuInbox className="text-display-md text-gray-300" />
                 <p>Chưa có dữ liệu</p>
               </div>

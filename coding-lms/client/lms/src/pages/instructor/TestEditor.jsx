@@ -5,7 +5,6 @@ import { setCourses } from "../../stores/features/courseSlice";
 import { courseService } from "../../services/courseService";
 import { testService } from "../../services/testService";
 import { questionService } from "../../services/questionService";
-import { updateTest } from "../../stores/features/testSlice";
 import { toast } from "react-toastify";
 import { FaPlus } from "react-icons/fa6";
 
@@ -150,7 +149,6 @@ const TestEditor = () => {
       if (id) {
         try {
           const result = await testService.updateTest({ testId: id, formData });
-          dispatch(updateTest(result.data));
           toast.success(result.message || "Cập nhật bài kiểm tra thành công");
           navigate("/instructor/tests");
         } catch (error) {

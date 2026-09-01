@@ -19,7 +19,7 @@ ChartJS.register(
   Legend
 );
 
-const MultiAxisLineChart = ({ text, labels, label1, data1, label2, data2 }) => {
+const MultiAxisLineChart = ({ labels, label1, data1, label2, data2 }) => {
   const options = {
     responsive: true,
     interaction: {
@@ -27,12 +27,7 @@ const MultiAxisLineChart = ({ text, labels, label1, data1, label2, data2 }) => {
       intersect: false,
     },
     stacked: false,
-    plugins: {
-      title: {
-        display: true,
-        text: text,
-      },
-    },
+    plugins: {},
     scales: {
       y: {
         type: "linear",

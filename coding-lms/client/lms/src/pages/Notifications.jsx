@@ -14,6 +14,7 @@ import { FaRegComment } from "react-icons/fa";
 import { FiUser } from "react-icons/fi";
 import { AnimatePresence, motion } from "framer-motion";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 const Notifications = () => {
   const navigate = useNavigate();
@@ -82,7 +83,7 @@ const Notifications = () => {
   return (
     <>
       <Navbar />
-      <div className="pt-20 lg:pt-24 pb-12 px-4 sm:px-8 md:px-16 lg:px-40 min-h-screen lg:h-[100vh]">
+      <div className="pt-20 lg:pt-24 pb-12 px-4 sm:px-8 md:px-16 lg:px-40 min-h-screen">
         {/* Header Section */}
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-y-4">
           <div className="flex flex-col gap-y-1 sm:gap-y-2">
@@ -112,7 +113,7 @@ const Notifications = () => {
         </div>
         {/* Filter Tabs */}
         {notifications?.length > 0 && (
-          <div className="flex justify-between sm:justify-evenly mt-6 px-1.5 sm:px-2 py-1 bg-surface-bg rounded-[8px] border border-surface-bg w-full sm:w-[320px] lg:w-[16%]">
+          <div className="flex justify-between sm:justify-evenly mt-6 px-1.5 sm:px-2 py-1 bg-surface-bg rounded-[8px] border border-surface-bg w-full sm:w-[320px] md:w-[32%] lg:w-[20%]">
             {filterTabs?.map((value, index) => {
               return (
                 <div
@@ -131,7 +132,7 @@ const Notifications = () => {
           </div>
         )}
         {/* Notifications List */}
-        <div className="flex flex-col gap-y-4 mt-6">
+        <div className="flex flex-col gap-y-4 mt-6 h-auto">
           {displayNotifications?.length > 0 ? (
             <AnimatePresence>
               {displayNotifications?.map((value) => {
@@ -188,13 +189,14 @@ const Notifications = () => {
               })}
             </AnimatePresence>
           ) : (
-            <div className="flex flex-col items-center gap-y-2 text-body-md sm:text-title-sm text-nav-muted mt-12 sm:mt-6">
+            <div className="flex flex-col items-center gap-y-2 text-body-md sm:text-title-sm text-nav-muted mt-12 sm:mt-6 h-[100vh]">
               <LuInbox className="text-display-md text-gray-300" />
               <p>Bạn chưa có thông báo nào</p>
             </div>
           )}
         </div>
       </div>
+      {me?.role_id?.role == "user" && <Footer />}
     </>
   );
 };

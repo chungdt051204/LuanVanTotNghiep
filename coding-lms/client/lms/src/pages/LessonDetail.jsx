@@ -187,12 +187,9 @@ const LessonDetail = () => {
               style={{ width: "100%", height: "100%" }}
             />
           </div>
-          <div className="flex gap-x-2 px-6 md:px-10 text-surface-nav">
-            <p className="text-headline-md font-bold">
-              Bài {lesson?.order || ""}
-            </p>
-            <p className="text-headline-md font-bold">
-              {lesson?.lesson_name || ""}
+          <div className="px-6 md:px-10 text-surface-nav text-headline-md font-bold">
+            <p>
+              Bài {lesson?.order || ""}: {lesson?.lesson_name || ""}
             </p>
           </div>
         </div>
@@ -215,6 +212,7 @@ const LessonDetail = () => {
               //Bài học chỉ có thể xem khi là bài học đầu tiên hoặc bài học phía trước đã hoàn thành
               const accessLesson =
                 isAdmin ||
+                isInstructor ||
                 value.order == 1 ||
                 (prevLesson &&
                   lessonProgresses?.some(
@@ -227,7 +225,10 @@ const LessonDetail = () => {
                     if (isCompleted) {
                       toast.success("Bài học này đã hoàn thành!");
                       return;
-                    } else if (value.order >= numberAccessLesson) {
+                    } else if (
+                      value.order >= numberAccessLesson &&
+                      me?.role_id?.role === "user"
+                    ) {
                       toast.warning(
                         "Vui lòng thanh toán đầy đủ để mở khóa toàn bộ bài học!"
                       );

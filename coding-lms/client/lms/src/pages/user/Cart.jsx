@@ -150,7 +150,7 @@ const Cart = () => {
   return (
     <>
       <Navbar />
-      <div className="py-24 px-8 md:px-16 xl:px-32">
+      <div className="py-24 px-8 md:px-16 xl:px-32 h-auto">
         <div className="flex flex-col gap-y-1">
           <p className="text-display-sm text-surface-nav font-bold">Giỏ hàng</p>
           <p className="text-body-lg text-nav-muted">
@@ -158,7 +158,7 @@ const Cart = () => {
           </p>
         </div>
         {myCart?.items?.length == 0 ? (
-          <div className="flex flex-col items-center gap-y-2 text-title-sm text-nav-muted mt-6">
+          <div className="flex flex-col items-center gap-y-2 text-title-sm text-nav-muted mt-6 h-[100vh]">
             <LuInbox className="text-display-md text-gray-300" />
             <p>Giỏ hàng của bạn hiện tại đang trống</p>
           </div>
@@ -320,7 +320,7 @@ const Cart = () => {
         )}
       </div>
       <dialog
-        className="w-full lg:w-[45%] h-[100vh] mx-auto mt-6 p-6 rounded-[16px]"
+        className="w-full lg:w-[45%] mx-auto mt-6 p-6 rounded-[16px]"
         ref={dialogRef}
       >
         <form onSubmit={handleCheckout} className="flex flex-col gap-y-4">
@@ -386,7 +386,13 @@ const Cart = () => {
                       </div>
                     </div>
                     <p className="text-title-lg text-brand-blue font-bold">
-                      {format.formatPrice({ price: value?.course_id?.price })}đ
+                      {format.formatPrice({
+                        price:
+                          paymentOptions[value._id] == "PARTIAL"
+                            ? getHaftPrice({ price: value?.course_id?.price })
+                            : value?.course_id?.price,
+                      })}
+                      đ
                     </p>
                   </div>
                 );

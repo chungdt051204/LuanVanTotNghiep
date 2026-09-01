@@ -73,7 +73,7 @@ const MyCourses = () => {
               Đang tải dữ liệu...
             </p>
           ) : enrollments?.arrayEnrollment?.length === 0 ? (
-            <div className="flex flex-col items-center gap-y-2 text-title-sm text-nav-muted w-full mt-6 py-12">
+            <div className="flex flex-col items-center gap-y-2 text-title-sm text-nav-muted w-full mt-6 py-12 h-[100vh]">
               <LuInbox className="text-display-md text-gray-300 text-5xl" />
               <p>Bạn chưa sỡ hữu khóa học nào</p>
             </div>

@@ -23,7 +23,7 @@ const CourseEditor = () => {
     level: "",
     image: null,
     thumbnail: null,
-    price: "",
+    price: null,
   });
   const [preview, setPreview] = useState({
     imagePreview: null,
@@ -503,7 +503,7 @@ const CourseEditor = () => {
                     />
                   </div>
                 )}
-                <span className="text-body-md text-red-500 font-medium">
+                <span className="text-body-md text-red-500">
                   {error.errorImage}
                 </span>
               </div>
@@ -558,7 +558,7 @@ const CourseEditor = () => {
                     />
                   </div>
                 )}
-                <span className="text-body-md text-red-500 font-medium">
+                <span className="text-body-md text-red-500">
                   {error.errorThumbnail}
                 </span>
               </div>

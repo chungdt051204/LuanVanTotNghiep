@@ -48,8 +48,6 @@ import Comments from "./pages/admin/Comments";
 import Orders from "./pages/admin/Orders";
 import StudentDetail from "./pages/instructor/StudentDetail";
 
-export const api = "http://localhost:3000";
-
 function App() {
   const navigate = useNavigate();
   const isLogin = useSelector((state) => state.auth.isLogin);

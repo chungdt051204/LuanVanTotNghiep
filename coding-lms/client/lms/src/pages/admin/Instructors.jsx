@@ -389,7 +389,7 @@ const Instructors = () => {
                               : "Đã xác thực"}
                           </span>
                         </div>
-                        <div className="flex justify-between items-center pt-2 border-t border-surface-bg">
+                        <div className="flex flex-col gap-y-2 md:flex-row md:justify-between md:items-center pt-2 border-t border-surface-bg">
                           <div
                             onClick={() =>
                               navigate(`/admin/instructor/${value?.item?._id}`)

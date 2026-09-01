@@ -669,7 +669,7 @@ const MyProfile = () => {
                   {preview.degreeCertificatePreview || degreeCertificate ? (
                     <div className="relative">
                       <img
-                        className="rounded-[16px] w-full h-[350px] opacity-80"
+                        className="rounded-[16px] w-full h-[200px] md:h-[350px] opacity-80"
                         src={
                           preview.degreeCertificatePreview || degreeCertificate
                         }
@@ -680,7 +680,7 @@ const MyProfile = () => {
                         <div>
                           <label
                             htmlFor="degreeCertificate"
-                            className="absolute p-2 top-[180px] left-[280px] rounded-[1000px] bg-surface-nav"
+                            className="absolute p-2 top-[70px] md:top-[160px] lg:top-[180px] left-[130px] md:left-[260px] lg:left-[280px] rounded-[1000px] bg-surface-nav"
                           >
                             <IoCameraOutline className="text-headline-md text-surface-white" />
                           </label>
@@ -763,7 +763,7 @@ const MyProfile = () => {
                         : undefined
                     }
                     disabled={me?.verified_status === "VERIFIED"}
-                    className={`w-[40%] px-4 py-1 mt-2 rounded-[8px] bg-surface-nav text-title-lg text-surface-white transition-transform duration-300 hover:text-surface-bg ${
+                    className={`w-full md:w-[40%] px-4 py-1 mt-2 rounded-[8px] bg-surface-nav text-title-lg text-surface-white transition-transform duration-300 hover:text-surface-bg ${
                       me?.verified_status === "VERIFIED"
                         ? "cursor-not-allowed"
                         : "cursor-pointer"
