@@ -39,7 +39,32 @@ const TestEditor = () => {
         value.questionContent !== "" &&
         !value.options?.some((item) => item.answerContent == "")
     ) || [];
-  const [error, setError] = useState({ errorTestName: "", errorCourse: "" });
+  const [error, setError] = useState({
+    errorTestName: "",
+    errorCourse: "",
+  });
+  const [errorQuestion, setErrorQuestion] = useState({});
+  const validateQuestion = () => {
+    let isValid = true;
+    questions?.forEach((value, index) => {
+      if (
+        (value?.questionContent?.trim() !== "" &&
+          value?.options?.some((item) => !item?.answerContent)) ||
+        (!value?.questionContent?.trim() &&
+          value?.options?.some((item) => item?.answerContent !== ""))
+      ) {
+        setErrorQuestion((prev) => ({
+          ...prev,
+          [index]: "Vui lòng nhập đầy đủ nội dung câu hỏi!",
+        }));
+        isValid = false;
+      }
+    });
+    return isValid;
+  };
+  useEffect(() => {
+    console.log(errorQuestion);
+  }, [errorQuestion]);
   useEffect(() => {
     if (id) {
       const getTestById = async () => {
@@ -137,8 +162,10 @@ const TestEditor = () => {
         ...prev,
         errorCourse: "Khóa học này đã có bài kiểm tra!",
       }));
-      return;
-    } else {
+    }
+    console.log(validateQuestion());
+    if (validateQuestion() == false) return;
+    else {
       const formData = {
         testName: testInfo.testName,
         courseId: testInfo.courseId,
@@ -411,6 +438,11 @@ const TestEditor = () => {
                       })}
                     </div>
                   </div>
+                  {errorQuestion && (
+                    <span className="text-title-sm text-red-500">
+                      {errorQuestion[index]}
+                    </span>
+                  )}
                 </div>
               );
             })}

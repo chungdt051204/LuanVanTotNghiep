@@ -117,6 +117,8 @@ const Instructors = () => {
       });
       toast.success(result?.message || "Từ chối tài khoản thành công");
       rejectDialog?.current?.close();
+      setIsRejected(false);
+      setReason("");
       setRefresh((prev) => prev + 1);
     } catch (error) {
       const status = error.status;
